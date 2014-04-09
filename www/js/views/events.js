@@ -2,7 +2,8 @@ app.Views.Events = Backbone.View.extend({
 	tagName: "ul",
 	attributes: {
 		"class": "ui-listview",
-		"data-role": "listview"
+		"data-role": "listview",
+        "data-theme": "c"
 	},
 	initialize: function() {
 		this.render();

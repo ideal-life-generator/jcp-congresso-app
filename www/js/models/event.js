@@ -1,6 +1,7 @@
 app.Models = {};
 app.Views = {};
 app.Collections = {};
+app.Routers = {};
 
 app.Models.Event = Backbone.Model.extend({
 	initialize: function(){

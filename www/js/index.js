@@ -27,7 +27,7 @@ var app = {
                     var appView = new app.Views.Events({ collection: events });
                     console.log('Some attention please !!!');
                     console.log(appView.el);
-                    $('#lists').append(appView.el);
+                    $('.lists').append(appView.el);
                     }, 
                     error: function() {
                         alert("Please connect to internet !!!");
