@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.flatui.css" />
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/demo.css">
+        <!-- Pushy CSS -->
+        <link rel="stylesheet" href="css/pushy.css">
+        <link rel="stylesheet" href="css/less/buttons.css">
+        <!-- jQuery -->
+        <script src="js/lib/jquery-1.11.0.js"></script>
+        <!-- Modernizr -->
+        <script src="js/lib/modernizr.custom.71422.js"></script>
+
+        <title>Hello World</title>
+    </head>
+    <body>
+        <nav class="pushy pushy-left">
+            <ul>
+                <li><a href="#">Item 1</a></li>
+                <li><a href="#">Item 2</a></li>
+                <li><a href="#">Item 3</a></li>
+                <li><a href="#">Item 4</a></li>
+                <li><a href="#">Item 5</a></li>
+                <li><a href="#">Item 6</a></li>
+            </ul>
+        </nav>
+        <div data-role="page" id="home" style="background: url(img/ateabg.png);">
+            <div data-role="header" style="overflow:hidden;">
+                <h1>Atea</h1>
+            </div><!-- /header -->
+            
+            <ul data-role="listview">
+                    <li data-theme="e" style="text-align: center">
+                        <a href="#previousEvents">
+                            Previous events
+                        </a>
+                    </li>
+                    <li data-theme="b" style="text-align: center">
+                        <a href="#upcoomingEvents">
+                            Upcooming events
+                        </a>
+                    </li>
+                </ul>
+            <div id="lists">
+            </div>    
+            <div id="footer" data-role="footer" data-id="footer" data-position="fixed">
+                <div class="menu-btn">&#9776; Menu</div>
+            </div><!-- /footer -->
+        </div>
+        <script type="text/template" id="event_template">
+            <a href="#">
+                            <div class="ui-grid-a">
+                                <div class="ui-block-a">
+                                    <div style="height:60px">
+                                        <h2><%= eventName %></h2>
+                                        <p><%= location %></p>
+                                    </div>
+                                </div>
+                                <div class="ui-block-b">
+                                    <div style="height:60px">
+                                        <h2><%= startDate %></h2>
+                                        <p><%= endDate %></p>
+                                    </div>
+                                </div>
+                            </div><!-- /grid-a -->
+                        </a>
+                    
+        </script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.mobile-1.4.2.js"></script>
+        <script type="text/javascript" src="js/lib/underscore.js"></script>
+        <script type="text/javascript" src="js/lib/backbone.js"></script>
+        <script type="text/javascript" src="js/models/event.js"></script>
+        <script type="text/javascript" src="js/collections/events.js"></script>
+        <script type="text/javascript" src="js/views/event.js"></script>
+        <script type="text/javascript" src="js/views/events.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+
+        <script src="js/pushy.js"></script>
+
+    </body>
+</html>

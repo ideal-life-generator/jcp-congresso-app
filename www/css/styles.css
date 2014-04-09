@@ -1,0 +1,10 @@
+@import "demo.css";
+@import "jquery.mobile.flatui.css";
+@import "normalize.css";
+@import "pushy.css";
+.previous {
+  cursor: pointer;
+}
+.upcooming {
+  cursor: pointer;
+}
