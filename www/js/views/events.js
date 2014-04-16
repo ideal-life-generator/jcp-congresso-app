@@ -9,11 +9,11 @@ app.Views.Events = Backbone.View.extend({
 		this.render();
 	},
 	render: function() {
-		this.collection.each(function(_event) {
-			console.log(_event);
-			var eventView = new app.Views.Event({ model: _event });
-			this.$el.append(eventView.el);
-		}, this);
-		return this;
-	}
+        this.collection.each(function(_event) {
+            console.log(_event);
+            var eventView = new app.Views.Event({ model: _event });
+            this.$el.append(eventView.el);
+        }, this);
+        return this;
+    }
 });

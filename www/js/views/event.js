@@ -3,12 +3,13 @@ app.Views.Event = Backbone.View.extend({
 	attributes: {
 	},
 	initialize: function() {
-		this.render();
+        app.tpl.get('event-list-item');
+        console.log('hello');
+        this.template = _.template(app.tpl.get('event-list-item'));
+        this.render();
 	},
-	template: '#event_template',
 	render: function() {
-		var template = _.template($(this.template).html());
-		this.$el.html(template(this.model.toJSON()));
+		this.$el.html(this.template(this.model.toJSON()));
 		this.$el.find('a').addClass("ui-btn ui-btn-icon-right ui-icon-carat-r");
 		return this;
 	}

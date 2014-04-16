@@ -35,14 +35,14 @@
         <!-- Modernizr -->
         <script src="js/lib/modernizr.custom.71422.js"></script>
 
-        <title>Hello World</title>
+        <title>World</title>
     </head>
     <body>
         <nav class="pushy pushy-left">
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#login">Login</a></li>
-                <li><a href="#">Item 3</a></li>
+                <li><a href="#qa">QA</a></li>
                 <li><a href="#">Item 4</a></li>
                 <li><a href="#">Item 5</a></li>
                 <li><a href="#">Item 6</a></li>
@@ -73,6 +73,38 @@
                     <a href="#" data-icon="bars" data-theme="e" class="menu-btn">Menu</a>
                     <a href="#login" data-icon="user" data-theme="a" class="ui-btn-right username">Login</a>
              </div><!-- /footer -->
+        </div>
+        <div data-role="page" class="push-page" id="qa" style="background: url(img/ateabg.png);">
+            <div data-role="header" style="overflow:hidden;">
+                <h1>Atea</h1>
+            </div><!-- /header -->
+            <span> Question 1 </span>
+            <div class="ui-slider">
+                <input type="number" data-type="range" name="slider" value="50" min="0" max="100" data-highlight="true" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset ui-slider-input">
+                <div role="application" class="ui-slider-track ui-btn-down-c ui-btn-corner-all">
+                </div>
+            </div>
+            <span> Question 2 </span>
+            <div class="ui-slider">
+                <input type="number" data-type="range" name="slider" value="50" min="0" max="100" data-highlight="true" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset ui-slider-input">
+                <div role="application" class="ui-slider-track ui-btn-down-c ui-btn-corner-all">
+                </div>
+            </div>
+            <span> Question 3 </span>
+            <div class="ui-slider">
+                <input type="number" data-type="range" name="slider" value="50" min="0" max="100" data-highlight="true" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset ui-slider-input">
+                <div role="application" class="ui-slider-track ui-btn-down-c ui-btn-corner-all">
+                </div>
+            </div>
+
+            <textarea cols="40" rows="20" placeholder="Comment ..."></textarea>
+
+            <a href="#" data-transition="pop" data-theme="g" class="ui-shadow ui-btn">Submit</a>
+
+            <div data-role="footer" data-id="footer" data-position="fixed">
+                <a href="#" data-icon="bars" data-theme="e" class="menu-btn">Menu</a>
+                <a href="#login" data-icon="user" data-theme="a" class="ui-btn-right username">Login</a>
+            </div><!-- /footer -->
         </div>
         <div data-role="page" id="login" class="push-page" style="background: url(img/ateabg.png);">
             <div data-role="header" style="overflow:hidden;">
@@ -165,31 +197,14 @@
                 <a href="#" data-icon="bars" data-theme="e" class="menu-btn">Menu</a>
             </div><!-- /footer -->
         </div>
-        <script type="text/template" id="event_template">
-            <a href="#selectedEvent">
-                            <div class="ui-grid-a">
-                                <div class="ui-block-a">
-                                    <div style="height:60px">
-                                        <h2><%= eventName %></h2>
-                                        <p><%= location %></p>
-                                    </div>
-                                </div>
-                                <div class="ui-block-b">
-                                    <div style="height:60px">
-                                        <h2><%= startDate %></h2>
-                                        <p><%= endDate %></p>
-                                    </div>
-                                </div>
-                            </div>
-            </a>
 
-        </script>
         <script id="footer_template" type="text/template">
             <div data-role="footer" data-id="footer" data-position="fixed">
                 <a href="#" data-icon="bars" data-theme="e" class="menu-btn">Menu</a>
                 <a href="#login" data-icon="user" data-theme="a" class="ui-btn-right"><%= name %></a>
             </div><!-- /footer -->
-        </script>>
+        </script>
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
@@ -203,6 +218,16 @@
         <script type="text/javascript" src="js/lib/jquery.mobile-1.4.2.js"></script>
         <script type="text/javascript" src="js/lib/underscore.js"></script>
         <script type="text/javascript" src="js/lib/backbone.js"></script>
+
+        <script src="js/utils.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                app.tpl.loadTemplates(['event-list-item'],
+                        function () {
+                            console.log('LOAD');
+                        });
+            });
+        </script>
         <script type="text/javascript" src="js/models/event.js"></script>
         <script type="text/javascript" src="js/collections/events.js"></script>
         <script type="text/javascript" src="js/views/event.js"></script>
@@ -211,6 +236,7 @@
         <script type="text/javascript" src="js/jquery.cookie.js"></script>
         <script type="text/javascript" src="js/models/user.js"></script>
         <script type="text/javascript" src="js/views/home.js"></script>
+
         <script type="text/javascript">
             app.initialize();
         </script>
@@ -298,50 +324,6 @@
 
                 return;
             }
-        </script>
-        <script type="text/javascript">
-
-
-            $( "#home" ).on( "pageshow", function( event ) {
-
-                console.log('Home page !!!');
-
-                $.ajax({
-                    url: 'http://188.226.184.59/congressomulti/api/event/list',
-                    type: 'GET',
-                    dataType: 'json',
-                    data: {username: "superadmin", password: "123456"},
-                    success: function(data, textStatus, jqXHR) {
-                        /* do stuff with data*/
-                        console.log(jqXHR);
-                        //$('#result .data').html(data);
-                    },
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader("PHP_AUTH_USER","superadmin");
-                        xhr.setRequestHeader("PHP_AUTH_PW","123456");
-                    },
-                    complete: function(jqXHR, textStatus) {
-                        /* do other stuff */
-                        //$('#result .text').text(jqXHR);
-                        //$('#result .text').text(textStatus);
-                    }
-                });
-
-                if(app.User){
-                    var view = new app.Views.Footer({ model: app.User });
-                    console.log('ok !!!!');
-                    $('.username').html(app.User.get('name'));
-                    console.log(view.el);
-                } else {
-                    var user = new User({ name: 'login' });
-                    var login_view = new app.Views.Footer({ model: user });
-                    console.log('hello !!!');
-                    console.log(login_view.el);
-                }
-            });
-            $( "#login" ).on( "pagebeforeload", function( event ) {
-                console.log('Message !!!');
-            });
         </script>
 
     </body>
