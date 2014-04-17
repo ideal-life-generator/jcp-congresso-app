@@ -1,10 +1,1 @@
-@import "demo.css";
-@import "jquery.mobile.flatui.css";
-@import "normalize.css";
-@import "pushy.css";
-.previous {
-  cursor: pointer;
-}
-.upcooming {
-  cursor: pointer;
-}
+@import "normalize.css";@import "pushy.css";html,body{overflow-x:hidden;-webkit-tap-highlight-color:rgba(0,0,0,0);height:100%}html .ui-page-theme-a{background-color:#7baf05;background-image:url('../img/atea-bg.png');-webkit-background-size:cover;-moz-background-size:cover;background-size:cover}html .ui-header{background-color:transparent;background-image:url('../img/atea-logo.png');-webkit-background-size:contain;-moz-background-size:contain;background-size:contain}#main-menu{background-color:white}#main-menu>ul{-webkit-box-shadow:-10px 0 6px -9px rgba(0,0,0,0.7) inset;-moz-box-shadow:-10px 0 6px -9px rgba(0,0,0,0.7) inset;box-shadow:-10px 0 6px -9px rgba(0,0,0,0.7) inset;background-color:#f7f7f7;margin:0;padding:0;padding-left:7px}#main-menu>ul li a{padding-top:10px;padding-bottom:10px;color:#515151}#footer{background-color:rgba(255,255,255,0.34);border-top:1px solid rgba(255,255,255,0.43)}ul{margin:0;padding:0}.previous{cursor:pointer}.upcoming{cursor:pointer}

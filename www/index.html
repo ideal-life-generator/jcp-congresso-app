@@ -1,44 +1,24 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.flatui.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.squareui.css" />
 
         <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/demo.css">
-        <!-- Pushy CSS -->
-        <link rel="stylesheet" href="css/pushy.css">
-        <link rel="stylesheet" href="css/less/buttons.css">
+        <link rel="stylesheet" href="css/styles.css">
         <!-- jQuery -->
         <script src="js/lib/jquery-1.11.0.js"></script>
         <!-- Modernizr -->
         <script src="js/lib/modernizr.custom.71422.js"></script>
 
-        <title>World</title>
+        <title>Congresso</title>
     </head>
     <body>
-        <nav class="pushy pushy-left">
+        <nav class="pushy pushy-left" id="main-menu">
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#login">Login</a></li>
@@ -48,10 +28,8 @@
                 <li><a href="#">Item 6</a></li>
             </ul>
         </nav>
-        <div data-role="page" class="push-page" id="home" style="background: url(img/ateabg.png);">
-            <div data-role="header" style="overflow:hidden;">
-                <h1>Atea</h1>
-            </div><!-- /header -->
+        <div data-role="page" class="push-page" id="home">
+            <div data-role="header"></div><!-- /header -->
 
             <div data-role="collapsible" data-theme="c" data-inset="false">
                 <h3>Previous events</h3>
@@ -74,7 +52,7 @@
                     <a href="#login" data-icon="user" data-theme="a" class="ui-btn-right username">Login</a>
              </div><!-- /footer -->
         </div>
-        <div data-role="page" class="push-page" id="qa" style="background: url(img/ateabg.png);">
+        <div data-role="page" class="push-page" id="qa">
             <div data-role="header" style="overflow:hidden;">
                 <h1>Atea</h1>
             </div><!-- /header -->
@@ -106,7 +84,7 @@
                 <a href="#login" data-icon="user" data-theme="a" class="ui-btn-right username">Login</a>
             </div><!-- /footer -->
         </div>
-        <div data-role="page" id="login" class="push-page" style="background: url(img/ateabg.png);">
+        <div data-role="page" id="login" class="push-page">
             <div data-role="header" style="overflow:hidden;">
                 <h1>Atea</h1>
             </div><!-- /header -->
@@ -126,7 +104,7 @@
                 <a href="#" data-icon="bars" data-theme="e" class="menu-btn">Menu</a>
             </div><!-- /footer -->
         </div>
-        <div data-role="page" id="selectedEvent" class="push-page" style="background: url(img/ateabg.png);">
+        <div data-role="page" id="selectedEvent" class="push-page">
             <div data-role="header" style="overflow:hidden;">
                 <h1>Atea</h1>
             </div><!-- /header -->
@@ -147,7 +125,7 @@
                 <a href="#" data-icon="bars" data-theme="e" class="menu-btn">Menu</a>
             </div><!-- /footer -->
         </div>
-        <div data-role="page" id="program_activity_list" class="push-page" style="background: url(img/ateabg.png);">
+        <div data-role="page" id="program_activity_list" class="push-page">
             <div data-role="header" style="overflow:hidden;">
                 <h1>Atea</h1>
             </div><!-- /header -->

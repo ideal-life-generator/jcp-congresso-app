@@ -1,0 +1,45 @@
+html, body{
+	overflow-x: hidden; /* prevents horizontal scroll bars */
+	-webkit-tap-highlight-color: rgba(0,0,0,0); /* disable webkit tap highlight */
+	height: 100%; /* fixes focus scrolling in Safari (OS X) */
+}
+
+html{
+
+	.ui-page-theme-a{
+		background-color: #7baf05;
+		background-image: url('../img/atea-bg.png');
+		.background-size(cover);
+	}
+
+	.ui-header{
+		background-color: transparent;
+		background-image: url('../img/atea-logo.png');
+		.background-size(contain);
+	}
+}
+
+#main-menu{
+	background-color: white;
+
+	> ul{
+		.box-shadow(-10px 0 6px -9px rgba(0, 0, 0, 0.7) inset);
+		background-color: #f7f7f7;
+		margin: 0px;
+		padding: 0px;
+		padding-left: 7px;
+
+		li{
+			a{
+				padding-top: 10px;
+				padding-bottom: 10px;
+				color: #515151;
+			}
+		}
+	}
+}
+
+#footer{
+	background-color: rgba(255, 255, 255, 0.34);
+	border-top: 1px solid rgba(255, 255, 255, 0.43);
+}
