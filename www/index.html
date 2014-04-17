@@ -44,7 +44,6 @@
             options.xhrFields = {
                 withCredentials: true
             };
-
         });
     </script>
     <script type="text/javascript" src="js/lib/jquery.mobile-1.4.2.js"></script>
@@ -56,7 +55,7 @@
     <script src="js/utils.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            app.tpl.loadTemplates(['event-list-item', 'main-layout', 'first-event-list-p', 'menu', 'login-p'],
+            app.tpl.loadTemplates(['event-list-item', 'main-layout', 'first-event-list-p', 'menu', 'login-p', 'question-item', 'registration', 'partner-list-p'],
                     function () {
                         console.log('LOAD');
                         app.initialize();
@@ -79,6 +78,9 @@
     <script type="text/javascript" src="js/views/home.js"></script>
     <script type="text/javascript" src="js/views/menu.js"></script>
     <script type="text/javascript" src="js/views/login.js"></script>
+    <script type="text/javascript" src="js/views/qa.js"></script>
+    <script type="text/javascript" src="js/views/registration.js"></script>
+    <script type="text/javascript" src="js/views/partners.js"></script>
     <!-- Views -->
 
     <script type="text/javascript">
@@ -88,9 +90,12 @@
         test.AppRouter = Backbone.Router.extend({
 
             routes:{
-                "":"index",
-                "index":"index",
-                "login":"login"
+                "": "index",
+                "index": "index",
+                "login": "login",
+                "qa": "qa",
+                "registration": "registration",
+                "partners": "partners"
             },
 
             initialize: function() {
@@ -122,13 +127,28 @@
                 console.log('Hello from login ...');
 
                 var login = new app.Views.LoginPage();
-                console.log(login.el);
                 this.changePage(login.el);
             },
             changePage: function(page){
                 var transition = $.mobile.defaultPageTransition;
                 $('body').append(page);
                 $.mobile.changePage($(page), {changeHash:false, transition: transition});
+            },
+            qa: function() {
+                console.log('Hello from qa ...');
+                var qa = new app.Views.QA();
+                console.log(qa.el);
+                this.changePage(qa.el);
+            },
+            registration: function() {
+                console.log('Hello from registration ...');
+                var registration = new app.Views.RegistrationPage();
+                this.changePage(registration.el);
+            },
+            partners: function() {
+                console.log('Hello from partners ...');
+                var partners = new app.Views.Partners();
+                this.changePage(partners.el);
             }
         });
 
