@@ -1,6 +1,6 @@
-app.Collections.Partners = Backbone.Collection.extend({
-    model: app.Models.Partner,
-    url: 'http://localhost:2403/partners',
+App.Collections.Partners = Backbone.Collection.extend({
+    model: App.Models.Partner,
+    url: App.homeUrl + '/partners',
     initialize: function(){
 
     }

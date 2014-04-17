@@ -1,4 +1,4 @@
-app.Views.Menu = Backbone.View.extend({
+App.Views.Menu = App.Components.View.extend({
     tagName: "nav",
     initialize: function(){
         this.template = _.template(app.tpl.get('menu'));

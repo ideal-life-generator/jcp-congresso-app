@@ -1,15 +1,17 @@
-app.Views.HomePage = Backbone.View.extend({
-    initialize: function(){
-        this.template = _.template(app.tpl.get('page-event-list'));
+App.Views.HomePage = App.Components.View.extend({
+
+	event : null,
+
+    initialize: function(options){
+		this.options = options || {};
+
+        this.template = _.template(App.tpl.get('page-home'));
         this.render();
     },
     render: function(){
-        var layout = new app.Views.Layout();
+        var layout = new App.Views.Layout();
         this.$el.append(layout.el); // add layout
         this.$el.find("#content").html(this.template({}));
-
-        var eventList = new app.Views.Events({ collection: this.collection });
-        this.$el.find('.lists').append(eventList.el);
 
         this.$el.addClass('push-page');
 

@@ -1,4 +1,4 @@
-app.Views.Layout = Backbone.View.extend({
+App.Views.Layout = App.Components.View.extend({
     events: {
         'click .menu-btn': 'toggleMenu'
     },
@@ -9,7 +9,7 @@ app.Views.Layout = Backbone.View.extend({
         $('.push-page').toggleClass('container-push');
     },
     initialize: function() {
-        this.template = _.template(app.tpl.get('main-layout'));
+        this.template = _.template(App.tpl.get('main-layout'));
         this.render();
     },
     render: function() {

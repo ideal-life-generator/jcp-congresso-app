@@ -1,6 +1,6 @@
-app.Collections.Events = Backbone.Collection.extend({
-	model: app.Models.Event,
-	url: 'http://localhost:2403/events',
+App.Collections.Events = Backbone.Collection.extend({
+	model: App.Models.Event,
+	url: App.homeUrl + '/events',
     initialize: function(){
 
     }

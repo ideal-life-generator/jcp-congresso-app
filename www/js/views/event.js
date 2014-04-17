@@ -1,9 +1,9 @@
-app.Views.Event = Backbone.View.extend({
+App.Views.Event = App.Components.View.extend({
 	tagName: 'li',
 	attributes: {
 	},
 	initialize: function() {
-        this.template = _.template(app.tpl.get('event-list-item'));
+        this.template = _.template(App.tpl.get('event-list-item'));
         this.render();
 	},
 	render: function() {

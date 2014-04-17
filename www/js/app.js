@@ -1,23 +1,98 @@
-var app = {
-    // Application Constructor
-    initialize: function() {
+window.App = {
+
+	/**
+	 * Extension classes
+	 */
+	Components: {},
+
+	/**
+	 * Model classes
+	 */
+	Models: {},
+
+	/**
+	 * Collection classes
+	 */
+	Collections: {},
+
+	/**
+	 * View classes
+	 */
+	Views: {},
+
+	/**
+	 * AppRouter
+	 */
+	Router : null,
+
+	/**
+	 * Current user.
+	 */
+	User : null,
+
+	/**
+	 * Event selected by a user.
+	 */
+	SelectedEvent : null,
+
+	/**
+	 * Global URL setting for all queries
+	 */
+	homeUrl : 'http://localhost:2403',
+
+	/**
+	 * Application Constructor
+	 */
+    run: function() {
+	    this.adjustJqueryMobile();
         this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
+
+		this.tpl.loadTemplates(['event-list-item', 'main-layout', 'page-event-list', 'menu', 'page-login', 'question-item', 'page-partner-list', 'page-home'], function(){});
+
+		Backbone.history.start({pushState: false});
+		this.Router = new AppRouter();
+	},
+	/**
+	 * Change page to another one.
+	 * @param page
+	 */
+	changePage: function(page){
+		var transition = $.mobile.defaultPageTransition;
+		$('body').append(page);
+		$.mobile.changePage($(page), {changeHash:false, transition: transition});
+	},
+	/**
+	 * Bind any events that are required on startup. Common events are:
+	 * 'load', 'deviceready', 'offline', and 'online'.
+	 */
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
+	/**
+	 * Deviceready Event Handler
+	 */
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+		App.receivedEvent('deviceready');
     },
-    // Update DOM on a Received Event
+	/**
+	 * Disable all the
+	 */
+	adjustJqueryMobile: function(){
+		$.mobile.ajaxEnabled = false;
+		$.mobile.linkBindingEnabled = false;
+		$.mobile.hashListeningEnabled = false;
+		$.mobile.pushStateEnabled = false;
+		$.mobile.changePage.defaults.changeHash = false;
+
+		// Remove page from DOM when it's being replaced
+		$('div[data-role="page"]').on('pagehide', function (event, ui) {
+			$(event.currentTarget).remove();
+		});
+	},
+	/**
+	 * Update DOM on received event.
+	 * @param id
+	 */
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
