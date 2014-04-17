@@ -16,8 +16,6 @@ AppRouter = Backbone.Router.extend({
 	 * Show list of events.
 	 */
     events: function () {
-        var menu = new App.Views.Menu();
-        $('body').append(menu.el);
         var self = this;
         var events = new App.Collections.Events();
         events.fetch({
