@@ -6,7 +6,7 @@ app.Views.Partners = Backbone.View.extend({
     render: function() {
         var layout = new app.Views.Layout();
         this.$el.append(layout.el); // add layout
-        this.$el.find("div[data-role='header']").after(this.template({})); // add first-event-list-p
+        this.$el.find("#content").html(this.template({})); // add first-event-list-p
         this.$el.addClass('push-page');
 
         return this;
