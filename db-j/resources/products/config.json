@@ -1,0 +1,37 @@
+{
+	"type": "Collection",
+	"properties": {
+		"eventName": {
+			"name": "eventName",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "eventName",
+			"order": 0
+		},
+		"startDate": {
+			"name": "startDate",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "startDate",
+			"order": 1
+		},
+		"endDate": {
+			"name": "endDate",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "endDate",
+			"order": 2
+		},
+		"location": {
+			"name": "location",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "location",
+			"order": 3
+		}
+	}
+}
