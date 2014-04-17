@@ -20,19 +20,6 @@ var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
-        var events = new app.Collections.Events();
-        events.fetch({
-                success: function(){
-                    console.log(events);
-                    var appView = new app.Views.Events({ collection: events });
-                    console.log('Some attention please !!!');
-                    console.log(appView.el);
-                    $('.lists').append(appView.el);
-                    }, 
-                    error: function() {
-                        alert("Please connect to internet !!!");
-                    }
-        });
     },
     // Bind Event Listeners
     //

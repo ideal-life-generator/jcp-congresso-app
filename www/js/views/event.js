@@ -3,8 +3,6 @@ app.Views.Event = Backbone.View.extend({
 	attributes: {
 	},
 	initialize: function() {
-        app.tpl.get('event-list-item');
-        console.log('hello');
         this.template = _.template(app.tpl.get('event-list-item'));
         this.render();
 	},

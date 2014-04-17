@@ -8,27 +8,18 @@ app.tpl = {
     // concatenated in a single file.
     loadTemplates:function (names, callback) {
 
-        var that = this;
-
         var loadTemplate = function (index) {
             var name = names[index];
             console.log('Loading template: ' + name);
-            $.ajax({
-                type: "GET",
-                dataType: "html",
-                url: 'tpl/'+ name +'.html',
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function(data) {
-                    console.log(data);
-                    that.templates[name] = data;
-                    index++;
-                    if (index < names.length) {
-                        loadTemplate(index);
-                    } else {
-                        callback();
-                    }
+
+
+            $.get('tpl/'+ name +'.html', function (data) {
+                app.tpl.templates[name] = data;
+                index++;
+                if (index < names.length) {
+                    loadTemplate(index);
+                } else {
+                    callback();
                 }
             });
         }
@@ -37,23 +28,7 @@ app.tpl = {
 
     // Get template by name from hash of preloaded templates
     get:function (name) {
-        return this.templates[name];
+        return app.tpl.templates[name];
     }
-
-};
-
-function name_123() {
-
-    $.get('tpl/'+ name +'.html', { xhrFields: { withCredentials: true } }, function (data) {
-        console.log(data);
-        that.templates[name] = data;
-        index++;
-        if (index < names.length) {
-            loadTemplate(index);
-        } else {
-            callback();
-        }
-    });
-
 
 };

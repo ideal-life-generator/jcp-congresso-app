@@ -1,0 +1,176 @@
+<div data-role="page" id="program_activity_list" class="push-page" style="background: url(img/ateabg.png);">
+    <div data-role="header" style="overflow:hidden;">
+        <h1>Atea</h1>
+    </div><!-- /header -->
+
+    <ul data-role="listview" data-theme="e" data-filter="true" data-inset="true">
+        <li data-role="list-divider">Mail</li>
+        <li><a href="#">Inbox</a></li>
+        <li><a href="#">Outbox</a></li>
+        <li data-role="list-divider">Contacts</li>
+        <li><a href="#">Friends</a></li>
+    </ul>
+
+    <div data-role="footer" data-id="footer" data-position="fixed">
+        <a href="#" data-icon="bars" data-theme="e" class="menu-btn">Menu</a>
+    </div><!-- /footer -->
+</div>
+<div data-role="page" id="partner_list" class="push-page" style="background: url(img/ateabg.png);">
+    <div data-role="header" style="overflow:hidden;">
+        <h1>Atea</h1>
+    </div><!-- /header -->
+
+    <ul data-role="listview" data-filter="true" data-filter-placeholder="Search partner..." data-inset="true">
+        <li><a href="#">Atea</a></li>
+        <li><a href="#">Cisco</a></li>
+        <li><a href="#">Dataline</a></li>
+        <li><a href="#">E-systems</a></li>
+    </ul>
+
+    <div data-role="footer" data-id="footer" data-position="fixed">
+        <a href="#" data-icon="bars" data-theme="e" class="menu-btn">Menu</a>
+    </div><!-- /footer -->
+</div>
+<div data-role="page" id="sign-up" class="push-page" style="background: url(img/ateabg.png);">
+    <div data-role="header" style="overflow:hidden;">
+        <h1>Atea</h1>
+    </div><!-- /header -->
+
+    <input type="text" id="s_email" name="text-basic" placeholder="example@hotmail.com"  value="">
+
+    <input type="text" id="s_password" name="text-basic" placeholder="password"  value="">
+    <input type="text" id="s_r_password" name="text-basic" placeholder="repeat-password"  value="">
+    <a href="#" data-theme="g" class="ui-shadow ui-btn" onClick="signUp();">Sign Up</a>
+
+
+
+    <div id="sign-up_footer" data-role="footer" data-id="footer" data-position="fixed">
+        <a href="#" data-icon="bars" data-theme="e" class="menu-btn">Menu</a>
+    </div><!-- /footer -->
+</div>
+
+
+
+
+
+
+<nav class="pushy pushy-left">
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#login">Login</a></li>
+        <li><a href="#qa">QA</a></li>
+        <li><a href="#">Item 4</a></li>
+        <li><a href="#">Item 5</a></li>
+        <li><a href="#">Item 6</a></li>
+    </ul>
+</nav>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+    $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
+        options.xhrFields = {
+            withCredentials: true
+        };
+
+    });
+</script>
+<script type="text/javascript" src="js/lib/jquery.mobile-1.4.2.js"></script>
+<script type="text/javascript" src="js/lib/underscore.js"></script>
+<script type="text/javascript" src="js/lib/backbone.js"></script>
+
+
+<script type="text/javascript" src="js/models/event.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script src="js/utils.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        app.tpl.loadTemplates(['event-list-item', 'main-layout', 'first-event-list-p'],
+                function () {
+                    console.log('LOAD');
+                    app.initialize();
+                });
+    });
+</script>
+
+<script type="text/javascript" src="js/collections/events.js"></script>
+<script type="text/javascript" src="js/views/event.js"></script>
+<script type="text/javascript" src="js/views/events.js"></script>
+
+
+
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/models/user.js"></script>
+<script type="text/javascript" src="js/views/home.js"></script>
+
+<script type="text/javascript">
+    app.initialize();
+</script>
+
+<script src="js/pushy.js"></script>
+
+<script type="text/javascript">
+    function login() {
+
+        var email = $('#email').val();
+        var password = $('#password').val();
+        var sid = 0;
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "http://localhost:2403/users/login",
+            data: {username: email, password: password},
+            xhrFields: {
+                withCredentials: true
+            },
+            complete: function(xhr, textStatus) {
+                console.log(textStatus);
+                //console.log(xhr);
+                var resultObj = jQuery.parseJSON(xhr.responseText);
+                console.log(resultObj.uid);
+                if(resultObj.uid) {
+                    console.log(resultObj);
+                    sid = resultObj.id;
+                    app.User = new app.Models.User({ name: email, password: password, id: resultObj.uid });
+                } else {
+                    $('#message').trigger('click');
+                    //alert("Don't correct login");
+                }
+            }
+        });
+
+
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "http://localhost:2403/users/me",
+            xhrFields: {
+                withCredentials: true
+            },
+            complete: function(xhr, textStatus) {
+                console.log(textStatus);
+                //console.log(xhr);
+                var resultObj = jQuery.parseJSON(xhr.responseText);
+                if(resultObj) {
+                    console.log(resultObj);
+                } else {
+                    $('#message').trigger('click');
+                    //alert("Don't correct login");
+                }
+            }
+        });
+
+    };
+
+    function signUp(){
+
+        var email = $('#s_email').val();
+        var passwordOne = $('#s_password').val();
+        var passwordTwo = $('#s_r_password').val();
+        if(passwordOne === passwordTwo){
+
+        } else {
+            alert('Some message !!!');
+        }
+    };
+
+</script>
