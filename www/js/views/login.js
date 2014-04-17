@@ -9,6 +9,7 @@ app.Views.LoginPage = Backbone.View.extend({
         this.$el.find("div[data-role='header']").after(this.template({}));
         this.$el.attr('data-role', 'page');
 
+
         return this;
     }
 });
