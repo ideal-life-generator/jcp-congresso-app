@@ -29,12 +29,19 @@
             };
         });
     </script>
+
+    <!-- Libs -->
     <script type="text/javascript" src="js/lib/jquery.mobile-1.4.2.js"></script>
     <script type="text/javascript" src="js/lib/underscore.js"></script>
     <script type="text/javascript" src="js/lib/backbone.js"></script>
+    <!-- Libs -->
 
-
+    <!-- Models -->
     <script type="text/javascript" src="js/models/event.js"></script>
+    <script type="text/javascript" src="js/models/user.js"></script>
+    <script type="text/javascript" src="js/models/partner.js"></script>
+    <!-- Models -->
+
     <script src="js/utils.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -46,9 +53,12 @@
         });
     </script>
 
+    <!-- Collections -->
     <script type="text/javascript" src="js/collections/events.js"></script>
+    <script type="text/javascript" src="js/collections/partners.js"></script>
+    <!-- Collections -->
+
     <script type="text/javascript" src="js/lib/jquery.cookie.js"></script>
-    <script type="text/javascript" src="js/models/user.js"></script>
 
     <script type="text/javascript">
         app.initialize();
@@ -66,78 +76,6 @@
     <script type="text/javascript" src="js/views/partners.js"></script>
     <!-- Views -->
 
-    <script type="text/javascript">
-
-
-        window.test = {};
-        test.AppRouter = Backbone.Router.extend({
-
-            routes:{
-                "": "index",
-                "index": "index",
-                "login": "login",
-                "qa": "qa",
-                "registration": "registration",
-                "partners": "partners"
-            },
-
-            initialize: function() {
-
-            },
-            index:function () {
-                console.log('Hello from index ...');
-                var menu = new app.Views.Menu();
-                console.log(menu.el);
-                $('body').append(menu.el);
-                var self = this;
-                var events = new app.Collections.Events();
-                events.fetch({
-                    success: function(){
-                        var view = new app.Views.HomePage({ collection: events });
-                        self.changePage(view.el);
-                    },
-                    error: function() {
-                        alert("Please connect to internet !!!");
-                    }
-                });
-                //this.changePage(new EmployeeListPage({model: this.searchResults}));
-
-                $('.menu-btn').click(function(){
-                    alert('hello !!!');
-                });
-            },
-            login: function() {
-                console.log('Hello from login ...');
-
-                var login = new app.Views.LoginPage();
-                this.changePage(login.el);
-            },
-            changePage: function(page){
-                var transition = $.mobile.defaultPageTransition;
-                $('body').append(page);
-                $.mobile.changePage($(page), {changeHash:false, transition: transition});
-            },
-            qa: function() {
-                console.log('Hello from qa ...');
-                var qa = new app.Views.QA();
-                console.log(qa.el);
-                this.changePage(qa.el);
-            },
-            registration: function() {
-                console.log('Hello from registration ...');
-                var registration = new app.Views.RegistrationPage();
-                this.changePage(registration.el);
-            },
-            partners: function() {
-                console.log('Hello from partners ...');
-                var partners = new app.Views.Partners();
-                this.changePage(partners.el);
-            }
-        });
-
-        Backbone.history.start();
-        var el = new test.AppRouter();
-
-    </script>
+    <script type="text/javascript" src="js/main.js"></script>
     </body>
 </html>
