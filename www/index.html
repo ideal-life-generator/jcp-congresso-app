@@ -32,8 +32,6 @@
         <link rel="stylesheet" href="css/less/buttons.css">
         <!-- jQuery -->
         <script src="js/lib/jquery-1.11.0.js"></script>
-        <!-- Modernizr -->
-        <script src="js/lib/modernizr.custom.71422.js"></script>
 
         <title>World</title>
     </head>
@@ -67,23 +65,22 @@
     </script>
 
     <script type="text/javascript" src="js/collections/events.js"></script>
-    <script type="text/javascript" src="js/views/event.js"></script>
-    <script type="text/javascript" src="js/views/events.js"></script>
-
-
-
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script type="text/javascript" src="js/models/user.js"></script>
-    <script type="text/javascript" src="js/views/home.js"></script>
 
     <script type="text/javascript">
         app.initialize();
     </script>
 
+    <!-- Views -->
+    <script type="text/javascript" src="js/views/event.js"></script>
+    <script type="text/javascript" src="js/views/events.js"></script>
     <script type="text/javascript" src="js/views/layout.js"></script>
     <script type="text/javascript" src="js/views/home.js"></script>
     <script type="text/javascript" src="js/views/menu.js"></script>
     <script type="text/javascript" src="js/views/login.js"></script>
+    <!-- Views -->
+
     <script type="text/javascript">
 
 
@@ -116,6 +113,10 @@
                     }
                 });
                 //this.changePage(new EmployeeListPage({model: this.searchResults}));
+
+                $('.menu-btn').click(function(){
+                    alert('hello !!!');
+                });
             },
             login: function() {
                 console.log('Hello from login ...');
@@ -133,9 +134,7 @@
 
         Backbone.history.start();
         var el = new test.AppRouter();
+
     </script>
-    <script src="js/pushy.js"></script>
-
-
     </body>
 </html>

@@ -11,9 +11,8 @@ app.Views.HomePage = Backbone.View.extend({
         var eventList = new app.Views.Events({ collection: this.collection });
         this.$el.find('.lists').append(eventList.el);
 
-        this.$el.attr('data-role', 'page');
         this.$el.addClass('push-page');
-        this.$el.find("div[data-role='footer']").find("a[href='#']").addClass('menu-btn');
+
         return this;
     }
 });
