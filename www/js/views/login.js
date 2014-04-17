@@ -1,6 +1,6 @@
 app.Views.LoginPage = Backbone.View.extend({
     initialize: function() {
-        this.template = _.template(app.tpl.get('login-p'));
+        this.template = _.template(app.tpl.get('page-login'));
         this.render();
     },
     render: function(){
