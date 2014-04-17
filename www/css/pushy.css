@@ -63,7 +63,7 @@
 
 /* Menu Transitions */
 
-.pushy, #container, .push{
+.pushy, .push-page, .push{
     -webkit-transition: -webkit-transform .2s cubic-bezier(.16, .68, .43, .99);
     -moz-transition: -moz-transform .2s cubic-bezier(.16, .68, .43, .99);
     -o-transition: -o-transform .2s cubic-bezier(.16, .68, .43, .99);

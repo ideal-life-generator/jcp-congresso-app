@@ -14,6 +14,7 @@ app.Views.Events = Backbone.View.extend({
             var eventView = new app.Views.Event({ model: _event });
             this.$el.append(eventView.el);
         }, this);
+
         return this;
     }
 });
