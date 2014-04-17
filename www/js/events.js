@@ -1,4 +1,4 @@
-app.Views.Events = Backbne.View.extend({
+app.Views.Events = Backbone.View.extend({
 	tagName: 'ul',
 	attributes: {
 		"data-role": "listview",
