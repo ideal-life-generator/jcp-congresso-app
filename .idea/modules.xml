@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/atea-j.iml" filepath="$PROJECT_DIR$/.idea/atea-j.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/congresso-app.iml" filepath="$PROJECT_DIR$/.idea/congresso-app.iml" />
     </modules>
   </component>
 </project>

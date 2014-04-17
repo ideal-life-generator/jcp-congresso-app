@@ -1,20 +1,20 @@
-    window.test = {};
-    test.AppRouter = Backbone.Router.extend({
+window.test = {};
+test.AppRouter = Backbone.Router.extend({
 
-        routes:{
-            "":"index",
-            "index":"index"
-        },
+    routes:{
+        "":"index",
+        "index":"index"
+    },
 
-        index:function () {
-            console.log('Hello from index ...');
-            alert('hello !!!');
-            //this.changePage(new EmployeeListPage({model: this.searchResults}));
-        }
-    });
+    index:function () {
+        console.log('Hello from index ...');
+        alert('hello !!!');
+        //this.changePage(new EmployeeListPage({model: this.searchResults}));
+    }
+});
 
-    Backbone.history.start();
-    var el = new test.AppRouter();
+Backbone.history.start();
+var el = new test.AppRouter();
 
 
 
