@@ -4,14 +4,28 @@ AppRouter = Backbone.Router.extend({
 	 * General routing
 	 */
     routes:{
-        "": "events",
-        "home/:id": "home",
+		"":"home",
+		"home":"home",
+        "events/:id": "event",
         "events": "events",
         "login": "login",
         "qa": "qa",
         "partners": "partners",
         "partner/:id": "partner"
     },
+	/**
+	 * Home action.
+	 * If user has previously selected an event, then redirect to this event.
+	 * Otherwise redirect to event list..
+	 */
+	home: function(){
+		if(window.App.SelectedEvent){
+			window.App.Router.navigate('events/'+window.App.SelectedEvent.id, true);
+		}
+		else{
+			window.App.Router.navigate('events', true);
+		}
+	},
 	/**
 	 * Show list of events.
 	 */
@@ -33,14 +47,14 @@ AppRouter = Backbone.Router.extend({
 	 * This selects an event and shows the main app screen.
 	 * @param id
 	 */
-	home : function(id){
+	event : function(id){
 		var event = new App.Models.Event({id: id});
 		event.fetch({
             success: function() {
                 // fetch successfully completed
                 window.App.SelectedEvent = event;
 
-                var view = new App.Views.HomePage();
+                var view = new App.Views.EventPage();
 
                 window.App.changePage(view.el);
             }
@@ -53,6 +67,14 @@ AppRouter = Backbone.Router.extend({
         var login = new App.Views.LoginPage();
 		window.App.changePage(login.el);
     },
+	/**
+	 * Logout user and redirect back.
+	 */
+	logout: function() {
+		window.App.Auth.logout();
+
+		window.App.Auth.navigate('home', true);
+	},
 	/**
 	 * QA page
 	 */

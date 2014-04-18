@@ -6,5 +6,10 @@
 
 <div data-role="footer" id="footer" data-position="fixed">
     <a href="#" data-icon="bars" class="menu-btn ui-btn-left" data-theme="e" data-role="none">Menu</a>
+
+	<% if(window.App.Auth.isGuest){ %>
     <a href="#login" data-icon="user" data-theme="a" class="ui-btn-right username login-btn" data-role="none">Login</a>
+	<% } else { %>
+    <a href="#login" data-icon="user" data-theme="a" class="ui-btn-right username login-btn" data-role="none">Login</a>
+	<% } %>
 </div><!-- /footer -->

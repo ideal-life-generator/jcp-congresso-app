@@ -21,6 +21,11 @@ window.App = {
 	Views: {},
 
 	/**
+	 * Auth manager.
+	 */
+	Auth: {},
+
+	/**
 	 * AppRouter
 	 */
 	Router : null,
@@ -29,11 +34,6 @@ window.App = {
 	 * Current user.
 	 */
 	User : null,
-
-    /**
-     * Current event.
-     */
-    Event : null,
 
 	/**
 	 * Event selected by a user.
@@ -54,7 +54,7 @@ window.App = {
 	    this.adjustJqueryMobile();
         this.bindEvents();
 
-		this.tpl.loadTemplates(['event-list-item', 'main-layout', 'page-event-list', 'menu', 'page-login', 'question-item', 'partner-list-item', 'page-home', 'partner-details'], function(){});
+		this.tpl.loadTemplates(['event-list-item', 'main-layout', 'page-event-list', 'menu', 'page-login', 'question-item', 'page-event'], function(){});
 
 		Backbone.history.start({pushState: false, root: '/'});
 		this.Router = new AppRouter();
