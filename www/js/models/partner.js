@@ -5,6 +5,7 @@ App.Models.Partner = Backbone.Model.extend({
     defaults: {
         id: 0,
         name: "Atea",
-        category: "It"
-    }
+        category: "IT"
+    },
+    url: App.homeUrl + '/partners'
 });

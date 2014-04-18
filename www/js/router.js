@@ -68,7 +68,7 @@ AppRouter = Backbone.Router.extend({
             var partners = new App.Collections.Partners();
             partners.fetch({
                 success: function() {
-                    var view = new App.Views.Partners({ collections: partners });
+                    var view = new App.Views.PartnersPage({ collections: partners });
 	                window.App.changePage(view.el);
                 },
                 error: function() {
@@ -76,7 +76,16 @@ AppRouter = Backbone.Router.extend({
                 }
             });
         } else {
-            console.log(id);
+            var partner = new App.Models.Partner({ id: id });
+            partner.fetch({
+                success: function(){
+                    var view = new App.Views.PartnerDetails({ model: partner });
+                    window.App.changePage(view.el);
+                },
+                error: function() {
+                    alert("Please connect to internet !!!");
+                }
+            });
         }
     }
 });
