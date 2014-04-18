@@ -10,7 +10,7 @@ AppRouter = Backbone.Router.extend({
         "login": "login",
         "qa": "qa",
         "partners": "partners",
-        "partners/:id": "partners"
+        "partner/:id": "partner"
     },
 	/**
 	 * Show list of events.
@@ -65,42 +65,29 @@ AppRouter = Backbone.Router.extend({
 	 * @param id
 	 */
     partners: function(id) {
-        if(!id){
-            var partners = new App.Collections.Partners();
-            partners.fetch({
-                success: function() {
-                    var view = new App.Views.PartnersPage({ collection: partners });
-	                window.App.changePage(view.el);
-                },
-                error: function() {
-                    alert("Please connect to internet !!!");
-                }
-            });
-        } else {
-            console.log(id);
-            var partner = new App.Models.Partner({ id: id });
-            partner.fetch({
-                success: function(){
-                    var view = new App.Views.PartnerDetails({ model: partner });
-                    window.App.changePage(view.el);
-                },
-                error: function() {
-                    alert("Please connect to internet !!!");
-                }
-            });
-            /*
-            $.ajax({
-                type: "GET",
-                dataType: "json",
-                url: "http://localhost:2403/partners/" + id.toString(),
-                complete: function(xhr, textStatus) {
-                    var partner = new App.Models.Partner(xhr.responseJSON)
-                    var view = new App.Views.PartnerDetails({ model: partner });
-                    console.log(view.el);
-                    window.App.changePage(view.el);
-                }
-            });*/
-        }
+        var partners = new App.Collections.Partners();
+        partners.fetch({
+            success: function() {
+                var view = new App.Views.PartnersPage({ collection: partners });
+	            window.App.changePage(view.el);
+            },
+            error: function() {
+                alert("Please connect to internet !!!");
+            }
+        });
+    },
+    partner: function(id) {
+        var partner = new App.Models.Partner({ id: id });
+        partner.fetch({
+            success: function(){
+                console.log(partner);
+                var view = new App.Views.PartnerDetails({ model: partner });
+                window.App.changePage(view.el);
+            },
+            error: function() {
+                alert("Please connect to internet !!!");
+            }
+        });
     }
 });
 

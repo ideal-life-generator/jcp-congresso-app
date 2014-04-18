@@ -54,11 +54,7 @@ window.App = {
 	    this.adjustJqueryMobile();
         this.bindEvents();
 
-<<<<<<< HEAD
 		this.tpl.loadTemplates(['event-list-item', 'main-layout', 'page-event-list', 'menu', 'page-login', 'question-item', 'partner-list-item', 'page-home', 'partner-details'], function(){});
-=======
-		this.tpl.loadTemplates(['event-list-item', 'main-layout', 'page-event-list', 'menu', 'page-login', 'question-item', 'page-home'], function(){});
->>>>>>> f280bc65e8a3016b5d6bc732ded14c0f31f6a2f6
 
 		Backbone.history.start({pushState: false, root: '/'});
 		this.Router = new AppRouter();

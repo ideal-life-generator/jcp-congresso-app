@@ -1,7 +1,6 @@
 App.Views.PartnerDetails = App.Components.View.extend({
     initialize: function(){
         this.template = _.template(App.tpl.get('partner-details'));
-        console.log(App.tpl.get('partner-details'));
         this.render();
     },
     render: function() {
@@ -17,14 +16,22 @@ App.Views.PartnerDetails = App.Components.View.extend({
         'click .ui-btn': 'postComment'
     },
     postComment: function() {
+        App.User = new App.Models.User();
+        App.Event = new App.Models.Event();
+
         var comment = this.$el.find('textarea').val();
-        console.log(comment);
+        var data = {
+            message: comment,
+            partnerId: this.model.get('id'),
+            eventId: App.Event.get('id') || 0,
+            userId: App.User.get('id') || 0
+        };
         this.model.set('comment', comment);
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: "http://localhost:2403/partners/",
-            data: this.model.toJSON(),
+            url: "http://localhost:2403/messages/",
+            data: data,
             complete: function(xhr, textStatus) {
                 window.history.back();
             }
