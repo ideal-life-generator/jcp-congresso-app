@@ -52,6 +52,7 @@ test.AppRouter = Backbone.Router.extend({
         this.changePage(registration.el);
     },
     partners: function(id) {
+        console.log("Partners");
         if(!id){
             var partners = new app.Collections.Partners();
             partners.fetch({
