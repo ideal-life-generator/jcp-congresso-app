@@ -1,5 +1,5 @@
 App.Models.Event = Backbone.Model.extend({
-	urlRoot : App.homeUrl + '/event',
+	urlRoot : App.homeUrl + '/events',
 	defaults: {
 		id: '0',
 		event_name: 'Community',
