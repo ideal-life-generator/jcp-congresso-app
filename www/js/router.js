@@ -68,7 +68,7 @@ AppRouter = Backbone.Router.extend({
             var partners = new App.Collections.Partners();
             partners.fetch({
                 success: function() {
-                    var view = new App.Views.PartnersPage({ collections: partners });
+                    var view = new App.Views.PartnersPage({ collection: partners });
 	                window.App.changePage(view.el);
                 },
                 error: function() {
@@ -76,6 +76,7 @@ AppRouter = Backbone.Router.extend({
                 }
             });
         } else {
+            console.log(id);
             var partner = new App.Models.Partner({ id: id });
             partner.fetch({
                 success: function(){
@@ -86,6 +87,18 @@ AppRouter = Backbone.Router.extend({
                     alert("Please connect to internet !!!");
                 }
             });
+            /*
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "http://localhost:2403/partners/" + id.toString(),
+                complete: function(xhr, textStatus) {
+                    var partner = new App.Models.Partner(xhr.responseJSON)
+                    var view = new App.Views.PartnerDetails({ model: partner });
+                    console.log(view.el);
+                    window.App.changePage(view.el);
+                }
+            });*/
         }
     }
 });
