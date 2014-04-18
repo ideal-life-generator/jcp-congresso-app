@@ -1,4 +1,4 @@
-app.Models.User = Backbone.Model.extend({
+App.Models.User = Backbone.Model.extend({
     initialize: function(){},
     defaults: {
         id: 0,

@@ -1,6 +1,6 @@
-app.Views.PartnerDetails = Backbone.View.extend({
+App.Views.PartnerDetails = App.Components.View.extend({
     initialize: function(){
-        this.template = _.template(app.tpl.get('partner-details'));
+        this.template = _.template(App.tpl.get('partner-details'));
         this.render();
     },
     render: function() {

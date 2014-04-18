@@ -1,11 +1,5 @@
-app.Models = {};
-app.Views = {};
-app.Collections = {};
-app.Routers = {};
-
-app.Models.Event = Backbone.Model.extend({
-	initialize: function(){
-	},
+App.Models.Event = Backbone.Model.extend({
+	urlRoot : App.homeUrl + '/event',
 	defaults: {
 		id: '0',
 		event_name: 'Community',

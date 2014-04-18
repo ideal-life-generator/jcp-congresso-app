@@ -1,10 +1,10 @@
-app.Views.LoginPage = Backbone.View.extend({
+App.Views.LoginPage = App.Components.View.extend({
     initialize: function() {
-        this.template = _.template(app.tpl.get('login-p'));
+        this.template = _.template(App.tpl.get('page-login'));
         this.render();
     },
     render: function(){
-        var layout = new app.Views.Layout();
+        var layout = new App.Views.Layout();
         this.$el.append(layout.el); // add layout
         this.$el.find("#content").html(this.template({}));
         this.$el.attr('data-role', 'page');

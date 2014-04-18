@@ -1,4 +1,4 @@
-app.Models.Partner = Backbone.Model.extend({
+App.Models.Partner = Backbone.Model.extend({
     initialize: function() {
 
     },

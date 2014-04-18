@@ -1,0 +1,13 @@
+{
+	"type": "UserCollection",
+	"properties": {
+		"eventId": {
+			"name": "eventId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "eventId",
+			"order": 0
+		}
+	}
+}
