@@ -35,15 +35,16 @@ AppRouter = Backbone.Router.extend({
 	 */
 	home : function(id){
 		var event = new App.Models.Event({id: id});
-		event.fetch();
+		event.fetch({
+            success: function() {
+                // fetch successfully completed
+                window.App.SelectedEvent = event;
 
-		window.App.SelectedEvent = event;
+                var view = new App.Views.HomePage();
 
-		var view = new App.Views.HomePage({
-			event: event
-		});
-
-		window.App.changePage(view.el);
+                window.App.changePage(view.el);
+            }
+        });
 	},
 	/**
 	 * Login page

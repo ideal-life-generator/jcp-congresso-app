@@ -1,9 +1,6 @@
 App.Views.HomePage = App.Components.View.extend({
 
-	event : null,
-
     initialize: function(options){
-		this.options = options || {};
 
         this.template = _.template(App.tpl.get('page-home'));
         this.render();
