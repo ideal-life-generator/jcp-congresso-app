@@ -1,8 +1,8 @@
-App.Views.HomePage = App.Components.View.extend({
+App.Views.EventPage = App.Components.View.extend({
 
     initialize: function(options){
 
-        this.template = _.template(App.tpl.get('page-home'));
+        this.template = _.template(App.tpl.get('page-event'));
         this.render();
     },
     render: function(){
