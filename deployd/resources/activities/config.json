@@ -1,0 +1,61 @@
+{
+	"type": "Collection",
+	"properties": {
+		"eventId": {
+			"name": "eventId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "eventId",
+			"order": 0
+		},
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "name",
+			"order": 1
+		},
+		"desc": {
+			"name": "desc",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "desc",
+			"order": 2
+		},
+		"moreInfo": {
+			"name": "moreInfo",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "moreInfo",
+			"order": 3
+		},
+		"startTime": {
+			"name": "startTime",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "startTime",
+			"order": 4
+		},
+		"endTime": {
+			"name": "endTime",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "endTime",
+			"order": 5
+		},
+		"imageUrl": {
+			"name": "imageUrl",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "imageUrl",
+			"order": 6
+		}
+	}
+}

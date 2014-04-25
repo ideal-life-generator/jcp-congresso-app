@@ -9,7 +9,7 @@ App.Views.LoginPage = App.Components.View.extend({
     render: function(){
         var layout = new App.Views.Layout();
         this.$el.append(layout.el); // add layout
-        this.$el.find("#content").html(this.template({}));
+        this.$el.find(".content").html(this.template({}));
         this.$el.attr('data-role', 'page');
 
         this.$el.addClass('push-page');

@@ -8,13 +8,13 @@ App.Views.PartnersList = App.Components.View.extend({
             var partnerView = new App.Views.Partner({ model: partner });
             this.$el.append(partnerView.el);
         }, this);
-        this.$el.attr({
-            "data-role": "listview",
-            "data-filter":"true",
-            "data-filter-placeholder":"Search partner...",
-            "data-inset": "true"
-        });
-
+        this.addAttributes();
         return this;
+    },
+    addAttributes: function() {
+        this.$el.attr({
+            "class": "table-view",
+            "id": "list"
+        });
     }
 });

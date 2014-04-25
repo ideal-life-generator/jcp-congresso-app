@@ -1,11 +1,17 @@
-<img src="pics/<%= logoUrl %>.jpg" class="partner-pic"/>
+<div class="title-bar">
+    <%= name %>
+</div>
+
+<div class="partner-body">
+    <img src="img/<%= logoUrl %>.png" align="middle" class="partner-img"/>
     <div class="partner-details">
         <h3><%= name %></h3>
         <h5><%= category %></h5>
-        <p><%= description %></p>
         <a href="<%= website %>">Click to visit website</a>
+        <p><%= description %></p>
     </div>
 
-<textarea cols="40" rows="20" placeholder="Comment ..."></textarea>
+    <textarea cols="40" rows="20" placeholder="Comment ..."></textarea>
+</div>
 
-<button data-transition="pop" data-theme="g" class="ui-shadow ui-btn">Submit</button>
+<a href="#" data-transition="pop" class="ui-btn ui-btn-lg minus-side-margin"><%= polyglot.t('Submit') %></a>

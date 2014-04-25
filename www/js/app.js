@@ -49,35 +49,32 @@ window.App = {
 	 * Application Constructor
 	 */
     run: function() {
-
         this.enableCrossDomain();
-	    this.adjustJqueryMobile();
+	    this.loadDictionary();
         this.bindEvents();
 
-		this.tpl.loadTemplates(['event-list-item', 'main-layout', 'page-event-list', 'menu', 'page-login', 'question-item', 'page-event'], function(){});
+		this.tpl.loadTemplates(['event-list-item', 'main-layout', 'page-event-list', 'menu', 'page-login', 'question-item', 'page-event', 'partner-list-item', 'partner-details', 'page-partners', 'activities-item-list', 'page-activity-info', 'collapsible'], function(){});
 
+        this.Router = new AppRouter();
 		Backbone.history.start({pushState: false, root: '/'});
-		this.Router = new AppRouter();
+
 	},
     /**
      * Enable cross domain requests.
      */
     enableCrossDomain: function(){
-
         $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
             options.xhrFields = {
                 withCredentials: true
             };
-       });
+        });
     },
 	/**
 	 * Change page to another one.
 	 * @param page
 	 */
 	changePage: function(page){
-		var transition = $.mobile.defaultPageTransition;
-		$('body').append(page);
-		$.mobile.changePage($(page), {changeHash:false, transition: transition});
+		$('body').html(page);
 	},
 	/**
 	 * Bind any events that are required on startup. Common events are:
@@ -95,18 +92,13 @@ window.App = {
 	/**
 	 * Disable all the
 	 */
-	adjustJqueryMobile: function(){
-		$.mobile.ajaxEnabled = false;
-		$.mobile.linkBindingEnabled = false;
-		$.mobile.hashListeningEnabled = false;
-		$.mobile.pushStateEnabled = false;
-		$.mobile.changePage.defaults.changeHash = false;
-
-		// Remove page from DOM when it's being replaced
-		$('div[data-role="page"]').on('pagehide', function (event, ui) {
-			$(event.currentTarget).remove();
-		});
-	},
+	loadDictionary: function(){
+        $.getJSON('http://localhost:8000/js/dictionary.json',
+            function(data) {
+                window.polyglot = new Polyglot({ phrases: data });
+            }
+        );
+    },
 	/**
 	 * Update DOM on received event.
 	 * @param id
@@ -121,4 +113,40 @@ window.App = {
 
         console.log('Received Event: ' + id);
     }
+};
+
+App.tpl = {
+
+    // Hash of preloaded templates for the app
+    templates:{},
+
+    // Recursively pre-load all the templates for the app.
+    // This implementation should be changed in a production environment. All the template files should be
+    // concatenated in a single file.
+    loadTemplates: function (names, callback) {
+
+        var loadTemplate = function (index) {
+            var name = names[index];
+            console.log('Loading template: ' + name);
+
+
+            $.get('tpl/'+ name +'.html', function (data) {
+                App.tpl.templates[name] = data;
+                index++;
+                if (index < names.length) {
+                    loadTemplate(index);
+                } else {
+                    callback();
+                }
+            });
+        };
+
+        loadTemplate(0);
+    },
+
+    // Get template by name from hash of preloaded templates
+    get:function (name) {
+        return App.tpl.templates[name];
+    }
+
 };

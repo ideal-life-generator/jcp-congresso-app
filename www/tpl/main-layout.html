@@ -1,15 +1,15 @@
-<div data-role="header" id="header">
+<div id="header" class="bar bar-nav">
 	<div class="logo"></div>
 </div><!-- /header -->
 
-<div id="content"></div>
+<div class="content"></div>
 
-<div data-role="footer" id="footer" data-position="fixed">
-    <a href="#" data-icon="bars" class="menu-btn ui-btn-left" data-theme="e" data-role="none">Menu</a>
+<nav class="bar bar-tab">
+    <a href="#" class="tab-item pull-left"><%= polyglot.t('Menu') %></a>
 
-	<% if(window.App.Auth.isGuest){ %>
-    <a href="#login" data-icon="user" data-theme="a" class="ui-btn-right username login-btn" data-role="none">Login</a>
+	<% if(window.App.Auth.isGuest()){ %>
+    <a href="#login" class="tab-item pull-right"><%= polyglot.t('Login') %></a>
 	<% } else { %>
-    <a href="#login" data-icon="user" data-theme="a" class="ui-btn-right username login-btn" data-role="none">Login</a>
+    <a href="#login" class="tab-item pull-right"><%= polyglot.t('My profile') %></a>
 	<% } %>
-</div><!-- /footer -->
+</nav><!-- /footer -->

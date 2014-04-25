@@ -11,7 +11,9 @@ AppRouter = Backbone.Router.extend({
         "login": "login",
         "qa": "qa",
         "partners": "partners",
-        "partner/:id": "partner"
+        "partners/:id": "partner",
+        "activities/:eventId": "activities",
+        "activity/:id": "activity"
     },
 	/**
 	 * Home action.
@@ -20,10 +22,10 @@ AppRouter = Backbone.Router.extend({
 	 */
 	home: function(){
 		if(window.App.SelectedEvent){
-			window.App.Router.navigate('events/'+window.App.SelectedEvent.id, true);
+			window.App.Router.navigate('#events/'+window.App.SelectedEvent.get('id'), true);
 		}
 		else{
-			window.App.Router.navigate('events', true);
+			window.App.Router.navigate('#events', true);
 		}
 	},
 	/**
@@ -41,7 +43,6 @@ AppRouter = Backbone.Router.extend({
                 alert("Please connect to internet !!!");
             }
         });
-        //this.changePage(new EmployeeListPage({model: this.searchResults}));
     },
 	/**
 	 * This selects an event and shows the main app screen.
@@ -53,9 +54,7 @@ AppRouter = Backbone.Router.extend({
             success: function() {
                 // fetch successfully completed
                 window.App.SelectedEvent = event;
-
-                var view = new App.Views.EventPage();
-
+                var view = new App.Views.EventPage({ model: event.get('id') });
                 window.App.changePage(view.el);
             }
         });
@@ -84,14 +83,13 @@ AppRouter = Backbone.Router.extend({
     },
 	/**
 	 * List of partners
-	 * @param id
 	 */
-    partners: function(id) {
+    partners: function() {
         var partners = new App.Collections.Partners();
         partners.fetch({
             success: function() {
                 var view = new App.Views.PartnersPage({ collection: partners });
-	            window.App.changePage(view.el);
+                window.App.changePage(view.el);
             },
             error: function() {
                 alert("Please connect to internet !!!");
@@ -102,8 +100,35 @@ AppRouter = Backbone.Router.extend({
         var partner = new App.Models.Partner({ id: id });
         partner.fetch({
             success: function(){
-                console.log(partner);
                 var view = new App.Views.PartnerDetails({ model: partner });
+                window.App.changePage(view.el);
+            },
+            error: function() {
+                alert("Please connect to internet !!!");
+            }
+        });
+    },
+    /**
+     * List of activities
+     */
+    activities: function(eventId) {
+        var activities = new App.Collections.Activities();
+        activities.eventId = eventId;
+        activities.fetch({
+            success: function() {
+                var view = new App.Views.ActivitiesPage({ collection: activities });
+                window.App.changePage(view.el);
+            },
+            error: function() {
+                alert("Please connect to internet !!!");
+            }
+        });
+    },
+    activity: function(id) {
+        var activity = new App.Models.Activity({ id: id });
+        activity.fetch({
+            success: function() {
+                var view = new App.Views.ActivityInfo({ model: activity });
                 window.App.changePage(view.el);
             },
             error: function() {

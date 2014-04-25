@@ -1,0 +1,53 @@
+{
+	"type": "Collection",
+	"properties": {
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "name",
+			"order": 0
+		},
+		"description": {
+			"name": "description",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "description",
+			"order": 1
+		},
+		"category": {
+			"name": "category",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "category",
+			"order": 2
+		},
+		"website": {
+			"name": "website",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "website",
+			"order": 3
+		},
+		"logoUrl": {
+			"name": "logoUrl",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "logoUrl",
+			"order": 4
+		},
+		"comment": {
+			"name": "comment",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "comment",
+			"order": 5
+		}
+	}
+}

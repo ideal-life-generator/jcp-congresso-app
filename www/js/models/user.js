@@ -4,6 +4,7 @@ App.Models.User = Backbone.Model.extend({
         id: 0,
         name: 'user',
         eventId: '0',
-        password: '1'
+        password: '1',
+        partnerId: null
     }
 });

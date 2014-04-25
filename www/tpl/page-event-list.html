@@ -1,9 +1,28 @@
-<div data-role="collapsible" data-inset="false" id="previous-events">
-	<h3>Previous events</h3>
-	<div class="lists"></div>
-</div><!-- /collapsible -->
-
-<div data-role="collapsible" data-inset="false" id="upcoming-events">
-	<h3>Upcoming events</h3>
-	<div class="lists"></div>
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                    <%= polyglot.t('Previous') %>
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in">
+            <div class="panel-body" id="previous-events">
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                    <%= polyglot.t('Upcoming') %>
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+            <div class="panel-body" id="upcoming-events">
+            </div>
+        </div>
+    </div>
 </div>

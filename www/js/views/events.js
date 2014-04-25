@@ -1,16 +1,13 @@
 App.Views.Events = App.Components.View.extend({
 	tagName: "ul",
 	attributes: {
-		"class": "ui-listview",
-		"data-role": "listview",
-        "data-theme": "c"
+		"class": "table-view"
 	},
 	initialize: function() {
 		this.render();
 	},
 	render: function() {
         this.collection.each(function(_event) {
-            console.log(_event);
             var eventView = new App.Views.Event({ model: _event });
             this.$el.append(eventView.el);
         }, this);

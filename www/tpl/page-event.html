@@ -1,17 +1,47 @@
-
-<div class="minus-side-margin" id="home-btns">
-	<a class="ui-btn ui-btn-lg bg-green-30 ui-btn-icon-top ui-icon-calendar ui-btn-icon-lg ui-icon" href="#schedule">
-		Schedule
-	</a>
-	<div class="ui-grid-a">
-		<a class="ui-btn ui-block-a ui-btn-lg bg-green-20 ui-icon-edit ui-btn-icon-top ui-btn-icon-lg" href="#rate">
-			Rate
-		</a>
-		<a class="ui-btn ui-block-b ui-btn-lg bg-green-50 ui-icon-eye ui-btn-icon-top ui-btn-icon-lg" href="#partners">
-			Partners
-		</a>
-	</div>
-	<a class="ui-btn ui-btn-lg bg-green-40 ui-icon-location ui-btn-icon-right ui-btn-icon-lg map-btn" href="#map">
+<div class="minus-side-margin container" id="home-btns">
+    <% if (window.App.Auth.isGuest()) { %> <!-- Guest -->
+        <div class="row">
+            <a class="ui-btn ui-block-a ui-btn-lg bg-green-10 ui-icon-edit ui-btn-icon-top ui-btn-icon-lg col-xs-6" href="#register">
+                <%= polyglot.t('Register') %>
+            </a>
+            <a class="ui-btn ui-block-b ui-btn-lg bg-green-20 ui-icon-eye ui-btn-icon-top ui-btn-icon-lg col-xs-6" href="#activities/<%= id %>">
+                <%= polyglot.t('Schedule') %>
+            </a>
+        </div>
+        <a class="ui-btn ui-btn-lg bg-green-50 ui-icon-location ui-btn-icon-right ui-btn-icon-lg map-btn row" href="#partners">
+            <%= polyglot.t('Partners') %>
+        </a>
+    <% } else if(window.App.Auth.isPartner()) { %> <!-- Partner -->
+        <div class="row">
+            <a class="ui-btn ui-block-a ui-btn-lg bg-green-10 ui-icon-edit ui-btn-icon-top ui-btn-icon-lg col-xs-6" href="#register">
+                <%= polyglot.t('Scan') %>
+            </a>
+            <a class="ui-btn ui-block-b ui-btn-lg bg-green-20 ui-icon-eye ui-btn-icon-top ui-btn-icon-lg col-xs-6" href="#activities/<%= id %>">
+                <%= polyglot.t('Schedule') %>
+            </a>
+        </div>
+        <div class="row">
+            <a class="ui-btn ui-block-a ui-btn-lg bg-green-30 ui-icon-edit ui-btn-icon-top ui-btn-icon-lg col-xs-6" href="#rate">
+                <%= polyglot.t('Rate') %>
+            </a>
+            <a class="ui-btn ui-block-b ui-btn-lg bg-green-50 ui-icon-eye ui-btn-icon-top ui-btn-icon-lg col-xs-6" href="#partners">
+                <%= polyglot.t('Partners') %>
+            </a>
+        </div>
+    <% } else { %> <!-- Regular user -->
+        <a class="ui-btn ui-btn-lg bg-green-30 ui-icon-location ui-btn-icon-right ui-btn-icon-lg map-btn row" href="#activities/<%= id %>">
+            <%= polyglot.t('Schedule') %>
+        </a>
+        <div class="row">
+            <a class="ui-btn ui-block-a ui-btn-lg bg-green-20 ui-icon-edit ui-btn-icon-top ui-btn-icon-lg col-xs-6" href="#rate">
+                <%= polyglot.t('Rate') %>
+            </a>
+            <a class="ui-btn ui-block-b ui-btn-lg bg-green-50 ui-icon-eye ui-btn-icon-top ui-btn-icon-lg col-xs-6" href="#partners">
+                <%= polyglot.t('Partners') %>
+            </a>
+        </div>
+    <% } %>
+	<a class="ui-btn ui-btn-lg bg-green-40 ui-icon-location ui-btn-icon-right ui-btn-icon-lg map-btn row" href="#map">
 		Map
 	</a>
 </div>

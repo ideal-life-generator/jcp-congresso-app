@@ -15,6 +15,14 @@ window.App.Auth = {
     isGuest : function(){
         return (this.User == null);
     },
+
+    isPartner: function(){
+        return (this.User.get('role') == 'partner');
+    },
+
+    isRegularUser: function() {
+        return (this.User.get('role') == 'regular');
+    },
     /**
      * Load session.
      */
@@ -37,7 +45,7 @@ window.App.Auth = {
      */
     login: function(credentials, callback){
         var Auth = this;
-
+        console.log('login ...');
         $.ajax({
             type: "POST",
             dataType: "json",

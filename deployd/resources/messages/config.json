@@ -1,0 +1,37 @@
+{
+	"type": "Collection",
+	"properties": {
+		"message": {
+			"name": "message",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "message",
+			"order": 0
+		},
+		"partnerId": {
+			"name": "partnerId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "partnerId",
+			"order": 1
+		},
+		"eventId": {
+			"name": "eventId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "eventId",
+			"order": 2
+		},
+		"userId": {
+			"name": "userId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "userId",
+			"order": 3
+		}
+	}
+}
