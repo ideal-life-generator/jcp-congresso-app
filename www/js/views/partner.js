@@ -1,7 +1,7 @@
 App.Views.Partner = App.Components.View.extend({
     tagName: 'li',
     attributes: {
-        "class": "table-view-cell"
+        "class": "list-group-item"
     },
     initialize: function() {
         this.template = _.template(App.tpl.get('partner-list-item'));

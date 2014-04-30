@@ -13,8 +13,7 @@ App.Views.PartnersList = App.Components.View.extend({
     },
     addAttributes: function() {
         this.$el.attr({
-            "class": "table-view",
-            "id": "list"
+            "class": "list-group"
         });
     }
 });

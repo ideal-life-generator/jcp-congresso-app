@@ -18,7 +18,7 @@ App.Views.ActivitiesPage = App.Components.View.extend({
     renderGroups: function(activities, day) {
         var collapsible = new App.Views.Collapsible({ model: activities[0].createDate() });
         var listView = new App.Views.Activities({ collection: new App.Collections.Activities(activities) });
-        var el = $(collapsible.el).append(listView.el);
+        var el = $(collapsible.el).find('.panel-body').append(listView.el);
         this.$el.find("#accordion").append(collapsible.el);
     }
 });

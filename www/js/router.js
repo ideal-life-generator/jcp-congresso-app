@@ -11,9 +11,13 @@ AppRouter = Backbone.Router.extend({
         "login": "login",
         "qa": "qa",
         "partners": "partners",
-        "partners/:id": "partner",
+        "partners/:filter": "partnerFilter",
+        "partner/:id": "partner",
         "activities/:eventId": "activities",
-        "activity/:id": "activity"
+        "activity/:id": "activity",
+        "profile": "profile",
+        "scan": "scan",
+        "questions": "questions"
     },
 	/**
 	 * Home action.
@@ -135,6 +139,67 @@ AppRouter = Backbone.Router.extend({
                 alert("Please connect to internet !!!");
             }
         });
+    },
+    partnerFilter: function(filter) {
+        var partners = new App.Collections.Partners();
+        partners.fetch({
+            success: function() {
+                var filterEls = partners.filter(function(partner) {
+                    return partner.get('name').toLowerCase().indexOf(filter.toLowerCase()) >= 0;
+                });
+                var filterCol = new App.Collections.Partners(filterEls);
+                var view = new App.Views.PartnersPage({ collection: filterCol });
+                $(view.el).find('input').val(filter);
+                window.App.changePage(view.el, function() {
+                    $('#filter').focus();
+                });
+            },
+            error: function() {
+                alert("Please connect to internet !!!");
+            }
+        });
+    },
+    profile: function() {
+        var profile = new App.Views.MyProfile({ model: App.Auth.User });
+        window.App.changePage(profile.el);
+    },
+    scan: function() {
+        cordova.exec(function(resultArray) {
+
+                alert("Scanned " + resultArray[0] + " code: " + resultArray[1]);
+
+                }, function(error) {
+                alert("Failed: " + error);
+            }, "ScanditSDK", "scan",
+            ["ENTER YOUR APP KEY HERE",
+                {"beep": true,
+                    "1DScanning" : true,
+                    "2DScanning" : true}]);
+    },
+    questions: function() {
+        var categories = new App.Collections.Categories();
+        categories.fetch({
+            success: function() {
+                loadQuestions(categories);
+            },
+            error: function() {
+                alert("Please connect to internet !!!");
+            }
+        });
+        var loadQuestions = function(categories) {
+            var questions = new App.Collections.Questions();
+            questions.fetch({
+                success: function() {
+                    var questions = new App.Views.QuestionsPage({ collection: questions });
+                    questions.categories = categories;
+                    questions.render();
+                    window.App.changePage(questions.el);
+                },
+                error: function() {
+                    alert("Please connect to internet !!!");
+                }
+            });
+        };
     }
 });
 

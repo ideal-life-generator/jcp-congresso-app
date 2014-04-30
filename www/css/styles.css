@@ -144,14 +144,7 @@ textarea {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
-  background-color: #39661f;
-}
-.ui-btn.ui-btn-lg:hover,
-.ui-btn.ui-btn-lg:visited,
-.ui-btn.ui-btn-lg:focus {
-  text-shadow: none;
-  background-color: inherit;
-  color: white;
+  background-color: #4f8c2e;
 }
 .ui-btn.bg-green-10 {
   background-color: #81dd4f;
@@ -163,7 +156,7 @@ textarea {
   background-color: #62aa3a;
 }
 .ui-btn.bg-green-40 {
-  background-color: #39661f;
+  background-color: #4f8c2e;
 }
 .ui-btn.bg-green-50 {
   background-color: #39661f;
@@ -214,6 +207,16 @@ textarea {
   background-collor: #f8f8f8;
   opacity: 0.9;
 }
+.ui-btn {
+  font-size: 16px;
+  display: block;
+  position: relative;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+}
 /* Page specific */
 #home-btns .ui-btn-lg {
   font-size: 1.5em;
@@ -244,4 +247,7 @@ textarea {
 }
 .partner-body p {
   font-size: 1.0em;
+}
+.profile-body {
+  background-color: #ffffff;
 }

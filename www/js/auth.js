@@ -21,7 +21,7 @@ window.App.Auth = {
     },
 
     isRegularUser: function() {
-        return (this.User.get('role') == 'regular');
+        return (this.User.get('role') == 'user');
     },
     /**
      * Load session.
@@ -53,15 +53,20 @@ window.App.Auth = {
             data: credentials,
             success: function(data, xhr, textStatus) {
                 Auth.User = new window.App.Models.User({ name: data.email, password: data.password, id: data.uid });
-
                 callback(true);
+                var user = new App.Models.User({ id: App.Auth.User.get('id') });
+                user.fetch({
+                    success: function() {
+                        // fetch successfully completed
+                        App.Auth.User = user;
+                    }
+                });
             },
 			error: function(response, xhr, textStatus){
 				var data = jQuery.parseJSON(response.responseText);
 				callback(false, data.message);
 			}
         });
-
     },
     /**
      * Clears internal data.

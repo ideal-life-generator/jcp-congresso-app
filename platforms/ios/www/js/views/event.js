@@ -1,13 +1,15 @@
-app.Views.Event = Backbone.View.extend({
+App.Views.Event = App.Components.View.extend({
 	tagName: 'li',
 	initialize: function() {
-		this.render();
+        this.template = _.template(App.tpl.get('event-list-item'));
+        this.render();
 	},
-	template: '#event_template',
 	render: function() {
-		var template = _.template($(this.template).html());
-		this.$el.html(template(this.model.toJSON()));
-
+		this.$el.html(this.template(this.model.toJSON()));
+        this.addAttributes();
 		return this;
-	}
+	},
+    addAttributes: function() {
+        this.$el.addClass("table-view-cell media");
+    }
 });

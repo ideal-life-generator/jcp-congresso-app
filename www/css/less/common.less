@@ -74,15 +74,7 @@ button, input, select, textarea{
 		text-transform: uppercase;
 		.box-shadow(none);
 		.bg-green-40();
-
-		&:hover,
-		&:visited,
-		&:focus{
-			text-shadow: none;
-			background-color: inherit;
-			color: white;
-		}
-	}
+    }
 
 	&.bg-green-10{
 		.bg-green-10() !important;
@@ -94,7 +86,7 @@ button, input, select, textarea{
 		.bg-green-30() !important;
 	}
 	&.bg-green-40{
-		.bg-green-50() !important;
+		.bg-green-40() !important;
 	}
 	&.bg-green-50{
 		.bg-green-50() !important;
@@ -161,4 +153,15 @@ button, input, select, textarea{
     text-decoration: none;
     background-collor: @gray-10;
     opacity: 0.9;
+}
+
+.ui-btn {
+  font-size: 16px;
+  display: block;
+  position: relative;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
 }

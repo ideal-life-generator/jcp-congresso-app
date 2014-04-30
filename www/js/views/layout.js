@@ -1,6 +1,6 @@
 App.Views.Layout = App.Components.View.extend({
     events: {
-        'click .menu-btn': 'toggleMenu'
+        'click .pull-left': 'toggleMenu'
     },
     toggleMenu: function(e){
         $('.pushy').toggleClass('pushy-left');
@@ -17,9 +17,6 @@ App.Views.Layout = App.Components.View.extend({
     render: function() {
         this.$el.html(this.template({}));
 
-	    var menu = new App.Views.Menu();
-	    $('body').append(menu.el);
-
-        return this;
+	    return this;
     }
 });

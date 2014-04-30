@@ -50,15 +50,13 @@ window.App = {
 	 */
     run: function() {
         this.enableCrossDomain();
-	    this.loadDictionary();
-        this.bindEvents();
-
-		this.tpl.loadTemplates(['event-list-item', 'main-layout', 'page-event-list', 'menu', 'page-login', 'question-item', 'page-event', 'partner-list-item', 'partner-details', 'page-partners', 'activities-item-list', 'page-activity-info', 'collapsible'], function(){});
+	    this.bindEvents();
+        this.loadDictionary();
+        this.tpl.loadTemplates(['event-list-item', 'main-layout', 'page-event-list', 'menu', 'page-login', 'question-item', 'page-event', 'partner-list-item', 'partner-details', 'page-partners', 'activities-item-list', 'page-activity-info', 'collapsible', 'my-profile', 'page-questions', 'dropdown'], function(){});
 
         this.Router = new AppRouter();
-		Backbone.history.start({pushState: false, root: '/'});
-
-	},
+        Backbone.history.start({pushState: false, root: '/'});
+    },
     /**
      * Enable cross domain requests.
      */
@@ -73,9 +71,15 @@ window.App = {
 	 * Change page to another one.
 	 * @param page
 	 */
-	changePage: function(page){
-		$('body').html(page);
-	},
+	changePage: function(page, callBack) {
+        $('body').html(page);
+        var menu = new App.Views.Menu();
+        $('body').append(menu.el);
+
+        if(callBack){
+            callBack.call(this);
+        }
+    },
 	/**
 	 * Bind any events that are required on startup. Common events are:
 	 * 'load', 'deviceready', 'offline', and 'online'.
@@ -87,7 +91,7 @@ window.App = {
 	 * Deviceready Event Handler
 	 */
     onDeviceReady: function() {
-		App.receivedEvent('deviceready');
+        App.receivedEvent('deviceready');
     },
 	/**
 	 * Disable all the
@@ -128,8 +132,6 @@ App.tpl = {
         var loadTemplate = function (index) {
             var name = names[index];
             console.log('Loading template: ' + name);
-
-
             $.get('tpl/'+ name +'.html', function (data) {
                 App.tpl.templates[name] = data;
                 index++;
