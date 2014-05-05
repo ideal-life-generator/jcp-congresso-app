@@ -1,7 +1,7 @@
 App.Views.Events = App.Components.View.extend({
 	tagName: "ul",
 	attributes: {
-		"class": "table-view"
+		"class": ""
 	},
 	initialize: function() {
 		this.render();

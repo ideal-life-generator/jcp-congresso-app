@@ -10,8 +10,8 @@ App.Views.EventListPage = App.Components.View.extend({
 
         var upcomingEventList = new App.Views.Events({ collection: this.getUpcomingEvents() });
         var previousEventList = new App.Views.Events({ collection: this.getPreviousEvents() });
-        this.$el.find('#upcoming-events').append(upcomingEventList.el);
-        this.$el.find('#previous-events').append(previousEventList.el);
+        this.$el.find('#events-upcoming .panel-body').append(upcomingEventList.el);
+        this.$el.find('#events-previous .panel-body').append(previousEventList.el);
 
         this.$el.addClass('push-page');
 

@@ -1,27 +1,28 @@
-<div class="panel-group" id="accordion">
-    <div class="panel panel-default">
+<div class="panel-group minus-side-margin" id="event-list">
+    <div class="panel panel-default" id="events-previous">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                    <%= polyglot.t('Previous') %>
+                <a data-toggle="collapse" data-parent="#event-list" href="#events-previous-body">
+                    <%= polyglot.t('Previous events') %>
                 </a>
             </h4>
         </div>
-        <div id="collapseOne" class="panel-collapse collapse in">
-            <div class="panel-body" id="previous-events">
+        <div id="events-previous-body" class="panel-collapse collapse in">
+            <div class="panel-body panel-list">
             </div>
         </div>
     </div>
-    <div class="panel panel-default">
+
+    <div class="panel panel-default" id="events-upcoming">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                    <%= polyglot.t('Upcoming') %>
+                <a data-toggle="collapse" data-parent="#event-list" href="#events-upcoming-body">
+                    <%= polyglot.t('Upcoming events') %>
                 </a>
             </h4>
         </div>
-        <div id="collapseTwo" class="panel-collapse collapse">
-            <div class="panel-body" id="upcoming-events">
+        <div id="events-upcoming-body" class="panel-collapse collapse">
+            <div class="panel-body panel-list">
             </div>
         </div>
     </div>

@@ -43,7 +43,7 @@ AppRouter = Backbone.Router.extend({
                 var view = new App.Views.EventListPage({ collection: events });
                 window.App.changePage(view.el);
             },
-            error: function() {
+            error: function(err) {
                 alert("Please connect to internet !!!");
             }
         });

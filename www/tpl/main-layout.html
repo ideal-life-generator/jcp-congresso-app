@@ -4,12 +4,24 @@
 
 <div class="content"></div>
 
-<nav class="navbar navbar-default" role="navigation">
-    <a href="#" class="tab-item pull-left"><%= polyglot.t('Menu') %></a>
+<nav class="navbar navbar-default navbar-fixed-bottom" id="navbar" role="navigation">
 
-	<% if(window.App.Auth.isGuest()){ %>
-    <a href="#login" class="tab-item pull-right"><%= polyglot.t('Login') %></a>
-	<% } else { %>
-    <a href="#profile" class="tab-item pull-right"><%= polyglot.t('My profile') %></a>
-	<% } %>
+	<ul class="nav navbar-nav navbar-right" id="right-navbar-item">
+		<li>
+			<% if(window.App.Auth.isGuest()){ %>
+				<a href="#login"><%= polyglot.t('Login') %></a>
+			<% } else { %>
+				<a href="#profile"><%= polyglot.t('My Profile') %></a>
+			<% } %>
+		</li>
+	</ul>
+
+	<ul class="nav navbar-nav navbar-left" id="left-navbar-item">
+		<li>
+			<a href="#">
+				<span class="glyphicon glyphicon-align-justify"></span>
+				<span><%= polyglot.t('Menu') %></span>
+			</a>
+		</li>
+	</ul>
 </nav><!-- /footer -->

@@ -93,20 +93,27 @@ button, input, select, textarea{
 	}
 }
 
+.panel-group {
 
-.ui-input-text,
-.ui-input-search{
-	margin: 0.9em 0;
+	.panel{
+		.border-radius(0px);
+	}
 
-	input{
-		min-height: 2.6em;
+	.panel+.panel{
+		margin-top: 0px;
 	}
 }
 
-// Widget classes
-// -------------------------------
-.ui-collapsible-content {
-	padding: 0em;
+.panel{
+	.border-radius(0px);
+	border-width: 0px;
+
+	.panel-heading{
+		.border-radius(0px);
+		border-width: 0px;
+
+		text-decoration: none;
+	}
 }
 
 // General classes
@@ -130,18 +137,63 @@ button, input, select, textarea{
 // -------------------------------
 .bg-green-10{
 	background-color: @green-10;
+	color: white;
 }
 .bg-green-20{
 	background-color: @green-20;
+	color: white;
 }
 .bg-green-30{
 	background-color: @green-30;
+	color: white;
 }
 .bg-green-40{
 	background-color: @green-40;
+	color: white;
 }
 .bg-green-50{
 	background-color: @green-50;
+	color: white;
+}
+
+.bg-grey{
+	background-color: #A6AAA9;
+	color: black;
+}
+
+.bg-black{
+	background-color: black;
+	color: white;
+}
+
+.panel-list{
+	padding: 0px;
+
+	ul{
+		padding: 0px;
+		margin: 0px;
+		list-style-type: none;
+
+		li{
+			border-bottom: 1px solid #DDDEDF;
+			padding: 4px 45px 0px 7px;
+
+			h4{
+				font-size: 100%;
+				line-height: normal;
+				font-weight: bold;
+				margin: 0px;
+			}
+
+			a{
+				color: black;
+			}
+
+			p{
+				margin: 0px;
+			}
+		}
+	}
 }
 
 #list .ls-gray{

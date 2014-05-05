@@ -6,10 +6,6 @@ App.Views.Event = App.Components.View.extend({
 	},
 	render: function() {
 		this.$el.html(this.template(this.model.toJSON()));
-        this.addAttributes();
 		return this;
-	},
-    addAttributes: function() {
-        this.$el.addClass("table-view-cell media");
-    }
+	}
 });

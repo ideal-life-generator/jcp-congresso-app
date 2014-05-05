@@ -1,16 +1,12 @@
-<a href="#events/<%= id %>" class="navigate-right container">
-    <div class="row">
-        <div class="col-xs-6">
-            <div>
-                <h2><%= eventName %></h2>
-                <p><%= location %></p>
-            </div>
-        </div>
-        <div class="col-xs-6">
-            <div>
-                <h2><%= startDate %></h2>
-                <p><%= endDate %></p>
-            </div>
-        </div>
+<a href="#events/<%= id %>" style="display: block;">
+	<div class="row">
+	    <div class="col-xs-6">
+		    <h4 class="event-name"><%= eventName %></h4>
+		    <p class="event-location"><%= location %></p>
+	    </div>
+	    <div class="col-xs-6">
+		    <p class="event-date"><%= startDate %></p>
+		    <p class="event-time"><%= endDate %></p>
+	    </div>
     </div>
 </a>
