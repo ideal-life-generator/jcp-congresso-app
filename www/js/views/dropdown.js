@@ -8,7 +8,7 @@ App.Views.DropDown = App.Components.View.extend({
         this.render();
     },
     render: function() {
-        this.$el.append(this.template({ "default": this.selectedCategory.get('name') }));
+        this.$el.append(this.template({ "selected": this.selectedCategory.get('name').toString() }));
         this.collection.each(function(category) {
             var el = $('<li><a href="#">' + category.get('name').toString() +'</a></li>');
             el.click(function(){
