@@ -1,0 +1,15 @@
+<div id="header" class="bar bar-nav">
+	<div class="logo"></div>
+</div><!-- /header -->
+
+<div class="content"></div>
+
+<nav class="navbar navbar-default" role="navigation">
+    <a href="#" class="tab-item pull-left"><%= polyglot.t('Menu') %></a>
+
+	<% if(window.App.Auth.isGuest()){ %>
+    <a href="#login" class="tab-item pull-right"><%= polyglot.t('Login') %></a>
+	<% } else { %>
+    <a href="#profile" class="tab-item pull-right"><%= polyglot.t('My profile') %></a>
+	<% } %>
+</nav><!-- /footer -->

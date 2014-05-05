@@ -1,0 +1,13 @@
+<ul>
+	<li><a href="#home"><%= polyglot.t('Home') %></a></li>
+
+	<% if (window.App.Auth.isGuest()) { %>
+	<li><a href="#login"><%= polyglot.t('Login') %></a></li>
+	<% } else{ %>
+	<li><a href="#profile"><%= polyglot.t('My profile') %></a></li>
+	<% } %>
+
+	<% if (!window.App.Auth.isGuest()) { %>
+	<li><a href="#logout"><%= polyglot.t('Logout') %></a></li>
+	<% } %>
+</ul>
