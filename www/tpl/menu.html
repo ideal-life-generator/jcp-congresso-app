@@ -1,13 +1,28 @@
 <ul>
-	<li><a href="#home"><%= polyglot.t('Home') %></a></li>
+		<li>
+			<a href="#home">
+				<span class="glyphicon glyphicon-home"></span>
+				<%= polyglot.t('Home') %>
+			</a>
+		</li>
 
 	<% if (window.App.Auth.isGuest()) { %>
-	<li><a href="#login"><%= polyglot.t('Login') %></a></li>
+		<li>
+			<a href="#login">
+				<span class="glyphicon glyphicon-user"></span>
+				<%= polyglot.t('Login') %>
+			</a>
+		</li>
 	<% } else{ %>
-	<li><a href="#profile"><%= polyglot.t('My profile') %></a></li>
+		<li>
+			<a href="#profile">
+				<span class="glyphicon glyphicon-user"></span>
+				<%= polyglot.t('My Profile') %>
+			</a>
+		</li>
 	<% } %>
 
 	<% if (!window.App.Auth.isGuest()) { %>
-	<li><a href="#logout"><%= polyglot.t('Logout') %></a></li>
+		<li><a href="#logout"><%= polyglot.t('Logout') %></a></li>
 	<% } %>
 </ul>

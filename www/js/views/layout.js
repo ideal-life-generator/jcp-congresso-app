@@ -1,6 +1,6 @@
 App.Views.Layout = App.Components.View.extend({
     events: {
-        'click .pull-left': 'toggleMenu'
+        'click #left-navbar-item': 'toggleMenu'
     },
     toggleMenu: function(e){
         $('.pushy').toggleClass('pushy-left');

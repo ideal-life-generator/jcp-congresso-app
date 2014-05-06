@@ -13,11 +13,61 @@ html{
 		background-image: url('../img/atea-bg.png');
 		.background-size(cover);
 		text-shadow: none;
+		height: 100%;
 	}
+}
+
+
+.pushy-left{
+	.transform(translate3d(-200px,0,0));
+}
+
+.pushy-open{
+	.transform(translate3d(0,0,0));
+}
+
+.container-push, .push-push{
+	.transform(translate3d(200px,0,0));
+}
+
+/* Menu Transitions */
+
+.pushy, .push-page, .push{
+	.transition(.2s cubic-bezier(.16, .68, .43, .99));
+
+	/* improves performance issues on mobile*/
+	-webkit-backface-visibility: hidden;
+	-webkit-perspective: 1000;
+}
+
+/* Site Overlay */
+.site-overlay{
+	display: none;
+}
+
+.pushy-active .site-overlay{
+	display: block;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 200px;
+	z-index: 9999;
 }
 
 #main-menu{
 	background-color: white;
+
+	position: fixed;
+	width: 200px;
+	height: 100%;
+	top: 0;
+	z-index: 9999;
+	font-size: 0.9em;
+	font-weight: bold;
+	.box-shadow(inset -10px 0 6px -9px rgba(0, 0, 0, .7));
+	overflow: auto;
+	-webkit-overflow-scrolling: touch; /* enables momentum scrolling in iOS overflow elements */
 
 	> ul{
 		.box-shadow(-10px 0 6px -9px rgba(0, 0, 0, 0.7) inset);
@@ -28,11 +78,42 @@ html{
 
 		li{
 			a{
-				padding-top: 10px;
-				padding-bottom: 10px;
+				.glyphicon{
+					margin-right: 5px;
+				}
+
+				display: block;
+				color: #b3b3b1;
+				border-bottom: 1px solid rgba(0, 0, 0, .1);
+				border-top: 1px solid rgba(255, 255, 255, .1);
+				text-decoration: none;
+				font-size: 1.2em;
+
+				padding: 10px;
 				color: #515151;
 			}
 		}
+	}
+}
+
+#navbar{
+	background-color: rgba(197, 197, 197, 0.44);
+	border-color: rgba(255, 255, 255, 0.73);
+	min-height: 40px;
+
+	li a{
+		color: white;
+		font-size: 1.2em;
+	}
+
+	.navbar-left{
+		float: left;
+		margin: 0px;
+	}
+
+	.navbar-right{
+		float: right;
+		margin: 0px;
 	}
 }
 
