@@ -118,12 +118,17 @@ html{
 }
 
 #header{
-
 	height: 6em;
 	line-height: 8.5em;
 	background-color: transparent;
 	border-style: none;
 
+	> a{
+		display: block;
+		height: 100%;
+		color: lighten(black, 35%) !important;
+		text-decoration: none !important;
+	}
 
 	.logo{
 		width: 100%;
@@ -133,7 +138,33 @@ html{
 		background-size: contain;
 		background-position: center center;
 		background-repeat: no-repeat;
+	}
 
+	&.has-selected-event{
+		line-height: normal;
+		text-align: center;
+		height: 7em;
+
+		> a{
+			// Show arrow
+			background-image: url('../img/arrow-large-left.png');
+			background-position: 5% center;
+			background-repeat: no-repeat;
+			background-size: 2em auto;
+		}
+
+		.logo{
+			margin-top: 5px;
+		}
+
+		.event-name{
+			text-transform: uppercase;
+			margin: 0px;
+		}
+
+		.event-location{
+			margin: 0px;
+		}
 	}
 }
 

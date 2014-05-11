@@ -52,11 +52,34 @@ window.App = {
         this.enableCrossDomain();
 	    this.bindEvents();
         this.loadDictionary();
+		this.initFormatters();
         this.tpl.loadTemplates(['event-list-item', 'main-layout', 'page-event-list', 'menu', 'page-login', 'question-item', 'page-event', 'partner-list-item', 'partner-details', 'page-partners', 'activities-item-list', 'page-activity-info', 'collapsible', 'my-profile', 'page-questions', 'dropdown'], function(){
 	        App.Router = new AppRouter();
 	        Backbone.history.start({pushState: false, root: '/'});
         });
     },
+	/**
+	 * Format init
+	 */
+	initFormatters: function(){
+		moment.lang('en', {
+			calendar : {
+				lastDay : '[Yesterday]',
+				sameDay : '[Today]',
+				nextDay : '[Tomorrow]',
+				lastWeek : '[last] dddd',
+				nextWeek : 'dddd',
+				sameElse : 'Do MMM.'
+			}
+		});
+	},
+	/**
+	 * Tells whether application has some event selected.
+	 * @return {boolean}
+	 */
+	hasSelectedEvent: function(){
+		return (this.SelectedEvent != null);
+	},
     /**
      * Enable cross domain requests.
      */

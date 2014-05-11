@@ -1,0 +1,138 @@
+
+// Buttons and form elements
+// --------------------------------
+.ui-btn{
+	font-size: 16px;
+	display: block;
+	position: relative;
+	text-align: center;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+	text-decoration: none;
+
+	&:hover,
+	&:active,
+	&:focus{
+		text-decoration: none;
+	}
+
+	&.ui-btn-lg{
+		border-style: none;
+		color: #FFFFFF;
+		font-size: 2.5em;
+		line-height: 2.5em;
+		font-weight: normal;
+		margin-top: 0;
+		margin-bottom: 0;
+		padding-bottom: 0em;
+		padding-top: 0.1em;
+		text-shadow: none;
+		text-transform: uppercase;
+		.box-shadow(none);
+		.bg-green-40();
+	}
+
+	&.bg-green-10{
+		.bg-green-10() !important;
+	}
+	&.bg-green-20{
+		.bg-green-20() !important;
+	}
+	&.bg-green-30{
+		.bg-green-30() !important;
+	}
+	&.bg-green-40{
+		.bg-green-40() !important;
+	}
+	&.bg-green-50{
+		.bg-green-50() !important;
+	}
+}
+
+// Lists
+// -------------------------------
+.panel-group {
+
+	.panel{
+		.border-radius(0px);
+	}
+
+	.panel+.panel{
+		margin-top: 0px;
+	}
+}
+
+.panel{
+	.border-radius(0px);
+	border-width: 0px;
+
+	.panel-heading{
+		.border-radius(0px);
+		border-width: 0px;
+
+		text-decoration: none;
+
+		a{
+			&:hover,
+			&:focus,
+			&:active{
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+
+.panel-list{
+	padding: 0px;
+
+	ul{
+		padding: 0px;
+		margin: 0px;
+		list-style-type: none;
+
+		li{
+			border-bottom: 1px solid #DDDEDF;
+
+			> a{
+
+				color: black;
+				padding: 4px 45px 0px 7px;
+				background-image: url('../img/arrow-right.png');
+				background-repeat: no-repeat;
+				background-position: 97% center;
+				background-size: 1em auto;
+
+				a{
+					color: black;
+				}
+
+				h4{
+					font-size: 100%;
+					line-height: normal;
+					font-weight: bold;
+					margin: 0px;
+				}
+
+
+				p{
+					margin: 0px;
+				}
+
+			}
+		}
+	}
+}
+
+#list .ls-gray{
+	display: block;
+	color: black;
+	padding: 15px 30px;
+	border-bottom: 1px solid rgba(0, 0, 0, .1);
+	border-top: 1px solid rgba(255, 255, 255, .1);
+	text-decoration: none;
+	background-collor: @gray-10;
+	opacity: 0.9;
+}
