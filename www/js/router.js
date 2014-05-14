@@ -1,6 +1,11 @@
 AppRouter = Backbone.Router.extend({
 
 	/**
+	 * Name of the currently active route.
+	 */
+	currentRoute: null,
+
+	/**
 	 * General routing
 	 */
     routes:{
@@ -20,17 +25,23 @@ AppRouter = Backbone.Router.extend({
         "questions": "questions"
     },
 	/**
+	 * This runs on router initialization.
+	 */
+	initialize: function(){
+		var router = this;
+
+		// Attach event handler to route change.
+		Backbone.history.on('route', function (obj, name) {
+			router.currentRoute = name;
+		});
+	},
+	/**
 	 * Home action.
 	 * If user has previously selected an event, then redirect to this event.
-	 * Otherwise redirect to event list..
+	 * Otherwise redirect to event list.
 	 */
 	home: function(){
-		if(window.App.SelectedEvent){
-			window.App.Router.navigate('#events/'+window.App.SelectedEvent.get('id'), true);
-		}
-		else{
-			window.App.Router.navigate('#events', true);
-		}
+		window.App.Router.navigate(App.getHomeUrl(), {trigger: true});
 	},
 	/**
 	 * Show list of events.
