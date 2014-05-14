@@ -11,10 +11,10 @@ App.Views.RangeSlider = App.Components.View.extend({
             "data-slider-min": this.model.min,
             "data-slider-max": this.model.max,
             "data-slider-step": this.model.step,
-            "data-slider-value": this.model.value
+            "data-slider-value": this.model.value,
+            "data-slider-tooltip": "hide"
         });
-        this.$el.find('input').slider();
-        this.$el.find('#' + this.model.sliderId).css('width', '100%');
+
 
         return this;
     }
