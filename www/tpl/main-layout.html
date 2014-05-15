@@ -1,6 +1,19 @@
-<div id="header" class="bar bar-nav">
-	<div class="logo"></div>
-</div><!-- /header -->
+<% if(App.hasSelectedEvent()){ %>
+	<div id="header" class="bar bar-nav has-selected-event">
+		<a href="#events">
+			<span class="logo"></span>
+
+			<p class="event-name"><%= App.SelectedEvent.get('event_name') %></p>
+			<p class="event-location"><%= App.SelectedEvent.get('location') %></p>
+		</a>
+	</div><!-- /header -->
+<% } else { %>
+	<div id="header" class="bar bar-nav">
+		<a href="#events">
+			<span class="logo"></span>
+		</a>
+	</div><!-- /header -->
+<% } %>
 
 <div class="content"></div>
 
@@ -8,7 +21,7 @@
 
 	<ul class="nav navbar-nav navbar-right" id="right-navbar-item">
 		<li>
-			<% if(window.App.Auth.isGuest()){ %>
+			<% if(App.Auth.isGuest()){ %>
 				<a href="#login"><%= polyglot.t('Login') %></a>
 			<% } else { %>
 				<a href="#profile"><%= polyglot.t('My Profile') %></a>

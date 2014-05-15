@@ -1,3 +1,6 @@
+/**
+ * General Layout View
+ */
 App.Views.Layout = App.Components.View.extend({
     events: {
         'click #left-navbar-item': 'toggleMenu'

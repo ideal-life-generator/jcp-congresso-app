@@ -1,3 +1,18 @@
+/**
+ * Location event.
+ * DB Properties:
+ * @property {string} event_name
+ * @property {string} start_date
+ * @property {string} end_date
+ * @property {string} location
+ *
+ * @property {string} isPublic FIXME!
+ *
+ * Custom properties:
+ * @property {string} formatted_date
+ * @property {string} start_hour
+ * @property {string} end_hour
+ */
 App.Models.Event = Backbone.Model.extend({
 	urlRoot : App.homeUrl + '/events',
 	defaults: {
@@ -26,5 +41,20 @@ App.Models.Event = Backbone.Model.extend({
         active_time: "",
         create_time: "",
         update_time: ""
-    }
+    },
+
+	/**
+	 * Overwrite the native toJSON to enable date formatting
+	 */
+	toJSON: function () {
+		var json = Backbone.Model.prototype.toJSON.call(this);
+
+		var start = moment(this.get('startDate'));
+		var end = moment(this.get('endDate'));
+
+		json.formatted_date = start.calendar();
+		json.start_hour = start.format('HH:mm');
+		json.end_hour = end.format('HH:mm');
+		return json;
+	}
 });

@@ -38,6 +38,10 @@ AppRouter = Backbone.Router.extend({
     events: function () {
         var self = this;
         var events = new App.Collections.Events();
+
+		// Unset selected event.
+		App.SelectedEvent = null;
+
         events.fetch({
             success: function(){
                 var view = new App.Views.EventListPage({ collection: events });
@@ -58,7 +62,7 @@ AppRouter = Backbone.Router.extend({
             success: function() {
                 // fetch successfully completed
                 window.App.SelectedEvent = event;
-                var view = new App.Views.EventPage({ model: event.get('id') });
+                var view = new App.Views.EventPage({ model: event });
                 window.App.changePage(view.el);
             }
         });

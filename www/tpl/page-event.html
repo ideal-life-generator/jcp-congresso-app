@@ -2,68 +2,57 @@
     <% if (window.App.Auth.isGuest()) { %> <!-- Guest -->
         <div class="row">
             <a class="ui-btn ui-block-a ui-btn-lg bg-green-10 ui-icon-edit ui-btn-icon-top ui-btn-icon-lg col-xs-6" href="#register">
-                <span class="glyphicon glyphicon-user">
-                    <%= polyglot.t('Register') %>
-                </span>
+                <span class="glyphicon glyphicon-user"></span>
+                <span><%= polyglot.t('Register') %></span>
             </a>
             <a class="ui-btn ui-block-b ui-btn-lg bg-green-20 ui-icon-eye ui-btn-icon-top ui-btn-icon-lg col-xs-6" href="#activities/<%= id %>">
-                <span class="glyphicon glyphicon-calendar">
-                    <%= polyglot.t('Schedule') %>
-                </span>
+                <span class="glyphicon glyphicon-calendar"></span>
+                <span><%= polyglot.t('Schedule') %></span>
             </a>
         </div>
         <a class="ui-btn ui-btn-lg bg-green-50 ui-icon-location ui-btn-icon-right ui-btn-icon-lg map-btn row" href="#partners">
-            <span class="glyphicon glyphicon-eye-open">
-                <%= polyglot.t('Partners') %>
-            </span>
+            <span class="glyphicon glyphicon-eye-open"></span>
+            <span><%= polyglot.t('Partners') %></span>
         </a>
     <% } else if(window.App.Auth.isPartner()) { %> <!-- Partner -->
         <div class="row">
             <a class="ui-btn ui-block-a ui-btn-lg bg-green-10 ui-icon-edit ui-btn-icon-top ui-btn-icon-lg col-xs-6" href="#scan">
-                <span class="glyphicon glyphicon-comment">
-                    <%= polyglot.t('Scan') %>
-                </span>
+                <span class="glyphicon glyphicon-comment"></span>
+                <span><%= polyglot.t('Scan') %></span>
             </a>
             <a class="ui-btn ui-block-b ui-btn-lg bg-green-20 ui-icon-eye ui-btn-icon-top ui-btn-icon-lg col-xs-6" href="#activities/<%= id %>">
-                <span class="glyphicon glyphicon-calendar">
-                    <%= polyglot.t('Schedule') %>
-                </span>
+                <span class="glyphicon glyphicon-calendar"></span>
+                <span><%= polyglot.t('Schedule') %></span>
             </a>
         </div>
         <div class="row">
             <a class="ui-btn ui-block-a ui-btn-lg bg-green-30 ui-icon-edit ui-btn-icon-top ui-btn-icon-lg col-xs-6" href="#rate">
-                <span class="glyphicon glyphicon-pencil">
-                    <%= polyglot.t('Rate') %>
-                </span>
+                <span class="glyphicon glyphicon-pencil"></span>
+				<span><%= polyglot.t('Rate') %></span>
             </a>
             <a class="ui-btn ui-block-b ui-btn-lg bg-green-50 ui-icon-eye ui-btn-icon-top ui-btn-icon-lg col-xs-6" href="#partners">
-                <span class="glyphicon glyphicon-eye-open">
-                    <%= polyglot.t('Partners') %>
-                </span>
+                <span class="glyphicon glyphicon-eye-open"></span>
+                <span><%= polyglot.t('Partners') %></span>
             </a>
         </div>
     <% } else { %> <!-- Regular user -->
         <a class="ui-btn ui-btn-lg bg-green-30 ui-icon-location ui-btn-icon-right ui-btn-icon-lg map-btn row" href="#activities/<%= id %>">
-            <span class="glyphicon glyphicon-calendar">
-                <%= polyglot.t('Schedule') %>
-            </span>
+            <span class="glyphicon glyphicon-calendar"></span>
+            <span><%= polyglot.t('Schedule') %></span>
         </a>
         <div class="row">
             <a class="ui-btn ui-block-a ui-btn-lg bg-green-20 ui-icon-edit ui-btn-icon-top ui-btn-icon-lg col-xs-6" href="#rate">
-                <span class="glyphicon glyphicon-pencil">
-                    <%= polyglot.t('Rate') %>
-                </span>
+                <span class="glyphicon glyphicon-pencil"></span>
+				<span><%= polyglot.t('Rate') %></span>
             </a>
             <a class="ui-btn ui-block-b ui-btn-lg bg-green-50 ui-icon-eye ui-btn-icon-top ui-btn-icon-lg col-xs-6" href="#partners">
-                <span class="glyphicon glyphicon-eye-open">
-                    <%= polyglot.t('Partners') %>
-                </span>
+                <span class="glyphicon glyphicon-eye-open"></span>
+                <span><%= polyglot.t('Partners') %></span>
             </a>
         </div>
     <% } %>
 	<a class="ui-btn ui-btn-lg bg-green-40 ui-icon-location ui-btn-icon-right ui-btn-icon-lg map-btn row" href="#map">
-		<span class="glyphicon glyphicon-map-marker">
-            <%= polyglot.t('Map') %>
-        </span>
+		<span class="glyphicon glyphicon-map-marker"></span>
+        <span><%= polyglot.t('Map') %></span>
 	</a>
 </div>
