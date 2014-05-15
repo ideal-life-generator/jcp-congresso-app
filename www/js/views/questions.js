@@ -8,10 +8,9 @@ App.Views.Questions = App.Components.View.extend({
     },
     render: function() {
         this.collection.each(function(question) {
-            var questionView = App.Views.Question({ model: question });
+            var questionView = new App.Views.Question({ model: question });
             this.$el.append(questionView.el);
         }, this);
-
         return this;
     }
 });

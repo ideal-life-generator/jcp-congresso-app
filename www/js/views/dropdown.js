@@ -9,11 +9,13 @@ App.Views.DropDown = App.Components.View.extend({
     },
     render: function() {
         this.$el.append(this.template({ "selected": this.selectedCategory.get('name').toString() }));
+        var self = this;
         this.collection.each(function(category) {
             var el = $('<li><a href="#">' + category.get('name').toString() +'</a></li>');
-            el.click(function(){
-                this.selectedCategory = category;
-                this.$el.find('button').html(category.get('name').toString() + ' <span class="caret"></span>');
+            el.click(function(e){
+                e.preventDefault();
+                self.selectedCategory = category;
+                self.$el.find('button').html(category.get('name').toString() + ' <span class="caret"></span>');
             });
             this.$el.find('ul').append(el);
         }, this);

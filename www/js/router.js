@@ -205,10 +205,10 @@ AppRouter = Backbone.Router.extend({
             var questions = new App.Collections.Questions();
             questions.fetch({
                 success: function() {
-                    var questions = new App.Views.QuestionsPage({ collection: questions });
-                    questions.categories = categories;
-                    questions.render();
-                    window.App.changePage(questions.el);
+                    var questionsView = new App.Views.QuestionsPage({ collection: questions });
+                    questionsView.categories = categories;
+                    questionsView.render();
+                    window.App.changePage(questionsView.el);
                 },
                 error: function() {
                     alert("Please connect to internet !!!");
