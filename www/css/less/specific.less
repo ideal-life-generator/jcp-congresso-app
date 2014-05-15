@@ -1,4 +1,5 @@
 #login-form{
+
 	.input-lg{
 		text-align: center;
 	}
@@ -12,12 +13,32 @@
 	#events-previous{
 		.panel-heading{
 			.bg-grey();
+
+			.toggle-handler.collapsed{
+				display: inline-block;
+				background-image: url('../img/arrow-top.png');
+				background-position: center top;
+				background-repeat: no-repeat;
+
+				padding-top: 1.2em;
+				background-size: 1.5em auto;
+			}
 		}
 	}
 
 	#events-upcoming{
 		.panel-heading{
 			.bg-black();
+
+			.toggle-handler.collapsed{
+				display: inline-block;
+				background-image: url('../img/arrow-bottom.png');
+				background-position: center bottom;
+				background-repeat: no-repeat;
+
+				padding-bottom: 1.2em;
+				background-size: 1.5em auto;
+			}
 		}
 	}
 

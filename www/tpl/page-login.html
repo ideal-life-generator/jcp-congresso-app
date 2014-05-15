@@ -2,6 +2,8 @@
     <%= polyglot.t('Login') %>
 </div>
 
+<div class="alert alert-danger error-message minus-side-margin" style="display: none"></div>
+
 <form role="form" id="login-form" class="with-padding bg-green-20 minus-side-margin">
     <div class="form-group">
         <input type="email" name="email" class="form-control input-lg" id="email" placeholder="Email">
@@ -11,4 +13,4 @@
     </div>
 </form>
 
-<a href="#" data-transition="pop" id="login-btn" class="ui-btn ui-btn-lg minus-side-margin"><%= polyglot.t('Submit') %></a>
+<a id="login-btn" class="ui-btn ui-btn-lg minus-side-margin" type="submit"><%= polyglot.t('Submit') %></a>
