@@ -1,6 +1,6 @@
-<% if(App.hasSelectedEvent()){ %>
+<% if(hasSelectedEvent){ %>
 	<div id="header" class="bar bar-nav has-selected-event">
-		<a href="#events">
+		<a href="<%= homeUrl %>">
 			<span class="logo"></span>
 
 			<p class="event-name"><%= App.SelectedEvent.get('event_name') %></p>
@@ -9,7 +9,7 @@
 	</div><!-- /header -->
 <% } else { %>
 	<div id="header" class="bar bar-nav">
-		<a href="#events">
+		<a href="<%= homeUrl %>">
 			<span class="logo"></span>
 		</a>
 	</div><!-- /header -->

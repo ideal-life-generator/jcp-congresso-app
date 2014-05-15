@@ -80,6 +80,23 @@ window.App = {
 	hasSelectedEvent: function(){
 		return (this.SelectedEvent != null);
 	},
+	/**
+	 * Get home url.
+	 * @return {string}
+	 */
+	getHomeUrl: function(){
+		var homeUrl = '';
+
+		if(this.hasSelectedEvent()){
+			homeUrl = '#events/'+this.SelectedEvent.get('id');
+		}
+		else{
+			// No event is selected. Home is event list.
+			homeUrl = '#events';
+		}
+
+		return homeUrl;
+	},
     /**
      * Enable cross domain requests.
      */
