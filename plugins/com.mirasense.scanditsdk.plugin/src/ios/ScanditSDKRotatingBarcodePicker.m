@@ -23,6 +23,13 @@
 #import "ScanditSDKOverlayController.h"
 #import <objc/runtime.h>
 
+
+@interface ScanditSDKBarcodePicker (extended)
+- (id)initWithAppKey:(NSString *)scanditSDKAppKey
+cameraFacingPreference:(CameraFacingDirection)facing
+  runningOnFramework:(NSString *)usedFramework;
+@end
+
 @interface ScanditSDKRotatingBarcodePicker() {
 	NSArray *allowedOrientations;
 }
@@ -39,9 +46,10 @@
 
 
 - (id)initWithAppKey:(NSString *)scanditSDKAppKey
-	  cameraFacingPreference:(CameraFacingDirection)facing
-	  orientations:(NSArray *)orientations {
-    if (self = [super initWithAppKey:scanditSDKAppKey]) {
+cameraFacingPreference:(CameraFacingDirection)facing
+        orientations:(NSArray *)orientations {
+    
+    if (self = [super initWithAppKey:scanditSDKAppKey cameraFacingPreference:facing runningOnFramework:@"phonegap"]) {
 		self.allowedOrientations = orientations;
 	}
     

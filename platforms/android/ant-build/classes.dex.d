@@ -1,0 +1,20 @@
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes.dex : \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes/com/atea/j/AteaJ.class \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes/com/atea/j/BuildConfig.class \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes/com/atea/j/R$array.class \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes/com/atea/j/R$attr.class \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes/com/atea/j/R$color.class \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes/com/atea/j/R$dimen.class \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes/com/atea/j/R$drawable.class \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes/com/atea/j/R$id.class \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes/com/atea/j/R$layout.class \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes/com/atea/j/R$menu.class \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes/com/atea/j/R$raw.class \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes/com/atea/j/R$string.class \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes/com/atea/j/R$xml.class \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes/com/atea/j/R.class \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes/com/mirasense/scanditsdk/plugin/ScanditSDK.class \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes/com/mirasense/scanditsdk/plugin/ScanditSDKActivity.class \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/classes/com/phonegap/plugins/barcodescanner/BarcodeScanner.class \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/dexedLibs/classes-6ea8866bb077cdb99091ab59f5bd6dee.jar \
+/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/dexedLibs/com.google.zxing.client.android.captureactivity-9fc0d2a021577b622fd5099b9cd7355d.jar \

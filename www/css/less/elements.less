@@ -51,6 +51,7 @@
 	}
 }
 
+// -------------------------------
 // Lists
 // -------------------------------
 .panel-group {
@@ -82,6 +83,14 @@
 			}
 		}
 	}
+
+  a{
+    &:hover,
+    &:focus,
+    &:active{
+      text-decoration: none;
+    }
+  }
 }
 
 .alert{
@@ -131,13 +140,3 @@
 	}
 }
 
-#list .ls-gray{
-	display: block;
-	color: black;
-	padding: 15px 30px;
-	border-bottom: 1px solid rgba(0, 0, 0, .1);
-	border-top: 1px solid rgba(255, 255, 255, .1);
-	text-decoration: none;
-	background-collor: @gray-10;
-	opacity: 0.9;
-}

@@ -179,17 +179,20 @@ AppRouter = Backbone.Router.extend({
         window.App.changePage(profile.el);
     },
     scan: function() {
-        cordova.exec(function(resultArray) {
-
-                alert("Scanned " + resultArray[0] + " code: " + resultArray[1]);
-
-                }, function(error) {
-                alert("Failed: " + error);
-            }, "ScanditSDK", "scan",
-            ["ENTER YOUR APP KEY HERE",
-                {"beep": true,
-                    "1DScanning" : true,
-                    "2DScanning" : true}]);
+        console.log('scan(): init');
+        // documentation said the syntax was this:
+        // var scanner = window.PhoneGap.require("cordova/plugin/BarcodeScanner");
+        // but playing with options, seems like it should be this:
+        //var scanner = window.cordova.require("com.phonegap.plugins.barcodescanner");
+        var self = this;
+        cordova.plugins.barcodeScanner.scan(
+            function (result) {
+                self.questions();
+            },
+            function (error) {
+                alert("Scanning failed: " + error);
+            }
+        );
     },
     questions: function() {
         var categories = new App.Collections.Categories();

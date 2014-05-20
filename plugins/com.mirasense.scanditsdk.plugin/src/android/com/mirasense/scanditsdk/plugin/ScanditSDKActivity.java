@@ -27,13 +27,14 @@ import android.view.WindowManager;
 
 import com.mirasense.scanditsdk.LegacyPortraitScanditSDKBarcodePicker;
 import com.mirasense.scanditsdk.ScanditSDKBarcodePicker;
+import com.mirasense.scanditsdk.ScanditSDKGlobals;
 import com.mirasense.scanditsdk.interfaces.ScanditSDK;
 import com.mirasense.scanditsdk.interfaces.ScanditSDKListener;
 import com.mirasense.scanditsdk.interfaces.ScanditSDKOverlay;
 
 /**
  * Activity integrating the barcode scanner.
- * 
+ *
  */
 public class ScanditSDKActivity extends Activity implements ScanditSDKListener {
     
@@ -53,19 +54,21 @@ public class ScanditSDKActivity extends Activity implements ScanditSDKListener {
     @SuppressWarnings("deprecation")
     public void initializeAndStartBarcodeRecognition(Bundle extras) {
         // Switch to full screen.
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                              WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        
+        ScanditSDKGlobals.usedFramework = "phonegap";
         
         if (ScanditSDKBarcodePicker.canRunPortraitPicker()) {
         	int facing = ScanditSDK.CAMERA_FACING_BACK;
         	if (extras.getBoolean("preferFrontCamera")) {
         		facing = ScanditSDK.CAMERA_FACING_FRONT;
         	}
-            // create ScanditSDKBarcodePicker that takes care of the camera access and 
+            // create ScanditSDKBarcodePicker that takes care of the camera access and
             // barcode recognition.
             ScanditSDKBarcodePicker picker = new ScanditSDKBarcodePicker(
-                    this, extras.getString("appKey"), facing);
+            		this, extras.getString("appKey"), facing);
             
             // Add both views to activity, with the scan GUI on top.
             this.setContentView(picker);
@@ -75,10 +78,10 @@ public class ScanditSDKActivity extends Activity implements ScanditSDKListener {
             // be displayed correctly if the activity is in landscape mode.
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             
-            // create ScanditSDKBarcodePicker that takes care of the camera access and 
+            // create ScanditSDKBarcodePicker that takes care of the camera access and
             // barcode recognition.
             LegacyPortraitScanditSDKBarcodePicker picker = new LegacyPortraitScanditSDKBarcodePicker(
-                    this, extras.getString("appKey"));
+            		this, extras.getString("appKey"));
             
             // Add both views to activity, with the scan GUI on top.
             this.setContentView(picker);
@@ -97,7 +100,7 @@ public class ScanditSDKActivity extends Activity implements ScanditSDKListener {
         if (extras.containsKey("2DScanning")) {
             mBarcodePicker.set2DScanningEnabled(extras.getBoolean("2DScanning"));
         }
-
+        
         if (extras.containsKey("ean13AndUpc12")) {
             mBarcodePicker.setEan13AndUpc12Enabled(extras.getBoolean("ean13AndUpc12"));
         }
@@ -116,11 +119,20 @@ public class ScanditSDKActivity extends Activity implements ScanditSDKListener {
         if (extras.containsKey("itf")) {
             mBarcodePicker.setItfEnabled(extras.getBoolean("itf"));
         }
+        if (extras.containsKey("gs1DataBar")) {
+            mBarcodePicker.setGS1DataBarEnabled(extras.getBoolean("gs1DataBar"));
+        }
+        if (extras.containsKey("gs1DataBarExpanded")) {
+            mBarcodePicker.setGS1DataBarExpandedEnabled(extras.getBoolean("gs1DataBarExpanded"));
+        }
         if (extras.containsKey("qr")) {
             mBarcodePicker.setQrEnabled(extras.getBoolean("qr"));
         }
         if (extras.containsKey("dataMatrix")) {
             mBarcodePicker.setDataMatrixEnabled(extras.getBoolean("dataMatrix"));
+        }
+        if (extras.containsKey("pdf417")) {
+            mBarcodePicker.setPdf417Enabled(extras.getBoolean("pdf417"));
         }
         if (extras.containsKey("msiPlessey")) {
             mBarcodePicker.setMsiPlesseyEnabled(extras.getBoolean("msiPlessey"));
@@ -139,7 +151,7 @@ public class ScanditSDKActivity extends Activity implements ScanditSDKListener {
         	}
         	mBarcodePicker.setMsiPlesseyChecksumType(actualChecksum);
         }
-
+        
         if (extras.containsKey("inverseRecognition")) {
             mBarcodePicker.setInverseRecognitionEnabled(extras.getBoolean("inverseRecognition"));
         }
@@ -175,28 +187,16 @@ public class ScanditSDKActivity extends Activity implements ScanditSDKListener {
         
         
         if (extras.containsKey("searchBar")) {
-            mBarcodePicker.getOverlayView().showSearchBar(
-                    extras.getBoolean("searchBar"));
-        }
-        if (extras.containsKey("titleBar")) {
-            mBarcodePicker.getOverlayView().showTitleBar(
-                    extras.getBoolean("titleBar"));
-        }
-        if (extras.containsKey("toolBar")) {
-            mBarcodePicker.getOverlayView().showToolBar(
-                    extras.getBoolean("toolBar"));
+            mBarcodePicker.getOverlayView().showSearchBar(extras.getBoolean("searchBar"));
         }
         if (extras.containsKey("beep")) {
-            mBarcodePicker.getOverlayView().setBeepEnabled(
-                    extras.getBoolean("beep"));
+            mBarcodePicker.getOverlayView().setBeepEnabled(extras.getBoolean("beep"));
         }
         if (extras.containsKey("vibrate")) {
-            mBarcodePicker.getOverlayView().setVibrateEnabled(
-                    extras.getBoolean("vibrate"));
+            mBarcodePicker.getOverlayView().setVibrateEnabled(extras.getBoolean("vibrate"));
         }
         if (extras.containsKey("torch")) {
-            mBarcodePicker.getOverlayView().setTorchEnabled(
-                    extras.getBoolean("torch"));
+            mBarcodePicker.getOverlayView().setTorchEnabled(extras.getBoolean("torch"));
         }
         if (extras.containsKey("torchButtonPositionAndSize")) {
             String hotspot = extras.getString("torchButtonPositionAndSize");
@@ -231,48 +231,49 @@ public class ScanditSDKActivity extends Activity implements ScanditSDKListener {
                     Float y = Float.valueOf(split[1]);
                     int width = Integer.valueOf(split[2]);
                     int height = Integer.valueOf(split[3]);
-                	mBarcodePicker.getOverlayView().setCameraSwitchButtonPosition(x, y, width, height);
+                	mBarcodePicker.getOverlayView().setCameraSwitchButtonPosition(
+                			x, y, width, height);
                 } catch (NumberFormatException e) {}
             }
         }
         
         if (extras.containsKey("textForInitialScanScreenState")) {
             mBarcodePicker.getOverlayView().setTextForInitialScanScreenState(
-                    extras.getString("textForInitialScanScreenState"));
+            		extras.getString("textForInitialScanScreenState"));
         }
         if (extras.containsKey("textForBarcodePresenceDetected")) {
             mBarcodePicker.getOverlayView().setTextForBarcodePresenceDetected(
-                    extras.getString("textForBarcodePresenceDetected"));
+            		extras.getString("textForBarcodePresenceDetected"));
         }
         if (extras.containsKey("textForBarcodeDecodingInProgress")) {
             mBarcodePicker.getOverlayView().setTextForBarcodeDecodingInProgress(
-                    extras.getString("textForBarcodeDecodingInProgress"));
+            		extras.getString("textForBarcodeDecodingInProgress"));
         }
         if (extras.containsKey("titleMessage")) {
             mBarcodePicker.getOverlayView().setTitleMessage(
-                    extras.getString("titleMessage"));
+            		extras.getString("titleMessage"));
         }
         if (extras.containsKey("leftButtonCaption")) {
             mBarcodePicker.getOverlayView().setLeftButtonCaption(
-                    extras.getString("leftButtonCaption"));
+            		extras.getString("leftButtonCaption"));
         }
         if (extras.containsKey("leftButtonCaptionWhenKeypadVisible")) {
             mBarcodePicker.getOverlayView().setLeftButtonCaptionWhenKeypadVisible(
-                    extras.getString("leftButtonCaptionWhenKeypadVisible"));
+            		extras.getString("leftButtonCaptionWhenKeypadVisible"));
         }
         if (extras.containsKey("rightButtonCaption")) {
             mBarcodePicker.getOverlayView().setRightButtonCaption(
-                    extras.getString("rightButtonCaption"));
+            		extras.getString("rightButtonCaption"));
         }
         if (extras.containsKey("rightButtonCaptionWhenKeypadVisible")) {
             mBarcodePicker.getOverlayView().setRightButtonCaptionWhenKeypadVisible(
-                    extras.getString("rightButtonCaptionWhenKeypadVisible"));
+            		extras.getString("rightButtonCaptionWhenKeypadVisible"));
         }
-        if (extras.containsKey("searchBarHint")) {
+        if (extras.containsKey("setSearchBarPlaceholderText")) {
             mBarcodePicker.getOverlayView().setSearchBarPlaceholderText(
-                    extras.getString("searchBarHint"));
+            		extras.getString("setSearchBarPlaceholderText"));
         }
-
+        
         if (extras.containsKey("viewfinderDimension")) {
             String hotspot = extras.getString("viewfinderDimension");
             String[] split = hotspot.split("[/]");
@@ -293,7 +294,7 @@ public class ScanditSDKActivity extends Activity implements ScanditSDKListener {
                 } catch (NumberFormatException e) {}
             }
         }
-
+        
         if (extras.containsKey("viewfinderSize")) {
             String hotspot = extras.getString("viewfinderSize");
             String[] split = hotspot.split("[/]");
@@ -316,7 +317,8 @@ public class ScanditSDKActivity extends Activity implements ScanditSDKListener {
         }
         
         if (extras.containsKey("viewfinderTextHook")) {
-        	mBarcodePicker.getOverlayView().drawViewfinderTextHook(extras.getBoolean("viewfinderTextHook"));
+        	mBarcodePicker.getOverlayView().drawViewfinderTextHook(
+        			extras.getBoolean("viewfinderTextHook"));
         }
         if (extras.containsKey("viewfinderColor")) {
             String color = extras.getString("viewfinderColor");
@@ -360,15 +362,18 @@ public class ScanditSDKActivity extends Activity implements ScanditSDKListener {
                 } catch (NumberFormatException e) {}
             }
         }
-
-        // Register listener, in order to be notified about relevant events 
+        if (extras.containsKey("zoom")) {
+        	mBarcodePicker.setZoom(extras.getFloat("zoom"));
+        }
+        
+        // Register listener, in order to be notified about relevant events
         // (e.g. a successfully scanned bar code).
         mBarcodePicker.getOverlayView().addListener(this);
     }
     
     @Override
     protected void onPause() {
-        // When the activity is in the background immediately stop the 
+        // When the activity is in the background immediately stop the
         // scanning to save resources and free the camera.
         mBarcodePicker.stopScanning();
         super.onPause();
@@ -380,8 +385,8 @@ public class ScanditSDKActivity extends Activity implements ScanditSDKListener {
         mBarcodePicker.startScanning();
         super.onResume();
     }
-
-    /** 
+    
+    /**
      * Called when the user canceled the bar code scanning.
      */
     public void didCancel() {
@@ -390,10 +395,10 @@ public class ScanditSDKActivity extends Activity implements ScanditSDKListener {
         setResult(CANCEL);
         finish();
     }
-
-    /** 
+    
+    /**
      * Called when a bar code has been scanned.
-     *  
+     *
      * @param barcode Scanned bar code content.
      * @param symbology Scanned bar code symbology .
      */
@@ -406,7 +411,7 @@ public class ScanditSDKActivity extends Activity implements ScanditSDKListener {
         setResult(SCAN, intent);
         finish();
     }
-
+    
     /** 
      * Called when the user entered a bar code manually.
      * 

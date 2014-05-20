@@ -4,8 +4,33 @@
         "uninstalled": []
     },
     "config_munge": {
-        "files": {}
+        "framework": {
+            "libiconv.dylib": {
+                "false": 1
+            },
+            "AVFoundation.framework": {
+                "false": 1
+            },
+            "AssetsLibrary.framework": {
+                "false": 1
+            },
+            "CoreVideo.framework": {
+                "false": 1
+            },
+            "QuartzCore.framework": {
+                "false": 1
+            }
+        },
+        "config.xml": {
+            "/*": {
+                "<feature name=\"BarcodeScanner\"><param name=\"ios-package\" value=\"CDVBarcodeScanner\" /></feature>": 1
+            }
+        }
     },
-    "installed_plugins": {},
+    "installed_plugins": {
+        "com.phonegap.plugins.barcodescanner": {
+            "PACKAGE_NAME": "com.atea.j"
+        }
+    },
     "dependent_plugins": {}
 }

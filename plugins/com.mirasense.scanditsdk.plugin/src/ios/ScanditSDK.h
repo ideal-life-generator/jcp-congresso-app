@@ -91,6 +91,14 @@
  * Enables or disables the recognition of ITF codes.
  * Note: Not all Scandit SDK versions support ITF scanning.
  *
+ * gs1DataBar: false
+ * Enables or disables the recognition of GS1 DataBar codes.
+ * Note: Not all Scandit SDK versions support GS1 DataBar scanning.
+ *
+ * gs1DataBarExpanded: false
+ * Enables or disables the recognition of GS1 DataBar Expanded codes.
+ * Note: Not all Scandit SDK versions support GS1 DataBar Expanded scanning.
+ *
  * qr: true
  * Enables or disables the recognition of QR codes.
  *
@@ -149,12 +157,6 @@
  * Sets the size of the viewfinder relative to the size of the screen size.
  * Changing this value does not(!) affect the area in which barcodes are successfully recognized.
  * It only changes the size of the box drawn onto the scan screen.
- *
- * ignorePreviewAspectRatio: false
- * Normally the picker adjusts to the aspect ratio of the preview image. If
- * this is called, it will no longer do this.
- * Warning: If the aspect ratio is not kept, the camera feed may be
- * stretched and no longer be a proper representation of what is recorded.
  *
  * beep: true
  * Enables or disables the sound played when a code was recognized.

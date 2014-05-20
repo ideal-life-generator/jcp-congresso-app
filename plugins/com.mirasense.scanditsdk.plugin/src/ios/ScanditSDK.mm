@@ -126,6 +126,14 @@
     if (code128 && [code128 isKindOfClass:[NSNumber class]]) {
         [scanditSDKBarcodePicker setCode128Enabled:[((NSNumber *)code128) boolValue]];
     }
+    NSObject *gs1DataBar = [options objectForKey:@"gs1DataBar"];
+    if (gs1DataBar && [gs1DataBar isKindOfClass:[NSNumber class]]) {
+        [scanditSDKBarcodePicker setGS1DataBarEnabled:[((NSNumber *)gs1DataBar) boolValue]];
+    }
+    NSObject *gs1DataBarExpanded = [options objectForKey:@"gs1DataBarExpanded"];
+    if (gs1DataBarExpanded && [gs1DataBarExpanded isKindOfClass:[NSNumber class]]) {
+        [scanditSDKBarcodePicker setGS1DataBarExpandedEnabled:[((NSNumber *)gs1DataBarExpanded) boolValue]];
+    }
     NSObject *itf = [options objectForKey:@"itf"];
     if (itf && [itf isKindOfClass:[NSNumber class]]) {
         [scanditSDKBarcodePicker setItfEnabled:[((NSNumber *)itf) boolValue]];
