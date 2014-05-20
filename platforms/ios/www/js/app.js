@@ -52,11 +52,51 @@ window.App = {
         this.enableCrossDomain();
 	    this.bindEvents();
         this.loadDictionary();
-        this.tpl.loadTemplates(['event-list-item', 'main-layout', 'page-event-list', 'menu', 'page-login', 'question-item', 'page-event', 'partner-list-item', 'partner-details', 'page-partners', 'activities-item-list', 'page-activity-info', 'collapsible', 'my-profile', 'page-questions'], function(){});
-
-        this.Router = new AppRouter();
-        Backbone.history.start({pushState: false, root: '/'});
+		this.initFormatters();
+        this.tpl.loadTemplates(['event-list-item', 'main-layout', 'page-event-list', 'menu', 'page-login', 'question-item', 'page-event', 'partner-list-item', 'partner-details', 'page-partners', 'activities-item-list', 'page-activity-info', 'collapsible', 'my-profile', 'page-questions', 'dropdown'], function(){
+	        App.Router = new AppRouter();
+	        Backbone.history.start({pushState: false, root: '/'});
+        });
     },
+	/**
+	 * Format init
+	 */
+	initFormatters: function(){
+		moment.lang('en', {
+			calendar : {
+				lastDay : '[Yesterday]',
+				sameDay : '[Today]',
+				nextDay : '[Tomorrow]',
+				lastWeek : '[last] dddd',
+				nextWeek : 'dddd',
+				sameElse : 'Do MMM.'
+			}
+		});
+	},
+	/**
+	 * Tells whether application has some event selected.
+	 * @return {boolean}
+	 */
+	hasSelectedEvent: function(){
+		return (this.SelectedEvent != null);
+	},
+	/**
+	 * Get home url.
+	 * @return {string}
+	 */
+	getHomeUrl: function(){
+		var homeUrl = '';
+
+		if(this.hasSelectedEvent()){
+			homeUrl = '#events/'+this.SelectedEvent.get('id');
+		}
+		else{
+			// No event is selected. Home is event list.
+			homeUrl = '#events';
+		}
+
+		return homeUrl;
+	},
     /**
      * Enable cross domain requests.
      */
@@ -97,7 +137,7 @@ window.App = {
 	 * Disable all the
 	 */
 	loadDictionary: function(){
-        $.getJSON('http://localhost:8000/js/dictionary.json',
+        $.getJSON('js/dictionary.json',
             function(data) {
                 window.polyglot = new Polyglot({ phrases: data });
             }
@@ -117,38 +157,4 @@ window.App = {
 
         console.log('Received Event: ' + id);
     }
-};
-
-App.tpl = {
-
-    // Hash of preloaded templates for the app
-    templates:{},
-
-    // Recursively pre-load all the templates for the app.
-    // This implementation should be changed in a production environment. All the template files should be
-    // concatenated in a single file.
-    loadTemplates: function (names, callback) {
-
-        var loadTemplate = function (index) {
-            var name = names[index];
-            console.log('Loading template: ' + name);
-            $.get('tpl/'+ name +'.html', function (data) {
-                App.tpl.templates[name] = data;
-                index++;
-                if (index < names.length) {
-                    loadTemplate(index);
-                } else {
-                    callback();
-                }
-            });
-        };
-
-        loadTemplate(0);
-    },
-
-    // Get template by name from hash of preloaded templates
-    get:function (name) {
-        return App.tpl.templates[name];
-    }
-
 };

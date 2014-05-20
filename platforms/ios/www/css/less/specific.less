@@ -1,34 +1,65 @@
 #login-form{
-	input{
+	.input-lg{
+		text-align: center;
 	}
 }
 
-#previous-events{
-	.ui-collapsible-heading{
-
+#event-list{
+	.panel-heading{
+		text-align: center;
 	}
-}
 
-#upcoming-events{
-	.ui-collapsible-heading{
+	#events-previous{
+		.panel-heading{
+			.bg-grey();
+		}
+	}
 
+	#events-upcoming{
+		.panel-heading{
+			.bg-black();
+		}
+	}
+
+	.event-date{
+		color: dimgray;
+	}
+
+	.event-time{
+		color: rgb(172, 172, 172);
 	}
 }
 
 #home-btns{
-	.ui-btn-lg{
+	.ui-btn{
 		font-size: 1.5em;
 		line-height: 2em;
+		text-transform: uppercase;
+		text-align: center;
 
-		&.ui-btn-icon-lg.ui-btn-icon-top{
-			padding-top: 2.25em;
+		.glyphicon{
+			font-size: 2em;
+			display: block;
+			margin-top: 0.4em;
 		}
 	}
 
 	.map-btn{
-		font-size: 2.2em;
-		line-height: 2.2em;
+		font-size: 3em;
+		line-height: 2em;
 		text-align: left;
+
+		.text{
+			margin-left: 0.8em;
+		}
+
+		.glyphicon{
+			display: inline-block;
+			float: right;
+			font-size: 1.1em;
+			margin-bottom: 0.4em;
+			margin-right: 0.3em;
+		}
 	}
 }
 

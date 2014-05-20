@@ -43,7 +43,7 @@ window.App = {
 	/**
 	 * Global URL setting for all queries
 	 */
-	homeUrl : 'http://localhost:2403',
+	homeUrl : 'http://188.226.155.227:5000',
 
 	/**
 	 * Application Constructor
