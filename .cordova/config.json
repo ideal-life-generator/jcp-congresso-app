@@ -1,0 +1,8 @@
+{
+    "lib": {
+        "www": {
+            "id": "no.jcp.congresso",
+            "version": "1.0.0"
+        }
+    }
+}
