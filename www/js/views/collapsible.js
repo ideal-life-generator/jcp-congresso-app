@@ -6,7 +6,6 @@ App.Views.Collapsible = App.Components.View.extend({
     render: function() {
         this.$el.html(this.template({ "name": this.model }));
         this.addAttributes();
-        //this.makeCollapse();
 
         return this;
     },
@@ -23,7 +22,7 @@ App.Views.Collapsible = App.Components.View.extend({
     },
     makeCollapse: function() {
         this.$el.collapse({
-            parent: "#accordion",
+            parent: "#partner-list",
             toggle: false
         });
     }

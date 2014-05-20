@@ -15,6 +15,7 @@ The easiest way to install the Scandit Barcode Scanner plugin into your Phonegap
 
 * Install [Cordova CLI](http://docs.phonegap.com/en/3.1.0/guide_cli_index.md.html#The%20Command-line%20Interface) if it is not already installed. 
 * [Sign up](http://www.scandit.com/pricing) and download the [Scandit Barcode Scanner SDK](http://www.scandit.com/barcode-scanner-sdk/) Cordova Plugins for iOS and Android from your Scandit account. Unzip the zip to a folder of your choice. 
+
 * Generate a sample Cordova project or use your existing Cordova project
 
 To generate a sample project, use the following command line commands: 
@@ -39,6 +40,14 @@ To generate a sample project, use the following command line commands:
 
     * See [Scandit Barcode Scanner SDK Documentation](http://docs.scandit.com) for the full API reference. 
 
+
+* Important: 
+
+    * if you decide against using the packaged zip with the Scandit Phonegap/Cordova plugin from the downloads page of your Scandit account and    
+      use the github src of the plugin instead (not recommended!), you will need to copy the libraries and resources from the native Scandit SDK 
+      builds for iOS and Android to the locations specified in the plugins.xml file. 
+
+    * note that there is a serious bug in Cordova 3.4.0 that does not allow you to build your app with Xcode 5.1/Cordova 3.4.0 on an iPhone 5S with an arm64 slice (http://shazronatadobe.wordpress.com/2014/03/12/xcode-5-1-and-cordova-ios/). A workaround until the Cordova bug fix release 3.4.1 will become available is to remove the "arm64" slice from the build settings in your Xcode project. 
 
 
 ### Sample HTML + JS
@@ -124,6 +133,17 @@ To generate a sample project, use the following command line commands:
 
 Changelog
 ------------------------
+
+**Scandit SDK Phonegap/Cordova Plugin for iOS and Android (4.0.0beta1) - March 31st 2014**
+
+ * upgraded to Scandit SDK for iOS 4.0.0 and Scandit SDK for Android 4.0.0beta1 (see release notes in download section of your Scandit SDK for details)
+
+    * [Release Notes of native Scandit SDK for iOS 4.0.0](https://ssl.scandit.com/account/sdk/release-notes/scanditsdk-community-ios_4.0.0) 
+
+    * [Release Notes of native Scandit SDK for Android 4.0.0beta1](https://ssl.scandit.com/account/sdk/release-notes/scanditsdk-community-android_4.0.0beta1) 
+
+ * fixed bug that prevented 'preferFrontCamera' parameter implementation from working properly.  
+
 
 **Scandit SDK Phonegap/Cordova Plugin for iOS and Android (2.3.0) - November 26th 2013**
 

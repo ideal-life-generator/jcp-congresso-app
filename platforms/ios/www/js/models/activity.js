@@ -10,7 +10,7 @@ App.Models.Activity = Backbone.Model.extend({
         var month = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
         var days = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ];
 
-        return (days[this.startDate.getDay()] + " " + this.startDate.getDate() + "th" + " " + month[this.startDate.getMonth()] + " " + this.startDate.getFullYear());
+        return moment(this.get('startTime')).format('dddd Do MMM YYYY');//(days[this.startDate.getDay()] + " " + this.startDate.getDate() + "th" + " " + month[this.startDate.getMonth()] + " " + this.startDate.getFullYear());
     },
     createTime: function() {
         this.initializeDate();

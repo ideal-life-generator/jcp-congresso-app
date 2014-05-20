@@ -1,3 +1,4 @@
+// Black title bar
 .title-bar{
 	background-color: black;
 	text-align: center;
@@ -21,94 +22,6 @@ button, input, select, textarea{
 	font-family: @font-family-base;
 }
 
-// Icons
-// --------------------------------
-.ui-btn-icon-lg{
-
-	&.ui-btn-icon-top,
-	&.ui-btn-icon-bottom{
-		&:after{
-			height: 40px;
-			width: 40px;
-			margin-left: -20px;
-		}
-	}
-
-	&.ui-btn-icon-left,
-	&.ui-btn-icon-right,
-	&.ui-btn-icon-notext{
-		&:after{
-			height: 40px;
-			width: 40px;
-			margin-top: -20px;
-		}
-	}
-}
-
-.ui-btn-icon-left,
-.ui-btn-icon-right,
-.ui-btn-icon-top,
-.ui-btn-icon-bottom,
-.ui-btn-icon-notext{
-	&:after{
-		background-size: cover;
-		.border-radius(0px);
-		background-color: transparent;
-	}
-}
-
-// Buttons and form elements
-// --------------------------------
-.ui-btn{
-	&.ui-btn-lg{
-		border-style: none;
-		color: #FFFFFF;
-		font-size: 2.5em;
-		line-height: 2.5em;
-		font-weight: normal;
-		margin-top: 0;
-		margin-bottom: 0;
-		padding-bottom: 0em;
-		padding-top: 0.1em;
-		text-shadow: none;
-		text-transform: uppercase;
-		.box-shadow(none);
-		.bg-green-40();
-    }
-
-	&.bg-green-10{
-		.bg-green-10() !important;
-	}
-	&.bg-green-20{
-		.bg-green-20() !important;
-	}
-	&.bg-green-30{
-		.bg-green-30() !important;
-	}
-	&.bg-green-40{
-		.bg-green-40() !important;
-	}
-	&.bg-green-50{
-		.bg-green-50() !important;
-	}
-}
-
-
-.ui-input-text,
-.ui-input-search{
-	margin: 0.9em 0;
-
-	input{
-		min-height: 2.6em;
-	}
-}
-
-// Widget classes
-// -------------------------------
-.ui-collapsible-content {
-	padding: 0em;
-}
-
 // General classes
 // -------------------------------
 
@@ -130,38 +43,31 @@ button, input, select, textarea{
 // -------------------------------
 .bg-green-10{
 	background-color: @green-10;
+	color: white;
 }
 .bg-green-20{
 	background-color: @green-20;
+	color: white;
 }
 .bg-green-30{
 	background-color: @green-30;
+	color: white;
 }
 .bg-green-40{
 	background-color: @green-40;
+	color: white;
 }
 .bg-green-50{
 	background-color: @green-50;
+	color: white;
 }
 
-#list .ls-gray{
-    display: block;
-    color: black;
-    padding: 15px 30px;
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
-    border-top: 1px solid rgba(255, 255, 255, .1);
-    text-decoration: none;
-    background-collor: @gray-10;
-    opacity: 0.9;
+.bg-grey{
+	background-color: #A6AAA9;
+	color: black;
 }
 
-.ui-btn {
-  font-size: 16px;
-  display: block;
-  position: relative;
-  text-align: center;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  cursor: pointer;
+.bg-black{
+	background-color: black;
+	color: white;
 }

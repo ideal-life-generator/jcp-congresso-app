@@ -38,11 +38,12 @@ public class ScanditSDK extends CordovaPlugin {
     
     private CallbackContext mCallbackContext;
     
+    
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
         mCallbackContext = callbackContext;
         PluginResult result = null;
-
+        
         if (action.equals(SCAN)) {
             scan(args);
             result = new PluginResult(Status.NO_RESULT);
@@ -55,9 +56,9 @@ public class ScanditSDK extends CordovaPlugin {
         }
     }
     /**
-     * Start scanning. The available options to pass this function are as 
+     * Start scanning. The available options to pass this function are as
      * follows:
-     * 
+     *
      * exampleStringForOption: defaultValue
      * Short explanation of option.
      *
@@ -75,25 +76,33 @@ public class ScanditSDK extends CordovaPlugin {
      * Enables or disables the recognition of 2D codes.
      *
      * ean13AndUpc12: true
-     * Enables or disables the recognition of EAN13 and UPC12/UPCA codes. 
+     * Enables or disables the recognition of EAN13 and UPC12/UPCA codes.
      *
      * ean8: true
-     * Enables or disables the recognition of EAN8 codes. 
+     * Enables or disables the recognition of EAN8 codes.
      *
      * upce: true
-     * Enables or disables the recognition of UPCE codes. 
+     * Enables or disables the recognition of UPCE codes.
      *
      * code39: true
-     * Enables or disables the recognition of CODE39 codes. 
+     * Enables or disables the recognition of CODE39 codes.
      * Note: Not all Scandit SDK versions support Code 39 scanning.
      *
      * code128: true
-     * Enables or disables the recognition of CODE128 codes. 
+     * Enables or disables the recognition of CODE128 codes.
      * Note: Not all Scandit SDK versions support Code 128 scanning.
      *
      * itf: true
-     * Enables or disables the recognition of ITF codes. 
+     * Enables or disables the recognition of ITF codes.
      * Note: Not all Scandit SDK versions support ITF scanning.
+     *
+     * gs1DataBar: false
+     * Enables or disables the recognition of GS1 DataBar codes.
+     * Note: Not all Scandit SDK versions support GS1 DataBar scanning.
+     *
+     * gs1DataBarExpanded: false
+     * Enables or disables the recognition of GS1 DataBar Expanded codes.
+     * Note: Not all Scandit SDK versions support GS1 DataBar Expanded scanning.
      *
      * qr: false
      * Enables or disables the recognition of QR codes.
@@ -101,6 +110,10 @@ public class ScanditSDK extends CordovaPlugin {
      * dataMatrix: false
      * Enables or disables the recognition of Data Matrix codes.
      * Note: Not all Scandit SDK versions support Data Matrix scanning.
+     *
+     * pdf417: false
+     * Enables or disables the recognition of PDF417 codes.
+     * Note: Not all Scandit SDK versions support PDF417 scanning.
      *
      * msiPlessey: false
      * Enables or disables the recognition of MSI Plessey codes.
@@ -127,8 +140,8 @@ public class ScanditSDK extends CordovaPlugin {
      * code was detected in the current frame.
      *
      * scanningHotSpot: "0.5/0.5" (x/y)
-     * Changes the location of the spot where the recognition actively scans for 
-     * barcodes. X and y can be between 0 and 1, where 0/0 is the top left corner 
+     * Changes the location of the spot where the recognition actively scans for
+     * barcodes. X and y can be between 0 and 1, where 0/0 is the top left corner
      * and 1/1 the bottom right corner.
      *
      * scanningHotSpotHeight: 0.25
@@ -136,7 +149,7 @@ public class ScanditSDK extends CordovaPlugin {
      * barcodes. The height of the hot spot is given relative to the height of
      * the screen and has to be between 0.0 and 0.5.
      * Be aware that if the hot spot height is very large, the engine is forced
-     * to decrease the quality of the recognition to keep the speed at an 
+     * to decrease the quality of the recognition to keep the speed at an
      * acceptable level.
      *
      * ignorePreviewAspectRatio: false
@@ -211,12 +224,15 @@ public class ScanditSDK extends CordovaPlugin {
      * Sets the size of the viewfinder relative to the size of the screen size.
      * Changing this value does not(!) affect the area in which barcodes are successfully recognized.
      * It only changes the size of the box drawn onto the scan screen.
-     * 
+     *
      * viewfinderColor: "FFFFFF"
      * Sets the color of the viewfinder when no code has been recognized yet.
-     * 
+     *
      * viewfinderDecodedColor: "00FF00"
      * Sets the color of the viewfinder once the barcode has been recognized.
+     *
+     * zoom: 0.4
+     * Sets the zoom to the given percentage of the max zoom possible.
      */
     private void scan(JSONArray data) {
         Intent intent = new Intent(cordova.getActivity(), ScanditSDKActivity.class);
@@ -263,7 +279,7 @@ public class ScanditSDK extends CordovaPlugin {
             args.put(barcode);
             args.put(symbology);
             mCallbackContext.success(args);
-        
+            
         } else if (resultCode == ScanditSDKActivity.MANUAL) {
             String barcode = data.getExtras().getString("barcode");
             JSONArray args = new JSONArray();

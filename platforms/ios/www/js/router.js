@@ -1,6 +1,11 @@
 AppRouter = Backbone.Router.extend({
 
 	/**
+	 * Name of the currently active route.
+	 */
+	currentRoute: null,
+
+	/**
 	 * General routing
 	 */
     routes:{
@@ -20,17 +25,23 @@ AppRouter = Backbone.Router.extend({
         "questions": "questions"
     },
 	/**
+	 * This runs on router initialization.
+	 */
+	initialize: function(){
+		var router = this;
+
+		// Attach event handler to route change.
+		Backbone.history.on('route', function (obj, name) {
+			router.currentRoute = name;
+		});
+	},
+	/**
 	 * Home action.
 	 * If user has previously selected an event, then redirect to this event.
-	 * Otherwise redirect to event list..
+	 * Otherwise redirect to event list.
 	 */
 	home: function(){
-		if(window.App.SelectedEvent){
-			window.App.Router.navigate('#events/'+window.App.SelectedEvent.get('id'), true);
-		}
-		else{
-			window.App.Router.navigate('#events', true);
-		}
+		window.App.Router.navigate(App.getHomeUrl(), {trigger: true});
 	},
 	/**
 	 * Show list of events.
@@ -38,12 +49,16 @@ AppRouter = Backbone.Router.extend({
     events: function () {
         var self = this;
         var events = new App.Collections.Events();
+
+		// Unset selected event.
+		App.SelectedEvent = null;
+
         events.fetch({
             success: function(){
                 var view = new App.Views.EventListPage({ collection: events });
                 window.App.changePage(view.el);
             },
-            error: function() {
+            error: function(err) {
                 alert("Please connect to internet !!!");
             }
         });
@@ -58,7 +73,7 @@ AppRouter = Backbone.Router.extend({
             success: function() {
                 // fetch successfully completed
                 window.App.SelectedEvent = event;
-                var view = new App.Views.EventPage({ model: event.get('id') });
+                var view = new App.Views.EventPage({ model: event });
                 window.App.changePage(view.el);
             }
         });
@@ -164,21 +179,45 @@ AppRouter = Backbone.Router.extend({
         window.App.changePage(profile.el);
     },
     scan: function() {
-        cordova.exec(function(resultArray) {
-
-                alert("Scanned " + resultArray[0] + " code: " + resultArray[1]);
-
-                }, function(error) {
-                alert("Failed: " + error);
-            }, "ScanditSDK", "scan",
-            ["ENTER YOUR APP KEY HERE",
-                {"beep": true,
-                    "1DScanning" : true,
-                    "2DScanning" : true}]);
+        console.log('scan(): init');
+        // documentation said the syntax was this:
+        // var scanner = window.PhoneGap.require("cordova/plugin/BarcodeScanner");
+        // but playing with options, seems like it should be this:
+        //var scanner = window.cordova.require("com.phonegap.plugins.barcodescanner");
+        var self = this;
+        cordova.plugins.barcodeScanner.scan(
+            function (result) {
+                self.questions();
+            },
+            function (error) {
+                alert("Scanning failed: " + error);
+            }
+        );
     },
     questions: function() {
-        var questions = new App.Views.QuestionsPage();
-        window.App.changePage(questions.el);
+        var categories = new App.Collections.Categories();
+        categories.fetch({
+            success: function() {
+                loadQuestions(categories);
+            },
+            error: function() {
+                alert("Please connect to internet !!!");
+            }
+        });
+        var loadQuestions = function(categories) {
+            var questions = new App.Collections.Questions();
+            questions.fetch({
+                success: function() {
+                    var questionsView = new App.Views.QuestionsPage({ collection: questions });
+                    questionsView.categories = categories;
+                    questionsView.render();
+                    window.App.changePage(questionsView.el);
+                },
+                error: function() {
+                    alert("Please connect to internet !!!");
+                }
+            });
+        };
     }
 });
 
