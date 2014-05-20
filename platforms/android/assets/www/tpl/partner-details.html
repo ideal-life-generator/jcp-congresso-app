@@ -1,0 +1,16 @@
+<div class="title-bar">
+    <%= name %>
+</div>
+<div class="partner-body">
+    <img src="img/<%= logoUrl %>.png" align="middle" class="partner-img"/>
+    <div class="partner-details">
+        <h3><%= name %></h3>
+        <h5><%= category %></h5>
+        <a href="<%= website %>">Click to visit website</a>
+        <p><%= description %></p>
+    </div>
+
+    <textarea class="form-control" rows="3" placeholder="Comments ..."></textarea>
+</div>
+
+<a href="#" data-transition="pop" class="ui-btn ui-btn-lg minus-side-margin"><%= polyglot.t('Submit') %></a>

@@ -1,0 +1,14 @@
+<div class="title-bar">
+    <%= polyglot.t('Login') %>
+</div>
+
+<form role="form" id="login-form" class="with-padding bg-green-20 minus-side-margin">
+    <div class="form-group">
+        <input type="email" name="email" class="form-control input-lg" id="email" placeholder="Email">
+    </div>
+    <div class="form-group">
+        <input type="password" name="password" class="form-control input-lg" id="password" placeholder="Password">
+    </div>
+</form>
+
+<a href="#" data-transition="pop" id="login-btn" class="ui-btn ui-btn-lg minus-side-margin"><%= polyglot.t('Submit') %></a>

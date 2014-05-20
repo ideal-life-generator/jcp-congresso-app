@@ -1,0 +1,28 @@
+<div class="panel-group minus-side-margin" id="event-list">
+    <div class="panel panel-default previous" id="events-previous">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="toggle-handler" data-toggle="collapse" data-parent="#event-list" href="#events-previous-body">
+                    <%= polyglot.t('Previous events') %>
+                </a>
+            </h4>
+        </div>
+        <div id="events-previous-body" class="panel-collapse collapse">
+            <div class="panel-body panel-list"></div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" id="events-upcoming">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="toggle-handler" data-toggle="collapse" data-parent="#event-list" href="#events-upcoming-body">
+                    <%= polyglot.t('Upcoming events') %>
+                </a>
+            </h4>
+        </div>
+        <div id="events-upcoming-body" class="panel-collapse collapse in">
+            <div class="panel-body panel-list"></div>
+        </div>
+    </div>
+</div>
+<a href="#questions">Questions</a>
