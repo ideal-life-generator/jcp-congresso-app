@@ -14,8 +14,6 @@ App.Views.RangeSlider = App.Components.View.extend({
             "data-slider-value": this.model.value,
             "data-slider-tooltip": "hide"
         });
-
-
         return this;
     }
 });
