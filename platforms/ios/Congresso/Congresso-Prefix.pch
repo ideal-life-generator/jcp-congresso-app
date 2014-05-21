@@ -17,7 +17,7 @@
  under the License.
  */
 //
-// Prefix header for all source files of the 'AteaJ' target in the 'AteaJ' project
+// Prefix header for all source files of the 'Congresso' target in the 'Congresso' project
 //
 
 #ifdef __OBJC__

@@ -179,37 +179,45 @@ AppRouter = Backbone.Router.extend({
         window.App.changePage(profile.el);
     },
     scan: function() {
-        console.log('scan(): init');
-        // documentation said the syntax was this:
-        // var scanner = window.PhoneGap.require("cordova/plugin/BarcodeScanner");
-        // but playing with options, seems like it should be this:
-        //var scanner = window.cordova.require("com.phonegap.plugins.barcodescanner");
         var self = this;
         cordova.plugins.barcodeScanner.scan(
             function (result) {
-                self.questions();
+                self.questions(result.text);
             },
             function (error) {
                 alert("Scanning failed: " + error);
             }
         );
     },
-    questions: function() {
-        var categories = new App.Collections.Categories();
-        categories.fetch({
-            success: function() {
-                loadQuestions(categories);
+    questions: function(id) {
+        // load visitor by { id }
+        var visitor = new App.Models.User({id: id});
+        visitor.fetch({
+            success: function(){
+                loadCategories(visitor);
             },
             error: function() {
                 alert("Please connect to internet !!!");
             }
         });
-        var loadQuestions = function(categories) {
+        var loadCategories = function(visitor) {
+            var categories = new App.Collections.Categories();
+            categories.fetch({
+                success: function() {
+                    loadQuestions(categories, visitor);
+                },
+                error: function() {
+                    alert("Please connect to internet !!!");
+                }
+            });
+        };
+        var loadQuestions = function(categories, visitor) {
             var questions = new App.Collections.Questions();
             questions.fetch({
                 success: function() {
                     var questionsView = new App.Views.QuestionsPage({ collection: questions });
                     questionsView.categories = categories;
+                    questionsView.user = visitor;
                     questionsView.render();
                     window.App.changePage(questionsView.el);
                 },

@@ -9,7 +9,7 @@ App.Views.QuestionsPage = App.Components.View.extend({
         var layout = new App.Views.Layout();
         this.$el.append(layout.el); // add layout
 
-        this.$el.find('.content').addClass('question-body').append(this.template({})).addClass('container-fluid');
+        this.$el.find('.content').addClass('question-body').append(this.template({visitor: this.user.get('username')})).addClass('container-fluid');
         this.$el.addClass('push-page');
 
         this.displayCategories();

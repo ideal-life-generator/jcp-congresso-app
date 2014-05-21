@@ -29,7 +29,7 @@
     },
     "installed_plugins": {
         "com.phonegap.plugins.barcodescanner": {
-            "PACKAGE_NAME": "com.atea.j"
+            "PACKAGE_NAME": "no.jcp.congresso"
         }
     },
     "dependent_plugins": {}

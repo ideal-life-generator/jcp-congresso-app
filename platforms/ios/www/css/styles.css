@@ -349,6 +349,15 @@ textarea {
 .panel a:active {
   text-decoration: none;
 }
+.alert {
+  margin-bottom: 0px;
+  -webkit-border-radius: 0px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 0px;
+  -moz-background-clip: padding;
+  border-radius: 0px;
+  background-clip: padding-box;
+}
 .panel-list {
   padding: 0px;
 }
@@ -381,6 +390,65 @@ textarea {
   margin: 0px;
 }
 /* Page specific */
+.title-bar {
+  background-color: black;
+  text-align: center;
+  font-size: 1.6em;
+  color: white;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  cursor: pointer;
+  margin-left: -1em;
+  margin-right: -1em;
+}
+ul {
+  margin: 0px;
+  padding: 0px;
+}
+button,
+input,
+select,
+textarea {
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+.with-padding {
+  padding: 1em;
+}
+.no-padding {
+  padding: 0em;
+}
+.minus-side-margin {
+  margin-left: -1em;
+  margin-right: -1em;
+}
+.bg-green-10 {
+  background-color: #81dd4f;
+  color: white;
+}
+.bg-green-20 {
+  background-color: #6fbf40;
+  color: white;
+}
+.bg-green-30 {
+  background-color: #62aa3a;
+  color: white;
+}
+.bg-green-40 {
+  background-color: #4f8c2e;
+  color: white;
+}
+.bg-green-50 {
+  background-color: #39661f;
+  color: white;
+}
+.bg-grey {
+  background-color: #A6AAA9;
+  color: black;
+}
+.bg-black {
+  background-color: black;
+  color: white;
+}
 #login-form .input-lg {
   text-align: center;
 }
@@ -390,23 +458,35 @@ textarea {
 #event-list #events-previous .panel-heading {
   background-color: #A6AAA9;
   color: black;
-  background-image: url('../img/arrow-top.png');
-  background-position: 50% 20%;
-  background-repeat: no-repeat;
-  background-size: 2em auto;
 }
-#event-list #events-previous .panel-heading h4 {
-  padding-top: 1em;
+#event-list #events-previous .panel-heading .toggle-handler.collapsed {
+  display: inline-block;
+  background-image: url('../img/arrow-top.png');
+  background-position: center top;
+  background-repeat: no-repeat;
+  padding-top: 1.2em;
+  background-size: 1.5em auto;
 }
 #event-list #events-upcoming .panel-heading {
   background-color: black;
   color: white;
+}
+#event-list #events-upcoming .panel-heading .toggle-handler.collapsed {
+  display: inline-block;
+  background-image: url('../img/arrow-bottom.png');
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  padding-bottom: 1.2em;
+  background-size: 1.5em auto;
 }
 #event-list .event-date {
   color: dimgray;
 }
 #event-list .event-time {
   color: #acacac;
+}
+.partner-body {
+  padding: 1em;
 }
 .partner-body .event-time {
   color: #acacac;
@@ -441,9 +521,10 @@ textarea {
   background-color: #f8f8f8;
   font-size: 1.6em;
   color: black;
-  padding: 0.2em 0.5em 0.5em 0.5em;
-  margin-left: -0.7em;
-  margin-right: -0.7em;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  margin-left: -1em;
+  margin-right: -1em;
 }
 .partner-img {
   width: 100%;
@@ -632,4 +713,21 @@ input[type="range"]::-webkit-slider-thumb:after {
 .range input + .range-label {
   padding-right: 5px;
   padding-left: 0;
+}
+/**
+ * Question Body
+ * --------------------------------------------------
+ */
+.question-body {
+  background-color: #62aa3a;
+  color: white;
+}
+.question-body .question {
+  background-color: #62aa3a;
+  color: white;
+}
+.question-body .divider-item {
+  margin: 2em;
+  background-color: #62aa3a;
+  color: white;
 }
