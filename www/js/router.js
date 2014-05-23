@@ -115,6 +115,9 @@ AppRouter = Backbone.Router.extend({
             }
         });
     },
+	/**
+	 * Single partner page
+	 */
     partner: function(id) {
         var partner = new App.Models.Partner({ id: id });
         partner.fetch({
@@ -143,6 +146,9 @@ AppRouter = Backbone.Router.extend({
             }
         });
     },
+	/**
+	 * Single activity page
+	 */
     activity: function(id) {
         var activity = new App.Models.Activity({ id: id });
         activity.fetch({
@@ -174,10 +180,16 @@ AppRouter = Backbone.Router.extend({
             }
         });
     },
+	/**
+	 * My profile
+	 */
     profile: function() {
         var profile = new App.Views.MyProfile({ model: App.Auth.User });
         window.App.changePage(profile.el);
     },
+	/**
+	 * Scanning the barcode
+	 */
     scan: function() {
         var self = this;
         cordova.plugins.barcodeScanner.scan(

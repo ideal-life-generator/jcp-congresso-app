@@ -1,6 +1,7 @@
 App.Views.LoginPage = App.Components.View.extend({
     events : {
-        'click #login-btn' : 'login'
+        'click #login-btn' : 'login',
+		'submit #login-form' : 'login'
     },
     initialize: function() {
         this.template = _.template(App.tpl.get('page-login'));
@@ -21,6 +22,9 @@ App.Views.LoginPage = App.Components.View.extend({
      * Try logging in.
      */
     login: function(e){
+		var that = this;
+		that.$el.find('.error-message').slideUp();
+
         var credentials = {
             username : this.$el.find('[name=email]').val(),
             password : this.$el.find('[name=password]').val()
@@ -33,8 +37,8 @@ App.Views.LoginPage = App.Components.View.extend({
 				window.App.Router.navigate('events', true);
 			}
 			else{
-				// TODO Change this to something better.
-				alert(message);
+				// Error logging
+				that.$el.find('.error-message').html(message).slideDown();
 			}
 		});
     }

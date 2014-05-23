@@ -1,2 +1,2 @@
-/Users/nik/Documents/projects/atea-j/platforms/android/ant-build/AndroidManifest.xml : \
-/Users/nik/Documents/projects/atea-j/platforms/android/AndroidManifest.xml \
+/Users/undsoft/htdocs/congresso-app/platforms/android/ant-build/AndroidManifest.xml : \
+/Users/undsoft/htdocs/congresso-app/platforms/android/AndroidManifest.xml \

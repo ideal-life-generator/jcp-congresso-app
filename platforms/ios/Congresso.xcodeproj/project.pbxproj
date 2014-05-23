@@ -38,13 +38,10 @@
 		7E7966E61810823500FA85AD /* icon-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DC1810823500FA85AD /* icon-small.png */; };
 		7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DD1810823500FA85AD /* icon-small@2x.png */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
-		FA4AFFAB3CB24D7A9A0220CD /* CDVBarcodeScanner.mm in Resources */ = {isa = PBXBuildFile; fileRef = 02DE5F3269924FEB96BF7D9C /* CDVBarcodeScanner.mm */; settings = {COMPILER_FLAGS = -fno-objc-arc; }; };
-		D5BF235C97744B9086FEE771 /* zxing-all-in-one.cpp in Resources */ = {isa = PBXBuildFile; fileRef = 2E5912D674944A05BF29BF70 /* zxing-all-in-one.cpp */; };
-		D69DFB8CB3C94668AE11B584 /* scannerOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E3F47BA6DF47D7A9EA64AD /* scannerOverlay.xib */; };
-		1550B097EF87457781BD7E99 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D40CFFB7F154AB5A3A6E341 /* libiconv.dylib */; };
-		1F0261FA7C04420DB457E765 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F329FDD2791245F7A4DCD597 /* AVFoundation.framework */; };
-		6D865B96E0BF46E69769B6F9 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D0F3D07CF804DFDA70ACE34 /* CoreVideo.framework */; };
-		8C85EA2DF1D8410381459F6E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED4113187807448D9037EB8C /* QuartzCore.framework */; };
+		A41F31E7C19B4ABDB07EFC5D /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F23907E14C54E9FBA31A463 /* libiconv.dylib */; };
+		7B3C60476EB14FD685B80B6A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D428A9FF37A54F8BBB4BDCEC /* AVFoundation.framework */; };
+		15FBAC32E4E841DC94076F37 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DD73ECE20324CB8948FD7B3 /* CoreVideo.framework */; };
+		D3797ED671984C4EA68FE2DC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576C167AA6004F6394A8FDAB /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,14 +106,10 @@
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "Congresso/config.xml"; sourceTree = "<group>"; };
-		02DE5F3269924FEB96BF7D9C /* CDVBarcodeScanner.mm */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "CDVBarcodeScanner.mm"; path = "com.phonegap.plugins.barcodescanner/CDVBarcodeScanner.mm"; sourceTree = "<group>"; fileEncoding = 4; };
-		2E5912D674944A05BF29BF70 /* zxing-all-in-one.cpp */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "zxing-all-in-one.cpp"; path = "com.phonegap.plugins.barcodescanner/zxing-all-in-one.cpp"; sourceTree = "<group>"; fileEncoding = 4; };
-		CA83ACE2040F41A0B3ED8303 /* zxing-all-in-one.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "zxing-all-in-one.h"; path = "com.phonegap.plugins.barcodescanner/zxing-all-in-one.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		65E3F47BA6DF47D7A9EA64AD /* scannerOverlay.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "scannerOverlay.xib"; path = "scannerOverlay.xib"; sourceTree = "<group>"; fileEncoding = 4; };
-		9D40CFFB7F154AB5A3A6E341 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libiconv.dylib"; path = "usr/lib/libiconv.dylib"; sourceTree = SDKROOT; fileEncoding = 4; };
-		F329FDD2791245F7A4DCD597 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "AVFoundation.framework"; path = "System/Library/Frameworks/AVFoundation.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		8D0F3D07CF804DFDA70ACE34 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "CoreVideo.framework"; path = "System/Library/Frameworks/CoreVideo.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		ED4113187807448D9037EB8C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "QuartzCore.framework"; path = "System/Library/Frameworks/QuartzCore.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		2F23907E14C54E9FBA31A463 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libiconv.dylib"; path = "usr/lib/libiconv.dylib"; sourceTree = SDKROOT; fileEncoding = 4; };
+		D428A9FF37A54F8BBB4BDCEC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "AVFoundation.framework"; path = "System/Library/Frameworks/AVFoundation.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		8DD73ECE20324CB8948FD7B3 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "CoreVideo.framework"; path = "System/Library/Frameworks/CoreVideo.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		576C167AA6004F6394A8FDAB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "QuartzCore.framework"; path = "System/Library/Frameworks/QuartzCore.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,10 +122,10 @@
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
 				5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */,
-				1550B097EF87457781BD7E99 /* libiconv.dylib in Frameworks */,
-				1F0261FA7C04420DB457E765 /* AVFoundation.framework in Frameworks */,
-				6D865B96E0BF46E69769B6F9 /* CoreVideo.framework in Frameworks */,
-				8C85EA2DF1D8410381459F6E /* QuartzCore.framework in Frameworks */,
+				A41F31E7C19B4ABDB07EFC5D /* libiconv.dylib in Frameworks */,
+				7B3C60476EB14FD685B80B6A /* AVFoundation.framework in Frameworks */,
+				15FBAC32E4E841DC94076F37 /* CoreVideo.framework in Frameworks */,
+				D3797ED671984C4EA68FE2DC /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,7 +207,6 @@
 				308D052D1370CCF300D202BF /* icons */,
 				308D05311370CCF300D202BF /* splash */,
 				8D1107310486CEB800E47090 /* Congresso-Info.plist */,
-				65E3F47BA6DF47D7A9EA64AD /* scannerOverlay.xib */,
 			);
 			name = Resources;
 			path = "Congresso/Resources";
@@ -227,10 +219,10 @@
 				5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */,
-				9D40CFFB7F154AB5A3A6E341 /* libiconv.dylib */,
-				F329FDD2791245F7A4DCD597 /* AVFoundation.framework */,
-				8D0F3D07CF804DFDA70ACE34 /* CoreVideo.framework */,
-				ED4113187807448D9037EB8C /* QuartzCore.framework */,
+				2F23907E14C54E9FBA31A463 /* libiconv.dylib */,
+				D428A9FF37A54F8BBB4BDCEC /* AVFoundation.framework */,
+				8DD73ECE20324CB8948FD7B3 /* CoreVideo.framework */,
+				576C167AA6004F6394A8FDAB /* QuartzCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -246,9 +238,6 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				02DE5F3269924FEB96BF7D9C /* CDVBarcodeScanner.mm */,
-				2E5912D674944A05BF29BF70 /* zxing-all-in-one.cpp */,
-				CA83ACE2040F41A0B3ED8303 /* zxing-all-in-one.h */,
 			);
 			name = Plugins;
 			path = "Congresso/Plugins";
@@ -342,7 +331,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 500;
+				LastUpgradeCheck = 510;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "__CLI__" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -412,7 +401,6 @@
 				7E7966E11810823500FA85AD /* icon-50@2x.png in Resources */,
 				7E7966E51810823500FA85AD /* icon-76@2x.png in Resources */,
 				30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */,
-				D69DFB8CB3C94668AE11B584 /* scannerOverlay.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,8 +432,6 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
-				FA4AFFAB3CB24D7A9A0220CD /* CDVBarcodeScanner.mm in Resources */,
-				D5BF235C97744B9086FEE771 /* zxing-all-in-one.cpp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,7 +494,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "Congresso/Congresso-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,
@@ -539,7 +525,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "Congresso/Congresso-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,
@@ -583,7 +569,7 @@
 					"\"$(OBJROOT)/UninstalledProducts/include\"",
 					"\"$(BUILT_PRODUCTS_DIR)\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
@@ -629,7 +615,7 @@
 					"\"$(OBJROOT)/UninstalledProducts/include\"",
 					"\"$(BUILT_PRODUCTS_DIR)\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,

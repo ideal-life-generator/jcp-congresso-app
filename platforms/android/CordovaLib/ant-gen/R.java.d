@@ -1,1 +1,1 @@
- : /Users/nik/Documents/projects/atea-j/platforms/android/CordovaLib/ant-build/AndroidManifest.xml \
+ : /Users/undsoft/htdocs/congresso-app/platforms/android/CordovaLib/ant-build/AndroidManifest.xml \
