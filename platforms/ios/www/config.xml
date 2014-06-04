@@ -27,6 +27,9 @@
     -->
     <feature name="http://api.phonegap.com/1.0/device" />
     <feature name="http://api.phonegap.com/1.0/camera" />
+    <feature name="BarcodeScanner">
+        <param name="android-package" value="com.phonegap.plugins.barcodescanner.BarcodeScanner" />
+    </feature>
 
     <!--
         If you do not want any permissions to be added to your app, add the
@@ -51,8 +54,6 @@
     <preference name="android-minSdkVersion"      value="14" />              <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
     <preference name="android-installLocation"    value="auto" />           <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
 
-    <!-- Plugins can also be added here. -->
-    <gap:plugin name="BarcodeScanner" />
 
     <!-- Define app icon for each platform. -->
     <icon src="icon.png" />

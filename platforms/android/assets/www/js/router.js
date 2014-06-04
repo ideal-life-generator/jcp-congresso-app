@@ -203,6 +203,10 @@ AppRouter = Backbone.Router.extend({
     },
     questions: function(id) {
         // load visitor by { id }
+
+		// Debug only.
+		alert(id);
+		id = '58ef04ce18cc4b0a';
         var visitor = new App.Models.User({id: id});
         visitor.fetch({
             success: function(){
