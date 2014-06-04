@@ -13,7 +13,7 @@ window.App.Auth = {
      * @returns {boolean}
      */
     isGuest : function(){
-        return (this.User == null);
+        return (!localStorage.getItem('user'));
     },
 
     isPartner: function(){
@@ -59,6 +59,7 @@ window.App.Auth = {
                     success: function() {
                         // fetch successfully completed
                         App.Auth.User = user;
+                        localStorage.setItem('user', user.toJSON());
                     }
                 });
             },
@@ -73,6 +74,7 @@ window.App.Auth = {
      */
     logout: function(){
         this.User = null;
+        localStorage.removeItem('user');
         // TODO delete localstorage session
     }
 
