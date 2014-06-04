@@ -1,7 +1,7 @@
-<div class="row">
-    <%= visitor %>
+<div class="row visitor">
+    <h2><%= visitor %></h2>
 </div>
-<div class="row">
+<div class="row category">
     <div class="col-xs-6">
         <%= polyglot.t('Category') %>
     </div>
@@ -12,11 +12,13 @@
 <div class="row questions">
 
 </div>
-<div class="partner-body">
+<div class="comment-body">
     <textarea class="form-control" rows="3" placeholder="Comments ..."></textarea>
 </div>
 <div class="alert alert-danger">
     Some danger ...
 </div>
-<div class="divider-items row"></div>
+<div class="divider-items row">
+    <h2></h2>
+</div>
 <a href="#" data-transition="pop" class="ui-btn ui-btn-lg minus-side-margin"><%= polyglot.t('Submit') %></a>

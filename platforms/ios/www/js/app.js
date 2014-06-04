@@ -49,7 +49,8 @@ window.App = {
 	 * Application Constructor
 	 */
     run: function() {
-        this.enableCrossDomain();
+        this.improveCompatibility();
+
 	    this.bindEvents();
         this.loadDictionary();
 		this.initFormatters();
@@ -95,14 +96,19 @@ window.App = {
 		return homeUrl;
 	},
     /**
-     * Enable cross domain requests.
+     * Various things to improve compatibility
      */
-    enableCrossDomain: function(){
+    improveCompatibility: function(){
+
+		// Cross domain requests
         $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
             options.xhrFields = {
                 withCredentials: true
             };
         });
+
+		// fastclick.js library
+		new FastClick(document.body);
     },
 	/**
 	 * Change page to another one.
@@ -122,7 +128,11 @@ window.App = {
 	 * 'load', 'deviceready', 'offline', and 'online'.
 	 */
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
+		if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
+			document.addEventListener("deviceready", this.onDeviceReady, false);
+		} else {
+			this.onDeviceReady(); //this is the browser
+		}
     },
 	/**
 	 * Deviceready Event Handler
@@ -132,7 +142,6 @@ window.App = {
             App.Router = new AppRouter();
             Backbone.history.start({pushState: false, root: '/'});
         });
-        App.receivedEvent('deviceready');
     },
 	/**
 	 * Disable all the
@@ -143,20 +152,6 @@ window.App = {
                 window.polyglot = new Polyglot({ phrases: data });
             }
         );
-    },
-	/**
-	 * Update DOM on received event.
-	 * @param id
-	 */
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
     },
 
     tpl: {

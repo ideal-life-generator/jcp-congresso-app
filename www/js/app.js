@@ -48,6 +48,7 @@ window.App = {
 	/**
 	 * Application Constructor
 	 */
+    Store: null,
     run: function() {
         this.improveCompatibility();
 
@@ -128,17 +129,17 @@ window.App = {
 	 * 'load', 'deviceready', 'offline', and 'online'.
 	 */
     bindEvents: function() {
-		if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
+		//if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
 			document.addEventListener("deviceready", this.onDeviceReady, false);
-		} else {
-			this.onDeviceReady(); //this is the browser
-		}
+		//} else {
+			//this.onDeviceReady(); //this is the browser
+		//}
     },
 	/**
 	 * Deviceready Event Handler
 	 */
     onDeviceReady: function() {
-        App.tpl.loadTemplates(['event-list-item', 'main-layout', 'page-event-list', 'menu', 'page-login', 'question-item', 'page-event', 'partner-list-item', 'partner-details', 'page-partners', 'activities-item-list', 'page-activity-info', 'collapsible', 'my-profile', 'page-questions', 'dropdown'], function(){
+        App.tpl.loadTemplates(['event-list-item', 'main-layout', 'page-event-list', 'menu', 'page-login', 'question-item', 'page-event', 'partner-list-item', 'partner-details', 'page-partners', 'activities-item-list', 'page-activity-info', 'collapsible', 'my-profile', 'page-questions', 'dropdown', 'page-rate-session', 'activities-item-rate-list', 'page-rate-sessions'], function(){
             App.Router = new AppRouter();
             Backbone.history.start({pushState: false, root: '/'});
         });
