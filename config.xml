@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
-        xmlns:gap = "http://phonegap.com/ns/1.0"
+        xmlns:gap = "http://cordova.apache.org/ns/1.0"
         id        = "no.jcp.congresso"
         version   = "1.0.0">
 
@@ -27,9 +26,6 @@
     -->
     <feature name="http://api.phonegap.com/1.0/device" />
     <feature name="http://api.phonegap.com/1.0/camera" />
-    <feature name="BarcodeScanner">
-        <param name="android-package" value="com.phonegap.plugins.barcodescanner.BarcodeScanner" />
-    </feature>
 
     <!--
         If you do not want any permissions to be added to your app, add the
@@ -41,6 +37,10 @@
 
     <!-- Customize your app and platform with the preference element. -->
     <!-- <preference name="phonegap-version"      value="3.4.0" /> -->      <!-- all: current version of PhoneGap -->
+    <preference name="Fullscreen"                 value="true" />           <!-- Hide OS bar -->
+    <preference name="DisallowOverscroll"         value="true"/>            <!-- Dissalow ovescrolling on iOS and Android -->
+
+
     <preference name="orientation"                value="portrait" />       <!-- all: always portrait -->
     <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
     <preference name="webviewbounce"              value="true" />           <!-- ios: control whether the screen 'bounces' when scrolled beyond the top -->

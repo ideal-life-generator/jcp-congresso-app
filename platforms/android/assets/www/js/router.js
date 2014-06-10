@@ -22,7 +22,9 @@ AppRouter = Backbone.Router.extend({
         "activity/:id": "activity",
         "profile": "profile",
         "scan": "scan",
-        "questions": "questions"
+        "questions": "questions",
+        "rate": "rate",
+        "rateList": "rateList"
     },
 	/**
 	 * This runs on router initialization.
@@ -161,26 +163,7 @@ AppRouter = Backbone.Router.extend({
             }
         });
     },
-    partnerFilter: function(filter) {
-        var partners = new App.Collections.Partners();
-        partners.fetch({
-            success: function() {
-                var filterEls = partners.filter(function(partner) {
-                    return partner.get('name').toLowerCase().indexOf(filter.toLowerCase()) >= 0;
-                });
-                var filterCol = new App.Collections.Partners(filterEls);
-                var view = new App.Views.PartnersPage({ collection: filterCol });
-                $(view.el).find('input').val(filter);
-                window.App.changePage(view.el, function() {
-                    $('#filter').focus();
-                });
-            },
-            error: function() {
-                alert("Please connect to internet !!!");
-            }
-        });
-    },
-	/**
+    /**
 	 * My profile
 	 */
     profile: function() {
@@ -192,6 +175,7 @@ AppRouter = Backbone.Router.extend({
 	 */
     scan: function() {
         var self = this;
+		var scanner = cordova.plugins.barcodeScanner;
         cordova.plugins.barcodeScanner.scan(
             function (result) {
                 self.questions(result.text);
@@ -242,6 +226,31 @@ AppRouter = Backbone.Router.extend({
                 }
             });
         };
+    },
+    rate: function() {
+        var questions = new App.Collections.Questions();
+        questions.fetch({
+            success: function() {
+                var rateView = new App.Views.RatePage({ collection: questions });
+                window.App.changePage(rateView.el);
+            },
+            error: function() {
+                alert("Please connect to internet !!!");
+            }
+        });
+    },
+    rateList: function() {
+        var activities = new App.Collections.Activities();
+        activities.eventId = "fca0ac1909c1e865";
+        activities.fetch({
+            success: function() {
+                var view = new App.Views.ActivitiesRatePage({ collection: activities });
+                window.App.changePage(view.el);
+            },
+            error: function() {
+                alert("Please connect to internet !!!");
+            }
+        });
     }
 });
 

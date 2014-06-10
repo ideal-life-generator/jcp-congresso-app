@@ -13,7 +13,7 @@ window.App.Auth = {
      * @returns {boolean}
      */
     isGuest : function(){
-        return (!localStorage.getItem('user'));
+        return this.User == null;
     },
 
     isPartner: function(){
@@ -33,8 +33,8 @@ window.App.Auth = {
     /**
      * Save session.
      */
-    saveSession: function(){
-        // TODO query localstorage here
+    saveSession: function(user){
+		localStorage.setItem('user', user.toJSON());
     },
     /**
      * Sends a request to server to login user.
@@ -59,7 +59,7 @@ window.App.Auth = {
                     success: function() {
                         // fetch successfully completed
                         App.Auth.User = user;
-                        localStorage.setItem('user', user.toJSON());
+						Auth.saveSession(user);
                     }
                 });
             },
@@ -75,7 +75,6 @@ window.App.Auth = {
     logout: function(){
         this.User = null;
         localStorage.removeItem('user');
-        // TODO delete localstorage session
     }
 
 };

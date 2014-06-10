@@ -30,20 +30,14 @@
                             "xml": "false",
                             "count": 1
                         }
-                    ],
-                    "QuartzCore.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
                     ]
                 }
             },
             "config.xml": {
                 "parents": {
-                    "/*": [
+                    "plugins": [
                         {
-                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"ios-package\" value=\"CDVBarcodeScanner\" /></feature>",
+                            "xml": "<plugin name=\"BarcodeScanner\" value=\"CDVBarcodeScanner\" />",
                             "count": 1
                         }
                     ]

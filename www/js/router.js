@@ -175,6 +175,7 @@ AppRouter = Backbone.Router.extend({
 	 */
     scan: function() {
         var self = this;
+		var scanner = cordova.plugins.barcodeScanner;
         cordova.plugins.barcodeScanner.scan(
             function (result) {
                 self.questions(result.text);

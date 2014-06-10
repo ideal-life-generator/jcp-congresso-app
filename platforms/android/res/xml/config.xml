@@ -1,8 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="no.jcp.congresso" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="no.jcp.congresso" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://cordova.apache.org/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
+    <preference name="AndroidLaunchMode" value="singleTop" />
     <feature name="App">
         <param name="android-package" value="org.apache.cordova.App" />
+    </feature>
+    <plugins>
+        <plugin name="BarcodeScanner" value="com.phonegap.plugins.barcodescanner.BarcodeScanner" />
+    </plugins>
+    <feature name="WebViewDebug">
+        <param name="android-package" value="com.jamiestarke.webviewdebug.WebViewDebug" />
+        <param name="onload" value="true" />
     </feature>
     <name>Congresso</name>
     <description>
@@ -14,9 +22,8 @@
     <content src="index.html" />
     <feature name="http://api.phonegap.com/1.0/device" />
     <feature name="http://api.phonegap.com/1.0/camera" />
-    <feature name="BarcodeScanner">
-        <param name="android-package" value="com.phonegap.plugins.barcodescanner.BarcodeScanner" />
-    </feature>
+    <preference name="Fullscreen" value="true" />
+    <preference name="DisallowOverscroll" value="true" />
     <preference name="orientation" value="portrait" />
     <preference name="target-device" value="universal" />
     <preference name="webviewbounce" value="true" />
