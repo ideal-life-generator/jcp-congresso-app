@@ -1,2 +1,2 @@
-/Users/undsoft/htdocs/congresso-app/platforms/android/ant-build/AndroidManifest.xml : \
-/Users/undsoft/htdocs/congresso-app/platforms/android/AndroidManifest.xml \
+/Users/nik/documents/app/platforms/android/ant-build/AndroidManifest.xml : \
+/Users/nik/documents/app/platforms/android/AndroidManifest.xml \

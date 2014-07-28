@@ -1,0 +1,32 @@
+<div class="title-bar">
+	Login
+</div>
+
+<form name="authorization" id="login-form" class="with-padding bg-green-20"
+      ng-submit="login.submit(name, password)"
+      novalidate>
+    <div class="form-group"
+         style="margin-left: 15px; margin-right: 15px;">
+        <input ng-model="login.username"
+        	     ng-mixlength="6"
+        	     ng-maxlength="30"
+               ng-pattern="pattern"
+               class="form"
+        	     type="email" name="email" placeholder="Email">
+    </div>
+    <div class="form-group"
+         style="margin-left: 15px; margin-right: 15px;">
+        <input ng-model="login.password"
+        	     ng-minlength="6"
+        	     ng-maxlength="30"
+               class="form"
+        	     type="password" name="password" id="password" placeholder="Password">
+    </div>
+    <button id="login-btn" class="ui-btn ui-btn-lg" type="submit">Submit</button>
+</form>
+
+</div>
+
+<br>
+<br>
+<br>

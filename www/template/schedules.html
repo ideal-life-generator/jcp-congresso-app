@@ -1,0 +1,35 @@
+<div class="panel-group" id="activity-list">
+    <div class="panel panel-default panel-list upcoming">
+        <div class="panel-collapse collapse in">
+            <div class="panel-body panel-list">
+                <loader></loader>
+                <ul class="list-group">
+                    <li ng-repeat="forDay in schedules">
+                        <header class="panel-heading">~ forDay[0][0].start_time | dayMonth ~</header>
+                        <ul>
+                            <li ng-repeat-start="forTime in forDay"
+                                class="divider">~ forTime[0].start_time | hourMinute ~-~ forTime[0].end_time | hourMinute ~</li>
+                            <li ng-repeat-end
+                                ng-repeat="schedule in forTime">
+                                <a ng-click="nextLocation(event.id + baseURL.SCHEDULESHREF + '/' + schedule.id)"
+                                   style="display: block;"
+                                   class="container-fluid">
+                                    <h4 class="row event-name">~ schedule.name ~</h4>
+                                    <p class="row event-time">
+                                        ~ schedule.moreinfo ~
+                                        <span style="visibility: ~ schedule.moreinfo ? '' : 'hidden' ~;" class="glyphicon glyphicon-map-marker"></span>
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<loader></loader>
+
+<br>
+<br>
+<br>

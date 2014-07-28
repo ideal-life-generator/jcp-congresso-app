@@ -1,3 +1,5 @@
+@-ms-viewport { width: 320px; }
+
 html, body{
 	overflow-x: hidden; /* prevents horizontal scroll bars */
 	-webkit-tap-highlight-color: rgba(0,0,0,0); /* disable webkit tap highlight */
@@ -9,12 +11,42 @@ html, body{
 html{
 
 	.push-page{
-		background-color: #7baf05;
-		background-image: url('../img/atea-bg.png');
 		.background-size(cover);
 		text-shadow: none;
-		height: 100%;
+		min-height: 100%;
+		position: relative;
+		left: 0;
 	}
+	-ms-touch-action: pan-x;
+    touch-action: pan-x;
+}
+
+body {
+	-webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -ms-content-zooming: none;
+}
+
+.table-wrap {
+	display: table;
+	width: 100%;
+}
+
+.background {
+	position: fixed;
+	background-color: #7baf05;
+	width: 100%;
+	z-index: -1;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
 }
 
 
@@ -33,11 +65,18 @@ html{
 /* Menu Transitions */
 
 .pushy, .push-page, .push{
-	.transition(.2s cubic-bezier(.16, .68, .43, .99));
+    -webkit-perspective: 60em;
+    -moz-perspective: 60em;
+    -o-perspective: 60em;
+    -ie-perspective: 60em;
+    perspective: 60em;
+    left: 0px;
+    &.hard {
+    	.transition(.2s cubic-bezier(.16, .68, .43, .99));
+    }
 
 	/* improves performance issues on mobile*/
 	-webkit-backface-visibility: hidden;
-	-webkit-perspective: 1000;
 }
 
 /* Site Overlay */
@@ -88,9 +127,15 @@ html{
 				border-top: 1px solid rgba(255, 255, 255, .1);
 				text-decoration: none;
 				font-size: 1.2em;
-
-				padding: 10px;
+				padding: 1em 1em 1em 2.5em;
 				color: #515151;
+				background-size: 1.3em 1.3em;
+				background-repeat: no-repeat;
+				background-position: 5% center;
+			}
+			&:first-child a{
+				padding-top: 1.6em;
+				padding-bottom: 1.6em;
 			}
 		}
 	}
@@ -104,6 +149,7 @@ html{
 	li a{
 		color: white;
 		font-size: 1.2em;
+		cursor: pointer;
 	}
 
 	.navbar-left{
@@ -118,10 +164,17 @@ html{
 }
 
 #header{
-	height: 6em;
-	line-height: 8.5em;
+	height: 9em;
+	padding-top: 2.25em;
+	padding-bottom: 2.25em;
+	width: inherit;
 	background-color: transparent;
 	border-style: none;
+	text-align: center;
+
+	p {
+		margin-bottom: 0;
+	}
 
 	> a{
 		display: block;
@@ -131,13 +184,21 @@ html{
 	}
 
 	.logo{
-		width: 100%;
-		height: 50%;
-		display: inline-block;
+		height: 4.5em;
+		display: block;
 		background-image: url('../img/atea-logo.png');
 		background-size: contain;
 		background-position: center center;
 		background-repeat: no-repeat;
+		&.hard {
+			margin-top: -1.25em;
+			height: 4.6em;
+			.transition(.2s cubic-bezier(.16, .68, .43, .99));
+		}
+		&.ease {
+			margin-top: -1.25em;
+			height: 4.6em;
+		}
 	}
 
 	&.has-selected-event{
@@ -147,14 +208,10 @@ html{
 
 		> a{
 			// Show arrow
-			background-image: url('../img/arrow-large-left.png');
-			background-position: 5% center;
-			background-repeat: no-repeat;
-			background-size: 2em auto;
-		}
-
-		.logo{
-			margin-top: 5px;
+			// background-image: url('../img/arrow-large-left.png');
+			// background-position: 5% center;
+			// background-repeat: no-repeat;
+			// background-size: 2em auto;
 		}
 
 		.event-name{
@@ -168,10 +225,17 @@ html{
 	}
 }
 
+.servey-name {
+	padding-top: 0.6em;
+	padding-bottom: 0.6em;
+}
+
 .content{
-	padding-left: @content-padding;
-	padding-right: @content-padding;
+	padding-left: 0;
+	padding-right: 0;
 	padding-bottom: 40px;
+	width: 100%;
+	position: relative;
 }
 
 #footer{
@@ -193,4 +257,25 @@ html{
 	.ui-btn-right{
 		right: 1em;
 	}
+}
+
+.back-button {
+	width: 100%;
+	height: 9.5em;
+	position: absolute;
+	top: 0px;
+	left: 0%;
+	background-image: url('../img/arrow-large-left.png');
+	background-position: 5% center;
+	background-repeat: no-repeat;
+	background-size: 2em auto;
+	cursor: pointer;
+}
+
+.relative {
+	position: relative;
+}
+
+.b-header {
+	font-size: 3.6em;
 }

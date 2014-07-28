@@ -1,0 +1,104 @@
+<loader></loader>
+<div id="home-btns"
+	   ng-if="event.eventType == 'public' || event.eventType == 'invited'">
+     <!-- Guest -->
+        <div class="row">
+            <a class="ui-btn bg-green-10 btn-register col-xs-6"
+               ng-click="toDifferentUrl(event.eventLink)"
+               target="_blank">
+                <img src="img/checked-user-xl.png" class="image-icon medium-icon">
+                <span class="text">Register</span>
+            </a>
+            <a class="ui-btn bg-green-20 btn-schedule col-xs-6"
+               ng-click="nextLocation(event.id + baseURL.SCHEDULESHREF)">
+                <img src="img/show-property-xl.png" class="image-icon medium-icon">
+                <span class="text">Schedule</span>
+            </a>
+        </div>
+		<div class="row">
+			<a class="ui-btn bg-green-50 btn-partners col-xs-12"
+               ng-click="nextLocation(event.id + '/partners')">
+        <img src="img/eye-3-xl.png" class="image-icon large-icon">
+				<span class="text">Partners</span>
+			</a>
+		</div>
+    
+	<div class="row">
+		<a class="ui-btn bg-green-40 map-btn col-xs-12"
+       ng-click="toDifferentUrl(event.eventLink)">
+      <img src="img/worldwide-location-xl.png" class="image-icon map-icon">
+			<span class="text">Map</span>
+		</a>
+	</div>
+</div>
+<div id="home-btns"
+	   ng-if="event.eventType === 'registered' && event.eventRole === 'regular'">
+     <!-- Guest -->
+        <div class="row">
+            <a class="ui-btn bg-green-20 btn-schedule col-xs-12"
+               ng-click="nextLocation(event.id + baseURL.SCHEDULESHREF)">
+                <img src="img/show-property-xl.png" class="image-icon medium-icon">
+                <span class="text">Schedule</span>
+            </a>
+        </div>
+        <div class="row">
+            <a class="ui-btn bg-green-30 btn-rate col-xs-6"
+               ng-click="nextLocation(event.id + baseURL.RATESHREF)">
+                <img src="img/edit-property-xl.png" class="image-icon medium-icon">
+				        <span class="text">Rate</span>
+            </a>
+            <a class="ui-btn bg-green-50 btn-parners col-xs-6"
+               ng-click="nextLocation(event.id + '/partners')">
+                <img src="img/eye-3-xl.png" class="image-icon large-icon">
+                <span class="text">Partners</span>
+            </a>
+        </div>
+    
+	<div class="row">
+		<a class="ui-btn bg-green-40 map-btn col-xs-12"
+       ng-click="toDifferentUrl(event.eventLink)">
+      <img src="img/worldwide-location-xl.png" class="image-icon map-icon">
+			<span class="text">Map</span>
+		</a>
+	</div>
+</div>
+<div id="home-btns"
+	   ng-if="event.eventType === 'registered' && event.eventRole === 'partner'">
+     <!-- Partner -->
+        <div class="row">
+            <a class="ui-btn bg-green-10 btn-scan col-xs-6"
+               ng-click="scanActivator()">
+                <img src="img/add-user-xl.png" class="image-icon medium-icon">
+                <span class="text">Scan</span>
+            </a>
+            <a class="ui-btn bg-green-20 btn-schedule col-xs-6"
+               ng-click="nextLocation(event.id + baseURL.SCHEDULESHREF)">
+                <img src="img/show-property-xl.png" class="image-icon medium-icon">
+                <span class="text">Schedule</span>
+            </a>
+        </div>
+        <div class="row">
+            <a class="ui-btn bg-green-30 btn-rate col-xs-6"
+               ng-click="nextLocation(event.id + baseURL.RATESHREF)">
+                <img src="img/edit-property-xl.png" class="image-icon medium-icon">
+				        <span class="text">Rate</span>
+            </a>
+            <a class="ui-btn bg-green-50 btn-parners col-xs-6"
+               ng-click="nextLocation(event.id + '/partners')">
+                <img src="img/eye-3-xl.png" class="image-icon large-icon">
+                <span class="text">Partners</span>
+            </a>
+        </div>
+    
+	<div class="row">
+		<a class="ui-btn bg-green-40 map-btn col-xs-12"
+       ng-click="toDifferentUrl(event.eventLink)">
+      <img src="img/worldwide-location-xl.png" class="image-icon map-icon">
+			<span class="text">Map</span>
+		</a>
+	</div>
+</div>
+
+<br>
+<br>
+<br>

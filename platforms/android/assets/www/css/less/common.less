@@ -10,7 +10,6 @@
 	padding-bottom: 0.4em;
     cursor: pointer;
 
-	.minus-side-margin();
 }
 
 ul{
@@ -22,11 +21,19 @@ button, input, select, textarea{
 	font-family: @font-family-base;
 }
 
+.clear {
+	clear: both;
+}
+
+.large {
+	font-size: 1.9em;
+}
+
 // General classes
 // -------------------------------
 
 .with-padding{
-	padding: @content-padding;
+	padding: @content-padding 0 0 0;
 }
 
 .no-padding{
@@ -70,4 +77,8 @@ button, input, select, textarea{
 .bg-black{
 	background-color: black;
 	color: white;
+}
+
+span.icon { 
+  font-family: 'Glyphicons Halflings'; 
 }

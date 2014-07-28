@@ -1,0 +1,29 @@
+<div class="container-fluid profile-body">
+<div class="row">
+    <div class="col-xs-6">
+        <br>
+    	<img ng-if="user.avatar"
+             ng-src="http://188.226.184.59/congressomulti/~user.avatar~" align="middle" width="100%" class="profile-img">
+    </div>
+    <div class="col-xs-6 relative">
+        <h3>~ user.first_name ~</h3>
+        <h3 style="margin-top: 10px;">~ user.last_name ~</h3>
+        <h4>~ user.company_name ~</h4>
+        <img style="width: 10em; float: left;" src="../img/coins.jpg">
+        <span style="float: left; margin-left: 2em;">
+            <h2>~participient.tokens~</h2>
+            <h2>Tokens</h2>
+        </span>
+    </div>
+</div>
+<br>
+<br>
+<qr type-number="8" correction-level="'X'" size="150" input-mode="0" text="user.barcode"></qr>
+<br>
+<br>
+<loader></loader>
+</div>
+
+<br>
+<br>
+<br>
