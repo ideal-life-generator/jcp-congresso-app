@@ -242,7 +242,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <h3>~setting.subject~</h3> <div	ng-repeat="smile in setting.options"> <label style="cursor: pointer; height: 2.3em;"> <input type="radio" style="margin-top: 0.3em;" name="~setting.name~" value="~smile.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <img ng-src="../img/~smile.subject~.png"/> <span>~smile.subject~</span> </label> </div> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <h3>~setting.subject~</h3> <div	ng-repeat="smile in setting.options"> <label style="cursor: pointer; height: 2.3em;"> <input type="radio" style="margin-top: 0.3em;" name="~setting.name~" value="~smile.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <img ng-src="img/~smile.subject~.png"/> <span>~smile.subject~</span> </label> </div> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }

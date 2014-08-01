@@ -40,22 +40,27 @@ atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routePar
 						proto.question_id = field.id
 						result.push proto
 
-			if result.length
+			if result.length and $scope.surveyForm.$valid
 				getDataTest.save { resource: 'surveyAnswer' }, { data: records: result }, (result) ->
-					message.success "Your form has been saved. И вы получаете: Thanks.", ->
-						getDataTest.put { resource: 'participant' }, { data: id: $scope.participient.id, extraParam: addTokens: 'passageSurvey', survey_id: $routeParams.rateseId }, (result) ->
-							data = result.data
-							tokens = data.message.receivedTokens.toString()
-							if tokens.length is 2
-								string = "0" + tokens
-							loto.run string, ->
-								$timeout ->
-									loto.number = null
-									message.success "You have received #{tokens} tokens!", ->
-										if $scope.contentAnimate isnt $scope.animationContentRight
-											$scope.contentAnimate = $scope.animationContentRight
-										history.back()
-								, 1000
+					message.success "Your form has been saved.", ->
+						if $scope.event.tokensActive
+							getDataTest.put { resource: 'participant' }, { data: id: $scope.participient.id, extraParam: addTokens: 'passageSurvey', survey_id: $routeParams.rateseId }, (result) ->
+								data = result.data
+								tokens = data.message.receivedTokens.toString()
+								if tokens.length < 3
+									string = "0" + tokens
+								loto.run string, ->
+									$timeout ->
+										loto.number = null
+										message.success "You have received #{tokens} tokens!", ->
+											if $scope.contentAnimate isnt $scope.animationContentRight
+												$scope.contentAnimate = $scope.animationContentRight
+											history.back()
+									, 1000
+						else
+							if $scope.contentAnimate isnt $scope.animationContentRight
+								$scope.contentAnimate = $scope.animationContentRight
+							history.back()
 				, (error) ->
 					message.warningAfter "No Internet connection."
 			else
@@ -258,24 +263,39 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 ($scope, $window, $location, baseURL, $routeParams, $rootScope, client, connection, getDataTest, connectionTest, message) ->
 	$location.prevLocation = baseURL.FEEDS
 
-	if client.navigator is "Windows Phone"
-		$scope.scanActivator = ->
-			cordova.plugins.barcodeScanner.scan (result) ->
-				connectionTest.makeLoad
-					params:
-						resource: 'member'
-						data: "{ 'extraParam': { 'barcode': '#{result.text}' }}"
-					handler: (data) ->
-						if data.success
-							message.warning "No user"
-						else
-							$rootScope.member = data
-							$location.path "/" + $routeParams.feedId + '/scan/comment'
-							$scope.$apply()
-					scope: $scope
-					type: "noCache"
-			, (error) ->
-				message.warning "Error scaning"
+	# if client.navigator is "Windows Phone"
+	$scope.scanActivator = ->
+		cordova.plugins.barcodeScanner.scan (result) ->
+			connectionTest.makeLoad
+				params:
+					resource: 'member'
+					data: "{ 'extraParam': { 'barcode': '#{result.text}' }}"
+				handler: (data) ->
+					if data.success
+						message.warning "No user"
+					else
+						$rootScope.member = data
+						$location.path "/" + $routeParams.feedId + '/scan/comment'
+						$scope.$apply()
+				scope: $scope
+				type: "noCache"
+		, (error) ->
+			message.warning "Error scaning"
+	# else
+	# 	alert("NONE")
+	# 	$scope.scanActivator = ->
+	# 		cordova.plugins.barcodeScanner.scan (result) ->
+	# 			if not result.cancelled
+	# 				# alert("We got a barcode\n" +
+	# 				# 	"Result: " + result.text + "\n" +
+	# 				# 	"Format: " + result.format + "\n" +
+	# 				# 	"Cancelled: " + result.cancelled)
+	# 				$location.path "/" + $routeParams.feedId + '/scan/comment'
+	# 				$scope.$apply()
+	# 			else
+	# 				undefined
+	# 		, (error) ->
+	# 			alert "error"
 ]
 
 atea.controller 'EventsController', [ '$scope', '$filter', 'baseURL', '$location', '$rootScope', '$routeParams', 'connectionTest', 'client',
@@ -286,8 +306,8 @@ atea.controller 'EventsController', [ '$scope', '$filter', 'baseURL', '$location
 	$rootScope.updateEvents()
 ]
 
-atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', 'message', '$window', 'client', '$route', '$filter', 'getDataTest', 'connectionTest',
-($scope, $location, baseURL, $rootScope, $routeParams, $timeout, message, $window, client, $route, $filter, getDataTest, connectionTest) ->
+atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', 'message', '$window', 'client', '$route', '$filter', 'getDataTest', 'connectionTest', 'loto',
+($scope, $location, baseURL, $rootScope, $routeParams, $timeout, message, $window, client, $route, $filter, getDataTest, connectionTest, loto) ->
 
 	$scope.noConnectionMessage = "No internet connection is available at the moment. Please, click this message to try to connect again."
 
@@ -415,7 +435,7 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 					angular.forEach data, (participant) ->
 						if participant.event_id is $rootScope.event.id
 							$scope.participient = participant
-							if $scope.participient.is_first_visit is "1"
+							if $scope.event.tokensActive and $scope.participient.is_first_visit is "1"
 								message.success "This is the first time you've logged in to this event. You are about to receive tokens!", ->
 									getDataTest.put { resource: 'participant' }, data: id: $scope.participient.id, extraParam: addTokens: 'firstLogin', (result) ->
 										data = result.data
@@ -426,12 +446,9 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 											$timeout ->
 												loto.number = null
 												message.success "You have received #{tokens} tokens!", ->
-													if $scope.contentAnimate isnt $scope.animationContentRight
-														$scope.contentAnimate = $scope.animationContentRight
-													history.back()
 											, 1000
-									, (error) ->
-										message.warningAfter "Error"
+									# , (error) ->
+										# message.warningAfter "Error"
 				scope: $scope
 				type: "noCache"
 		$scope.nextLocation(path)

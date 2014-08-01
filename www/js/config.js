@@ -86,15 +86,18 @@
   ]);
 
   atea.run([
-    'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$window', '$animate', '$cookieStore', function(baseURL, $rootScope, client, userStatus, $location, $routeParams, $window, $animate, $cookieStore) {
+    'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$window', '$animate', function(baseURL, $rootScope, client, userStatus, $location, $routeParams, $window, $animate) {
       FastClick.attach(document.body);
       $rootScope.status = userStatus.role;
       $rootScope.baseURL = baseURL;
       $rootScope.profileActive = $location.$$path === baseURL.PROFILE ? true : false;
       $rootScope.rateActive = $location.$$path === '/' + $routeParams.feedId + baseURL.RATE ? true : false;
-      return $rootScope.$on('$routeChangeStart', function(data, newL, oldL) {
+      $rootScope.$on('$routeChangeStart', function(data, newL, oldL) {
         $location.lastLocation = $location.$$path;
         return $rootScope.backButton = $location.$$path === baseURL.FEEDS || $location.$$path === baseURL.PROFILE ? false : true;
+      });
+      return document.addEventListener("deviceready", function() {
+        return screen.lockOrientation('landscape');
       });
     }
   ]);

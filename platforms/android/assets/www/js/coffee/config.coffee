@@ -74,8 +74,8 @@ atea.config [ '$httpProvider', ($httpProvider) ->
 	$httpProvider.defaults.headers.put = {}
 ]
 
-atea.run [ 'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$window', '$animate', '$cookieStore',
-(baseURL, $rootScope, client, userStatus, $location, $routeParams, $window, $animate, $cookieStore) ->
+atea.run [ 'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$window', '$animate',
+(baseURL, $rootScope, client, userStatus, $location, $routeParams, $window, $animate) ->
 	FastClick.attach document.body
 	$rootScope.status = userStatus.role
 	$rootScope.baseURL = baseURL
@@ -89,8 +89,8 @@ atea.run [ 'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$win
 			else
 				true
 
-	# document.addEventListener "deviceready", ->
-	# 	screen.lockOrientation 'landscape'
+	document.addEventListener "deviceready", ->
+		screen.lockOrientation 'landscape'
 ]
 
 atea.filter 'dayMonth', ->

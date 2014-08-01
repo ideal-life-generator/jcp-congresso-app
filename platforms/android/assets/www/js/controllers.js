@@ -56,7 +56,7 @@
               }
             }
           });
-          if (result.length) {
+          if (result.length && $scope.surveyForm.$valid) {
             return getDataTest.save({
               resource: 'surveyAnswer'
             }, {
@@ -64,36 +64,43 @@
                 records: result
               }
             }, function(result) {
-              return message.success("Your form has been saved. И вы получаете: Thanks.", function() {
-                return getDataTest.put({
-                  resource: 'participant'
-                }, {
-                  data: {
-                    id: $scope.participient.id,
-                    extraParam: {
-                      addTokens: 'passageSurvey',
-                      survey_id: $routeParams.rateseId
+              return message.success("Your form has been saved.", function() {
+                if ($scope.event.tokensActive) {
+                  return getDataTest.put({
+                    resource: 'participant'
+                  }, {
+                    data: {
+                      id: $scope.participient.id,
+                      extraParam: {
+                        addTokens: 'passageSurvey',
+                        survey_id: $routeParams.rateseId
+                      }
                     }
-                  }
-                }, function(result) {
-                  var data, string, tokens;
-                  data = result.data;
-                  tokens = data.message.receivedTokens.toString();
-                  if (tokens.length === 2) {
-                    string = "0" + tokens;
-                  }
-                  return loto.run(string, function() {
-                    return $timeout(function() {
-                      loto.number = null;
-                      return message.success("You have received " + tokens + " tokens!", function() {
-                        if ($scope.contentAnimate !== $scope.animationContentRight) {
-                          $scope.contentAnimate = $scope.animationContentRight;
-                        }
-                        return history.back();
-                      });
-                    }, 1000);
+                  }, function(result) {
+                    var data, string, tokens;
+                    data = result.data;
+                    tokens = data.message.receivedTokens.toString();
+                    if (tokens.length < 3) {
+                      string = "0" + tokens;
+                    }
+                    return loto.run(string, function() {
+                      return $timeout(function() {
+                        loto.number = null;
+                        return message.success("You have received " + tokens + " tokens!", function() {
+                          if ($scope.contentAnimate !== $scope.animationContentRight) {
+                            $scope.contentAnimate = $scope.animationContentRight;
+                          }
+                          return history.back();
+                        });
+                      }, 1000);
+                    });
                   });
-                });
+                } else {
+                  if ($scope.contentAnimate !== $scope.animationContentRight) {
+                    $scope.contentAnimate = $scope.animationContentRight;
+                  }
+                  return history.back();
+                }
               });
             }, function(error) {
               return message.warningAfter("No Internet connection.");
@@ -324,31 +331,29 @@
   atea.controller('GuestController', [
     '$scope', '$window', '$location', 'baseURL', '$routeParams', '$rootScope', 'client', 'connection', 'getDataTest', 'connectionTest', 'message', function($scope, $window, $location, baseURL, $routeParams, $rootScope, client, connection, getDataTest, connectionTest, message) {
       $location.prevLocation = baseURL.FEEDS;
-      if (client.navigator === "Windows Phone") {
-        return $scope.scanActivator = function() {
-          return cordova.plugins.barcodeScanner.scan(function(result) {
-            return connectionTest.makeLoad({
-              params: {
-                resource: 'member',
-                data: "{ 'extraParam': { 'barcode': '" + result.text + "' }}"
-              },
-              handler: function(data) {
-                if (data.success) {
-                  return message.warning("No user");
-                } else {
-                  $rootScope.member = data;
-                  $location.path("/" + $routeParams.feedId + '/scan/comment');
-                  return $scope.$apply();
-                }
-              },
-              scope: $scope,
-              type: "noCache"
-            });
-          }, function(error) {
-            return message.warning("Error scaning");
+      return $scope.scanActivator = function() {
+        return cordova.plugins.barcodeScanner.scan(function(result) {
+          return connectionTest.makeLoad({
+            params: {
+              resource: 'member',
+              data: "{ 'extraParam': { 'barcode': '" + result.text + "' }}"
+            },
+            handler: function(data) {
+              if (data.success) {
+                return message.warning("No user");
+              } else {
+                $rootScope.member = data;
+                $location.path("/" + $routeParams.feedId + '/scan/comment');
+                return $scope.$apply();
+              }
+            },
+            scope: $scope,
+            type: "noCache"
           });
-        };
-      }
+        }, function(error) {
+          return message.warning("Error scaning");
+        });
+      };
     }
   ]);
 
@@ -360,7 +365,7 @@
   ]);
 
   atea.controller('MainController', [
-    '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', 'message', '$window', 'client', '$route', '$filter', 'getDataTest', 'connectionTest', function($scope, $location, baseURL, $rootScope, $routeParams, $timeout, message, $window, client, $route, $filter, getDataTest, connectionTest) {
+    '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', 'message', '$window', 'client', '$route', '$filter', 'getDataTest', 'connectionTest', 'loto', function($scope, $location, baseURL, $rootScope, $routeParams, $timeout, message, $window, client, $route, $filter, getDataTest, connectionTest, loto) {
       $scope.noConnectionMessage = "No internet connection is available at the moment. Please, click this message to try to connect again.";
       $rootScope.updateEvents = function() {
         var getEvents;
@@ -522,7 +527,7 @@
               return angular.forEach(data, function(participant) {
                 if (participant.event_id === $rootScope.event.id) {
                   $scope.participient = participant;
-                  if ($scope.participient.is_first_visit === "1") {
+                  if ($scope.event.tokensActive && $scope.participient.is_first_visit === "1") {
                     return message.success("This is the first time you've logged in to this event. You are about to receive tokens!", function() {
                       return getDataTest.put({
                         resource: 'participant'
@@ -543,16 +548,9 @@
                         return loto.run(string, function() {
                           return $timeout(function() {
                             loto.number = null;
-                            return message.success("You have received " + tokens + " tokens!", function() {
-                              if ($scope.contentAnimate !== $scope.animationContentRight) {
-                                $scope.contentAnimate = $scope.animationContentRight;
-                              }
-                              return history.back();
-                            });
+                            return message.success("You have received " + tokens + " tokens!", function() {});
                           }, 1000);
                         });
-                      }, function(error) {
-                        return message.warningAfter("Error");
                       });
                     });
                   }

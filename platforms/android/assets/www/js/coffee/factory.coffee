@@ -74,7 +74,7 @@ atea.factory 'message', [ '$timeout', '$q', ($timeout, $q) ->
 					, duration + timeAfter * 3
 ]
 
-atea.run [ 'message', '$timeout', '$http', (message, $timeout, $http) ->
+atea.run [ 'message', '$timeout', (message, $timeout) ->
 	# $timeout ->
 	# 	message.warning 'Предупреждение.'
 	# , 1000
@@ -98,8 +98,8 @@ atea.run [ 'message', '$timeout', '$http', (message, $timeout, $http) ->
 	# , 10000
 ]
 
-atea.factory 'client', [ '$location', 'Auth', 'getDataTest', '$q', 'storage', '$cookieStore',
-($location, Auth, getDataTest, $q, storage, $cookieStore) ->
+atea.factory 'client', [ '$location', 'Auth', 'getDataTest', '$q', 'storage',
+($location, Auth, getDataTest, $q, storage) ->
 	self = @
 	@path = $location.$$path
 	@lastPath = @path
@@ -126,10 +126,6 @@ atea.factory 'client', [ '$location', 'Auth', 'getDataTest', '$q', 'storage', '$
 				Auth.setCredentials user.email, user.password
 				user
 			else
-				storage.delete 'user'
-				Auth.clearCredentials()
-				self.detail = null
-				$cookieStore.remove "authdata"
 				null
 		)()
 		login: (username, password) ->

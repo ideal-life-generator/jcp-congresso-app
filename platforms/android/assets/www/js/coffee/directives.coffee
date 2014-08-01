@@ -300,7 +300,7 @@ atea.directive 'surveySmiles', [ () ->
 														ng-model="setting.value"
 														ng-required="~setting.is_required~"
 														placeholder="~setting.placeholder~">
-										<img ng-src="../img/~smile.subject~.png"/>
+										<img ng-src="img/~smile.subject~.png"/>
 										<span>~smile.subject~</span>
 									 </label>
 								 </div>

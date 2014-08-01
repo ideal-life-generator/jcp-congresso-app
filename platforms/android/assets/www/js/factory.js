@@ -119,10 +119,10 @@
     }
   ]);
 
-  atea.run(['message', '$timeout', '$http', function(message, $timeout, $http) {}]);
+  atea.run(['message', '$timeout', function(message, $timeout) {}]);
 
   atea.factory('client', [
-    '$location', 'Auth', 'getDataTest', '$q', 'storage', '$cookieStore', function($location, Auth, getDataTest, $q, storage, $cookieStore) {
+    '$location', 'Auth', 'getDataTest', '$q', 'storage', function($location, Auth, getDataTest, $q, storage) {
       var self;
       self = this;
       this.path = $location.$$path;
@@ -157,10 +157,6 @@
             Auth.setCredentials(user.email, user.password);
             return user;
           } else {
-            storage["delete"]('user');
-            Auth.clearCredentials();
-            self.detail = null;
-            $cookieStore.remove("authdata");
             return null;
           }
         })(),

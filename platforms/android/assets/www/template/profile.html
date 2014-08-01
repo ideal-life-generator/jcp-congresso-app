@@ -9,11 +9,13 @@
         <h3>~ user.first_name ~</h3>
         <h3 style="margin-top: 10px;">~ user.last_name ~</h3>
         <h4>~ user.company_name ~</h4>
-        <img style="width: 10em; float: left;" src="../img/coins.jpg">
-        <span style="float: left; margin-left: 2em;">
-            <h2>~participient.tokens~</h2>
-            <h2>Tokens</h2>
-        </span>
+        <div ng-if="event.tokensActive">
+            <img style="width: 10em; float: left;" src="img/coins.jpg">
+            <span style="float: left; margin-left: 2em;">
+                <h2>~participient.tokens~</h2>
+                <h2>Tokens</h2>
+            </span>
+        </div>
     </div>
 </div>
 <br>
