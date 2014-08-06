@@ -353,6 +353,7 @@ atea.directive "loto", (loto, $timeout) ->
 				$timeout ->
 					loto.afterFn()
 					loto.afterFn = null
+					loto.number = null
 				, 1000
 
 atea.directive "items", ($timeout, loto) ->

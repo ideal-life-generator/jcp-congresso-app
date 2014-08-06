@@ -290,7 +290,8 @@
           if (data === 3) {
             return $timeout(function() {
               loto.afterFn();
-              return loto.afterFn = null;
+              loto.afterFn = null;
+              return loto.number = null;
             }, 1000);
           }
         });
