@@ -125,31 +125,29 @@
                class="facebook-icon">
                 Share on Facebook
             </a> -->
-            <a ng-click="toDifferentUrl('https://www.facebook.com/login.php?
-                next=https%3A%2F%2Fwww.facebook.com%2Fdialog%2Ffeed%3F_path%3Dfeed%26app_id%3D134530986736267%26client_id%3D134530986736267%26redirect_uri%3Dhttp%253A%252F%252Ffacebook.com%252F%26display%3Dpage%26link%3Dhttp%253A%252F%252Fsomeeee.com%26name%3Dsome%2Btitle%26description%3Dsymmary%26from_login%3D1&
-                rcount=1')"
+            <a ng-click="openShare()"
                class="facebook-icon">
                 Share on Facebook
             </a>
         </li>
-<!--         <li>
-            <a href="#"
+        <li>
+            <a ng-click="openShare()"
                class="linkedin-icon">
                 Share on LinkedIn
             </a>
         </li>
         <li>
-            <a href="#"
+            <a ng-click="openShare()"
                class="google-icon">
                 Share on Google
             </a>
         </li>
         <li>
-            <a href="#"
+            <a ng-click="openShare()"
                class="twitter-icon">
                 Share on Twitter
             </a>
-        </li> -->
+        </li>
         <li ng-if="!user">
             <a ng-click="nextLocation(baseURL.LOGIN)"
                class="login-icon">

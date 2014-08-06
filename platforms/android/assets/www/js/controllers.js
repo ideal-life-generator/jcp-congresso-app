@@ -611,13 +611,16 @@
         }
       });
       $rootScope.user = client.user.detail;
-      return $scope.backHistory = function() {
+      $scope.backHistory = function() {
         if ($scope.contentAnimate !== $scope.animationContentRight) {
           $scope.contentAnimate = $scope.animationContentRight;
         }
         return $timeout(function() {
           return history.back();
         }, 100);
+      };
+      return $scope.openShare = function() {
+        return $window.plugins.socialsharing.share('http://www.atea.no/hovedmeny/atea-community-2014/');
       };
     }
   ]);

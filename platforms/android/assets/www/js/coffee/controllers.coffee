@@ -492,6 +492,9 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 		$timeout ->
 			history.back()
 		, 100
+
+	$scope.openShare = ->
+		$window.plugins.socialsharing.share 'http://www.atea.no/hovedmeny/atea-community-2014/'
 ]
 
 atea.controller 'LoginController', [ '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'message', 'client', 'connectionTest',
