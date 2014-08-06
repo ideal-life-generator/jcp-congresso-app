@@ -277,6 +277,7 @@ atea.controller 'ProfileController', [ '$scope', '$location', 'baseURL', '$route
 ($scope, $location, baseURL, $routeParams, $rootScope, connectionTest) ->
 	$location.prevLocation = baseURL.FEEDS
 
+	$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~$scope.participient.tokens
 ]
 
 atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', 'message', '$window', 'client', '$route', '$filter', 'getDataTest', 'connectionTest', 'loto', 'COMPANY_ID', 'local',

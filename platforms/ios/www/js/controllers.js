@@ -373,7 +373,8 @@
 
   atea.controller('ProfileController', [
     '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connectionTest', function($scope, $location, baseURL, $routeParams, $rootScope, connectionTest) {
-      return $location.prevLocation = baseURL.FEEDS;
+      $location.prevLocation = baseURL.FEEDS;
+      return $scope.dyna.tokens_val = $scope.polyglot.t("tokens_val", ~~$scope.participient.tokens);
     }
   ]);
 
