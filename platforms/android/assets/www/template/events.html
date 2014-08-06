@@ -1,11 +1,12 @@
+<loader></loader>
 <div class="panel-group" id="event-list">
-    <div class="panel panel-default" id="events-previous">
+    <div ng-show="pastEvents" class="panel panel-default" id="events-previous">
         <div class="panel-heading"
              ng-click="pastEventsCollapseder()">
             <h4 class="panel-title">
                 <a class="toggle-handler"
                    ng-class="{ 'collapsed': !pastEventsCollapsed }">
-                   Previous events
+                   ~local.previous_events~
                 </a>
             </h4>
         </div>
@@ -34,13 +35,13 @@
             </div>
         </div>
     </div>
-    <div class="panel panel-default" id="events-upcoming">
+    <div ng-show="futureEvents" class="panel panel-default" id="events-upcoming">
         <div class="panel-heading"
              ng-click="futureEventsCollapseder()">
             <h4 class="panel-title">
                 <a class="toggle-handler"
                    ng-class="{ 'collapsed': futureEventsCollapsed }">
-                    Upcoming events
+                   ~local.upcoming_events~
                 </a>
             </h4>
         </div>
@@ -70,7 +71,6 @@
         </div>
     </div>
 </div>
-<loader></loader>
 
 <br>
 <br>

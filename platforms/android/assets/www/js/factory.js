@@ -7,10 +7,6 @@
   atea.factory('getDataTest', [
     '$resource', function($resource) {
       return $resource("http://188.226.184.59/congressomulti/api/:resource/:id", {}, {
-        get: {
-          method: "GET",
-          cache: true
-        },
         noCache: {
           method: "GET",
           cache: false
@@ -30,6 +26,34 @@
       });
     }
   ]);
+
+  atea.provider("local", function() {
+    this.$get = function($q, $http, message) {
+      var defer, local;
+      defer = $q.defer();
+      local = {};
+      $http({
+        method: "GET",
+        url: "js/i18n/" + this.lang + ".json"
+      }).success(function(data) {
+        local.polyglot = new Polyglot({
+          locale: this.lang,
+          phrases: data
+        });
+        local.local = data;
+        local.dyna = {};
+        return defer.resolve(local);
+      }).error(function() {
+        return message.warningAfter("Some error at localize in factory.js service with provider name 'local'");
+      });
+      return defer.promise;
+    };
+    return this;
+  });
+
+  atea.config(function(localProvider) {
+    return localProvider.lang = navigator.language === "hu" ? "hu" : "en";
+  });
 
   atea.factory('message', [
     '$timeout', '$q', function($timeout, $q) {
@@ -75,7 +99,7 @@
             data.fastTClose = true;
             data.close();
             return data.fastTClose = false;
-          }, duration + timeAfter * 3);
+          }, duration + timeAfter * 5);
         },
         warningAfter: function(message) {
           var defer, equal;
@@ -110,7 +134,7 @@
                     });
                     return data.fastClose = false;
                   }
-                }, duration + timeAfter * 3);
+                }, duration + timeAfter * 5);
               }
             });
           }

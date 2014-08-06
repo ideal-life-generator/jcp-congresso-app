@@ -1,73 +1,66 @@
-<div class="question-body">
-<div class="row visitor">
-    <h1 class="b-header">~ member.first_name ~ ~ member.last_name ~</h1>
-</div>
-
-<div class="row questions">
-
-<ul class="list-group">
-    <li class="list-group-item question">
-        <select class="form-control"
-                ng-model="categorieActive"
-                ng-class="{ 'no-valid': noValid }"
-                ng-change="noValid = false">
-            <option ng-repeat="categorie in categories"
-                    ng-disabled="$first">~ categorie.name ~</option>
-        </select>
-<div class="alert alert-danger"
-     ng-if="noValid">
-    Please, select a category.
-</div>
-    </li>
-
-<li class="list-group-item question">
-<div class="container-fluid">
-    <div class="row">
-        <h3>Perselved interest: <span class="large">~ interest ~</span></h3>
-        <div class="row">
-            <div class="col-xs-6">
-                <h2>0</h2>
-            </div>
-            <div class="col-xs-6"
-                 style="text-align: right;">
-                <h2>10</h2>
-            </div>
-        </div>
-        <input type="range" min="0" max="10" step="1"
-               ng-model="interest">
-        <h4 style="text-align: right;">interest</h4>
-    </div>
-    <div class="row">
-        <h3>Perselved revenue: <span class="large">~ revenue ~</span></h3>
-        <div class="row">
-            <div class="col-xs-6">
-                <h2>0</h2>
-            </div>
-            <div class="col-xs-6"
-                 style="text-align: right;">
-                <h2>10</h2>
-            </div>
-        </div>
-        <input type="range" min="0" max="10" step="1"
-               ng-model="revenue">
-        <h4 style="text-align: right;">revenue</h4>
-    </div>
-    <br>
-</div>
-</li>
-</ul>
-</div>
-<div class="comment-body">
-    <textarea class="form-control" rows="3" placeholder="Comments ..."
-              ng-model="comments"></textarea>
-</div>
-<div class="divider-items row">
-    <h2></h2>
-</div>
 <loader></loader>
-</div>
-    <a class="ui-btn ui-btn-lg"
-       ng-click="submit()">Submit</a>
+<form ng-show="categories"
+      name="commentForm"
+      ng-submit="submit()">
+    <div class="question-body">
+        <div class="row visitor">
+            <h2>~ member.first_name ~ ~ member.last_name ~</h2>
+        </div>
+        
+        <div class="row questions">
+        
+        <ul class="list-group">
+            <li class="list-group-item question">
+                <select class="form-control"
+                        ng-model="categorieActive"
+                        ng-class="{ 'no-valid': noValid }"
+                        ng-change="noValid = false">
+                    <option ng-repeat="categorie in categories"
+                            ng-disabled="$first">~ categorie.name ~</option>
+                </select>
+        <div class="alert alert-danger"
+             ng-if="noValid">
+            ~local.comment_category~
+        </div>
+            </li>
+        
+        <li class="list-group-item question">
+        <div>
+            <div class="row">
+                <h4>~local.perselved_interest~</h4>
+                <div style="position: relative;">
+                    <input type="range" min="0" max="10" step="1"
+                           ng-model="interest">
+                    </input>
+                    <div style="display: table; position: absolute; right: -1.6em; top: 0; height: 4em;">
+                        <span style="display: table-cell; vertical-align: middle; height:100%;">~ interest ~</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <h4>~local.perselved_revenue~</h4>
+                <div style="position: relative;">
+                    <input type="range" min="0" max="10" step="1"
+                           ng-model="revenue">
+                    </input>
+                    <div style="display: table; position: absolute; right: -1.6em; top: 0; height: 4em;">
+                        <span style="display: table-cell; vertical-align: middle; height:100%;">~ revenue ~</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="comment-body">
+            <textarea class="form-control" rows="3" placeholder="~local.comments_placeholder~"
+                      ng-model="comments"></textarea>
+        </div>
+        </li>
+        </ul>
+        </div>
+    </div>
+    <button class="ui-btn ui-btn-lg">~local.submit~</button>
+</form>
+
 <br>
 <br>
 <br>

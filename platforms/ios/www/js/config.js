@@ -23,6 +23,7 @@
     SCANPAGE: '/:feedId/scan',
     SCANHREF: '/scan',
     COMMENTWPAGE: '/:feedId/scan/comment',
+    COMMENTWPAGEHREF: '/:feedId/scan/comment',
     SCHEDULES: '/:feedId/schedules',
     SCHEDULE: '/:feedId/schedules/:scheduleId',
     SCHEDULESHREF: '/schedules',
@@ -33,6 +34,8 @@
     PROFILEHREF: '/profile',
     LOGIN: '/login'
   });
+
+  atea.value('COMPANY_ID', 13);
 
   atea.config([
     '$routeProvider', 'baseURL', function($routeProvider, baseURL) {
@@ -87,7 +90,6 @@
 
   atea.run([
     'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$window', '$animate', function(baseURL, $rootScope, client, userStatus, $location, $routeParams, $window, $animate) {
-      FastClick.attach(document.body);
       $rootScope.status = userStatus.role;
       $rootScope.baseURL = baseURL;
       $rootScope.profileActive = $location.$$path === baseURL.PROFILE ? true : false;
@@ -102,7 +104,7 @@
     }
   ]);
 
-  atea.filter('dayMonth', function() {
+  atea.filter('dayMonth', function(local) {
     return function(date) {
       var d, dateString, day, month, months, now, v;
       if (date) {

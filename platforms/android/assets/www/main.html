@@ -12,11 +12,16 @@
 
         <title>Congresso</title>
 
+        <script type="text/javascript" src="cordova.js"></script>
+<!--         // <script type="text/javascript" src="phonegap.js"></script> -->
+        <script type="text/javascript" src="SocialSharing.js"></script>
+
         <!-- Libs -->
         <!-- External lib -->
         <script type="text/javascript" src="js/externallb/qrcode.js"></script>
         <script type="text/javascript" src="js/externallb/fastclick.min.js"></script>
         <script type="text/javascript" src="js/externallb/barcodescanner.js"></script>
+        <script type="text/javascript" src="js/i18n/polyglot.min.js"></script>
         <!-- External lib -->
         <script type="text/javascript" src="js/angularlib/angular.min.js"></script>
         <script type="text/javascript" src="js/angularlib/angular-animate.min.js"></script>
@@ -28,13 +33,24 @@
 
         <!-- Core -->
         <script type="text/javascript" src="js/config.js"></script>
-        <script type="text/javascript" src="js/controllers.js"></script>
         <script type="text/javascript" src="js/factory.js"></script>
+        <script type="text/javascript" src="js/controllers.js"></script>
         <script type="text/javascript" src="js/directives.js"></script>
         <script type="text/javascript" src="js/angularlib/auth-basic.js"></script>
         <!-- Core -->
-
-        <script type="text/javascript" src="cordova.js"></script>
+        <!-- Google Analytics -->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        
+            ga('create', 'UA-53492925-1', {
+              'cookieDomain': 'none'
+            });
+            ga('send', 'pageview');
+        </script>
+        <!-- End Google Analytics -->
 
     </head>
 
@@ -53,7 +69,7 @@
         <span class="logo"
               ng-class="logoMainAnimateClass"></span>
         <div ng-if="event">
-          <p class="event-name">Community</p>
+          <p class="event-name">~local.community~</p>
           <p class="event-location">~ event.location ~</p>
         </div>
     </div>
@@ -70,14 +86,16 @@
 
     <ul class="nav navbar-nav navbar-right" id="right-navbar-item">
         <li ng-if="!user && !forgot">
-            <a ng-click="backLocation(baseURL.LOGIN)">Login</a>
+            <a ng-click="nextLocation(baseURL.LOGIN)">~local.login~</a>
         </li>
         <li ng-if="!user && forgot">
-            <a ng-href="">Forgot password?</a>
+            <a ng-click="toDifferentUrl('http://188.226.184.59/congressomulti/mypage/forgotpassword')">
+                ~local.forgot_password~?
+            </a>
         </li>
         <li ng-if="user && participient"
             ng-click="nextLocation(event.id + baseURL.PROFILEHREF)">
-            <a ng-href="">My Profile</a>
+            <a ng-href="">~local.my_profile~</a>
         </li>
     </ul>
 
@@ -85,7 +103,7 @@
         <li>
             <a ng-click="leftMenuActivator($event)">
                 <img src="img/list-view-m.png" class="icon-menu">
-                <span>Menu</span>
+                <span>~local.menu~</span>
             </a>
         </li>
     </ul>
@@ -97,43 +115,71 @@
         <li>
             <a ng-click="leftMenuActivator(baseURL.FEEDS)"
                class="home-icon">
-                Home
+                ~local.home~
             </a>
         </li>
+        <li>
+<!--             <a ng-click="toDifferentUrl('https://www.facebook.com/login.php?
+                next=https%3A%2F%2Fwww.facebook.com%2Fdialog%2Ffeed%3F_path%3Dfeed%26app_id%3D134530986736267%26client_id%3D134530986736267%26redirect_uri%3Dhttp%253A%252F%252Ffacebook.com%252F%26display%3Dpage%26link%3Dhttp%253A%252F%252Fsomeeee.com%26name%3Dsome%2Btitle%26description%3Dsymmary%26from_login%3D1&
+                rcount=1')"
+               class="facebook-icon">
+                Share on Facebook
+            </a> -->
+            <a ng-click="toDifferentUrl('https://www.facebook.com/login.php?
+                next=https%3A%2F%2Fwww.facebook.com%2Fdialog%2Ffeed%3F_path%3Dfeed%26app_id%3D134530986736267%26client_id%3D134530986736267%26redirect_uri%3Dhttp%253A%252F%252Ffacebook.com%252F%26display%3Dpage%26link%3Dhttp%253A%252F%252Fsomeeee.com%26name%3Dsome%2Btitle%26description%3Dsymmary%26from_login%3D1&
+                rcount=1')"
+               class="facebook-icon">
+                Share on Facebook
+            </a>
+        </li>
+<!--         <li>
+            <a href="#"
+               class="linkedin-icon">
+                Share on LinkedIn
+            </a>
+        </li>
+        <li>
+            <a href="#"
+               class="google-icon">
+                Share on Google
+            </a>
+        </li>
+        <li>
+            <a href="#"
+               class="twitter-icon">
+                Share on Twitter
+            </a>
+        </li> -->
         <li ng-if="!user">
-            <a ng-click="backLocation(baseURL.LOGIN)"
+            <a ng-click="nextLocation(baseURL.LOGIN)"
                class="login-icon">
-                Login
+               ~local.login~
             </a>
         </li>
         <li ng-if="user && participient">
             <a ng-click="nextLocation(event.id + baseURL.PROFILEHREF)"
                class="profile-icon">
-                My Profile
+                ~local.my_profile~
             </a>
         </li>
 <!--         <li ng-if="user && logoSize">
             <a ng-click="nextLocation(baseURL.PROFILE)"
                class="profile-icon">
-               Edit
+                ~local.edit~
             </a>
         </li> -->
         <li ng-if="user">
             <a ng-click="logOut()"
                class="logout-icon">
-               Logout
+               ~local.logout~
            </a>
         </li>
     </ul>
 </nav>
 
 <message class="~ message.class ~"
-         ng-click="closeMessage()"></message>
-
-<!-- <connection ng-show="status"
-            ng-click="refresh()">
-    <p>No internet connection is available at the moment. Please, click this message to try to connect again.</p>
-</connection> -->
+         ng-click="closeMessage()">
+</message>
 
 </body>
 </html>

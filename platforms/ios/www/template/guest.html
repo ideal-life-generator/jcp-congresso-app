@@ -1,115 +1,101 @@
 <loader></loader>
-<div id="home-btns"
-	   ng-if="event.eventType == 'public' || event.eventType == 'invited'">
-     <!-- Guest -->
+<div id="home-btns" ng-if="event && event.eventType == 'public' || event.eventType == 'invited'">
         <div class="row">
             <a class="ui-btn bg-green-10 btn-register col-xs-6"
                ng-click="toDifferentUrl(event.eventLink)"
                target="_blank">
                 <img src="img/checked-user-xl.png" class="image-icon medium-icon">
-                <span class="text">Register</span>
+                <span class="text">~local.register~</span>
             </a>
             <a class="ui-btn bg-green-20 btn-schedule col-xs-6"
                ng-click="nextLocation(event.id + baseURL.SCHEDULESHREF)">
                 <img src="img/show-property-xl.png" class="image-icon medium-icon">
-                <span class="text">Schedule</span>
+                <span class="text">~local.schedule~</span>
             </a>
         </div>
 		<div class="row">
 			<a class="ui-btn bg-green-50 btn-partners col-xs-12"
                ng-click="nextLocation(event.id + '/partners')">
         <img src="img/eye-3-xl.png" class="image-icon large-icon">
-				<span class="text">Partners</span>
+				<span class="text">~local.partners~</span>
 			</a>
 		</div>
     
 	<div class="row">
 		<a class="ui-btn bg-green-40 map-btn col-xs-12"
-       ng-click="toDifferentUrl(event.eventLink)">
+       ng-if="event.map_url"
+       ng-click="toDifferentUrl(event.map_url)">
       <img src="img/worldwide-location-xl.png" class="image-icon map-icon">
-			<span class="text">Map</span>
+			<span class="text">~local.map~</span>
 		</a>
 	</div>
 </div>
-<div id="home-btns"
-	   ng-if="event.eventType === 'registered' && event.eventRole === 'regular'">
-     <!-- Guest -->
+<div id="home-btns" ng-if="event && event.eventType === 'registered' && event.eventRole === 'regular'">
         <div class="row">
             <a class="ui-btn bg-green-20 btn-schedule col-xs-12"
                ng-click="nextLocation(event.id + baseURL.SCHEDULESHREF)">
                 <img src="img/show-property-xl.png" class="image-icon medium-icon">
-                <span class="text">Schedule</span>
+                <span class="text">~local.schedule~</span>
             </a>
         </div>
         <div class="row">
             <a class="ui-btn bg-green-30 btn-rate col-xs-6"
                ng-click="nextLocation(event.id + baseURL.RATESHREF)">
                 <img src="img/edit-property-xl.png" class="image-icon medium-icon">
-				        <span class="text">Rate</span>
+				        <span class="text">~local.rate~</span>
             </a>
             <a class="ui-btn bg-green-50 btn-parners col-xs-6"
                ng-click="nextLocation(event.id + '/partners')">
                 <img src="img/eye-3-xl.png" class="image-icon large-icon">
-                <span class="text">Partners</span>
+                <span class="text">~local.partners~</span>
             </a>
         </div>
     
 	<div class="row">
 		<a class="ui-btn bg-green-40 map-btn col-xs-12"
-       ng-click="toDifferentUrl(event.eventLink)">
+       ng-if="event.map_url"
+       ng-click="toDifferentUrl(event.map_url)">
       <img src="img/worldwide-location-xl.png" class="image-icon map-icon">
-			<span class="text">Map</span>
+			<span class="text">~local.map~</span>
 		</a>
 	</div>
 </div>
-<div id="home-btns"
-	   ng-if="event.eventType === 'registered' && event.eventRole === 'partner'">
-     <!-- Partner -->
+<div id="home-btns" ng-if="event && event.eventType === 'registered' && event.eventRole === 'partner'">
         <div class="row">
             <a class="ui-btn bg-green-10 btn-scan col-xs-6"
                ng-click="scanActivator()">
                 <img src="img/add-user-xl.png" class="image-icon medium-icon">
-                <span class="text">Scan</span>
+                <span class="text">~local.scan~</span>
             </a>
             <a class="ui-btn bg-green-20 btn-schedule col-xs-6"
                ng-click="nextLocation(event.id + baseURL.SCHEDULESHREF)">
                 <img src="img/show-property-xl.png" class="image-icon medium-icon">
-                <span class="text">Schedule</span>
+                <span class="text">~local.schedule~</span>
             </a>
         </div>
         <div class="row">
             <a class="ui-btn bg-green-30 btn-rate col-xs-6"
                ng-click="nextLocation(event.id + baseURL.RATESHREF)">
                 <img src="img/edit-property-xl.png" class="image-icon medium-icon">
-				        <span class="text">Rate</span>
+				        <span class="text">~local.rate~</span>
             </a>
             <a class="ui-btn bg-green-50 btn-parners col-xs-6"
                ng-click="nextLocation(event.id + '/partners')">
                 <img src="img/eye-3-xl.png" class="image-icon large-icon">
-                <span class="text">Partners</span>
+                <span class="text">~local.partners~</span>
             </a>
         </div>
     
 	<div class="row">
 		<a class="ui-btn bg-green-40 map-btn col-xs-12"
-       ng-click="toDifferentUrl(event.eventLink)">
+       ng-if="event.map_url"
+       ng-click="toDifferentUrl(event.map_url)">
       <img src="img/worldwide-location-xl.png" class="image-icon map-icon">
-			<span class="text">Map</span>
+			<span class="text">~local.map~</span>
 		</a>
 	</div>
 </div>
 
-<div class="logo-wrap">
-  <div class="loto" ng-show="loto.number">
-    <div class="wrap">
-      <div class="items" ng-repeat="items in length" ng-style="stylesheet">
-        <div class="item" ng-repeat="item in length" ng-style="stylesheet">
-          ~ item ~
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 <br>

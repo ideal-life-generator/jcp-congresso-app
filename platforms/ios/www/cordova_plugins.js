@@ -1,6 +1,13 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
+        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
+        "id": "org.apache.cordova.inappbrowser.inappbrowser",
+        "clobbers": [
+            "window.open"
+        ]
+    },
+    {
         "file": "plugins/com.phonegap.plugins.barcodescanner/www/barcodescanner.js",
         "id": "com.phonegap.plugins.barcodescanner.BarcodeScanner",
         "clobbers": [
@@ -8,18 +15,19 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
-        "id": "org.apache.cordova.inappbrowser.inappbrowser",
+        "file": "plugins/nl.x-services.plugins.socialsharing/www/SocialSharing.js",
+        "id": "nl.x-services.plugins.socialsharing.SocialSharing",
         "clobbers": [
-            "window.open"
+            "window.plugins.socialsharing"
         ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "com.phonegap.plugins.barcodescanner": "1.0.1",
-    "org.apache.cordova.inappbrowser": "0.5.1-dev"
+    "org.apache.cordova.inappbrowser": "0.5.1-dev",
+    "com.phonegap.plugins.barcodescanner": "2.0.0",
+    "nl.x-services.plugins.socialsharing": "4.3.2"
 }
 // BOTTOM OF METADATA
 });

@@ -193,8 +193,8 @@ textarea {
  * --------------------------------------------------
  */
 .question-body {
-  padding-left: 15px;
-  padding-right: 15px;
+/*  padding-left: 15px;
+  padding-right: 15px;*/
   background-color: #62aa3a;
   color: white;
 }
@@ -217,11 +217,11 @@ textarea {
   color: white;
 }
 .question-body .visitor {
-  margin-bottom: 1em;
+/*  margin-bottom: 1em;*/
   position: relative;
   min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
+/*  padding-left: 15px;
+  padding-right: 15px;*/
 }
 .question-body .category {
   margin-top: 1em;

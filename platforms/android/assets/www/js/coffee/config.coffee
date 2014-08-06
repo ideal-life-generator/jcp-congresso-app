@@ -17,6 +17,7 @@ atea.constant 'baseURL',
 	SCANPAGE: '/:feedId/scan'
 	SCANHREF: '/scan'
 	COMMENTWPAGE: '/:feedId/scan/comment'
+	COMMENTWPAGEHREF: '/:feedId/scan/comment'
 	SCHEDULES: '/:feedId/schedules'
 	SCHEDULE: '/:feedId/schedules/:scheduleId'
 	SCHEDULESHREF: '/schedules'
@@ -26,6 +27,8 @@ atea.constant 'baseURL',
 	PROFILE: '/:feedId/profile'
 	PROFILEHREF: '/profile'
 	LOGIN: '/login'
+
+atea.value 'COMPANY_ID', 13
 
 atea.config [ '$routeProvider', 'baseURL', ($routeProvider, baseURL) ->
 	$routeProvider
@@ -76,7 +79,6 @@ atea.config [ '$httpProvider', ($httpProvider) ->
 
 atea.run [ 'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$window', '$animate',
 (baseURL, $rootScope, client, userStatus, $location, $routeParams, $window, $animate) ->
-	FastClick.attach document.body
 	$rootScope.status = userStatus.role
 	$rootScope.baseURL = baseURL
 	$rootScope.profileActive = if $location.$$path is baseURL.PROFILE then true else false
@@ -93,7 +95,7 @@ atea.run [ 'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$win
 		screen.lockOrientation 'landscape'
 ]
 
-atea.filter 'dayMonth', ->
+atea.filter 'dayMonth', (local) ->
 	(date) ->
 		if date
 			d = [ "th", "st", "nd", "rd" ]

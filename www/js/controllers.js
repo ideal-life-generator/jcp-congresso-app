@@ -27,12 +27,12 @@
           });
         },
         scope: $scope,
-        type: "get"
+        type: "noCache"
       });
       return $scope.submitSurveyQuestions = function() {
         var result;
         if ($scope.surveyForm.$valid) {
-          message.wait("Please wait, processing data.");
+          message.wait($scope.local.processing_data);
           result = [];
           angular.forEach($scope.fields, function(field, i) {
             var proto;
@@ -64,8 +64,9 @@
                 records: result
               }
             }, function(result) {
-              return message.success("Your form has been saved.", function() {
+              return message.success($scope.local.form_saved, function() {
                 if ($scope.event.tokensActive) {
+                  message.wait($scope.local.form_token);
                   return getDataTest.put({
                     resource: 'participant'
                   }, {
@@ -77,22 +78,16 @@
                       }
                     }
                   }, function(result) {
-                    var data, string, tokens;
+                    var data, tokens;
                     data = result.data;
-                    tokens = data.message.receivedTokens.toString();
-                    if (tokens.length < 3) {
-                      string = "0" + tokens;
-                    }
-                    return loto.run(string, function() {
-                      return $timeout(function() {
-                        loto.number = null;
-                        return message.success("You have received " + tokens + " tokens!", function() {
-                          if ($scope.contentAnimate !== $scope.animationContentRight) {
-                            $scope.contentAnimate = $scope.animationContentRight;
-                          }
-                          return history.back();
-                        });
-                      }, 1000);
+                    tokens = data.message.receivedTokens;
+                    return loto.run(tokens, function() {
+                      return message.success($scope.polyglot.t("tokens_add", ~~tokens), function() {
+                        if ($scope.contentAnimate !== $scope.animationContentRight) {
+                          $scope.contentAnimate = $scope.animationContentRight;
+                        }
+                        return history.back();
+                      });
                     });
                   });
                 } else {
@@ -103,13 +98,13 @@
                 }
               });
             }, function(error) {
-              return message.warningAfter("No Internet connection.");
+              return message.warningAfter($scope.local.no_connection);
             });
           } else {
-            return message.warningAfter("Form contains errors. Please fix them.");
+            return message.warningAfter($scope.local.form_error);
           }
         } else {
-          return message.warningAfter("Please fill in all the required fields in the form.");
+          return message.warningAfter($scope.local.form_error1);
         }
       };
     }
@@ -121,29 +116,28 @@
       return connectionTest.makeLoad({
         params: {
           resource: 'survey',
-          id: $routeParams.rateseId
+          data: {
+            event_id: $routeParams.feedId
+          }
         },
         handler: function(data) {
           if (!data.success) {
             $scope.surveys = [];
-            return angular.forEach(data, function(survey) {
-              if (survey.event_id === $rootScope.event.id) {
-                return $scope.surveys.push(survey);
-              }
+            angular.forEach(data, function(survey) {
+              return $scope.surveys.push(survey);
             });
+            if (!$scope.surveys.length) {
+              return message.success($scope.local.no_surveys, function() {
+                return history.back();
+              });
+            }
           } else {
-            return message.warningAfter("No content.");
+            return message.warningAfter($scope.local.no_content);
           }
         },
         scope: $scope,
-        type: "get"
+        type: "noCache"
       });
-    }
-  ]);
-
-  atea.controller('ProfileController', [
-    '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connectionTest', function($scope, $location, baseURL, $routeParams, $rootScope, connectionTest) {
-      return $location.prevLocation = baseURL.FEEDS;
     }
   ]);
 
@@ -156,10 +150,22 @@
           id: $routeParams.scheduleId
         },
         handler: function(data) {
-          return $scope.schedule = data;
+          $scope.schedule = data;
+          return getDataTest.noCache({
+            resource: 'survey',
+            id: $scope.schedule.survey_id
+          }, function(result) {
+            data = {};
+            angular.forEach(result.data, function(ths) {
+              return data = ths;
+            });
+            if (data.is_answered !== "0") {
+              return $scope.schedule.is_visible = true;
+            }
+          });
         },
         scope: $scope,
-        type: "get"
+        type: "noCache"
       });
     }
   ]);
@@ -167,7 +173,7 @@
   atea.controller('SchedulesController', [
     '$scope', '$location', '$routeParams', 'getDataTest', '$filter', '$http', 'connection', '$rootScope', 'connectionTest', function($scope, $location, $routeParams, getDataTest, $filter, $http, connection, $rootScope, connectionTest) {
       var getSchedules;
-      $location.prevLocation = 'feed/' + $routeParams.feedId;
+      $location.prevLocation = '/' + $routeParams.feedId;
       getSchedules = function(data) {
         var dayyy, oldData, ressuulltt, timeee;
         oldData = data;
@@ -192,14 +198,14 @@
           dateNext = new Date(data[i + n].start_time * 1000);
           dayNext = dateNext.getDate();
           monthNext = dateNext.getMonth();
-          if (ths.start_time === data[i + n].start_time) {
+          if (ths.start_time === data[i + n].start_time && i !== data.length - 1) {
             timeee.push(ths);
           } else {
             timeee.push(ths);
             dayyy.push(timeee);
             timeee = [];
           }
-          if (!(day === dayNext && month === monthNext)) {
+          if (!(day === dayNext && month === monthNext) || i === data.length - 1) {
             ressuulltt.push(dayyy);
             return dayyy = [];
           }
@@ -213,7 +219,7 @@
         },
         handler: getSchedules,
         scope: $scope,
-        type: "get"
+        type: "noCache"
       });
     }
   ]);
@@ -221,25 +227,25 @@
   atea.controller('CommentController', [
     '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'message', 'connectionTest', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, message, connectionTest) {
       $location.prevLocation = baseURL.FEEDS + "/" + $routeParams.feedId;
-      $scope.categories = [
-        {
-          id: null,
-          name: "Select a category"
-        }
-      ];
       connectionTest.makeLoad({
         params: {
           resource: 'leadType'
         },
         handler: function(data) {
+          $scope.categories = [
+            {
+              id: null,
+              name: $scope.local.select_category
+            }
+          ];
           return angular.forEach(data, function(ths) {
             return $scope.categories.push(ths);
           });
         },
         scope: $scope,
-        type: "get"
+        type: "noCache"
       });
-      $scope.categorieActive = "Select a category";
+      $scope.categorieActive = $scope.local.select_category;
       $scope.interest = "5";
       $scope.revenue = "5";
       return $scope.submit = function() {
@@ -253,9 +259,9 @@
             revenue: $scope.revenue,
             comment: $scope.comments
           };
-          message.wait = "Sending data.";
+          message.wait = $scope.local.data_sending;
           return getData.submitRecord(data).$promise.then(function() {
-            return message.success("Your message has been posted.", function() {
+            return message.success($scope.local.message_posted, function() {
               return $location.path($location.prevLocation);
             });
           });
@@ -278,11 +284,12 @@
           return $scope.partner = data;
         },
         scope: $scope,
-        type: "get"
+        type: "noCache"
       });
       return $scope.submitQuestion = function() {
+        console.log($scope);
         if ($scope.questionToPartner) {
-          message.wait("Please wait, processing data.");
+          message.wait($scope.local.processing_data);
           return getDataTest.save({
             resource: 'partnerMessage'
           }, {
@@ -291,15 +298,15 @@
               message: $scope.questionToPartner
             }
           }, function(result) {
-            message.success("Your question has been sent.");
+            message.success($scope.local.quest_sent);
             return $scope.invalid = false;
           }, function(error) {
-            return message.warningAfter("No Internet connection.");
+            return message.warningAfter($scope.local.no_connection);
           });
-        } else if ($scope.form.$dirty) {
-          return message.warningAfter("Question should be at least 16 characters long.");
+        } else if ($scope.partnerForm) {
+          return message.warningAfter($scope.local.quest_error);
         } else {
-          message.warningAfter("Please fill in the input.");
+          message.warningAfter($scope.local.fill_input);
           return $scope.invalid = true;
         }
       };
@@ -309,7 +316,7 @@
   atea.controller('PartnersController', [
     '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$filter', 'getDataTest', 'connection', 'connectionTest', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $filter, getDataTest, connection, connectionTest) {
       var getPartners;
-      $location.prevLocation = 'feed/' + $routeParams.feedId;
+      $location.prevLocation = '/' + $routeParams.feedId;
       getPartners = function(data) {
         $scope.partners = [];
         return angular.forEach(data, function(partner) {
@@ -323,7 +330,7 @@
         },
         handler: getPartners,
         scope: $scope,
-        type: "get"
+        type: "noCache"
       });
     }
   ]);
@@ -343,7 +350,7 @@
                 return message.warning("No user");
               } else {
                 $rootScope.member = data;
-                $location.path("/" + $routeParams.feedId + '/scan/comment');
+                $location.path("/" + $routeParams.feedId + baseURL.COMMENTWPAGEHREF);
                 return $scope.$apply();
               }
             },
@@ -351,7 +358,7 @@
             type: "noCache"
           });
         }, function(error) {
-          return message.warning("Error scaning");
+          return message.warning($scope.local.error_scaning);
         });
       };
     }
@@ -364,9 +371,21 @@
     }
   ]);
 
+  atea.controller('ProfileController', [
+    '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connectionTest', function($scope, $location, baseURL, $routeParams, $rootScope, connectionTest) {
+      return $location.prevLocation = baseURL.FEEDS;
+    }
+  ]);
+
   atea.controller('MainController', [
-    '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', 'message', '$window', 'client', '$route', '$filter', 'getDataTest', 'connectionTest', 'loto', function($scope, $location, baseURL, $rootScope, $routeParams, $timeout, message, $window, client, $route, $filter, getDataTest, connectionTest, loto) {
-      $scope.noConnectionMessage = "No internet connection is available at the moment. Please, click this message to try to connect again.";
+    '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', 'message', '$window', 'client', '$route', '$filter', 'getDataTest', 'connectionTest', 'loto', 'COMPANY_ID', 'local', function($scope, $location, baseURL, $rootScope, $routeParams, $timeout, message, $window, client, $route, $filter, getDataTest, connectionTest, loto, COMPANY_ID, local) {
+      $scope.local = {};
+      local.then(function(data) {
+        $scope.local = data.local;
+        $scope.dyna = data.dyna;
+        return $scope.polyglot = data.polyglot;
+      });
+      $scope.noConnectionMessage = $scope.local.page_nointernet;
       $rootScope.updateEvents = function() {
         var getEvents;
         $scope.futureEvents = [];
@@ -387,7 +406,10 @@
         };
         return connectionTest.makeLoad({
           params: {
-            resource: 'event'
+            resource: 'event',
+            data: {
+              account_id: COMPANY_ID
+            }
           },
           handler: getEvents,
           scope: $scope,
@@ -411,22 +433,19 @@
             handler: function(data) {
               $rootScope.event = data;
               if ($rootScope.user) {
-                return connectionTest.makeLoad({
-                  params: {
-                    resource: 'participant',
-                    data: {
-                      event_id: $rootScope.event.id
+                return getDataTest.noCache({
+                  resource: 'participant',
+                  data: {
+                    event_id: $rootScope.event.id
+                  }
+                }, function(result) {
+                  data = result.data;
+                  return angular.forEach(data, function(participant) {
+                    if (participant.event_id === $rootScope.event.id) {
+                      $scope.participient = participant;
+                      return $scope.dyna.tokens_val = $scope.polyglot.t("tokens_val", ~~participant.tokens);
                     }
-                  },
-                  handler: function(data) {
-                    return angular.forEach(data, function(participant) {
-                      if (participant.event_id === $rootScope.event.id) {
-                        return $scope.participient = participant;
-                      }
-                    });
-                  },
-                  scope: $scope,
-                  type: "noCache"
+                  });
                 });
               }
             },
@@ -487,23 +506,6 @@
       $scope.animationContentLeft = client.animationClass.content.left;
       $scope.animationContentRight = client.animationClass.content.right;
       $scope.leftMenuAnimationType = client.animationClass.leftMenu;
-      $scope.backLocation = function(path) {
-        if ($scope.contentAnimate !== $scope.animationContentRight) {
-          $scope.contentAnimate = $scope.animationContentRight;
-        }
-        if ($location.prevLocation === '/feed') {
-          $scope.logoSize = false;
-        }
-        if (path) {
-          return $timeout(function() {
-            return $location.path(path);
-          }, 100);
-        } else {
-          return $timeout(function() {
-            return $location.path($location.prevLocation);
-          }, 100);
-        }
-      };
       $scope.nextLocation = function(path) {
         if ($scope.contentAnimate !== $scope.animationContentLeft) {
           $scope.contentAnimate = $scope.animationContentLeft;
@@ -516,49 +518,39 @@
       $scope.changeEvent = function(path, event) {
         $rootScope.event = event;
         if ($rootScope.user) {
-          connectionTest.makeLoad({
-            params: {
-              resource: 'participant',
-              data: {
-                event_id: $rootScope.event.id
-              }
-            },
-            handler: function(data) {
-              return angular.forEach(data, function(participant) {
-                if (participant.event_id === $rootScope.event.id) {
-                  $scope.participient = participant;
-                  if ($scope.event.tokensActive && $scope.participient.is_first_visit === "1") {
-                    return message.success("This is the first time you've logged in to this event. You are about to receive tokens!", function() {
-                      return getDataTest.put({
-                        resource: 'participant'
-                      }, {
-                        data: {
-                          id: $scope.participient.id,
-                          extraParam: {
-                            addTokens: 'firstLogin'
-                          }
-                        }
-                      }, function(result) {
-                        var string, tokens;
-                        data = result.data;
-                        tokens = data.message.receivedTokens.toString();
-                        if (tokens.length === 2) {
-                          string = "0" + tokens;
-                        }
-                        return loto.run(string, function() {
-                          return $timeout(function() {
-                            loto.number = null;
-                            return message.success("You have received " + tokens + " tokens!", function() {});
-                          }, 1000);
-                        });
-                      });
+          getDataTest.noCache({
+            resource: 'participant',
+            data: {
+              event_id: $rootScope.event.id
+            }
+          }, function(result) {
+            var data;
+            data = result.data;
+            return angular.forEach(data, function(participant) {
+              if (participant.event_id === $rootScope.event.id) {
+                $scope.participient = participant;
+                if ($scope.event.tokensActive && $scope.participient.is_first_visit === "1") {
+                  message.wait($scope.local.first_login);
+                  return getDataTest.put({
+                    resource: 'participant'
+                  }, {
+                    data: {
+                      id: $scope.participient.id,
+                      extraParam: {
+                        addTokens: 'firstLogin'
+                      }
+                    }
+                  }, function(result) {
+                    var tokens;
+                    data = result.data;
+                    tokens = data.message.receivedTokens;
+                    return loto.run(tokens, function() {
+                      return message.warningAfter($scope.polyglot.t("tokens_add", ~~tokens));
                     });
-                  }
+                  });
                 }
-              });
-            },
-            scope: $scope,
-            type: "noCache"
+              }
+            });
           });
         }
         return $scope.nextLocation(path);
@@ -599,31 +591,36 @@
             type: "noCache"
           });
         }
-        return $rootScope.updateEvents();
+        $rootScope.updateEvents();
+        return $location.path(baseURL.FEEDS);
       };
       $scope.toDifferentUrl = function(url) {
         return $window.open(url, '_system');
       };
-      document.addEventListener('deviceready', function() {
-        return document.addEventListener('backbutton', function() {
-          if ($location.$$path !== '/feed') {
-            if ($scope.contentAnimate !== $scope.animationContentRight) {
-              $scope.contentAnimate = $scope.animationContentRight;
-            }
-            return $timeout(function() {
-              return $location.path($location.prevLocation);
-            }, 100);
-          } else {
-            return navigator.app.exitApp();
+      $scope.shareT = function() {};
+      document.addEventListener('backbutton', function() {
+        if ($location.$$path !== baseURL.FEEDS) {
+          if ($scope.contentAnimate !== $scope.animationContentRight) {
+            $scope.contentAnimate = $scope.animationContentRight;
           }
-        });
+          return $timeout(function() {
+            return history.back();
+          }, 100);
+        } else {
+          return navigator.app.exitApp();
+        }
       });
       $rootScope.user = client.user.detail;
-      return $scope.backHistory = function() {
+      $scope.backHistory = function() {
         if ($scope.contentAnimate !== $scope.animationContentRight) {
           $scope.contentAnimate = $scope.animationContentRight;
         }
-        return history.back();
+        return $timeout(function() {
+          return history.back();
+        }, 100);
+      };
+      return $scope.openShare = function() {
+        return $window.plugins.socialsharing.share('http://www.atea.no/hovedmeny/atea-community-2014/');
       };
     }
   ]);
@@ -631,13 +628,14 @@
   atea.controller('LoginController', [
     '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'message', 'client', 'connectionTest', function($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, message, client, connectionTest) {
       $location.prevLocation = baseURL.FEEDS;
-      $scope.login = {};
-      $scope.login.submit = function() {
-        if ($scope.authorization.$dirty && $scope.authorization.$valid) {
-          message.wait("Please wait, logging in.");
-          return client.user.login($scope.login.username, $scope.login.password).then(function(data) {
+      $scope.go_submit = function() {
+        if ($scope.auth.$dirty && $scope.auth.$valid) {
+          message.wait($scope.local.log_in);
+          return client.user.login($scope.auth.username, $scope.auth.password).then(function(data) {
             $rootScope.user = data;
-            message.success("Welcome " + data.first_name + "!", function() {});
+            message.success($scope.polyglot.t("login_message", {
+              name: data.first_name
+            }), function() {});
             if ($rootScope.event) {
               connectionTest.makeLoad({
                 params: {
@@ -674,14 +672,14 @@
             return history.back();
           }, function(error) {
             if (error.status === 401) {
-              message.warningAfter("User doesn't exist.");
+              message.warningAfter($scope.local.user_exist);
               return $rootScope.user = null;
             } else {
-              return message.warning("No internet connection.");
+              return message.warning($scope.local.no_connection);
             }
           });
         } else {
-          return message.warning("Incorrect credentials.");
+          return message.warning($scope.local.incorrect_credentials);
         }
       };
       return $scope.pattern = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;

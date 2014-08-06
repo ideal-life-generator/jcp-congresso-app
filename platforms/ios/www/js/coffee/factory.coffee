@@ -2,12 +2,33 @@ atea = angular.module 'atea'
 
 atea.factory 'getDataTest', [ '$resource', ($resource) ->
 	$resource "http://188.226.184.59/congressomulti/api/:resource/:id", { },
-	# $resource "http://dev.congressomulti-loc.no/api/:resource/:id", { },
-		get: method: "GET", cache: true
+	# $resource "http://dev.congressomulti-loc.no/api/:resource/:id", { },		get: method: "GET", cache: true
 		noCache: method: "GET", cache: false
 		save: method: "POST", headers: 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 		put: method: "PUT", headers: 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 ]
+
+atea.provider "local", ->
+	@$get = ($q, $http, message) ->
+		defer = $q.defer()
+		local = { }
+		$http method: "GET", url: "js/i18n/" + @lang + ".json"
+		.success (data) ->
+			local.polyglot = new Polyglot locale: @lang, phrases: data
+			local.local = data
+			local.dyna = { }
+			defer.resolve local
+		.error ->
+			message.warningAfter "Some error at localize in factory.js service with provider name 'local'"
+		defer.promise
+	@
+
+atea.config (localProvider) ->
+	localProvider.lang =
+		if navigator.language is "hu"
+			"hu"
+		else
+			"en"
 
 atea.factory 'message', [ '$timeout', '$q', ($timeout, $q) ->
 	elementDuration = parseFloat window.getComputedStyle(document.querySelector('message')).transitionDuration
@@ -44,7 +65,7 @@ atea.factory 'message', [ '$timeout', '$q', ($timeout, $q) ->
 			data.fastTClose = true
 			data.close()
 			data.fastTClose = false
-		, duration + timeAfter * 3
+		, duration + timeAfter * 5
 	warningAfter: (message) ->
 		defer = $q.defer()
 		equal = (new Date).getTime() - data.start
@@ -71,7 +92,7 @@ atea.factory 'message', [ '$timeout', '$q', ($timeout, $q) ->
 							promiseCloser.then ->
 								afterFn()
 							data.fastClose = false
-					, duration + timeAfter * 3
+					, duration + timeAfter * 5
 ]
 
 atea.run [ 'message', '$timeout', (message, $timeout) ->

@@ -8,7 +8,7 @@
     'message', function(message) {
       return {
         restrict: 'E',
-        template: '<div><div><p>~ message.message ~</p></div></div>',
+        template: '<div><div><p>~ message.message ~</p><div class="loto" ng-show="loto.number"> <div class="wrap"> <div class="items" ng-repeat="items in length" ng-style="stylesheet"> <div class="item" ng-repeat="item in length" ng-style="stylesheet"> ~ $last ? "0" : item ~ </div> </div> </div> </div> </div></div>',
         scope: true,
         controller: [
           '$scope', '$element', function($scope, $element) {
@@ -154,7 +154,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <h3>~setting.subject~</h3> <div	ng-repeat="checkbox in setting.options"> <label> <input type="checkbox" name="~setting.name~" value="~checkbox.answer_value~" ng-model="checkbox.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> ~ checkbox.subject ~ </label> </div> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <div class="clear"></div> <h3>~setting.subject~</h3> <div	ng-repeat="checkbox in setting.options" style="float: left; margin-right: 3em;"> <label> <input type="checkbox" name="~setting.name~" value="~checkbox.answer_value~" ng-model="checkbox.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> ~ checkbox.subject ~ </label> </div> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
@@ -168,7 +168,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <h3>~setting.subject~</h3> <div	ng-repeat="radio in setting.options"> <label> <input type="radio" name="~setting.name~" value="~radio.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> ~ radio.subject ~ </label> </div> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <div class="clear"></div> <h3>~setting.subject~</h3> <div	ng-repeat="radio in setting.options" style="float: left; margin-right: 3em;"> <label> <input type="radio" name="~setting.name~" value="~radio.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> ~ radio.subject ~ </label> </div> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
@@ -197,11 +197,7 @@
           setting: '='
         },
         template: '<li> <h3>~setting.subject~</h3> <input type="email" class="form-control" name="~setting.name~" ng-model="setting.value" ng-minlength="0" ng-maxlength="250" ng-required="~setting.is_required~" ng-pattern="setting.pattern" placeholder="~setting.placeholder~"> <h4>~setting.intro~</h4> </li>',
-        controller: [
-          '$scope', function($scope) {
-            return $scope.setting.pattern = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
-          }
-        ]
+        controller: ['$scope', function($scope) {}]
       };
     }
   ]);
@@ -242,7 +238,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <h3>~setting.subject~</h3> <div	ng-repeat="smile in setting.options"> <label style="cursor: pointer; height: 2.3em;"> <input type="radio" style="margin-top: 0.3em;" name="~setting.name~" value="~smile.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <img ng-src="img/~smile.subject~.png"/> <span>~smile.subject~</span> </label> </div> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <div class="clear"></div> <h3>~setting.subject~</h3> <div	ng-repeat="smile in setting.options" style="float: left; margin-right: 1.6em;"> <label style="cursor: pointer;"> <input type="radio" style="margin-top: 0.3em; display: none;" name="~setting.name~" value="~smile.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <img ng-src="img/~smile.subject~.png"/> </label> </div><div class="clear"></div> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
@@ -252,26 +248,50 @@
     var loto;
     return loto = {
       run: function(number, fn) {
-        loto.number = number;
-        return loto.afterFn = fn;
+        var i, _i, _ref;
+        if (typeof number === "number") {
+          number = number.toString();
+        }
+        loto.afterFn = fn;
+        if (number.length > loto.length.length) {
+          loto.length = (function() {
+            var _i, _ref, _results;
+            _results = [];
+            for (i = _i = 0, _ref = number.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+              _results.push(i);
+            }
+            return _results;
+          })();
+        } else {
+          for (i = _i = 0, _ref = loto.length.length - number.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+            number = "0" + number;
+          }
+        }
+        return loto.number = number;
       },
-      krugi: 1,
-      speed: 1600,
+      length: [0, 1, 2],
+      krugi: 2,
+      speed: 1000,
       frames: 16,
+      height: 105,
       _count: 0
     };
   });
 
-  atea.directive("loto", function(loto) {
+  atea.directive("loto", function(loto, $timeout) {
     return {
       restrict: "C",
       controller: function($scope, $element) {
-        $scope.length = [0, 1, 2];
+        $scope.$watch("loto.length", function(data) {
+          return $scope.length = loto.length;
+        });
         $scope.loto = loto;
         return $scope.$watch("loto._count", function(data) {
           if (data === 3) {
-            loto.afterFn();
-            return loto.afterFn = null;
+            return $timeout(function() {
+              loto.afterFn();
+              return loto.afterFn = null;
+            }, 1000);
           }
         });
       }
@@ -281,11 +301,12 @@
   atea.directive("items", function($timeout, loto) {
     return {
       restrict: "C",
-      controller: function($scope) {
+      controller: function($scope, $element) {
+        $scope.length = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         return $scope.$watch("loto.number", function(data) {
           var start, step;
           if (data) {
-            $scope.length = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+            loto.height = $element[0].clientHeight;
             $scope.stylesheet = {
               top: null
             };
@@ -294,15 +315,23 @@
               var equal, now;
               now = new Date().getTime();
               equal = (now - start) / loto.speed;
-              if (1242 * equal > step._count * 1242 / 9) {
-                step._count++;
+              if (step._krugi + 1 === loto.krugi) {
+                if (loto.height * 10 * equal > step._count * loto.height) {
+                  step._count++;
+                }
               }
-              if (equal < 1 && loto.number[$scope.$index] > step._count - 1) {
-                $scope.stylesheet.top = 1242 * equal + "px";
+              if (equal < 1 && (step._krugi < loto.krugi - 1 || step._count - 1 < loto.number[$scope.$index])) {
+                $scope.stylesheet.top = loto.height * 10 * equal + "px";
                 return $timeout(step, loto.frames);
               } else {
-                loto._count++;
-                return $scope.stylesheet.top = (step._count - 1) * 1242 / 9 + "px";
+                if (step._krugi < loto.krugi) {
+                  step._krugi++;
+                  start = new Date().getTime();
+                  return $timeout(step, loto.frames);
+                } else {
+                  $scope.stylesheet.top = loto.number[$scope.$index] * loto.height + "px";
+                  return loto._count++;
+                }
               }
             };
             step._count = 0;
@@ -310,21 +339,21 @@
             return $timeout(function() {
               start = new Date().getTime();
               return step();
-            }, ($scope.$index + 1) * loto.speed / 9);
+            }, ($scope.$index + 1) * loto.speed / 10);
           }
         });
       }
     };
   });
 
-  atea.directive("item", function() {
+  atea.directive("item", function(loto) {
     return {
       restrict: "C",
       controller: function($scope) {
         $scope.stylesheet = {
           top: null
         };
-        return $scope.stylesheet.top = $scope.$index * -138 + "px";
+        return $scope.stylesheet.top = $scope.$index * -loto.height + "px";
       }
     };
   });

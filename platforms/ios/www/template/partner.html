@@ -1,33 +1,34 @@
-<div class="title-bar">
-    ~ partner.name ~ &nbsp;
-</div>
-<form name="form"
-      class="partner-body"
-      ng-submit="submitQuestion()"
-      novalidate>
-  <div class="partner-wrap">
-      <br>
-      <img ng-if="partner.logoUrl"
-           ng-src="~ partner.logoUrl ~" align="middle" class="partner-img"/>
-      <div class="partner-details">
-          <h3>~ partner.name ~</h3>
-          <h5>~ partner.category ~</h5>
-          <a ng-click="toDifferentUrl(partner.website)">Click to visit website</a>
-          <p>~ partner.description ~</p>
-      </div>
-  
-      <textarea ng-if="user"
-                ng-model="questionToPartner"
-                ng-class="{ 'no-valid': invalid }"
-                ng-minlength="16"
-                ng-maxlength="600"
-                class="form-control" rows="3" placeholder="Comments ..."></textarea>
+<loader></loader>
+<div ng-show="partner">
+  <div class="title-bar">
+      ~ partner.name ~ &nbsp;
   </div>
-  <br>
-  <button ng-if="user"
-          class="ui-btn ui-btn-lg">SUBMIT</button>
-  <loader></loader>
-</form>
+  <form name="partnerForm"
+        class="partner-body"
+        ng-submit="submitQuestion()"
+        novalidate>
+    <div class="partner-wrap">
+        <br>
+        <img ng-if="partner.logoUrl"
+             ng-src="~ partner.logoUrl ~" align="middle" class="partner-img"/>
+        <div class="partner-details">
+            <h3>~ partner.name ~</h3>
+            <h5>~ partner.category ~</h5>
+            <a ng-click="toDifferentUrl(partner.website)">~local.to_website~</a>
+            <p>~ partner.description ~</p>
+        </div>
+    
+        <textarea ng-show="user"
+                  ng-model="questionToPartner"
+                  ng-minlength="16"
+                  ng-maxlength="600"
+                  class="form-control" placeholder="~local.comments_placeholder~"></textarea>
+    </div>
+    <br>
+    <button ng-show="user"
+            class="ui-btn ui-btn-lg">~local.submit~</button>
+  </form>
+</div>
 
 <br>
 <br>

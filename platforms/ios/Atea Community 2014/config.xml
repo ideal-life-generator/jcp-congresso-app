@@ -69,9 +69,15 @@
     <gap:splash gap:platform="ios" height="1024" src="www/img/Launch-Images/Default-Portrait~ipad.png" width="768" />
     <gap:splash gap:platform="ios" height="768" src="www/img/Launch-Images/Default-Landscape~ipad.png" width="1024" />
     <gap:splash gap:platform="winphone" src="www/img/Launch-Images/SplashScreenImage.jpg" />
+    <gap:plugin name="nl.x-services.plugins.socialsharing" />
     <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
     <access browserOnly="true" origin="*" />
     <feature name="InAppBrowser">
         <param name="ios-package" value="CDVInAppBrowser" />
+    </feature>
+    <feature name="SocialSharing">
+        <param name="ios-package" value="SocialSharing" />
+        <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
+        <param name="wp-package" value="SocialSharing" />
     </feature>
 </widget>

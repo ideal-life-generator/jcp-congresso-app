@@ -5,6 +5,15 @@ atea.directive 'message', [ 'message', (message) ->
 	template: '<div>\
         			<div>\
             		<p>~ message.message ~</p>\
+								    <div class="loto" ng-show="loto.number">
+								      <div class="wrap">
+								        <div class="items" ng-repeat="items in length" ng-style="stylesheet">
+								          <div class="item" ng-repeat="item in length" ng-style="stylesheet">
+								            ~ $last ? "0" : item ~
+								          </div>
+								        </div>
+								      </div>
+								</div>
         			</div>\
     				</div>'
 	scope: true
@@ -143,8 +152,9 @@ atea.directive 'surveyCheckboxlist', [ () ->
 	scope:
 		setting: '='
 	template: '<li>
+							 <div class="clear"></div>
 							 <h3>~setting.subject~</h3>
-								 <div	ng-repeat="checkbox in setting.options">
+								 <div	ng-repeat="checkbox in setting.options" style="float: left; margin-right: 3em;">
 								 	 <label>
 										 <input type="checkbox"
 														name="~setting.name~"
@@ -168,8 +178,9 @@ atea.directive 'surveyRadiolist', [ () ->
 	scope:
 		setting: '='
 	template: '<li>
+							 <div class="clear"></div>
 							 <h3>~setting.subject~</h3>
-								 <div	ng-repeat="radio in setting.options">
+								 <div	ng-repeat="radio in setting.options" style="float: left; margin-right: 3em;">
 								 	 <label>
 										 <input type="radio"
 														name="~setting.name~"
@@ -236,7 +247,7 @@ atea.directive 'surveyEmail', [ () ->
 							 <h4>~setting.intro~</h4>
 						</li>'
 	controller: [ '$scope', ($scope) ->
-		$scope.setting.pattern = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+		# $scope.setting.pattern = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
 	]
 ]
 
@@ -290,20 +301,20 @@ atea.directive 'surveySmiles', [ () ->
 	scope:
 		setting: '='
 	template: '<li>
+							<div class="clear"></div>
 							 <h3>~setting.subject~</h3>
-								 <div	ng-repeat="smile in setting.options">
-								 	 <label style="cursor: pointer; height: 2.3em;">
+								 <div	ng-repeat="smile in setting.options" style="float: left; margin-right: 1.6em;">
+								 	 <label style="cursor: pointer;">
 										 <input type="radio"
-										 				style="margin-top: 0.3em;"
+										 				style="margin-top: 0.3em; display: none;"
 														name="~setting.name~"
 														value="~smile.answer_value~"
 														ng-model="setting.value"
 														ng-required="~setting.is_required~"
 														placeholder="~setting.placeholder~">
 										<img ng-src="img/~smile.subject~.png"/>
-										<span>~smile.subject~</span>
 									 </label>
-								 </div>
+								 </div><div class="clear"></div>
 							 <h4>~setting.intro~</h4>
 						</li>'
 	controller: [ '$scope', ($scope) ->
@@ -314,69 +325,78 @@ atea.directive 'surveySmiles', [ () ->
 atea.factory "loto", ->
 	loto =
 		run: (number, fn) ->
-			loto.number = number
+			if typeof number is "number"
+				number = (number).toString()
 			loto.afterFn = fn
-		krugi: 1
-		speed: 1600
+			if number.length > loto.length.length
+				loto.length = (i for i in [0...number.length])
+			else
+				for i in [0...loto.length.length-number.length]
+					number = "0" + number
+			loto.number = number
+		length: [ 0, 1, 2 ]
+		krugi: 2
+		speed: 1000
 		frames: 16
+		height: 105
 		_count: 0
 
-atea.directive "loto", (loto) ->
+atea.directive "loto", (loto, $timeout) ->
 	restrict: "C"
 	controller: ($scope, $element) ->
-		$scope.length = [ 0, 1, 2 ]
+		$scope.$watch "loto.length", (data) ->
+			$scope.length = loto.length
+
 		$scope.loto = loto
 		$scope.$watch "loto._count", (data) ->
 			if data is 3
-				loto.afterFn()
-				loto.afterFn = null
+				$timeout ->
+					loto.afterFn()
+					loto.afterFn = null
+				, 1000
 
 atea.directive "items", ($timeout, loto) ->
 	restrict: "C"
-	controller: ($scope) ->
+	controller: ($scope, $element) ->
+		$scope.length = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
 		$scope.$watch "loto.number", (data) ->
 			if data
-				$scope.length = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+				loto.height = $element[0].clientHeight
 				$scope.stylesheet = top: null
 
 				start = 0
 				step = ->
 					now = new Date().getTime()
 					equal = (now - start) / loto.speed
-					if 1242 * equal > step._count * 1242 / 9
-						step._count++
-					if equal < 1 and loto.number[$scope.$index] > step._count - 1
-						$scope.stylesheet.top = 1242 * equal + "px"
+
+					if step._krugi+1 is loto.krugi
+						if loto.height * 10 * equal > step._count * loto.height
+							step._count++
+
+					if equal < 1 and (step._krugi < loto.krugi-1 or step._count-1 < loto.number[$scope.$index])
+						$scope.stylesheet.top = loto.height * 10 * equal + "px"
 						$timeout step, loto.frames
 					else
-						loto._count++
-						$scope.stylesheet.top = (step._count - 1) * 1242 / 9 + "px"
-					# if equal < 1 and step._krugi < loto.krugi or (loto.number[$scope.$index] > step._count-1)
-					# 	$scope.stylesheet.top = 1242 * equal + "px"
-					# 	$timeout step, loto.frames
-					# else
-					# 	if step._krugi <= loto.krugi
-					# 		start = new Date().getTime()
-					# 		$timeout step, loto.frames
-					# 		step._count = 0
-					# 		step._krugi++
-					# 	else if step._krugi > loto.krugi
-					# 		$scope.stylesheet.top = (step._count - 1) * 1242 / 9 + "px"
-
-
+						if step._krugi < loto.krugi
+							step._krugi++
+							start = new Date().getTime()
+							$timeout step, loto.frames
+						else
+							$scope.stylesheet.top = loto.number[$scope.$index] * loto.height + "px"
+							loto._count++
 
 				step._count = 0
 				step._krugi = 0
 				$timeout ->
 					start = new Date().getTime()
 					step()
-				, ($scope.$index + 1) * loto.speed / 9
+				, ($scope.$index + 1) * loto.speed / 10
 
 
 
 
-atea.directive "item", ->
+atea.directive "item", (loto) ->
 	restrict: "C"
 	controller: ($scope) ->
 		$scope.stylesheet = top: null
-		$scope.stylesheet.top = $scope.$index * -138 + "px"
+		$scope.stylesheet.top = $scope.$index * -loto.height + "px"

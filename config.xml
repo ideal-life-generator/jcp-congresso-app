@@ -85,6 +85,7 @@
     <gap:splash src="www/img/Launch-Images/Default-Portrait~ipad.png" gap:platform="ios" width="768" height="1024"/>
     <gap:splash src="www/img/Launch-Images/Default-Landscape~ipad.png" gap:platform="ios" width="1024" height="768"/>
     <gap:splash src="www/img/Launch-Images/SplashScreenImage.jpg" gap:platform="winphone"/>
+    <gap:plugin name="nl.x-services.plugins.socialsharing" />
 
 <!--     cordova plugin add https://github.com/wildabeast/BarcodeScanner
     cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git
@@ -94,5 +95,18 @@
     <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
     <access origin="*" browserOnly="true" />
     <feature name="InAppBrowser" />
+
+    <!-- for iOS -->
+    <feature name="SocialSharing">
+      <param name="ios-package" value="SocialSharing" />
+    </feature>
+    <!-- for Android -->
+    <feature name="SocialSharing">
+      <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
+    </feature>
+    <!-- for Windows Phone -->
+    <feature name="SocialSharing">
+      <param name="wp-package" value="SocialSharing"/>
+    </feature>
 
 </widget>

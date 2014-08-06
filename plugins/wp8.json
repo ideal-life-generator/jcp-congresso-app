@@ -1,0 +1,36 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "Properties/WMAppManifest.xml": {
+                "parents": {
+                    "/Deployment/App/Capabilities": [
+                        {
+                            "xml": "<Capability Name=\"ID_CAP_NETWORKING\" />",
+                            "count": 2
+                        }
+                    ]
+                }
+            },
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"wp-package\" value=\"InAppBrowser\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "org.apache.cordova.inappbrowser": {
+            "PACKAGE_NAME": "{FBA1CEDE-0D6D-47DC-B6AA-0EB66638F3DF}"
+        }
+    },
+    "dependent_plugins": {}
+}

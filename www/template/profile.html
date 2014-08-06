@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-xs-6">
         <br>
-    	<img ng-if="user.avatar"
+    	<img ng-show="user.avatar"
              ng-src="http://188.226.184.59/congressomulti/~user.avatar~" align="middle" width="100%" class="profile-img">
     </div>
     <div class="col-xs-6 relative">
@@ -11,9 +11,8 @@
         <h4>~ user.company_name ~</h4>
         <div ng-if="event.tokensActive">
             <img style="width: 10em; float: left;" src="img/coins.jpg">
-            <span style="float: left; margin-left: 2em;">
-                <h2>~participient.tokens~</h2>
-                <h2>Tokens</h2>
+            <span style="float: left; margin-left: 2em; margin-top: 6em;">
+                <h2>~dyna.tokens_val~</h2>
             </span>
         </div>
     </div>
