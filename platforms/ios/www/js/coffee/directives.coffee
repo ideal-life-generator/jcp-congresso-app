@@ -300,6 +300,7 @@ atea.directive "loto", (loto, $timeout) ->
 		$scope.$watch "loto._count", (data) ->
 			if data is 3
 				$timeout ->
+					
 					loto.afterFn()
 					loto.afterFn = null
 					# loto.number = null

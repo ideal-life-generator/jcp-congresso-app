@@ -41,7 +41,7 @@ atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routePar
 
 			if result.length and $scope.surveyForm.$valid
 				getData.save { resource: 'surveyAnswer' }, { data: records: result }, (result) ->
-					message.authoClose $scope.local.form_saved, ->
+					message.open $scope.local.form_saved, ->
 						if $scope.event.tokensActive
 							message.open $scope.local.form_token
 							getData.put { resource: 'participant' }, { data: id: $scope.participient.id, extraParam: addTokens: 'passageSurvey', survey_id: $routeParams.rateseId }, (result) ->
@@ -49,7 +49,10 @@ atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routePar
 								if data.success
 									tokens = data.message.receivedTokens
 									loto.run tokens, ->
-										message.authoClose ($scope.polyglot.t "tokens_add", ~~tokens), ->
+										message.authoClose ($scope.polyglot.t "tokens_add", ~~tokens)
+										, ->
+											undefined
+										, ->
 											if $scope.contentAnimate isnt $scope.animationContentRight
 												$scope.contentAnimate = $scope.animationContentRight
 											history.back()

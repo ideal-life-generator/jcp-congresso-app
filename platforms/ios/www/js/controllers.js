@@ -63,7 +63,7 @@
                 records: result
               }
             }, function(result) {
-              return message.authoClose($scope.local.form_saved, function() {
+              return message.open($scope.local.form_saved, function() {
                 if ($scope.event.tokensActive) {
                   message.open($scope.local.form_token);
                   return getData.put({
@@ -83,6 +83,8 @@
                       tokens = data.message.receivedTokens;
                       return loto.run(tokens, function() {
                         return message.authoClose($scope.polyglot.t("tokens_add", ~~tokens), function() {
+                          return void 0;
+                        }, function() {
                           if ($scope.contentAnimate !== $scope.animationContentRight) {
                             $scope.contentAnimate = $scope.animationContentRight;
                           }

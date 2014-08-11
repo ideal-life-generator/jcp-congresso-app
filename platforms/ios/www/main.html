@@ -176,7 +176,16 @@
      ng-show="show"
      ng-click="close()">
   <div>
-    <div>~text~</div>
+    <div>
+      <p>~text~</p>
+      <div class="loto" ng-show="loto.number">
+        <div class="items" ng-repeat="items in length" ng-style="stylesheet">
+          <div class="item" ng-repeat="item in length" ng-style="stylesheet">
+            ~ $last ? "0" : item ~
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
