@@ -2,7 +2,7 @@ atea = angular.module 'atea'
 
 atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routeParams', 'connectionTest', '$filter', '$compile', 'message', 'getDataTest', '$http', 'loto', '$timeout',
 ($scope, $location, baseURL, $routeParams, connectionTest, $filter, $compile, message, getDataTest, $http, loto, $timeout) ->
-	$location.prevLocation = $routeParams.feedId + baseURL.RATESHREF
+	# $location.prevLocation = $routeParams.feedId + baseURL.RATESHREF
 
 	connectionTest.makeLoad
 		params:
@@ -47,16 +47,25 @@ atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routePar
 							message.wait $scope.local.form_token
 							getDataTest.put { resource: 'participant' }, { data: id: $scope.participient.id, extraParam: addTokens: 'passageSurvey', survey_id: $routeParams.rateseId }, (result) ->
 								data = result.data
-								tokens = data.message.receivedTokens
-								loto.run tokens, ->
-									message.success ($scope.polyglot.t "tokens_add", ~~tokens), ->
+								if data.success
+									tokens = data.message.receivedTokens
+									loto.run tokens, ->
+										message.success ($scope.polyglot.t "tokens_add", ~~tokens), ->
+											if $scope.contentAnimate isnt $scope.animationContentRight
+												$scope.contentAnimate = $scope.animationContentRight
+											history.back()
+											loto.number = null
+								else
+									message.success $scope.local.error_server, ->
 										if $scope.contentAnimate isnt $scope.animationContentRight
 											$scope.contentAnimate = $scope.animationContentRight
 										history.back()
+										loto.number = null
 						else
 							if $scope.contentAnimate isnt $scope.animationContentRight
 								$scope.contentAnimate = $scope.animationContentRight
 							history.back()
+							loto.number = null
 				, (error) ->
 					message.warningAfter $scope.local.no_connection
 			else
@@ -70,9 +79,9 @@ atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routePar
 	# 	message.warningAfter ($scope.polyglot.t "tokens_add", ~~tokens)
 ]
 
-atea.controller 'RatesController', [ '$scope', '$location', 'baseURL', '$routeParams', 'connectionTest', 'message', '$rootScope',
-($scope, $location, baseURL, $routeParams, connectionTest, message, $rootScope) ->
-	$location.prevLocation = baseURL.FEEDS + '/' + $routeParams.feedId
+atea.controller 'RatesController', [ '$scope', '$location', 'baseURL', '$routeParams', 'connectionTest', 'message', '$rootScope', '$timeout',
+($scope, $location, baseURL, $routeParams, connectionTest, message, $rootScope, $timeout) ->
+	# $location.prevLocation = baseURL.FEEDS + '/' + $routeParams.feedId
 
 	connectionTest.makeLoad
 		params:
@@ -88,14 +97,15 @@ atea.controller 'RatesController', [ '$scope', '$location', 'baseURL', '$routePa
 					message.success $scope.local.no_surveys, ->
 						history.back()
 			else
-				message.warningAfter $scope.local.no_content
+				message.success $scope.local.no_surveys, ->
+					history.back()
 		scope: $scope
 		type: "noCache"
 ]
 
 atea.controller 'ScheduleController', [ '$scope', '$location', 'baseURL', '$routeParams', 'getDataTest', '$http', 'message', '$rootScope', 'connection', 'connectionTest',
 ($scope, $location, baseURL, $routeParams, getDataTest, $http, message, $rootScope, connection, connectionTest) ->
-	$location.prevLocation = $routeParams.feedId + '/schedules'
+	# $location.prevLocation = $routeParams.feedId + '/schedules'
 
 	connectionTest.makeLoad
 		params:
@@ -103,19 +113,20 @@ atea.controller 'ScheduleController', [ '$scope', '$location', 'baseURL', '$rout
 			id: $routeParams.scheduleId
 		handler: (data) ->
 			$scope.schedule = data
-			getDataTest.noCache { resource: 'survey', id: $scope.schedule.survey_id }, (result) ->
-				data = { }
-				angular.forEach result.data, (ths) ->
-					data = ths
-				if data.is_answered isnt "0"
-					$scope.schedule.is_visible = true
+			if $scope.schedule.survey_id isnt "0"
+				getDataTest.noCache { resource: 'survey', id: $scope.schedule.survey_id }, (result) ->
+					data = { }
+					angular.forEach result.data, (ths) ->
+						data = ths
+					if data.is_answered isnt "0"
+						$scope.schedule.is_visible = true
 		scope: $scope
 		type: "noCache"
 ]
 
 atea.controller 'SchedulesController', [ '$scope', '$location', '$routeParams', 'getDataTest', '$filter', '$http', 'connection', '$rootScope', 'connectionTest',
 ($scope, $location, $routeParams, getDataTest, $filter, $http, connection, $rootScope, connectionTest) ->
-	$location.prevLocation = '/' + $routeParams.feedId
+	# $location.prevLocation = '/' + $routeParams.feedId
 
 	getSchedules = (data) ->
 		oldData = data
@@ -162,7 +173,7 @@ atea.controller 'SchedulesController', [ '$scope', '$location', '$routeParams', 
 
 atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'message', 'connectionTest',
 ($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, message, connectionTest) ->
-	$location.prevLocation = baseURL.FEEDS + "/" + $routeParams.feedId
+	# $location.prevLocation = baseURL.FEEDS + "/" + $routeParams.feedId
 
 	connectionTest.makeLoad
 		params:
@@ -190,14 +201,14 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 			getData.submitRecord data
 			.$promise.then ->
 				message.success $scope.local.message_posted, ->
-					$location.path $location.prevLocation
+					$location.path baseURL.FEEDS + $routeParams.feedId
 		else
 			$scope.noValid = true
 ]
 
 atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'message', 'connectionTest', 'getDataTest', '$http',
 ($scope, $location, baseURL, $routeParams, $rootScope, message, connectionTest, getDataTest, $http) ->
-	$location.prevLocation = $routeParams.feedId + '/partners'
+	# $location.prevLocation = $routeParams.feedId + '/partners'
 
 	connectionTest.makeLoad
 		params:
@@ -209,7 +220,6 @@ atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$route
 		type: "noCache"
 
 	$scope.submitQuestion = ->
-		console.log $scope
 		if $scope.questionToPartner
 			message.wait $scope.local.processing_data
 			getDataTest.save { resource: 'partnerMessage' }, { data: { event_id: $routeParams.feedId, message: $scope.questionToPartner } }, (result) ->
@@ -226,7 +236,7 @@ atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$route
 
 atea.controller 'PartnersController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$filter', 'getDataTest', 'connection', 'connectionTest',
 ($scope, $location, baseURL, $routeParams, $rootScope, $http, $filter, getDataTest, connection, connectionTest) ->
-	$location.prevLocation = '/' + $routeParams.feedId
+	# $location.prevLocation = '/' + $routeParams.feedId
 
 	getPartners = (data) ->
 		$scope.partners = [ ]
@@ -242,9 +252,9 @@ atea.controller 'PartnersController', [ '$scope', '$location', 'baseURL', '$rout
 		type: "noCache"
 ]
 
-atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL', '$routeParams', '$rootScope', 'client', 'connection', 'getDataTest', 'connectionTest', 'message',
-($scope, $window, $location, baseURL, $routeParams, $rootScope, client, connection, getDataTest, connectionTest, message) ->
-	$location.prevLocation = baseURL.FEEDS
+atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL', '$routeParams', '$rootScope', 'client', 'connection', 'getDataTest', 'connectionTest', 'message', 'loto',
+($scope, $window, $location, baseURL, $routeParams, $rootScope, client, connection, getDataTest, connectionTest, message, loto) ->
+	# $location.prevLocation = baseURL.FEEDS
 
 	$scope.scanActivator = ->
 		cordova.plugins.barcodeScanner.scan (result) ->
@@ -257,12 +267,16 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 						message.warning "No user"
 					else
 						$rootScope.member = data
-						$location.path "/" + $routeParams.feedId + baseURL.COMMENTWPAGEHREF
+						$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
 						$scope.$apply()
 				scope: $scope
 				type: "noCache"
 		, (error) ->
 			message.warning $scope.local.error_scaning
+
+	# message.wait $scope.local.first_login
+	# loto.run 456, ->
+		# message.warningAfter ($scope.polyglot.t "tokens_add", ~~456)
 ]
 
 atea.controller 'EventsController', [ '$scope', '$filter', 'baseURL', '$location', '$rootScope', '$routeParams', 'connectionTest', 'client',
@@ -275,7 +289,7 @@ atea.controller 'EventsController', [ '$scope', '$filter', 'baseURL', '$location
 
 atea.controller 'ProfileController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connectionTest',
 ($scope, $location, baseURL, $routeParams, $rootScope, connectionTest) ->
-	$location.prevLocation = baseURL.FEEDS
+	# $location.prevLocation = baseURL.FEEDS
 
 	$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~$scope.participient.tokens
 ]
@@ -319,6 +333,7 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 
 	$scope.$on '$routeChangeSuccess', ->
 		path = $location.$$path
+		# $scope.backButton = if path is baseURL.FEEDS then false else true
 		if $rootScope.event and path is baseURL.FEEDS
 			$rootScope.event = null
 			$scope.participient = null
@@ -343,12 +358,17 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 				scope: $scope
 				type: "noCache"
 		if path is baseURL.LOGIN
-			$rootScope.backButton = on
 			$rootScope.forgot = on
 		else
 			$rootScope.forgot = off
-		if path is baseURL.FEEDS
-			$rootScope.backButton = off
+		if path isnt baseURL.FEEDS
+			$scope.backButton = on
+		else if $scope.backButton
+			$scope.backButton = off
+		if path is baseURL.PROFILE
+			$scope.edit = yes
+		else if $scope.edit
+			$scope.edit = no
 
 	$scope.pastEventsCollapseder = ->
 		if $scope.pastEventsCollapsed
@@ -404,9 +424,15 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 	$scope.nextLocation = (path) ->
 		if $scope.contentAnimate isnt $scope.animationContentLeft
 			$scope.contentAnimate = $scope.animationContentLeft
-		$scope.logoSize = on
 		$timeout ->
 			$location.path path
+		, 100
+
+	$scope.backHistory = ->
+		if $scope.contentAnimate isnt $scope.animationContentRight
+			$scope.contentAnimate = $scope.animationContentRight
+		$timeout ->
+			history.back()
 		, 100
 
 	$scope.changeEvent = (path, event) ->
@@ -429,7 +455,7 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 									message.warningAfter ($scope.polyglot.t "tokens_add", ~~tokens)
 							# , (error) ->
 								# message.warningAfter "Error"
-		$scope.nextLocation(path)
+		$scope.nextLocation path
 
 	$scope.logOut = ->
 		client.user.logOut()
@@ -458,17 +484,8 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 		$location.path baseURL.FEEDS
 
 	$scope.toDifferentUrl = (url) ->
+		console.log url
 		$window.open url, '_system'
-
-	$scope.shareT = ->
-		# window.plugins.socialsharing.canShareVia 'com.apple.social.facebook', 'msg', null, null, null, (e) ->
-		# 	alert(e)
-		# , (e) ->
-		# 	alert(e)
-		# message = text: "This is a test message"
-
-		# $window.socialmessage.send message
-		# $window.plugins.socialsharing.share 'Message only'
 
 	# try
 	# 	document.addEventListener 'deviceready', ->
@@ -487,20 +504,16 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 
 	$rootScope.user = client.user.detail
 
-	$scope.backHistory = ->
-		if $scope.contentAnimate isnt $scope.animationContentRight
-			$scope.contentAnimate = $scope.animationContentRight
-		$timeout ->
-			history.back()
-		, 100
-
 	$scope.openShare = ->
 		$window.plugins.socialsharing.share 'http://www.atea.no/hovedmeny/atea-community-2014/'
+
+	$scope.toComment = ->
+  	$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
 ]
 
 atea.controller 'LoginController', [ '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'message', 'client', 'connectionTest',
 ($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, message, client, connectionTest) ->
-	$location.prevLocation = baseURL.FEEDS
+	# $location.prevLocation = baseURL.FEEDS
 
 	$scope.go_submit = ->
 		if $scope.auth.$dirty and $scope.auth.$valid

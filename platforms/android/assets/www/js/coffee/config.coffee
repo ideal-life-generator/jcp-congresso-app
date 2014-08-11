@@ -1,4 +1,4 @@
-atea = angular.module 'atea', [ 'ngRoute', 'ngAnimate', 'ngResource', 'ja.qr', 'ngCookies' ]
+atea = angular.module 'atea', [ 'ngRoute', 'ngAnimate', 'ngResource', 'ja.qr', 'ngCookies', 'ngTouch' ]
 
 atea.config [ '$interpolateProvider', ($interpolateProvider) ->
 	$interpolateProvider.startSymbol '~'
@@ -6,6 +6,7 @@ atea.config [ '$interpolateProvider', ($interpolateProvider) ->
 ]
 
 atea.constant 'baseURL',
+	BASE: 'http://188.226.184.59'
 	FEEDS: '/'
 	FEED: '/feed/:feedId'
 	FEEDHREF: '/feed'
@@ -16,17 +17,17 @@ atea.constant 'baseURL',
 	RATE: '/rate.html'
 	SCANPAGE: '/:feedId/scan'
 	SCANHREF: '/scan'
-	COMMENTWPAGE: '/:feedId/scan/comment'
-	COMMENTWPAGEHREF: '/:feedId/scan/comment'
+	COMMENTPAGE: '/:feedId/scan/comment'
+	COMMENTPAGEHREF: '/scan/comment'
 	SCHEDULES: '/:feedId/schedules'
 	SCHEDULE: '/:feedId/schedules/:scheduleId'
 	SCHEDULESHREF: '/schedules'
 	RATES: '/:feedId/rateses'
 	RATESHREF: '/rateses'
 	RATE: '/:feedId/rateses/:rateseId'
-	PROFILE: '/:feedId/profile'
-	PROFILEHREF: '/profile'
+	PROFILE: '/profile'
 	LOGIN: '/login'
+	MYPAGE: '/congressomulti/mypage'
 
 atea.value 'COMPANY_ID', 13
 
@@ -47,7 +48,7 @@ atea.config [ '$routeProvider', 'baseURL', ($routeProvider, baseURL) ->
 		.when baseURL.SCANPAGE,
 			templateUrl: 'template/scan.html'
 			controller: 'ScanController'
-		.when baseURL.COMMENTWPAGE,
+		.when baseURL.COMMENTPAGE,
 			templateUrl: 'template/comment.html'
 			controller: 'CommentController'
 		.when baseURL.SCHEDULES,
@@ -77,19 +78,16 @@ atea.config [ '$httpProvider', ($httpProvider) ->
 	$httpProvider.defaults.headers.put = {}
 ]
 
-atea.run [ 'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$window', '$animate',
-(baseURL, $rootScope, client, userStatus, $location, $routeParams, $window, $animate) ->
+atea.run [ 'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$window',
+(baseURL, $rootScope, client, userStatus, $location, $routeParams, $window) ->
 	$rootScope.status = userStatus.role
 	$rootScope.baseURL = baseURL
-	$rootScope.profileActive = if $location.$$path is baseURL.PROFILE then true else false
-	$rootScope.rateActive = if $location.$$path is '/' + $routeParams.feedId + baseURL.RATE then true else false
-	$rootScope.$on '$routeChangeStart', (data, newL, oldL) ->
-		$location.lastLocation = $location.$$path
-		$rootScope.backButton =
-			if $location.$$path is baseURL.FEEDS or $location.$$path is baseURL.PROFILE
-				false
-			else
-				true
+
+	FastClick.attach document.body
+	# $rootScope.profileActive = if $location.$$path is baseURL.PROFILE then true else false
+	# $rootScope.rateActive = if $location.$$path is '/' + $routeParams.feedId + baseURL.RATE then true else false
+	# $rootScope.$on '$routeChangeStart', (data, newL, oldL) ->
+
 
 	document.addEventListener "deviceready", ->
 		screen.lockOrientation 'landscape'

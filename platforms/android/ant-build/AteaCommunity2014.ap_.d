@@ -200,6 +200,7 @@
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/eye-3-xl.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/facebook-icon.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/Forum-My-topic-icon.png \
+/Users/nik/documents/congresso-app/platforms/android/assets/www/img/Good-active.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/Good.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/google-icon.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/home-m.png \
@@ -208,8 +209,10 @@
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/linkedin-icon.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/list-view-m.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/Management-Manager-icon.png \
+/Users/nik/documents/congresso-app/platforms/android/assets/www/img/Neutral-active.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/Neutral.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/photo.jpg \
+/Users/nik/documents/congresso-app/platforms/android/assets/www/img/Sad-active.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/Sad.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/Sections-of-Website-Contacts-icon.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/show-property-xl.png \
@@ -242,6 +245,7 @@
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/angularlib/angular-qr.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/angularlib/angular-resource.min.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/angularlib/angular-route.min.js \
+/Users/nik/documents/congresso-app/platforms/android/assets/www/js/angularlib/angular-touch.min.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/angularlib/angular.min.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/angularlib/auth-basic.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/coffee/config.coffee \
@@ -253,16 +257,12 @@
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/externallb/hammer.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/externallb/hammer.min.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/externallb/qrcode.js \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/js/externallb/SocialSharing.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/i18n/en.json \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/i18n/polyglot.min.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/plugins/com.phonegap.plugins.barcodescanner \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/plugins/nl.x-services.plugins.socialsharing \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/plugins/org.apache.cordova.inappbrowser \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/plugins/com.phonegap.plugins.barcodescanner/www \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/plugins/com.phonegap.plugins.barcodescanner/www/barcodescanner.js \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/plugins/nl.x-services.plugins.socialsharing/www \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/plugins/nl.x-services.plugins.socialsharing/www/SocialSharing.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/plugins/org.apache.cordova.inappbrowser/www \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/template/comment.html \

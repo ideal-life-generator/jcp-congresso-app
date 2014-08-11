@@ -1,9 +1,5 @@
 /Users/nik/documents/congresso-app/platforms/android/ant-build/classes.dex : \
 /Users/nik/documents/congresso-app/platforms/android/ant-build/classes/com/phonegap/plugins/barcodescanner/BarcodeScanner.class \
-/Users/nik/documents/congresso-app/platforms/android/ant-build/classes/nl/xservices/plugins/SocialSharing$1.class \
-/Users/nik/documents/congresso-app/platforms/android/ant-build/classes/nl/xservices/plugins/SocialSharing$2.class \
-/Users/nik/documents/congresso-app/platforms/android/ant-build/classes/nl/xservices/plugins/SocialSharing$SocialSharingRunnable.class \
-/Users/nik/documents/congresso-app/platforms/android/ant-build/classes/nl/xservices/plugins/SocialSharing.class \
 /Users/nik/documents/congresso-app/platforms/android/ant-build/classes/no/jcp/congresso/AteaCommunity2014.class \
 /Users/nik/documents/congresso-app/platforms/android/ant-build/classes/no/jcp/congresso/BuildConfig.class \
 /Users/nik/documents/congresso-app/platforms/android/ant-build/classes/no/jcp/congresso/R$array.class \

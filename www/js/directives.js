@@ -4,49 +4,6 @@
 
   atea = angular.module('atea');
 
-  atea.directive('message', [
-    'message', function(message) {
-      return {
-        restrict: 'E',
-        template: '<div><div><p>~ message.message ~</p><div class="loto" ng-show="loto.number"> <div class="wrap"> <div class="items" ng-repeat="items in length" ng-style="stylesheet"> <div class="item" ng-repeat="item in length" ng-style="stylesheet"> ~ $last ? "0" : item ~ </div> </div> </div> </div> </div></div>',
-        scope: true,
-        controller: [
-          '$scope', '$element', function($scope, $element) {
-            $scope.message = message;
-            return $scope.closeMessage = message.close;
-          }
-        ]
-      };
-    }
-  ]);
-
-  atea.directive('connection', [
-    'connection', '$window', function(connection, $window) {
-      return {
-        restrict: 'E',
-        scope: true,
-        controller: [
-          '$scope', function($scope) {
-            $scope.connection = connection;
-            $scope.$watch('connection', function() {
-              return $scope.status = connection.status;
-            }, true);
-            $scope.refresh = function() {
-              if (!connection.loading) {
-                return $scope.connection.handler();
-              }
-            };
-            return $window.ononline = function() {
-              if (connection.handler) {
-                return $scope.refresh();
-              }
-            };
-          }
-        ]
-      };
-    }
-  ]);
-
   atea.directive('loader', [
     function() {
       return {
@@ -59,12 +16,12 @@
   ]);
 
   atea.directive('warning', [
-    'connectionTest', '$window', function(connectionTest, $window) {
+    'connection', '$window', function(connection, $window) {
       return {
         restrict: 'C',
         controller: [
           '$scope', function($scope) {
-            $scope.message = connectionTest.message;
+            $scope.message = connection.message;
             $scope.updater = function() {
               if (!$scope.update) {
                 $scope.loading = true;
@@ -95,22 +52,22 @@
             timeout = null;
             mousemove = function(event) {
               event.stopPropagation();
-              return x = event.clientX - xS;
+              return x = event.changedTouches[0].clientX - xS;
             };
-            return element = angular.element($element).on("mousedown", function(event) {
+            return element = angular.element($element).on("touchstart", function(event) {
               event.stopPropagation();
-              xS = event.clientX;
+              xS = event.changedTouches[0].clientX;
               $timeout(function() {
-                if (window.innerWidth / 5 < x) {
+                if (320 / 5 < x) {
                   return $scope[$attrs.cSwiperight]();
                 }
               }, 150);
-              return angular.element(this, event).on("mousemove", mousemove);
-            }).on("mouseup", function(event) {
+              return angular.element(this, event).on("touchmove", mousemove);
+            }).on("touchend", function(event) {
               var Xs;
               event.stopPropagation();
               x = Xs = 0;
-              return angular.element(this, event).off("mousemove");
+              return angular.element(this, event).off("touchmove");
             });
           }
         ]
@@ -126,7 +83,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <h3>~setting.subject~</h3> <input type="text" class="form-control" name="~setting.name~" ng-model="setting.value" ng-minlength="~setting.min_length~" ng-maxlength="~setting.max_length~" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <h3>~setting.subject~</h3> <input type="text" name="~setting.name~" ng-model="setting.value" ng-minlength="~setting.min_length~" ng-maxlength="~setting.max_length~" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
@@ -154,7 +111,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <div class="clear"></div> <h3>~setting.subject~</h3> <div	ng-repeat="checkbox in setting.options" style="float: left; margin-right: 3em;"> <label> <input type="checkbox" name="~setting.name~" value="~checkbox.answer_value~" ng-model="checkbox.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> ~ checkbox.subject ~ </label> </div> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <div class="clear"></div> <h3>~setting.subject~</h3> <div	ng-repeat="checkbox in setting.options" style="float: left; margin-right: 1.6em; height: 30px;"> <label> <input type="checkbox" style="float: left;" name="~setting.name~" value="~checkbox.answer_value~" ng-model="checkbox.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ checkbox.subject ~</span> </label> </div> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
@@ -168,7 +125,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <div class="clear"></div> <h3>~setting.subject~</h3> <div	ng-repeat="radio in setting.options" style="float: left; margin-right: 3em;"> <label> <input type="radio" name="~setting.name~" value="~radio.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> ~ radio.subject ~ </label> </div> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <div class="clear"></div> <h3>~setting.subject~</h3> <div	ng-repeat="radio in setting.options" style="float: left; margin-right: 1.6em; height: 30px;"> <label> <input type="radio" style="float: left;" name="~setting.name~" value="~radio.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ radio.subject ~</span> </label> </div> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
@@ -196,7 +153,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <h3>~setting.subject~</h3> <input type="email" class="form-control" name="~setting.name~" ng-model="setting.value" ng-minlength="0" ng-maxlength="250" ng-required="~setting.is_required~" ng-pattern="setting.pattern" placeholder="~setting.placeholder~"> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <h3>~setting.subject~</h3> <input type="email" name="~setting.name~" ng-model="setting.value" ng-minlength="0" ng-maxlength="250" ng-required="~setting.is_required~" ng-pattern="setting.pattern" placeholder="~setting.placeholder~"> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
@@ -210,7 +167,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <h3>~setting.subject~</h3> <input type="number" class="form-control" name="~setting.name~" ng-model="setting.value" ng-minlength="~setting.min_length~" ng-maxlength="~setting.max_length~" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <h3>~setting.subject~</h3> <input type="number" name="~setting.name~" ng-model="setting.value" ng-minlength="~setting.min_length~" ng-maxlength="~setting.max_length~" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
@@ -224,7 +181,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <h3>~setting.subject~</h3> <input type="text" class="form-control" name="~setting.name~" ng-model="setting.value" ng-minlength="~setting.min_length~" ng-maxlength="~setting.max_length~" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <h3>~setting.subject~</h3> <input type="text" name="~setting.name~" ng-model="setting.value" ng-minlength="~setting.min_length~" ng-maxlength="~setting.max_length~" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
@@ -238,45 +195,30 @@
         scope: {
           setting: '='
         },
-        template: '<li> <div class="clear"></div> <h3>~setting.subject~</h3> <div	ng-repeat="smile in setting.options" style="float: left; margin-right: 1.6em;"> <label style="cursor: pointer;"> <input type="radio" style="margin-top: 0.3em; display: none;" name="~setting.name~" value="~smile.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <img ng-src="img/~smile.subject~.png"/> </label> </div><div class="clear"></div> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <div class="clear"></div> <h3>~setting.subject~</h3> <div	ng-repeat="smile in setting.options" class="smile"> <label style="background: url(img/~smile_image~.png) no-repeat center center;"> <input type="radio" style="" name="~setting.name~" value="~smile.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> </label> </div><div class="clear"></div> <h4 ng-if="setting.intro">~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
   ]);
 
-  atea.factory("loto", function() {
-    var loto;
-    return loto = {
-      run: function(number, fn) {
-        var i, _i, _ref;
-        if (typeof number === "number") {
-          number = number.toString();
-        }
-        loto.afterFn = fn;
-        if (number.length > loto.length.length) {
-          loto.length = (function() {
-            var _i, _ref, _results;
-            _results = [];
-            for (i = _i = 0, _ref = number.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
-              _results.push(i);
-            }
-            return _results;
-          })();
-        } else {
-          for (i = _i = 0, _ref = loto.length.length - number.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
-            number = "0" + number;
+  atea.directive("smile", [
+    function() {
+      return {
+        restrict: "C",
+        controller: [
+          "$scope", function($scope) {
+            return $scope.$watch("setting.value", function(data) {
+              if ($scope.smile.answer_value === ~~data) {
+                return $scope.smile_image = $scope.smile.subject.toLowerCase();
+              } else {
+                return $scope.smile_image = $scope.smile.subject.toLowerCase() + "-active";
+              }
+            });
           }
-        }
-        return loto.number = number;
-      },
-      length: [0, 1, 2],
-      krugi: 2,
-      speed: 1000,
-      frames: 16,
-      height: 105,
-      _count: 0
-    };
-  });
+        ]
+      };
+    }
+  ]);
 
   atea.directive("loto", function(loto, $timeout) {
     return {
@@ -290,8 +232,7 @@
           if (data === 3) {
             return $timeout(function() {
               loto.afterFn();
-              loto.afterFn = null;
-              return loto.number = null;
+              return loto.afterFn = null;
             }, 1000);
           }
         });
@@ -355,6 +296,25 @@
           top: null
         };
         return $scope.stylesheet.top = $scope.$index * -loto.height + "px";
+      }
+    };
+  });
+
+  atea.directive("message", function(message) {
+    return {
+      restrict: "C",
+      controller: function($scope, $element) {
+        message._element = $element;
+        $scope.message = message;
+        return $scope.$watch("message.text", function(option) {
+          $scope.text = message.text;
+          return $scope.close = function() {
+            if (message._close) {
+              message._close = false;
+              return message.close();
+            }
+          };
+        });
       }
     };
   });

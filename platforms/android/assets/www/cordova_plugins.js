@@ -13,21 +13,13 @@ module.exports = [
         "clobbers": [
             "window.open"
         ]
-    },
-    {
-        "file": "plugins/nl.x-services.plugins.socialsharing/www/SocialSharing.js",
-        "id": "nl.x-services.plugins.socialsharing.SocialSharing",
-        "clobbers": [
-            "window.plugins.socialsharing"
-        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "com.phonegap.plugins.barcodescanner": "2.0.0",
-    "org.apache.cordova.inappbrowser": "0.5.1-dev",
-    "nl.x-services.plugins.socialsharing": "4.3.2"
+    "org.apache.cordova.inappbrowser": "0.5.2-dev"
 }
 // BOTTOM OF METADATA
 });

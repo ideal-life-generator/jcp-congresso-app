@@ -2,7 +2,7 @@
 (function() {
   var atea;
 
-  atea = angular.module('atea', ['ngRoute', 'ngAnimate', 'ngResource', 'ja.qr', 'ngCookies']);
+  atea = angular.module('atea', ['ngRoute', 'ngAnimate', 'ngResource', 'ja.qr', 'ngCookies', 'ngTouch']);
 
   atea.config([
     '$interpolateProvider', function($interpolateProvider) {
@@ -12,6 +12,7 @@
   ]);
 
   atea.constant('baseURL', {
+    BASE: 'http://188.226.184.59',
     FEEDS: '/',
     FEED: '/feed/:feedId',
     FEEDHREF: '/feed',
@@ -22,17 +23,17 @@
     RATE: '/rate.html',
     SCANPAGE: '/:feedId/scan',
     SCANHREF: '/scan',
-    COMMENTWPAGE: '/:feedId/scan/comment',
-    COMMENTWPAGEHREF: '/:feedId/scan/comment',
+    COMMENTPAGE: '/:feedId/scan/comment',
+    COMMENTPAGEHREF: '/scan/comment',
     SCHEDULES: '/:feedId/schedules',
     SCHEDULE: '/:feedId/schedules/:scheduleId',
     SCHEDULESHREF: '/schedules',
     RATES: '/:feedId/rateses',
     RATESHREF: '/rateses',
     RATE: '/:feedId/rateses/:rateseId',
-    PROFILE: '/:feedId/profile',
-    PROFILEHREF: '/profile',
-    LOGIN: '/login'
+    PROFILE: '/profile',
+    LOGIN: '/login',
+    MYPAGE: '/congressomulti/mypage'
   });
 
   atea.value('COMPANY_ID', 13);
@@ -54,7 +55,7 @@
       }).when(baseURL.SCANPAGE, {
         templateUrl: 'template/scan.html',
         controller: 'ScanController'
-      }).when(baseURL.COMMENTWPAGE, {
+      }).when(baseURL.COMMENTPAGE, {
         templateUrl: 'template/comment.html',
         controller: 'CommentController'
       }).when(baseURL.SCHEDULES, {
@@ -89,15 +90,10 @@
   ]);
 
   atea.run([
-    'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$window', '$animate', function(baseURL, $rootScope, client, userStatus, $location, $routeParams, $window, $animate) {
+    'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$window', function(baseURL, $rootScope, client, userStatus, $location, $routeParams, $window) {
       $rootScope.status = userStatus.role;
       $rootScope.baseURL = baseURL;
-      $rootScope.profileActive = $location.$$path === baseURL.PROFILE ? true : false;
-      $rootScope.rateActive = $location.$$path === '/' + $routeParams.feedId + baseURL.RATE ? true : false;
-      $rootScope.$on('$routeChangeStart', function(data, newL, oldL) {
-        $location.lastLocation = $location.$$path;
-        return $rootScope.backButton = $location.$$path === baseURL.FEEDS || $location.$$path === baseURL.PROFILE ? false : true;
-      });
+      FastClick.attach(document.body);
       return document.addEventListener("deviceready", function() {
         return screen.lockOrientation('landscape');
       });

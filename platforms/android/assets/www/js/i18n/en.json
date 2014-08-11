@@ -52,5 +52,6 @@
 	"user_exist": "User doesn't exist.",
 	"incorrect_credentials": "Incorrect credentials.",
 	"login_message": "Welcome %{name}!",
-	"form_token": "By filling this form you'll receive"
+	"form_token": "By filling this form you'll receive",
+	"error_server": "Error on server"
 }

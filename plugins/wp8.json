@@ -9,6 +9,10 @@
                 "parents": {
                     "/Deployment/App/Capabilities": [
                         {
+                            "xml": "<Capability Name=\"ID_CAP_ISV_CAMERA\" />",
+                            "count": 1
+                        },
+                        {
                             "xml": "<Capability Name=\"ID_CAP_NETWORKING\" />",
                             "count": 2
                         }
@@ -19,6 +23,10 @@
                 "parents": {
                     "/*": [
                         {
+                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"wp-package\" value=\"BarcodeScanner\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"wp-package\" value=\"InAppBrowser\" /></feature>",
                             "count": 1
                         }
@@ -28,8 +36,11 @@
         }
     },
     "installed_plugins": {
+        "com.phonegap.plugins.barcodescanner": {
+            "PACKAGE_NAME": "{DE92072B-6465-4557-A737-ACD02C12BB19}"
+        },
         "org.apache.cordova.inappbrowser": {
-            "PACKAGE_NAME": "{FBA1CEDE-0D6D-47DC-B6AA-0EB66638F3DF}"
+            "PACKAGE_NAME": "{DE92072B-6465-4557-A737-ACD02C12BB19}"
         }
     },
     "dependent_plugins": {}

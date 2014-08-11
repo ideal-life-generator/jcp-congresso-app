@@ -1,0 +1,14 @@
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Debug\ApplicationIcon.png
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Debug\Background.png
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Debug\no.jcp.congresso.dll
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Debug\no.jcp.congresso.pdb
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Debug\AppManifest.xaml
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Debug\Properties\WMAppManifest.xml
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Debug\CordovaAppProj_Debug_AnyCPU.xap
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Debug\App.g.cs
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Debug\cordovalib\CordovaView.g.cs
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Debug\MainPage.g.cs
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Debug\no.jcp.congresso.g.resources
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Debug\no.jcp.congresso.dll
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Debug\no.jcp.congresso.pdb
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Debug\XapCacheFile.xml

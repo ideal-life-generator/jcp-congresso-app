@@ -1,45 +1,5 @@
 atea = angular.module 'atea'
 
-atea.directive 'message', [ 'message', (message) ->
-	restrict: 'E'
-	template: '<div>\
-        			<div>\
-            		<p>~ message.message ~</p>\
-								    <div class="loto" ng-show="loto.number">
-								      <div class="wrap">
-								        <div class="items" ng-repeat="items in length" ng-style="stylesheet">
-								          <div class="item" ng-repeat="item in length" ng-style="stylesheet">
-								            ~ $last ? "0" : item ~
-								          </div>
-								        </div>
-								      </div>
-								</div>
-        			</div>\
-    				</div>'
-	scope: true
-	controller: [ '$scope', '$element', ($scope, $element) ->
-		$scope.message = message
-		$scope.closeMessage = message.close
-	]
-]
-
-atea.directive 'connection', [ 'connection', '$window', (connection, $window) ->
-	restrict: 'E'
-	scope: true
-	controller: [ '$scope', ($scope) ->
-		$scope.connection = connection
-		$scope.$watch 'connection', ->
-			$scope.status = connection.status
-		, true
-		$scope.refresh = ->
-			if not connection.loading
-				$scope.connection.handler()
-		$window.ononline = ->
-			if connection.handler
-				$scope.refresh()
-	]
-]
-
 atea.directive 'loader' , [ ->
 	restrict: 'E'
 	template: '<div ng-show="loader"
@@ -59,10 +19,10 @@ atea.directive 'loader' , [ ->
 	]
 ]
 
-atea.directive 'warning', [ 'connectionTest', '$window', (connectionTest, $window) ->
+atea.directive 'warning', [ 'connection', '$window', (connection, $window) ->
 	restrict: 'C'
 	controller: [ '$scope', ($scope) ->
-		$scope.message = connectionTest.message
+		$scope.message = connection.message
 		$scope.updater = ->
 			if not $scope.update
 				$scope.loading = on
@@ -83,22 +43,22 @@ atea.directive 'cSwiperight', [ '$timeout', ($timeout) ->
 		timeout = null
 		mousemove = (event) ->
 			event.stopPropagation()
-			x = event.clientX - xS
+			x = event.changedTouches[0].clientX - xS
 		element = angular.element $element
-		.on "mousedown", (event) ->
+		.on "touchstart", (event) ->
 			event.stopPropagation()
-			xS = event.clientX
+			xS = event.changedTouches[0].clientX
 			$timeout ->
-				if window.innerWidth / 5 < x
+				if 320 / 5 < x
 					$scope[$attrs.cSwiperight]()
 			, 150
 			angular.element this, event
-			.on "mousemove", mousemove
-		.on "mouseup", (event) ->
+			.on "touchmove", mousemove
+		.on "touchend", (event) ->
 			event.stopPropagation()
 			x = Xs = 0
 			angular.element this, event
-			.off "mousemove"
+			.off "touchmove"
 	]
 ]
 
@@ -110,7 +70,6 @@ atea.directive 'surveyText', [ () ->
 	template: '<li>
 							 <h3>~setting.subject~</h3>
 							 <input type="text"
-											class="form-control"
 											name="~setting.name~"
 											ng-model="setting.value"
 											ng-minlength="~setting.min_length~"
@@ -154,15 +113,16 @@ atea.directive 'surveyCheckboxlist', [ () ->
 	template: '<li>
 							 <div class="clear"></div>
 							 <h3>~setting.subject~</h3>
-								 <div	ng-repeat="checkbox in setting.options" style="float: left; margin-right: 3em;">
+								 <div	ng-repeat="checkbox in setting.options" style="float: left; margin-right: 1.6em; height: 30px;">
 								 	 <label>
 										 <input type="checkbox"
+										 				style="float: left;"
 														name="~setting.name~"
 														value="~checkbox.answer_value~"
 														ng-model="checkbox.value"
 														ng-required="~setting.is_required~"
 														placeholder="~setting.placeholder~">
-										 ~ checkbox.subject ~
+										 <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ checkbox.subject ~</span>
 									 </label>
 								 </div>
 							 <h4>~setting.intro~</h4>
@@ -180,15 +140,17 @@ atea.directive 'surveyRadiolist', [ () ->
 	template: '<li>
 							 <div class="clear"></div>
 							 <h3>~setting.subject~</h3>
-								 <div	ng-repeat="radio in setting.options" style="float: left; margin-right: 3em;">
+								 <div	ng-repeat="radio in setting.options" style="float: left; margin-right: 1.6em; height: 30px;">
 								 	 <label>
 										 <input type="radio"
+										 				style="float: left;"
 														name="~setting.name~"
 														value="~radio.answer_value~"
 														ng-model="setting.value"
 														ng-required="~setting.is_required~"
 														placeholder="~setting.placeholder~">
-										 ~ radio.subject ~
+										 
+										 <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ radio.subject ~</span>
 									 </label>
 								 </div>
 							 <h4>~setting.intro~</h4>
@@ -236,7 +198,6 @@ atea.directive 'surveyEmail', [ () ->
 	template: '<li>
 							 <h3>~setting.subject~</h3>
 							 <input type="email"
-											class="form-control"
 											name="~setting.name~"
 											ng-model="setting.value"
 											ng-minlength="0"
@@ -259,7 +220,6 @@ atea.directive 'surveyNumber', [ () ->
 	template: '<li>
 							 <h3>~setting.subject~</h3>
 							 <input type="number"
-											class="form-control"
 											name="~setting.name~"
 											ng-model="setting.value"
 											ng-minlength="~setting.min_length~"
@@ -281,7 +241,6 @@ atea.directive 'surveyMobile', [ () ->
 	template: '<li>
 							 <h3>~setting.subject~</h3>
 							 <input type="text"
-											class="form-control"
 											name="~setting.name~"
 											ng-model="setting.value"
 											ng-minlength="~setting.min_length~"
@@ -303,43 +262,33 @@ atea.directive 'surveySmiles', [ () ->
 	template: '<li>
 							<div class="clear"></div>
 							 <h3>~setting.subject~</h3>
-								 <div	ng-repeat="smile in setting.options" style="float: left; margin-right: 1.6em;">
-								 	 <label style="cursor: pointer;">
+								 <div	ng-repeat="smile in setting.options" class="smile">
+								 	 <label style="background: url(img/~smile_image~.png) no-repeat center center;">
 										 <input type="radio"
-										 				style="margin-top: 0.3em; display: none;"
+										 				style=""
 														name="~setting.name~"
 														value="~smile.answer_value~"
 														ng-model="setting.value"
 														ng-required="~setting.is_required~"
 														placeholder="~setting.placeholder~">
-										<img ng-src="img/~smile.subject~.png"/>
 									 </label>
 								 </div><div class="clear"></div>
-							 <h4>~setting.intro~</h4>
+							 <h4 ng-if="setting.intro">~setting.intro~</h4>
 						</li>'
 	controller: [ '$scope', ($scope) ->
-
 	]
 ]
 
-atea.factory "loto", ->
-	loto =
-		run: (number, fn) ->
-			if typeof number is "number"
-				number = (number).toString()
-			loto.afterFn = fn
-			if number.length > loto.length.length
-				loto.length = (i for i in [0...number.length])
+atea.directive "smile", [ () ->
+	restrict: "C",
+	controller: [ "$scope", ($scope) ->
+		$scope.$watch "setting.value", (data) ->
+			if $scope.smile.answer_value is ~~data
+				$scope.smile_image = $scope.smile.subject.toLowerCase()
 			else
-				for i in [0...loto.length.length-number.length]
-					number = "0" + number
-			loto.number = number
-		length: [ 0, 1, 2 ]
-		krugi: 2
-		speed: 1000
-		frames: 16
-		height: 105
-		_count: 0
+				$scope.smile_image = $scope.smile.subject.toLowerCase() + "-active"
+	]
+]
 
 atea.directive "loto", (loto, $timeout) ->
 	restrict: "C"
@@ -353,7 +302,7 @@ atea.directive "loto", (loto, $timeout) ->
 				$timeout ->
 					loto.afterFn()
 					loto.afterFn = null
-					loto.number = null
+					# loto.number = null
 				, 1000
 
 atea.directive "items", ($timeout, loto) ->
@@ -393,11 +342,20 @@ atea.directive "items", ($timeout, loto) ->
 					step()
 				, ($scope.$index + 1) * loto.speed / 10
 
-
-
-
 atea.directive "item", (loto) ->
 	restrict: "C"
 	controller: ($scope) ->
 		$scope.stylesheet = top: null
 		$scope.stylesheet.top = $scope.$index * -loto.height + "px"
+
+atea.directive "message", (message) ->
+		restrict: "C"
+		controller: ($scope, $element) ->
+			message._element = $element
+			$scope.message = message
+			$scope.$watch "message.text", (option) ->
+				$scope.text = message.text
+				$scope.close = ->
+					if message._close
+						message._close = false
+						message.close()

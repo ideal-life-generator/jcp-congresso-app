@@ -1,0 +1,666 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProductVersion>10.0.20506</ProductVersion>
+        <SchemaVersion>2.0</SchemaVersion>
+        <ProjectGuid>{3677C1B7-D68B-4CF9-BF8A-E869D437A6DF}</ProjectGuid>
+        <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>no.jcp.congresso</RootNamespace>
+        <AssemblyName>no.jcp.congresso</AssemblyName>
+        <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+        <SilverlightVersion>
+        </SilverlightVersion>
+        <TargetFrameworkProfile>
+        </TargetFrameworkProfile>
+        <TargetFrameworkIdentifier>WindowsPhone</TargetFrameworkIdentifier>
+        <SilverlightApplication>true</SilverlightApplication>
+        <SupportedCultures>en-US</SupportedCultures>
+        <XapOutputs>true</XapOutputs>
+        <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
+        <XapFilename>CordovaAppProj_$(Configuration)_$(Platform).xap</XapFilename>
+        <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
+        <SilverlightAppEntry>no.jcp.congresso.App</SilverlightAppEntry>
+        <ValidateXaml>true</ValidateXaml>
+        <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+        <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+        <BackgroundAgentType />
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>Bin\Debug</OutputPath>
+        <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE;WP8</DefineConstants>
+        <NoStdLib>true</NoStdLib>
+        <NoConfig>true</NoConfig>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <Prefer32Bit>false</Prefer32Bit>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>Bin\Release</OutputPath>
+        <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE;WP8</DefineConstants>
+        <NoStdLib>true</NoStdLib>
+        <NoConfig>true</NoConfig>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <Prefer32Bit>false</Prefer32Bit>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+        <DebugSymbols>true</DebugSymbols>
+        <OutputPath>Bin\x86\Debug</OutputPath>
+        <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+        <NoStdLib>true</NoStdLib>
+        <DebugType>full</DebugType>
+        <PlatformTarget>
+        </PlatformTarget>
+        <ErrorReport>prompt</ErrorReport>
+        <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+        <Optimize>false</Optimize>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+        <OutputPath>Bin\x86\Release</OutputPath>
+        <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+        <Optimize>true</Optimize>
+        <NoStdLib>true</NoStdLib>
+        <DebugType>pdbonly</DebugType>
+        <PlatformTarget>
+        </PlatformTarget>
+        <ErrorReport>prompt</ErrorReport>
+        <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+        <Prefer32Bit>false</Prefer32Bit>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+        <DebugSymbols>true</DebugSymbols>
+        <OutputPath>Bin\ARM\Debug</OutputPath>
+        <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+        <NoStdLib>true</NoStdLib>
+        <DebugType>full</DebugType>
+        <PlatformTarget>
+        </PlatformTarget>
+        <ErrorReport>prompt</ErrorReport>
+        <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+        <Prefer32Bit>false</Prefer32Bit>
+        <Optimize>false</Optimize>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+        <OutputPath>Bin\ARM\Release</OutputPath>
+        <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+        <Optimize>true</Optimize>
+        <NoStdLib>true</NoStdLib>
+        <DebugType>pdbonly</DebugType>
+        <PlatformTarget>
+        </PlatformTarget>
+        <ErrorReport>prompt</ErrorReport>
+        <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+        <Prefer32Bit>false</Prefer32Bit>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Include="App.xaml.cs">
+            <DependentUpon>App.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="cordovalib\Commands\BaseCommand.cs" />
+        <Compile Include="cordovalib\JSON\JsonHelper.cs" />
+        <Compile Include="cordovalib\BrowserMouseHelper.cs" />
+        <Compile Include="cordovalib\CommandFactory.cs" />
+        <Compile Include="cordovalib\ConfigHandler.cs" />
+        <Compile Include="cordovalib\ConsoleHelper.cs" />
+        <Compile Include="cordovalib\CordovaCommandCall.cs" />
+        <Compile Include="cordovalib\CordovaView.xaml.cs">
+            <DependentUpon>CordovaView.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="cordovalib\IBrowserDecorator.cs" />
+        <Compile Include="cordovalib\ImageExifHelper.cs" />
+        <Compile Include="cordovalib\MimeTypeMapper.cs" />
+        <Compile Include="cordovalib\NativeExecution.cs" />
+        <Compile Include="cordovalib\OrientationHelper.cs" />
+        <Compile Include="cordovalib\PluginResult.cs" />
+        <Compile Include="cordovalib\ScriptCallback.cs" />
+        <Compile Include="cordovalib\XHRHelper.cs" />
+        <Compile Include="MainPage.xaml.cs">
+            <DependentUpon>MainPage.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Properties\AssemblyInfo.cs" />
+        <Page Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScannerUI.xaml">
+            <SubType>Designer</SubType>
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+    </ItemGroup>
+    <ItemGroup>
+        <ApplicationDefinition Include="App.xaml">
+            <SubType>Designer</SubType>
+            <Generator>MSBuild:Compile</Generator>
+        </ApplicationDefinition>
+        <Page Include="cordovalib\CordovaView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Include="MainPage.xaml">
+            <SubType>Designer</SubType>
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="config.xml" />
+        <Content Include="Images\appbar.back.rest.png" />
+        <Content Include="Images\appbar.close.rest.png" />
+        <Content Include="Images\appbar.feature.video.rest.png" />
+        <Content Include="Images\appbar.next.rest.png" />
+        <Content Include="Images\appbar.save.rest.png" />
+        <Content Include="Images\appbar.stop.rest.png" />
+        <None Include="cordova\lib\build.js" />
+        <None Include="cordova\lib\clean.js" />
+        <None Include="cordova\lib\deploy.js" />
+        <None Include="cordova\lib\log.js" />
+        <None Include="cordova\lib\target-list.js" />
+        <None Include="cordova\build.bat" />
+        <None Include="cordova\clean.bat" />
+        <None Include="cordova\lib\install-device.bat" />
+        <None Include="cordova\lib\install-emulator.bat" />
+        <None Include="cordova\lib\list-devices.bat" />
+        <None Include="cordova\lib\list-emulator-images.bat" />
+        <None Include="cordova\lib\list-started-emulators.bat" />
+        <None Include="cordova\lib\start-emulator.bat" />
+        <None Include="cordova\log.bat" />
+        <None Include="cordova\run.bat" />
+        <None Include="cordova\version.bat" />
+        <None Include="VERSION" />
+        <None Include="Properties\AppManifest.xml">
+            <SubType>Designer</SubType>
+        </None>
+        <None Include="Properties\WMAppManifest.xml">
+            <SubType>Designer</SubType>
+        </None>
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="ApplicationIcon.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Background.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="SplashScreenImage.jpg" />
+    </ItemGroup>
+    <ItemGroup>
+        <WCFMetadata Include="Service References\" />
+    </ItemGroup>
+    <ItemGroup>
+        <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    </ItemGroup>
+    <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
+    <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
+    <ProjectExtensions />
+    <PropertyGroup>
+    </PropertyGroup>
+    <PropertyGroup>
+        <PostBuildEvent>
+        </PostBuildEvent>
+    </PropertyGroup>
+    <ItemGroup>
+        <Content Include="www/config/main.coffee" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/config/main.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/config/npm-debug.log" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/cordova.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/cordova_plugins.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/core/config/main.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/bootstrap.min.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/images/36-1.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/images/Thumbs.db" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/images/ajax-loader.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/images/ajax_loader_green_128.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/images/ajax_loader_green_64.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/images/animated_loading.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/images/loadear.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/images/loader.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/images/loading.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/images/loading2.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/images/loading_black.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/images/spiffygif_86x86.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/index.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/less/3rdparty/lesshat.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/less/3rdparty/lesshat.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/less/angular-animation.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/less/common.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/less/elements.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/less/layout.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/less/mixins.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/less/mixins.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/less/specific.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/less/specific.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/less/variables.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/less/variables.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/mixins.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/slider.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/specific.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/styles.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/styles.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/css/variables.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/Flat-UI-Icons-24.ttf" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/Flat-UI-Icons-24.woff" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/glyphicons-halflings-regular.eot" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/glyphicons-halflings-regular.svg" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/glyphicons-halflings-regular.ttf" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/glyphicons-halflings-regular.woff" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/lato-black.ttf" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/lato-black.woff" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/lato-bold.ttf" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/lato-bold.woff" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/lato-italic.ttf" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/lato-italic.woff" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/lato-regular.ttf" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/lato-regular.woff" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/ratchicons.eot" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/ratchicons.svg" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/ratchicons.ttf" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/fonts/ratchicons.woff" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/.DS_Store" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Forum-My-topic-icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Good-active.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Good.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Launch-Images/.DS_Store" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Launch-Images/Default-568h@2x~iphone.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Launch-Images/Default-Landscape@2x~ipad.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Launch-Images/Default-Landscape~ipad.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Launch-Images/Default-Portrait@2x~ipad.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Launch-Images/Default-Portrait~ipad.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Launch-Images/Default@2x~iphone.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Launch-Images/Default~iphone.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Launch-Images/SplashScreenImage.jpg" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Launch-Images/Thumbs.db" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Management-Manager-icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Neutral-active.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Neutral.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Sad-active.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Sad.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Sections-of-Website-Contacts-icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Thumbs.db" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/Users-Remove-user-icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/add-user-xl.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/arrow-bottom.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/arrow-large-left.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/arrow-right.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/arrow-top.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/atea-bg.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/atea-logo.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/checked-checkbox-m.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/checked-user-xl.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/coins.jpg" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/edit-property-xl.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/eye-3-xl.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/facebook-icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/google-icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/home-m.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/icons/Thumbs.db" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/icons/icon-114.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/icons/icon-144.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/icons/icon-57.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/icons/icon-72.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/linkedin-icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/list-view-m.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/photo.jpg" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/show-property-xl.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/twitter-icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/img/worldwide-location-xl.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/index.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/angularlib/angular-animate.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/angularlib/angular-cookies.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/angularlib/angular-hammer.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/angularlib/angular-qr.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/angularlib/angular-resource.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/angularlib/angular-route.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/angularlib/angular.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/angularlib/auth-basic.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/coffee/config.coffee" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/coffee/controllers.coffee" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/coffee/directives.coffee" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/coffee/factory.coffee" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/config.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/controllers.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/directives.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/externallb/SocialSharing.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/externallb/barcodescanner.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/externallb/fastclick.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/externallb/hammer.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/externallb/hammer.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/externallb/qrcode.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/factory.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/i18n/en.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js/i18n/polyglot.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/main.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/plugins/nl.x-services.plugins.socialsharing/www/SocialSharing.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/plugins/org.bloxlab.barcodescanner/www/barcodescanner.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/template/comment.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/template/events.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/template/guest.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/template/login.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/template/partner.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/template/partners.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/template/profile.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/template/rate.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/template/rates.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/template/schedule.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/template/schedules.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScanner.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScannerTask.cs" />
+    </ItemGroup>
+    <ItemGroup />
+    <ItemGroup>
+        <Compile Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScannerUI.xaml.cs">
+            <DependentUpon>BarcodeScannerUI.xaml</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="zxing.wp8.0">
+            <HintPath>plugins/com.phonegap.plugins.barcodescanner/zxing.wp8.0.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\org.apache.cordova.inappbrowser\InAppBrowser.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\com.phonegap.plugins.barcodescanner\www\barcodescanner.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.inappbrowser\www\inappbrowser.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\cordova_plugins.js" />
+    </ItemGroup>
+</Project>

@@ -1,0 +1,31 @@
+<div class="title-bar">
+	~local.login~
+</div>
+
+<form name="auth" id="login-form" class="with-padding bg-green-20"
+      ng-submit="go_submit(name, password)">
+    <div class="form-group"
+         style="margin-left: 15px; margin-right: 15px;">
+        <input ng-model="auth.username"
+        	     ng-mixlength="6"
+        	     ng-maxlength="30"
+               ng-pattern="pattern"
+               class="form"
+        	     type="email" name="email" placeholder="~local.email_palceholer~">
+    </div>
+    <div class="form-group"
+         style="margin-left: 15px; margin-right: 15px;">
+        <input ng-model="auth.password"
+        	     ng-minlength="6"
+        	     ng-maxlength="30"
+               class="form"
+        	     type="password" name="password" id="password" placeholder="~local.password_palceholer~">
+    </div>
+    <button id="login-btn" class="ui-btn ui-btn-lg" type="submit">~local.submit~</button>
+</form>
+
+</div>
+
+<br>
+<br>
+<br>

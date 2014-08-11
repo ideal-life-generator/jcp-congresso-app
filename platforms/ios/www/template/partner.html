@@ -8,13 +8,14 @@
         ng-submit="submitQuestion()"
         novalidate>
     <div class="partner-wrap">
-        <br>
-        <img ng-if="partner.logoUrl"
-             ng-src="~ partner.logoUrl ~" align="middle" class="partner-img"/>
+        <img ng-if="partner.avatar"
+             ng-src="http://188.226.184.59~partner.avatar~" align="middle" class="partner-img"/>
         <div class="partner-details">
             <h3>~ partner.name ~</h3>
-            <h5>~ partner.category ~</h5>
-            <a ng-click="toDifferentUrl(partner.website)">~local.to_website~</a>
+            <h5>~ partner.category ~</h5><!-- 
+            ~partner.website~ -->
+            <a ng-show="partner.website"
+               ng-click="toDifferentUrl(partner.website)">~local.to_website~</a>
             <p>~ partner.description ~</p>
         </div>
     
@@ -24,7 +25,6 @@
                   ng-maxlength="600"
                   class="form-control" placeholder="~local.comments_placeholder~"></textarea>
     </div>
-    <br>
     <button ng-show="user"
             class="ui-btn ui-btn-lg">~local.submit~</button>
   </form>

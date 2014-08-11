@@ -15,10 +15,6 @@
                         {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
                             "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"SocialSharing\"><param name=\"android-package\" value=\"nl.xservices.plugins.SocialSharing\" /></feature>",
-                            "count": 1
                         }
                     ]
                 }
@@ -50,10 +46,6 @@
                         },
                         {
                             "xml": "<uses-feature android:name=\"android.hardware.camera\" android:required=\"false\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
                             "count": 1
                         }
                     ]
@@ -548,9 +540,6 @@
             "PACKAGE_NAME": "no.jcp.congresso"
         },
         "org.apache.cordova.inappbrowser": {
-            "PACKAGE_NAME": "no.jcp.congresso"
-        },
-        "nl.x-services.plugins.socialsharing": {
             "PACKAGE_NAME": "no.jcp.congresso"
         }
     },

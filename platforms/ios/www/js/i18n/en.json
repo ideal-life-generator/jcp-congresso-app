@@ -52,5 +52,8 @@
 	"user_exist": "User doesn't exist.",
 	"incorrect_credentials": "Incorrect credentials.",
 	"login_message": "Welcome %{name}!",
-	"form_token": "By filling this form you'll receive"
+	"form_token": "By filling this form you'll receive",
+	"error_server": "Error on server",
+	"check_scan": "Идет проверка отсканированного кода",
+	"scan_error1": "Пользователя с таким кодом не существует, или код отсканирован неправильно"
 }
