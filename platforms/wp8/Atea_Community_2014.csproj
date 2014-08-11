@@ -634,6 +634,7 @@
     <ItemGroup>
         <Content Include="www/template/schedules.html" />
     </ItemGroup>
+    <ItemGroup />
     <ItemGroup>
         <Compile Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScanner.cs" />
     </ItemGroup>
