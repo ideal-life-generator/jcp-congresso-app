@@ -46,20 +46,15 @@ body {
   -ms-touch-action: pan-y;
   touch-action: pan-y;
   -ms-content-zooming: none;
+  background: url(../img/atea-bg.png) fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 .table-wrap {
   display: table;
   width: 100%;
-}
-.background {
-  position: fixed;
-  background-color: #7baf05;
-  width: 100%;
-  z-index: -1;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
 }
 .pushy-left {
   -webkit-transform: translate3d(-200px, 0, 0);
@@ -1443,4 +1438,55 @@ qr {
   position: relative;
   left: 50%;
   margin-left: -130px;
+}
+.message {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: table;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  -webkit-transition: 0.15s ease-in-out;
+  -moz-transition: 0.15s ease-in-out;
+  -o-transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
+}
+.message > div {
+  display: table-cell;
+  vertical-align: middle;
+}
+.message > div > div {
+  cursor: pointer;
+  width: 90%;
+  padding: 3em;
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  -webkit-border-radius: 10px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 10px;
+  -moz-background-clip: padding;
+  border-radius: 10px;
+  background-clip: padding-box;
+}
+.message.ng-hide-remove {
+  display: table !important;
+  opacity: 0;
+}
+.message.ng-hide-remove-active {
+  display: table !important;
+  opacity: 1;
+}
+.message.ng-hide-add {
+  display: table !important;
+  opacity: 1;
+}
+.message.ng-hide-add-active {
+  display: table !important;
+  opacity: 0;
 }

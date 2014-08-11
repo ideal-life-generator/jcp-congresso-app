@@ -11,6 +11,8 @@
     }
   ]);
 
+  atea.value('COMPANY_ID', 13);
+
   atea.constant('baseURL', {
     BASE: 'http://188.226.184.59',
     FEEDS: '/',
@@ -35,8 +37,6 @@
     LOGIN: '/login',
     MYPAGE: '/congressomulti/mypage'
   });
-
-  atea.value('COMPANY_ID', 13);
 
   atea.config([
     '$routeProvider', 'baseURL', function($routeProvider, baseURL) {

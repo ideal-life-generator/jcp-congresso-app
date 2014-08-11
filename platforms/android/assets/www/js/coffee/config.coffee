@@ -5,6 +5,8 @@ atea.config [ '$interpolateProvider', ($interpolateProvider) ->
 	$interpolateProvider.endSymbol '~'
 ]
 
+atea.value 'COMPANY_ID', 13
+
 atea.constant 'baseURL',
 	BASE: 'http://188.226.184.59'
 	FEEDS: '/'
@@ -28,8 +30,6 @@ atea.constant 'baseURL',
 	PROFILE: '/profile'
 	LOGIN: '/login'
 	MYPAGE: '/congressomulti/mypage'
-
-atea.value 'COMPANY_ID', 13
 
 atea.config [ '$routeProvider', 'baseURL', ($routeProvider, baseURL) ->
 	$routeProvider
@@ -84,10 +84,6 @@ atea.run [ 'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$win
 	$rootScope.baseURL = baseURL
 
 	FastClick.attach document.body
-	# $rootScope.profileActive = if $location.$$path is baseURL.PROFILE then true else false
-	# $rootScope.rateActive = if $location.$$path is '/' + $routeParams.feedId + baseURL.RATE then true else false
-	# $rootScope.$on '$routeChangeStart', (data, newL, oldL) ->
-
 
 	document.addEventListener "deviceready", ->
 		screen.lockOrientation 'landscape'

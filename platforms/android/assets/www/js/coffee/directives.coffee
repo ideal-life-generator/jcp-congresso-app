@@ -1,43 +1,5 @@
 atea = angular.module 'atea'
 
-atea.directive 'message', [ 'message', (message) ->
-	restrict: 'E'
-	template: '<div>
-        			<div>
-            		<p>~ message.message ~</p>
-								  <div class="loto" ng-show="loto.number">
-								    <div class="items" ng-repeat="items in length" ng-style="stylesheet">
-								      <div class="item" ng-repeat="item in length" ng-style="stylesheet">
-								        ~ $last ? "0" : item ~
-								      </div>
-								    </div>
-								</div>
-        			</div>
-    				</div>'
-	scope: true
-	controller: [ '$scope', '$element', ($scope, $element) ->
-		$scope.message = message
-		$scope.closeMessage = message.close
-	]
-]
-
-# atea.directive 'connection', [ 'connection', '$window', (connection, $window) ->
-# 	restrict: 'E'
-# 	scope: true
-# 	controller: [ '$scope', ($scope) ->
-# 		$scope.connection = connection
-# 		$scope.$watch 'connection', ->
-# 			$scope.status = connection.status
-# 		, true
-# 		$scope.refresh = ->
-# 			if not connection.loading
-# 				$scope.connection.handler()
-# 		$window.ononline = ->
-# 			if connection.handler
-# 				$scope.refresh()
-# 	]
-# ]
-
 atea.directive 'loader' , [ ->
 	restrict: 'E'
 	template: '<div ng-show="loader"
@@ -57,10 +19,10 @@ atea.directive 'loader' , [ ->
 	]
 ]
 
-atea.directive 'warning', [ 'connectionTest', '$window', (connectionTest, $window) ->
+atea.directive 'warning', [ 'connection', '$window', (connection, $window) ->
 	restrict: 'C'
 	controller: [ '$scope', ($scope) ->
-		$scope.message = connectionTest.message
+		$scope.message = connection.message
 		$scope.updater = ->
 			if not $scope.update
 				$scope.loading = on
@@ -328,25 +290,6 @@ atea.directive "smile", [ () ->
 	]
 ]
 
-atea.factory "loto", ->
-	loto =
-		run: (number, fn) ->
-			if typeof number is "number"
-				number = (number).toString()
-			loto.afterFn = fn
-			if number.length > loto.length.length
-				loto.length = (i for i in [0...number.length])
-			else
-				for i in [0...loto.length.length-number.length]
-					number = "0" + number
-			loto.number = number
-		length: [ 0, 1, 2 ]
-		krugi: 2
-		speed: 1000
-		frames: 16
-		height: 105
-		_count: 0
-
 atea.directive "loto", (loto, $timeout) ->
 	restrict: "C"
 	controller: ($scope, $element) ->
@@ -399,11 +342,20 @@ atea.directive "items", ($timeout, loto) ->
 					step()
 				, ($scope.$index + 1) * loto.speed / 10
 
-
-
-
 atea.directive "item", (loto) ->
 	restrict: "C"
 	controller: ($scope) ->
 		$scope.stylesheet = top: null
 		$scope.stylesheet.top = $scope.$index * -loto.height + "px"
+
+atea.directive "message", (message) ->
+		restrict: "C"
+		controller: ($scope, $element) ->
+			message._element = $element
+			$scope.message = message
+			$scope.$watch "message.text", (option) ->
+				$scope.text = message.text
+				$scope.close = ->
+					if message._close
+						message._close = false
+						message.close()

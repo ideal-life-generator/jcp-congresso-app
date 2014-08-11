@@ -60,9 +60,6 @@
       ng-keydown="closeMessage()"
       c-swiperight="backHistory">
 
-<img class="background"
-     src="img/atea-bg.png"/>
-
 <div class="push-page ~ leftMenuAnimationType ~"
      ng-class="{ 'container-push': leftMenuActive }">
 
@@ -78,8 +75,6 @@
          ng-if="backButton"
          ng-click="backHistory()">
     </div>
-
-<!-- <a ng-click="toComment()">TO COMMENT PAGE</a> -->
 
 <div class="content ng-view ~ contentAnimate ~"></div>
 
@@ -159,7 +154,7 @@
             </a>
         </li>
         <li ng-if="user && participient">
-            <a ng-click="nextLocation(event.id + baseURL.PROFILEHREF)"
+            <a ng-click="nextLocation(baseURL.PROFILE)"
                class="profile-icon">
                 ~local.my_profile~
             </a>
@@ -176,6 +171,14 @@
 <message class="~ message.class ~"
          ng-click="closeMessage()">
 </message>
+
+<div class="message"
+     ng-show="show"
+     ng-click="close()">
+  <div>
+    <div>~text~</div>
+  </div>
+</div>
 
 </body>
 </html>
