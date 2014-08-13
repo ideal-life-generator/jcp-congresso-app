@@ -167,7 +167,7 @@ atea.run ($timeout, message) ->
 	# , 1000
 
 atea.factory "message", ($timeout, $animate) ->
-	timeout = 3000
+	timeout = 2000
 	message =
 		odinAndClose: (text, callback1, callback2) ->
 			message._close = true

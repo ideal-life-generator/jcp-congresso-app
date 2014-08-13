@@ -217,7 +217,7 @@
 
   atea.factory("message", function($timeout, $animate) {
     var message, timeout;
-    timeout = 3000;
+    timeout = 2000;
     return message = {
       odinAndClose: function(text, callback1, callback2) {
         message._close = true;

@@ -635,6 +635,10 @@
         <Content Include="www/template/schedules.html" />
     </ItemGroup>
     <ItemGroup />
+    <ItemGroup />
+    <ItemGroup>
+        <Compile Include="Plugins\org.apache.cordova.inappbrowser\InAppBrowser.cs" />
+    </ItemGroup>
     <ItemGroup>
         <Compile Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScanner.cs" />
     </ItemGroup>
@@ -653,13 +657,10 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Plugins\org.apache.cordova.inappbrowser\InAppBrowser.cs" />
+        <Content Include="www\plugins\org.apache.cordova.inappbrowser\www\inappbrowser.js" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\plugins\com.phonegap.plugins.barcodescanner\www\barcodescanner.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\plugins\org.apache.cordova.inappbrowser\www\inappbrowser.js" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\cordova_plugins.js" />

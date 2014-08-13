@@ -1,4 +1,6 @@
-atea = angular.module 'atea', [ 'ngRoute', 'ngAnimate', 'ngResource', 'ja.qr', 'ngCookies', 'ngTouch' ]
+atea = angular.module 'atea', [ 'ngRoute', 'ngAnimate', 'ngResource', 'ja.qr', 'ngCookies' ]
+
+# atea = angular.module 'atea', [ 'ngRoute', 'ngAnimate', 'ngResource', 'ja.qr', 'ngCookies' ]
 
 atea.config [ '$interpolateProvider', ($interpolateProvider) ->
 	$interpolateProvider.startSymbol '~'
@@ -84,9 +86,6 @@ atea.run [ 'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$win
 	$rootScope.baseURL = baseURL
 
 	FastClick.attach document.body
-
-	document.addEventListener "deviceready", ->
-		screen.lockOrientation 'landscape'
 ]
 
 atea.filter 'dayMonth', (local) ->

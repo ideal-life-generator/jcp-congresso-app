@@ -28,7 +28,6 @@
         <script type="text/javascript" src="js/angularlib/angular-route.min.js"></script>
         <script type="text/javascript" src="js/angularlib/angular-resource.min.js"></script>
         <script type="text/javascript" src="js/angularlib/angular-cookies.min.js"></script>
-        <script type="text/javascript" src="js/angularlib/angular-touch.min.js"></script>
         <script type="text/javascript" src="js/angularlib/angular-qr.js"></script> <!-- more info about plugin https://github.com/janantala/angular-qr -->
         <!-- Libs -->
 
@@ -55,9 +54,13 @@
 
     </head>
 
-<body ng-controller="MainController"
+<!-- <body ng-controller="MainController"
       ng-click="leftMenuBlur($event)"
       ng-keydown="closeMessage()"
+      c-swiperight="backHistory"> -->
+
+<body ng-controller="MainController"
+      ng-click="leftMenuBlur($event)"
       c-swiperight="backHistory">
 
 <div class="push-page ~ leftMenuAnimationType ~"
@@ -76,7 +79,7 @@
          ng-click="backHistory()">
     </div>
 
-<div class="content ng-view ~ contentAnimate ~"></div>
+<div class="ng-view ~ contentAnimate ~"></div>
 
 </div>
 
@@ -167,10 +170,6 @@
         </li>
     </ul>
 </nav>
-
-<message class="~ message.class ~"
-         ng-click="closeMessage()">
-</message>
 
 <div class="message"
      ng-show="show"

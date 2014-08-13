@@ -38,11 +38,14 @@
 		7E7966E61810823500FA85AD /* icon-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DC1810823500FA85AD /* icon-small.png */; };
 		7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DD1810823500FA85AD /* icon-small@2x.png */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
-		0EDCCA286B1C453890DE8647 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 15956EB655634E4A9E5B155F /* libiconv.dylib */; };
-		24309B83DF9A4E08B632E60A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675DBB0D1ED545029CE21FA8 /* AVFoundation.framework */; };
-		FCE10E768F3748B0928827C5 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D9F1C0F0F2420B821C3C59 /* CoreVideo.framework */; };
-		D4E5F2BAF3DE4380BCDE200F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C95AEF75BAE64FCE93AE7974 /* QuartzCore.framework */; };
 		5F7CE628431646FA97DD4938 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = E8C0AD07E4864078849CC38E /* CDVInAppBrowser.m */; };
+		BB85A579F0DD4783B8D675C0 /* CDVBarcodeScanner.mm in Resources */ = {isa = PBXBuildFile; fileRef = 162CC266D8A1400E94E7B1F9 /* CDVBarcodeScanner.mm */; settings = {COMPILER_FLAGS = -fno-objc-arc; }; };
+		B15262BE79494710982C207E /* zxing-all-in-one.cpp in Resources */ = {isa = PBXBuildFile; fileRef = B7F52CA10BEC45FA9CEB3E9A /* zxing-all-in-one.cpp */; };
+		C77215870E2840578EB71ECC /* scannerOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C2597175CD41A49FF81E04 /* scannerOverlay.xib */; };
+		090384894708484296C0028E /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E6297A34F6C74F2C998F0CC0 /* libiconv.dylib */; };
+		0DEBC323D0B2405AA1AC6FDB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE607F7F0E714DD584943453 /* AVFoundation.framework */; };
+		62FFD88AFE70472282AD6874 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B32DD64ED0D34C458FBCD4D9 /* CoreVideo.framework */; };
+		73FC8EAC9FA64B9ABB0BCA18 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E25B0C9031644BDA70D7483 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,12 +110,16 @@
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "Atea Community 2014/config.xml"; sourceTree = "<group>"; };
-		15956EB655634E4A9E5B155F /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libiconv.dylib"; path = "usr/lib/libiconv.dylib"; sourceTree = SDKROOT; fileEncoding = 4; };
-		675DBB0D1ED545029CE21FA8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "AVFoundation.framework"; path = "System/Library/Frameworks/AVFoundation.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		72D9F1C0F0F2420B821C3C59 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "CoreVideo.framework"; path = "System/Library/Frameworks/CoreVideo.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		C95AEF75BAE64FCE93AE7974 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "QuartzCore.framework"; path = "System/Library/Frameworks/QuartzCore.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 		E8C0AD07E4864078849CC38E /* CDVInAppBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVInAppBrowser.m"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		8E26F9E48366482EAD013411 /* CDVInAppBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVInAppBrowser.h"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		162CC266D8A1400E94E7B1F9 /* CDVBarcodeScanner.mm */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "CDVBarcodeScanner.mm"; path = "com.phonegap.plugins.barcodescanner/CDVBarcodeScanner.mm"; sourceTree = "<group>"; fileEncoding = 4; };
+		B7F52CA10BEC45FA9CEB3E9A /* zxing-all-in-one.cpp */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "zxing-all-in-one.cpp"; path = "com.phonegap.plugins.barcodescanner/zxing-all-in-one.cpp"; sourceTree = "<group>"; fileEncoding = 4; };
+		1CC130AD40404C7491429A30 /* zxing-all-in-one.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "zxing-all-in-one.h"; path = "com.phonegap.plugins.barcodescanner/zxing-all-in-one.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		F3C2597175CD41A49FF81E04 /* scannerOverlay.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "scannerOverlay.xib"; path = "scannerOverlay.xib"; sourceTree = "<group>"; fileEncoding = 4; };
+		E6297A34F6C74F2C998F0CC0 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libiconv.dylib"; path = "usr/lib/libiconv.dylib"; sourceTree = SDKROOT; fileEncoding = 4; };
+		FE607F7F0E714DD584943453 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "AVFoundation.framework"; path = "System/Library/Frameworks/AVFoundation.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		B32DD64ED0D34C458FBCD4D9 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "CoreVideo.framework"; path = "System/Library/Frameworks/CoreVideo.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		0E25B0C9031644BDA70D7483 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "QuartzCore.framework"; path = "System/Library/Frameworks/QuartzCore.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,10 +132,10 @@
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
 				5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */,
-				0EDCCA286B1C453890DE8647 /* libiconv.dylib in Frameworks */,
-				24309B83DF9A4E08B632E60A /* AVFoundation.framework in Frameworks */,
-				FCE10E768F3748B0928827C5 /* CoreVideo.framework in Frameworks */,
-				D4E5F2BAF3DE4380BCDE200F /* QuartzCore.framework in Frameworks */,
+				090384894708484296C0028E /* libiconv.dylib in Frameworks */,
+				0DEBC323D0B2405AA1AC6FDB /* AVFoundation.framework in Frameworks */,
+				62FFD88AFE70472282AD6874 /* CoreVideo.framework in Frameworks */,
+				73FC8EAC9FA64B9ABB0BCA18 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +217,7 @@
 				308D052D1370CCF300D202BF /* icons */,
 				308D05311370CCF300D202BF /* splash */,
 				8D1107310486CEB800E47090 /* Atea Community 2014-Info.plist */,
+				F3C2597175CD41A49FF81E04 /* scannerOverlay.xib */,
 			);
 			name = Resources;
 			path = "Atea Community 2014/Resources";
@@ -222,10 +230,10 @@
 				5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */,
-				15956EB655634E4A9E5B155F /* libiconv.dylib */,
-				675DBB0D1ED545029CE21FA8 /* AVFoundation.framework */,
-				72D9F1C0F0F2420B821C3C59 /* CoreVideo.framework */,
-				C95AEF75BAE64FCE93AE7974 /* QuartzCore.framework */,
+				E6297A34F6C74F2C998F0CC0 /* libiconv.dylib */,
+				FE607F7F0E714DD584943453 /* AVFoundation.framework */,
+				B32DD64ED0D34C458FBCD4D9 /* CoreVideo.framework */,
+				0E25B0C9031644BDA70D7483 /* QuartzCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -243,6 +251,9 @@
 			children = (
 				E8C0AD07E4864078849CC38E /* CDVInAppBrowser.m */,
 				8E26F9E48366482EAD013411 /* CDVInAppBrowser.h */,
+				162CC266D8A1400E94E7B1F9 /* CDVBarcodeScanner.mm */,
+				B7F52CA10BEC45FA9CEB3E9A /* zxing-all-in-one.cpp */,
+				1CC130AD40404C7491429A30 /* zxing-all-in-one.h */,
 			);
 			name = Plugins;
 			path = "Atea Community 2014/Plugins";
@@ -406,6 +417,7 @@
 				7E7966E11810823500FA85AD /* icon-50@2x.png in Resources */,
 				7E7966E51810823500FA85AD /* icon-76@2x.png in Resources */,
 				30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */,
+				C77215870E2840578EB71ECC /* scannerOverlay.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +450,8 @@
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				5F7CE628431646FA97DD4938 /* CDVInAppBrowser.m in Sources */,
+				BB85A579F0DD4783B8D675C0 /* CDVBarcodeScanner.mm in Resources */,
+				B15262BE79494710982C207E /* zxing-all-in-one.cpp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -115,7 +115,7 @@ atea.controller 'ScheduleController', [ '$scope', '$location', 'baseURL', '$rout
 					if data.is_answered isnt "0"
 						$scope.schedule.is_visible = true
 		scope: $scope
-		type: "noCache"
+		type: "get"
 ]
 
 atea.controller 'SchedulesController', [ '$scope', '$location', '$routeParams', 'getData', '$filter', '$http', '$rootScope', 'connection', 'message',
@@ -161,39 +161,51 @@ atea.controller 'SchedulesController', [ '$scope', '$location', '$routeParams', 
 			data: "{'event_id': #{$routeParams.feedId}}"
 		handler: getSchedules
 		scope: $scope
-		type: "noCache"
+		type: "get"
 ]
 
-atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'connection', 'message',
-($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, connection, message) ->
+atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'connection', 'message', 'getData',
+($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, connection, message, getData) ->
 
 	connection.makeLoad
 		params:
 			resource: 'leadType'
 		handler: (data) ->
-			$scope.categories = [ id: null, name: $scope.local.select_category ]
+			$scope.categories = [  ]
+			# if data.success is "true"
+				# $scope.visible = on
 			angular.forEach data, (ths) ->
 				$scope.categories.push ths
+			# else
+			# 	$scope.visible = off
 		scope: $scope
 		type: "noCache"
 
-	$scope.categorieActive = $scope.local.select_category
+	$scope.categorieActive = "-1"
+	$scope.categorieSingle = $scope.local.select_category
 	$scope.interest = "5"
 	$scope.revenue = "5"
 	$scope.submit = ->
 		if $scope.categorieActive isnt $scope.categories[0].name
 			$scope.noValid = false
+
 			data =
-				interrogatorId: userStatus.detail.eventId
-				categorie: $scope.categorieActive
+				event_id: $scope.event.id
+				lead_type_id: $scope.categorieActive
 				interest: $scope.interest
 				revenue: $scope.revenue
 				comment: $scope.comments
-			message.open = $scope.local.data_sending
-			getData.submitRecord data
+			message.open $scope.local.data_sending
+			getData.save { resource: 'partnerLead' }, data: data, (result) ->
+				message.authoClose $scope.local.quest_sent
 			.$promise.then ->
 				message.authoClose $scope.local.message_posted, ->
-					$location.path baseURL.FEEDS + $routeParams.feedId
+				if $scope.contentAnimate isnt $scope.animationContentRight
+					$scope.contentAnimate = $scope.animationContentRight
+				$timeout ->
+					$location.path history.back()
+				, 100
+			, ->
 		else
 			$scope.noValid = true
 ]
@@ -208,12 +220,12 @@ atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$route
 		handler: (data) ->
 			$scope.partner = data
 		scope: $scope
-		type: "noCache"
+		type: "get"
 
 	$scope.submitQuestion = ->
 		if $scope.questionToPartner
 			message.open $scope.local.processing_data
-			getData.save { resource: 'partnerMessage' }, { data: { event_id: $routeParams.feedId, message: $scope.questionToPartner } }, (result) ->
+			getData.save { resource: 'partnerMessage' }, { data: { event_id: $routeParams.feedId, message: $scope.questionToPartner, partner_company_id: $scope.partner.id } }, (result) ->
 				message.authoClose $scope.local.quest_sent
 				$scope.invalid = false
 			, (error) ->
@@ -239,7 +251,7 @@ atea.controller 'PartnersController', [ '$scope', '$location', 'baseURL', '$rout
 			data: "{'event_id': #{$routeParams.feedId}}"
 		handler: getPartners
 		scope: $scope
-		type: "noCache"
+		type: "get"
 ]
 
 atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL', '$routeParams', '$rootScope', 'client', 'getData', 'connection', 'loto', 'message',
@@ -257,6 +269,7 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 						message.noClose $scope.local.scan_error1
 					else
 						$rootScope.member = data
+						message.authoClose "Member #{data.first_name} #{data.last_name} is already now"
 						$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
 						$scope.$apply()
 				scope: $scope
@@ -279,8 +292,8 @@ atea.controller 'ProfileController', [ '$scope', '$location', 'baseURL', '$route
 	$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~$scope.participient.tokens
 ]
 
-atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message',
-($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message) ->
+atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce',
+($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce) ->
 
 	$scope.local = { }
 
@@ -291,8 +304,7 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 		# message.wait $scope.local.first_login
 		# loto.run 456, ->
 		# 	message.warningAfter ($scope.polyglot.t "tokens_add", ~~456)
-
-	$scope.noConnectionMessage = $scope.local.page_nointernet
+		$scope.noConnectionMessage = $scope.local.page_nointernet
 
 	$rootScope.updateEvents = ->
 		$scope.futureEvents = []
@@ -370,16 +382,18 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 			$scope.pastEventsCollapsed = false
 			$scope.futureEventsCollapsed = false
 
+	leftMenu = document.querySelector ".pushy-left"
+	contentBlock = document.querySelector ".push-page"
+
 	$scope.leftMenuBlur = ($event) ->
 		$event.stopPropagation()
-		$scope.leftMenuActive = false
+		leftMenu.classList.remove "pushy-open"
+		contentBlock.classList.remove "container-push"
+
 	$scope.leftMenuActivator = ($event) ->
-		if $event.stopPropagation then $event.stopPropagation()
-		else if $location.$$path isnt baseURL.FEEDS then $location.path $event
-		$scope.leftMenuActive = !$scope.leftMenuActive
-	$scope.leftMenuHide = ->
-		if $scope.leftMenuActive
-			$scope.leftMenuActive = false
+		$event.stopPropagation()
+		leftMenu.classList.add "pushy-open"
+		contentBlock.classList.add "container-push"
 
 	$scope.logoMainAnimateClass = { }
 	$scope.logoMainAnimateClass[client.animationClass.logo] = $scope.logoSize
@@ -471,6 +485,9 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 
 	$scope.toComment = ->
   	$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
+
+  $scope.renderHtml = (html) ->
+  	$sce.trustAsHtml html
 ]
 
 atea.controller 'LoginController', [ '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'client', 'connection', 'message',

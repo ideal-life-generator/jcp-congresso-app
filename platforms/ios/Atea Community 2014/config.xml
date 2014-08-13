@@ -43,7 +43,7 @@
     <preference name="show-splash-screen-spinner" value="true" />
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="disable-cursor" value="false" />
-    <preference name="android-minSdkVersion" value="14" />
+    <preference name="android-minSdkVersion" value="15" />
     <preference name="android-installLocation" value="auto" />
     <icon src="www/img/icons/icon-144.png" />
     <icon gap:density="ldpi" gap:platform="android" src="www/img/icons/icon-144.png" />
@@ -74,10 +74,5 @@
     <access browserOnly="true" origin="*" />
     <feature name="InAppBrowser">
         <param name="ios-package" value="CDVInAppBrowser" />
-    </feature>
-    <feature name="SocialSharing">
-        <param name="ios-package" value="SocialSharing" />
-        <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
-        <param name="wp-package" value="SocialSharing" />
     </feature>
 </widget>

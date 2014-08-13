@@ -180,7 +180,7 @@
           }
         },
         scope: $scope,
-        type: "noCache"
+        type: "get"
       });
     }
   ]);
@@ -233,24 +233,19 @@
         },
         handler: getSchedules,
         scope: $scope,
-        type: "noCache"
+        type: "get"
       });
     }
   ]);
 
   atea.controller('CommentController', [
-    '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'connection', 'message', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, connection, message) {
+    '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'connection', 'message', 'getData', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, connection, message, getData) {
       connection.makeLoad({
         params: {
           resource: 'leadType'
         },
         handler: function(data) {
-          $scope.categories = [
-            {
-              id: null,
-              name: $scope.local.select_category
-            }
-          ];
+          $scope.categories = [];
           return angular.forEach(data, function(ths) {
             return $scope.categories.push(ths);
           });
@@ -258,7 +253,8 @@
         scope: $scope,
         type: "noCache"
       });
-      $scope.categorieActive = $scope.local.select_category;
+      $scope.categorieActive = "-1";
+      $scope.categorieSingle = $scope.local.select_category;
       $scope.interest = "5";
       $scope.revenue = "5";
       return $scope.submit = function() {
@@ -266,18 +262,28 @@
         if ($scope.categorieActive !== $scope.categories[0].name) {
           $scope.noValid = false;
           data = {
-            interrogatorId: userStatus.detail.eventId,
-            categorie: $scope.categorieActive,
+            event_id: $scope.event.id,
+            lead_type_id: $scope.categorieActive,
             interest: $scope.interest,
             revenue: $scope.revenue,
             comment: $scope.comments
           };
-          message.open = $scope.local.data_sending;
-          return getData.submitRecord(data).$promise.then(function() {
-            return message.authoClose($scope.local.message_posted, function() {
-              return $location.path(baseURL.FEEDS + $routeParams.feedId);
-            });
-          });
+          message.open($scope.local.data_sending);
+          return getData.save({
+            resource: 'partnerLead'
+          }, {
+            data: data
+          }, function(result) {
+            return message.authoClose($scope.local.quest_sent);
+          }).$promise.then(function() {
+            message.authoClose($scope.local.message_posted, function() {});
+            if ($scope.contentAnimate !== $scope.animationContentRight) {
+              $scope.contentAnimate = $scope.animationContentRight;
+            }
+            return $timeout(function() {
+              return $location.path(history.back());
+            }, 100);
+          }, function() {});
         } else {
           return $scope.noValid = true;
         }
@@ -296,7 +302,7 @@
           return $scope.partner = data;
         },
         scope: $scope,
-        type: "noCache"
+        type: "get"
       });
       return $scope.submitQuestion = function() {
         if ($scope.questionToPartner) {
@@ -306,7 +312,8 @@
           }, {
             data: {
               event_id: $routeParams.feedId,
-              message: $scope.questionToPartner
+              message: $scope.questionToPartner,
+              partner_company_id: $scope.partner.id
             }
           }, function(result) {
             message.authoClose($scope.local.quest_sent);
@@ -340,7 +347,7 @@
         },
         handler: getPartners,
         scope: $scope,
-        type: "noCache"
+        type: "get"
       });
     }
   ]);
@@ -360,6 +367,7 @@
                 return message.noClose($scope.local.scan_error1);
               } else {
                 $rootScope.member = data;
+                message.authoClose("Member " + data.first_name + " " + data.last_name + " is already now");
                 $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
                 return $scope.$apply();
               }
@@ -388,14 +396,15 @@
   ]);
 
   atea.controller('MainController', [
-    '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', function($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message) {
+    '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce', function($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce) {
+      var contentBlock, leftMenu;
       $scope.local = {};
       local.then(function(data) {
         $scope.local = data.local;
         $scope.dyna = data.dyna;
-        return $scope.polyglot = data.polyglot;
+        $scope.polyglot = data.polyglot;
+        return $scope.noConnectionMessage = $scope.local.page_nointernet;
       });
-      $scope.noConnectionMessage = $scope.local.page_nointernet;
       $rootScope.updateEvents = function() {
         var getEvents;
         $scope.futureEvents = [];
@@ -497,22 +506,17 @@
           return $scope.futureEventsCollapsed = false;
         }
       };
+      leftMenu = document.querySelector(".pushy-left");
+      contentBlock = document.querySelector(".push-page");
       $scope.leftMenuBlur = function($event) {
         $event.stopPropagation();
-        return $scope.leftMenuActive = false;
+        leftMenu.classList.remove("pushy-open");
+        return contentBlock.classList.remove("container-push");
       };
       $scope.leftMenuActivator = function($event) {
-        if ($event.stopPropagation) {
-          $event.stopPropagation();
-        } else if ($location.$$path !== baseURL.FEEDS) {
-          $location.path($event);
-        }
-        return $scope.leftMenuActive = !$scope.leftMenuActive;
-      };
-      $scope.leftMenuHide = function() {
-        if ($scope.leftMenuActive) {
-          return $scope.leftMenuActive = false;
-        }
+        $event.stopPropagation();
+        leftMenu.classList.add("pushy-open");
+        return contentBlock.classList.add("container-push");
       };
       $scope.logoMainAnimateClass = {};
       $scope.logoMainAnimateClass[client.animationClass.logo] = $scope.logoSize;
@@ -634,8 +638,11 @@
       });
       $rootScope.user = client.user.detail;
       $scope.share = "http%3A%2F%2Fwww%2Eatea%2Eno%2Fhovedmeny%2Fatea-community-2014%2F";
-      return $scope.toComment = function() {
+      $scope.toComment = function() {
         return $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
+      };
+      return $scope.renderHtml = function(html) {
+        return $sce.trustAsHtml(html);
       };
     }
   ]);

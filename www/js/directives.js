@@ -195,8 +195,21 @@
         scope: {
           setting: '='
         },
-        template: '<li> <div class="clear"></div> <h3>~setting.subject~</h3> <div	ng-repeat="smile in setting.options" class="smile"> <label style="background: url(img/~smile_image~.png) no-repeat center center;"> <input type="radio" style="" name="~setting.name~" value="~smile.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> </label> </div><div class="clear"></div> <h4 ng-if="setting.intro">~setting.intro~</h4> </li>',
+        template: '<li> <div class="clear"></div> <h3>~setting.subject~</h3> <div	ng-repeat="smile in setting.options" class="smile"> <label style="background: url(~smile_image~) no-repeat center center;"> <input type="radio" name="~setting.name~" value="~smile.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> </label> </div><div class="clear"></div> <h4 ng-if="setting.intro">~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
+      };
+    }
+  ]);
+
+  atea.directive('pushyLeft', [
+    '$rootScope', function($rootScope) {
+      return {
+        restrict: 'C',
+        controller: [
+          '$scope', function($scope, $element) {
+            return $rootScope.leftMenu = $element;
+          }
+        ]
       };
     }
   ]);
@@ -208,10 +221,15 @@
         controller: [
           "$scope", function($scope) {
             return $scope.$watch("setting.value", function(data) {
+              var img;
+              img = new Image();
+              img.src = "img/Good.png";
+              img = new Image();
+              img.src = "img/Good-active.png";
               if ($scope.smile.answer_value === ~~data) {
-                return $scope.smile_image = $scope.smile.subject.toLowerCase();
+                return $scope.smile_image = "img/" + $scope.smile.subject + ".png";
               } else {
-                return $scope.smile_image = $scope.smile.subject.toLowerCase() + "-active";
+                return $scope.smile_image = "img/" + $scope.smile.subject + "-active" + ".png";
               }
             });
           }
@@ -230,10 +248,9 @@
         $scope.loto = loto;
         return $scope.$watch("loto._count", function(data) {
           if (data === 3) {
-            return $timeout(function() {
-              loto.afterFn();
-              return loto.afterFn = null;
-            }, 1000);
+            loto.afterFn();
+            loto.afterFn = null;
+            return loto._count = 0;
           }
         });
       }
@@ -281,7 +298,7 @@
             return $timeout(function() {
               start = new Date().getTime();
               return step();
-            }, ($scope.$index + 1) * loto.speed / 10);
+            }, ($scope.$index + 1) * loto.speed / 10 + 600);
           }
         });
       }

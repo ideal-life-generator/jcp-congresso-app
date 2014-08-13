@@ -12,20 +12,19 @@
              ng-src="http://188.226.184.59~partner.avatar~" align="middle" class="partner-img"/>
         <div class="partner-details">
             <h3>~ partner.name ~</h3>
-            <h5>~ partner.category ~</h5><!-- 
-            ~partner.website~ -->
+            <h5>~ partner.category ~</h5>
             <a ng-show="partner.website"
                ng-click="toDifferentUrl(partner.website)">~local.to_website~</a>
-            <p>~ partner.description ~</p>
+            <p ng-bind-html="renderHtml(partner.description)"></p>
         </div>
     
-        <textarea ng-show="user"
+        <textarea ng-show="user && partner && partner.id === partner.partner_id"
                   ng-model="questionToPartner"
                   ng-minlength="16"
                   ng-maxlength="600"
                   class="form-control" placeholder="~local.comments_placeholder~"></textarea>
     </div>
-    <button ng-show="user"
+    <button ng-show="user && partner && partner.id === partner.partner_id"
             class="ui-btn ui-btn-lg">~local.submit~</button>
   </form>
 </div>

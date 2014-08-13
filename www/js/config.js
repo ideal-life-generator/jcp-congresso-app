@@ -2,7 +2,7 @@
 (function() {
   var atea;
 
-  atea = angular.module('atea', ['ngRoute', 'ngAnimate', 'ngResource', 'ja.qr', 'ngCookies', 'ngTouch']);
+  atea = angular.module('atea', ['ngRoute', 'ngAnimate', 'ngResource', 'ja.qr', 'ngCookies']);
 
   atea.config([
     '$interpolateProvider', function($interpolateProvider) {
@@ -93,10 +93,7 @@
     'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$window', function(baseURL, $rootScope, client, userStatus, $location, $routeParams, $window) {
       $rootScope.status = userStatus.role;
       $rootScope.baseURL = baseURL;
-      FastClick.attach(document.body);
-      return document.addEventListener("deviceready", function() {
-        return screen.lockOrientation('landscape');
-      });
+      return FastClick.attach(document.body);
     }
   ]);
 

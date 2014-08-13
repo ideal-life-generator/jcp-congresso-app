@@ -15,8 +15,9 @@
                         ng-model="categorieActive"
                         ng-class="{ 'no-valid': noValid }"
                         ng-change="noValid = false">
+                    <option ng-disabled="true" value="-1">~ categorieSingle ~</option>
                     <option ng-repeat="categorie in categories"
-                            ng-disabled="$first">~ categorie.name ~</option>
+                            value="~categorie.id~">~ categorie.name ~</option>
                 </select>
         <div class="alert alert-danger"
              ng-if="noValid">

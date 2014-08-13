@@ -11,8 +11,8 @@
                 class="event-time">~ schedule.desc ~ <span class="glyphicon glyphicon-map-marker"></span>
             </h5>
         	<img ng-if="schedule.image_url"
-                 ng-src="~ baseURL.BASE + schedule.image_url ~" style="margin-top: 3em; margin-bottom: 3em;" align="middle" class="partner-img"/>
-        	<p>~ schedule.moreinfo ~</p>
+                 ng-src="~ baseURL.BASE + schedule.image_url ~" style="margin-top: 1em; margin-bottom: 1em; max-width: 100%;" align="middle" class="partner-img"/>
+            <p ng-bind-html="renderHtml(schedule.moreinfo)"></p>
     	</div>
     	<a ng-if="schedule.survey_id !== '0' && schedule.is_visible"
            ng-click="nextLocation(event.id + baseURL.RATESHREF + '/' + schedule.survey_id)"

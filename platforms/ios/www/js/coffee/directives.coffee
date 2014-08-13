@@ -254,7 +254,9 @@ atea.directive 'surveyMobile', [ () ->
 	]
 ]
 
-atea.directive 'surveySmiles', [ () ->
+# <label style="background: url(img/~smile_image~.png) no-repeat center center;">
+
+atea.directive 'surveySmiles', [ ->
 	restrict: 'E'
 	replace: true
 	scope:
@@ -263,9 +265,8 @@ atea.directive 'surveySmiles', [ () ->
 							<div class="clear"></div>
 							 <h3>~setting.subject~</h3>
 								 <div	ng-repeat="smile in setting.options" class="smile">
-								 	 <label style="background: url(img/~smile_image~.png) no-repeat center center;">
+								 	 <label style="background: url(~smile_image~) no-repeat center center;">
 										 <input type="radio"
-										 				style=""
 														name="~setting.name~"
 														value="~smile.answer_value~"
 														ng-model="setting.value"
@@ -279,14 +280,25 @@ atea.directive 'surveySmiles', [ () ->
 	]
 ]
 
+atea.directive 'pushyLeft', [ '$rootScope', ($rootScope) ->
+	restrict: 'C'
+	controller: [ '$scope', ($scope, $element) ->
+		$rootScope.leftMenu = $element
+	]
+]
+
 atea.directive "smile", [ () ->
 	restrict: "C",
 	controller: [ "$scope", ($scope) ->
 		$scope.$watch "setting.value", (data) ->
+			img = new Image()
+			img.src = "img/Good.png"
+			img = new Image()
+			img.src = "img/Good-active.png"
 			if $scope.smile.answer_value is ~~data
-				$scope.smile_image = $scope.smile.subject.toLowerCase()
+				$scope.smile_image = "img/" + $scope.smile.subject + ".png"
 			else
-				$scope.smile_image = $scope.smile.subject.toLowerCase() + "-active"
+				$scope.smile_image = "img/" + $scope.smile.subject + "-active" + ".png"
 	]
 ]
 
@@ -299,12 +311,9 @@ atea.directive "loto", (loto, $timeout) ->
 		$scope.loto = loto
 		$scope.$watch "loto._count", (data) ->
 			if data is 3
-				$timeout ->
-					
-					loto.afterFn()
-					loto.afterFn = null
-					# loto.number = null
-				, 1000
+				loto.afterFn()
+				loto.afterFn = null
+				loto._count = 0
 
 atea.directive "items", ($timeout, loto) ->
 	restrict: "C"
@@ -341,7 +350,7 @@ atea.directive "items", ($timeout, loto) ->
 				$timeout ->
 					start = new Date().getTime()
 					step()
-				, ($scope.$index + 1) * loto.speed / 10
+				, ($scope.$index + 1) * loto.speed / 10 + 600
 
 atea.directive "item", (loto) ->
 	restrict: "C"

@@ -82,15 +82,14 @@ body {
 .pushy,
 .push-page,
 .push {
-  -webkit-perspective: 60em;
-  -moz-perspective: 60em;
-  -o-perspective: 60em;
-  -ie-perspective: 60em;
-  perspective: 60em;
+  -webkit-perspective: 600px;
+  -moz-perspective: 600px;
+  -o-perspective: 600px;
+  -ie-perspective: 600px;
+  perspective: 600px;
   left: 0px;
   /* improves performance issues on mobile*/
 
-  -webkit-backface-visibility: hidden;
 }
 .pushy.hard,
 .push-page.hard,
@@ -231,13 +230,6 @@ body {
   padding-top: 0.6em;
   padding-bottom: 0.6em;
 }
-.content {
-  padding-left: 0;
-  padding-right: 0;
-  padding-bottom: 40px;
-  width: 100%;
-  position: relative;
-}
 #footer {
   background-color: rgba(255, 255, 255, 0.34);
   border-top: 1px solid rgba(255, 255, 255, 0.43);
@@ -340,6 +332,7 @@ span.icon {
   font-family: 'Glyphicons Halflings';
 }
 .navbar-fixed-bottom {
+  position: fixed;
   box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.6);
   -ie-box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.6);
@@ -565,8 +558,8 @@ input[type="range"]::-ms-track {
   border: none;
 }
 input[type="range"]::-ms-thumb {
-  width: 3em;
-  height: 3em;
+  width: 6em;
+  height: 6em;
   background-color: white;
   -ms-border-radius: 50%;
   border-radius: 50%;
@@ -840,6 +833,7 @@ span.icon {
   font-family: 'Glyphicons Halflings';
 }
 .navbar-fixed-bottom {
+  position: fixed;
   box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.6);
   -ie-box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.6);
@@ -1079,6 +1073,9 @@ span.icon {
 }
 .ng-view {
   transform-style: preserve-3d;
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
 }
 .ng-view.ng-animate {
   position: absolute;
@@ -1231,64 +1228,6 @@ input.ng-invalid {
 input.ng-invalid-after {
   border-color: #E0115F;
 }
-.message {
-  -webkit-transition: 0.3s ease-in-out;
-  -moz-transition: 0.3s ease-in-out;
-  -o-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
-}
-.message.ng-leave {
-  opacity: 1;
-}
-.message.ng-leave-active {
-  opacity: 0;
-}
-.message.ng-enter {
-  opacity: 0;
-}
-.message.ng-enter-active {
-  opacity: 1;
-}
-message {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  display: table;
-  opacity: 0;
-  z-index: -1;
-  background-color: rgba(0, 0, 0, 0.5);
-  -webkit-transition: 300ms ease-in-out;
-  -moz-transition: 300ms ease-in-out;
-  -o-transition: 300ms ease-in-out;
-  transition: 300ms ease-in-out;
-}
-message.wait {
-  opacity: 1;
-  z-index: 10;
-}
-message > div {
-  display: table-cell;
-  vertical-align: middle;
-}
-message > div > div {
-  cursor: pointer;
-  width: 90%;
-  padding: 3em;
-  background-color: white;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  -webkit-border-radius: 10px;
-  -webkit-background-clip: padding-box;
-  -moz-border-radius: 10px;
-  -moz-background-clip: padding;
-  border-radius: 10px;
-  background-clip: padding-box;
-}
 .loader {
   width: 100%;
   height: 100%;
@@ -1396,7 +1335,7 @@ connection p {
   vertical-align: middle;
 }
 .loto {
-  width: 219px;
+  width: 204px;
   height: 105px;
   overflow: hidden;
   margin-left: auto;
@@ -1410,6 +1349,9 @@ connection p {
   width: 66px;
   float: left;
   margin-right: 3px;
+}
+.items:last-child {
+  margin-right: 0;
 }
 .item {
   background-color: #6fbf40;
