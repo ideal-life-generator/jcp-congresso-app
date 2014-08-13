@@ -56,10 +56,10 @@
         <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
         <param name="wp-package" value="SocialSharing" />
     </feature>
-    <feature name="InAppBrowser">
-        <param name="wp-package" value="InAppBrowser" />
-    </feature>
     <feature name="BarcodeScanner">
         <param name="wp-package" value="BarcodeScanner" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="wp-package" value="InAppBrowser" />
     </feature>
 </widget>

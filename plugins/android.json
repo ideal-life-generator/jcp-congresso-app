@@ -9,11 +9,11 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
+                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"android-package\" value=\"com.phonegap.plugins.barcodescanner.BarcodeScanner\" /></feature>",
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"android-package\" value=\"com.phonegap.plugins.barcodescanner.BarcodeScanner\" /></feature>",
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -536,10 +536,10 @@
         }
     },
     "installed_plugins": {
-        "org.apache.cordova.inappbrowser": {
+        "com.phonegap.plugins.barcodescanner": {
             "PACKAGE_NAME": "no.jcp.congresso"
         },
-        "com.phonegap.plugins.barcodescanner": {
+        "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "no.jcp.congresso"
         }
     },

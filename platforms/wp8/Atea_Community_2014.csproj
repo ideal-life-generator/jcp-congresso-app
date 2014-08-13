@@ -637,9 +637,6 @@
     <ItemGroup />
     <ItemGroup />
     <ItemGroup>
-        <Compile Include="Plugins\org.apache.cordova.inappbrowser\InAppBrowser.cs" />
-    </ItemGroup>
-    <ItemGroup>
         <Compile Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScanner.cs" />
     </ItemGroup>
     <ItemGroup>
@@ -657,10 +654,13 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Content Include="www\plugins\org.apache.cordova.inappbrowser\www\inappbrowser.js" />
+        <Compile Include="Plugins\org.apache.cordova.inappbrowser\InAppBrowser.cs" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\plugins\com.phonegap.plugins.barcodescanner\www\barcodescanner.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.inappbrowser\www\inappbrowser.js" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\cordova_plugins.js" />

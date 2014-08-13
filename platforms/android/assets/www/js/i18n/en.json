@@ -49,7 +49,7 @@
 	"page_nointernet": "No internet connection is available at the moment. Please, click this message to try to connect again.",
 	"first_login": "This is the first time you've logged in to this event. You are about to receive tokens!",
 	"log_in": "Please wait, logging in.",
-	"user_exist": "User doesn't exist.",
+	"user_exist": "User credentials are not valid",
 	"incorrect_credentials": "Incorrect credentials.",
 	"login_message": "Welcome %{name}!",
 	"form_token": "By filling this form you'll receive",
