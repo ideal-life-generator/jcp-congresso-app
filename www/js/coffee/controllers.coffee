@@ -406,12 +406,14 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 
 	$scope.leftMenuAnimationType = client.animationClass.leftMenu
 
-	$scope.nextLocation = (path) ->
+	$scope.nextLocation = (path, desc, data) ->
+		$scope[desc] = data
 		if $scope.contentAnimate isnt $scope.animationContentLeft
 			$scope.contentAnimate = $scope.animationContentLeft
 		$timeout ->
 			$location.path path
 		, 100
+		console.log desc
 
 	$scope.backLocation = (path) ->
 		if $scope.contentAnimate isnt $scope.animationContentRight

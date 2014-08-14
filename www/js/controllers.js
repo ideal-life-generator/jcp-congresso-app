@@ -535,13 +535,15 @@
       $scope.animationContentLeft = client.animationClass.content.left;
       $scope.animationContentRight = client.animationClass.content.right;
       $scope.leftMenuAnimationType = client.animationClass.leftMenu;
-      $scope.nextLocation = function(path) {
+      $scope.nextLocation = function(path, desc, data) {
+        $scope[desc] = data;
         if ($scope.contentAnimate !== $scope.animationContentLeft) {
           $scope.contentAnimate = $scope.animationContentLeft;
         }
-        return $timeout(function() {
+        $timeout(function() {
           return $location.path(path);
         }, 100);
+        return console.log(desc);
       };
       $scope.backLocation = function(path) {
         if ($scope.contentAnimate !== $scope.animationContentRight) {

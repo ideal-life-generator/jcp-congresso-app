@@ -425,8 +425,8 @@
               return $scope.pastEvents.push(event);
             }
           });
-          $scope.pastEvents = $filter('orderBy')($scope.pastEvents, '+start_date');
-          return $scope.futureEvents = $filter('orderBy')($scope.futureEvents, '+start_date');
+          $scope.pastEvents = $filter('orderBy')($scope.pastEvents, '+ical_start');
+          return $scope.futureEvents = $filter('orderBy')($scope.futureEvents, '+ical_start');
         };
         return connection.makeLoad({
           params: {

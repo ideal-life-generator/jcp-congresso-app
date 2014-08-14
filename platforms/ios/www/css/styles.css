@@ -46,7 +46,7 @@ body {
   -ms-touch-action: pan-y;
   touch-action: pan-y;
   -ms-content-zooming: none;
-  background: url(../img/atea-bg.png) fixed;
+  background: url(../img/atea-bg.png) fixed 10% 10%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -794,6 +794,11 @@ input:focus {
   margin-top: 0.3em;
   display: none;
 }
+.survey-checkbox {
+  float: left;
+  margin-right: 1.6em;
+  height: 30px;
+}
 /* Page specific */
 .title-bar {
   background-color: black;
@@ -1252,7 +1257,7 @@ span.icon {
   top: 0%;
 }
 input.ng-invalid {
-  border-color: yellow;
+  border-color: #a94442;
 }
 input.ng-invalid-after {
   border-color: #E0115F;
