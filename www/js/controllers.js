@@ -346,7 +346,7 @@
       return connection.makeLoad({
         params: {
           resource: 'partnerCompany',
-          data: "{'event_id': " + $routeParams.feedId + "}"
+          data: "{extraParam: {'event_id': " + $routeParams.feedId + "}}"
         },
         handler: getPartners,
         scope: $scope,
