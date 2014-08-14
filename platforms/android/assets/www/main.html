@@ -59,9 +59,12 @@
       ng-keydown="closeMessage()"
       c-swiperight="backHistory"> -->
 
-<body ng-controller="MainController"
+<!-- <body ng-controller="MainController"
       ng-click="leftMenuBlur($event)"
-      c-swiperight="backHistory">
+      c-swiperight="backHistory"> -->
+
+<body ng-controller="MainController"
+      ng-click="leftMenuBlur($event)">
 
 <div class="push-page ~ leftMenuAnimationType ~"
      ng-class="{ 'container-push': leftMenuActive }">
@@ -118,7 +121,7 @@
      ng-class="{ 'pushy-open': leftMenuActive }">
     <ul>
         <li>
-            <a ng-click="leftMenuActivator(baseURL.FEEDS)"
+            <a ng-click="backLocation(baseURL.FEEDS)"
                class="home-icon">
                 ~local.home~
             </a>

@@ -42,7 +42,7 @@
 	"select_category": "Select a category",
 	"data_sending": "Sending data",
 	"message_posted": "Your message has been posted.",
-	"quest_sent": "Your question has been sent.",
+	"quest_sent": "Your lead of %{first_name} has been saved successfully",
 	"quest_error": "Question should be at least 16 characters long.",
 	"fill_input": "Please fill in the input.",
 	"error_scaning": "Error scaning",

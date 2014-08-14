@@ -68,7 +68,7 @@ atea.directive 'surveyText', [ () ->
 	scope:
 		setting: '='
 	template: '<li>
-							 <h3>~setting.subject~</h3>
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 							 <input type="text"
 											name="~setting.name~"
 											ng-model="setting.value"
@@ -88,7 +88,7 @@ atea.directive 'surveyTextarea', [ () ->
 	scope:
 		setting: '='
 	template: '<li>
-							 <h3>~setting.subject~</h3>
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 							 <textarea type="text"
 												 class="form-control"
 												 name="~setting.name~"
@@ -112,7 +112,7 @@ atea.directive 'surveyCheckboxlist', [ () ->
 		setting: '='
 	template: '<li>
 							 <div class="clear"></div>
-							 <h3>~setting.subject~</h3>
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 								 <div	ng-repeat="checkbox in setting.options" style="float: left; margin-right: 1.6em; height: 30px;">
 								 	 <label>
 										 <input type="checkbox"
@@ -139,7 +139,7 @@ atea.directive 'surveyRadiolist', [ () ->
 		setting: '='
 	template: '<li>
 							 <div class="clear"></div>
-							 <h3>~setting.subject~</h3>
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 								 <div	ng-repeat="radio in setting.options" style="float: left; margin-right: 1.6em; height: 30px;">
 								 	 <label>
 										 <input type="radio"
@@ -149,7 +149,6 @@ atea.directive 'surveyRadiolist', [ () ->
 														ng-model="setting.value"
 														ng-required="~setting.is_required~"
 														placeholder="~setting.placeholder~">
-										 
 										 <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ radio.subject ~</span>
 									 </label>
 								 </div>
@@ -166,7 +165,7 @@ atea.directive 'surveyDropdownlist', [ () ->
 	scope:
 		setting: '='
 	template: '<li>
-							 <h3>~setting.subject~</h3>
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 								 <div>
 								 	 <select class="form-control"
 													 name="~setting.name~"
@@ -196,7 +195,7 @@ atea.directive 'surveyEmail', [ () ->
 	scope:
 		setting: '='
 	template: '<li>
-							 <h3>~setting.subject~</h3>
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 							 <input type="email"
 											name="~setting.name~"
 											ng-model="setting.value"
@@ -218,7 +217,7 @@ atea.directive 'surveyNumber', [ () ->
 	scope:
 		setting: '='
 	template: '<li>
-							 <h3>~setting.subject~</h3>
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 							 <input type="number"
 											name="~setting.name~"
 											ng-model="setting.value"
@@ -239,7 +238,7 @@ atea.directive 'surveyMobile', [ () ->
 	scope:
 		setting: '='
 	template: '<li>
-							 <h3>~setting.subject~</h3>
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 							 <input type="text"
 											name="~setting.name~"
 											ng-model="setting.value"
@@ -263,7 +262,7 @@ atea.directive 'surveySmiles', [ ->
 		setting: '='
 	template: '<li>
 							<div class="clear"></div>
-							 <h3>~setting.subject~</h3>
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 								 <div	ng-repeat="smile in setting.options" class="smile">
 								 	 <label style="background: url(~smile_image~) no-repeat center center;">
 										 <input type="radio"

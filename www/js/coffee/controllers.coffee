@@ -317,8 +317,8 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 					$scope.futureEvents.push event
 				else
 					$scope.pastEvents.push event
-			$scope.pastEvents = $filter('orderBy')($scope.pastEvents, '+start_date')
-			$scope.futureEvents = $filter('orderBy')($scope.futureEvents, '+start_date')
+			$scope.pastEvents = $filter('orderBy')($scope.pastEvents, '+ical_start')
+			$scope.futureEvents = $filter('orderBy')($scope.futureEvents, '+ical_start')
 
 		connection.makeLoad
 			params:

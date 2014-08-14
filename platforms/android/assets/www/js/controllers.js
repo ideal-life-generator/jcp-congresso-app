@@ -82,7 +82,7 @@
                     if (data.success) {
                       tokens = data.message.receivedTokens;
                       return loto.run(tokens, function() {
-                        return message.authoClose($scope.polyglot.t("tokens_add", ~~tokens), function() {
+                        return message.noClose($scope.polyglot.t("tokens_add", ~~tokens), function() {
                           return void 0;
                         }, function() {
                           if ($scope.contentAnimate !== $scope.animationContentRight) {
@@ -93,7 +93,7 @@
                         });
                       });
                     } else {
-                      return message.authoClose($scope.local.error_server, function() {
+                      return message.noClose($scope.local.error_server, function() {
                         if ($scope.contentAnimate !== $scope.animationContentRight) {
                           $scope.contentAnimate = $scope.animationContentRight;
                         }
@@ -117,7 +117,7 @@
             return message.noClose($scope.local.form_error);
           }
         } else {
-          return message.noClose($scope.local.form_error1);
+          return message.odinAndClose($scope.local.form_error1);
         }
       };
     }
@@ -274,16 +274,19 @@
           }, {
             data: data
           }, function(result) {
-            return message.authoClose($scope.local.quest_sent);
-          }).$promise.then(function() {
-            message.authoClose($scope.local.message_posted, function() {});
+            data = result.data;
+            message.authoClose($scope.polyglot.t("quest_sent", {
+              first_name: $scope.member.first_name
+            }));
             if ($scope.contentAnimate !== $scope.animationContentRight) {
               $scope.contentAnimate = $scope.animationContentRight;
             }
             return $timeout(function() {
               return $location.path(history.back());
             }, 100);
-          }, function() {});
+          }, function() {
+            return message.noClose($scope.local.error_server);
+          });
         } else {
           return $scope.noValid = true;
         }
@@ -343,7 +346,7 @@
       return connection.makeLoad({
         params: {
           resource: 'partnerCompany',
-          data: "{'event_id': " + $routeParams.feedId + "}"
+          data: "{extraParam: {'event_id': " + $routeParams.feedId + "}}"
         },
         handler: getPartners,
         scope: $scope,
@@ -356,27 +359,29 @@
     '$scope', '$window', '$location', 'baseURL', '$routeParams', '$rootScope', 'client', 'getData', 'connection', 'loto', 'message', function($scope, $window, $location, baseURL, $routeParams, $rootScope, client, getData, connection, loto, message) {
       return $scope.scanActivator = function() {
         return cordova.plugins.barcodeScanner.scan(function(result) {
-          message.open($scope.local.check_scan);
-          return connection.makeLoad({
-            params: {
-              resource: 'member',
-              data: "{ 'extraParam': { 'barcode': '" + result.text + "' }}"
-            },
-            handler: function(data) {
-              if (data.success) {
-                return message.noClose($scope.local.scan_error1);
-              } else {
-                $rootScope.member = data;
-                message.authoClose("Member " + data.first_name + " " + data.last_name + " is already now");
-                $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
-                return $scope.$apply();
-              }
-            },
-            scope: $scope,
-            type: "noCache"
-          });
-        }, function(error) {
-          return message.noClose($scope.local.error_scaning);
+          if (result.cancelled !== 1) {
+            message.open($scope.local.check_scan);
+            return connection.makeLoad({
+              params: {
+                resource: 'member',
+                data: "{ 'extraParam': { 'barcode': '" + result.text + "' }}"
+              },
+              handler: function(data) {
+                if (data.success) {
+                  return message.noClose($scope.local.scan_error1);
+                } else {
+                  message.close();
+                  $rootScope.member = data;
+                  $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
+                  return $scope.$apply();
+                }
+              },
+              scope: $scope,
+              type: "noCache"
+            }, function(error) {
+              return message.noClose($scope.local.error_scaning);
+            });
+          }
         });
       };
     }
@@ -509,12 +514,16 @@
       leftMenu = document.querySelector(".pushy-left");
       contentBlock = document.querySelector(".push-page");
       $scope.leftMenuBlur = function($event) {
-        $event.stopPropagation();
+        if ($event.stopPropagation) {
+          $event.stopPropagation();
+        }
         leftMenu.classList.remove("pushy-open");
         return contentBlock.classList.remove("container-push");
       };
       $scope.leftMenuActivator = function($event) {
-        $event.stopPropagation();
+        if ($event.stopPropagation) {
+          $event.stopPropagation();
+        }
         leftMenu.classList.add("pushy-open");
         return contentBlock.classList.add("container-push");
       };
@@ -529,6 +538,14 @@
       $scope.nextLocation = function(path) {
         if ($scope.contentAnimate !== $scope.animationContentLeft) {
           $scope.contentAnimate = $scope.animationContentLeft;
+        }
+        return $timeout(function() {
+          return $location.path(path);
+        }, 100);
+      };
+      $scope.backLocation = function(path) {
+        if ($scope.contentAnimate !== $scope.animationContentRight) {
+          $scope.contentAnimate = $scope.animationContentRight;
         }
         return $timeout(function() {
           return $location.path(path);

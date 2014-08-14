@@ -49,7 +49,7 @@ atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routePar
 								if data.success
 									tokens = data.message.receivedTokens
 									loto.run tokens, ->
-										message.authoClose ($scope.polyglot.t "tokens_add", ~~tokens)
+										message.noClose ($scope.polyglot.t "tokens_add", ~~tokens)
 										, ->
 											undefined
 										, ->
@@ -58,7 +58,7 @@ atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routePar
 											history.back()
 											loto.number = null
 								else
-									message.authoClose $scope.local.error_server, ->
+									message.noClose $scope.local.error_server, ->
 										if $scope.contentAnimate isnt $scope.animationContentRight
 											$scope.contentAnimate = $scope.animationContentRight
 										history.back()
@@ -73,7 +73,7 @@ atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routePar
 			else
 				message.noClose $scope.local.form_error
 		else
-			message.noClose $scope.local.form_error1
+			message.odinAndClose $scope.local.form_error1
 ]
 
 atea.controller 'RatesController', [ '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$rootScope', '$timeout', 'message',
@@ -188,7 +188,6 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 	$scope.submit = ->
 		if $scope.categorieActive isnt $scope.categories[0].name
 			$scope.noValid = false
-
 			data =
 				event_id: $scope.event.id
 				lead_type_id: $scope.categorieActive
@@ -197,15 +196,15 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 				comment: $scope.comments
 			message.open $scope.local.data_sending
 			getData.save { resource: 'partnerLead' }, data: data, (result) ->
-				message.authoClose $scope.local.quest_sent
-			.$promise.then ->
-				message.authoClose $scope.local.message_posted, ->
+				data = result.data
+				message.authoClose($scope.polyglot.t("quest_sent", first_name: $scope.member.first_name))
 				if $scope.contentAnimate isnt $scope.animationContentRight
 					$scope.contentAnimate = $scope.animationContentRight
 				$timeout ->
 					$location.path history.back()
 				, 100
 			, ->
+				message.noClose $scope.local.error_server
 		else
 			$scope.noValid = true
 ]
@@ -248,7 +247,7 @@ atea.controller 'PartnersController', [ '$scope', '$location', 'baseURL', '$rout
 	connection.makeLoad
 		params:
 			resource: 'partnerCompany'
-			data: "{'event_id': #{$routeParams.feedId}}"
+			data: "{extraParam: {'event_id': #{$routeParams.feedId}}}"
 		handler: getPartners
 		scope: $scope
 		type: "get"
@@ -259,23 +258,24 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 
 	$scope.scanActivator = ->
 		cordova.plugins.barcodeScanner.scan (result) ->
-			message.open $scope.local.check_scan
-			connection.makeLoad
-				params:
-					resource: 'member'
-					data: "{ 'extraParam': { 'barcode': '#{result.text}' }}"
-				handler: (data) ->
-					if data.success
-						message.noClose $scope.local.scan_error1
-					else
-						$rootScope.member = data
-						message.authoClose "Member #{data.first_name} #{data.last_name} is already now"
-						$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
-						$scope.$apply()
-				scope: $scope
-				type: "noCache"
-		, (error) ->
-			message.noClose $scope.local.error_scaning
+			if result.cancelled isnt 1
+				message.open $scope.local.check_scan
+				connection.makeLoad
+					params:
+						resource: 'member'
+						data: "{ 'extraParam': { 'barcode': '#{result.text}' }}"
+					handler: (data) ->
+						if data.success
+							message.noClose $scope.local.scan_error1
+						else
+							message.close()
+							$rootScope.member = data
+							$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
+							$scope.$apply()
+					scope: $scope
+					type: "noCache"
+				, (error) ->
+					message.noClose $scope.local.error_scaning
 ]
 
 atea.controller 'EventsController', [ '$scope', '$filter', 'baseURL', '$location', '$rootScope', '$routeParams', 'connection', 'client',
@@ -386,12 +386,12 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 	contentBlock = document.querySelector ".push-page"
 
 	$scope.leftMenuBlur = ($event) ->
-		$event.stopPropagation()
+		if $event.stopPropagation then $event.stopPropagation()
 		leftMenu.classList.remove "pushy-open"
 		contentBlock.classList.remove "container-push"
 
 	$scope.leftMenuActivator = ($event) ->
-		$event.stopPropagation()
+		if $event.stopPropagation then $event.stopPropagation()
 		leftMenu.classList.add "pushy-open"
 		contentBlock.classList.add "container-push"
 
@@ -409,6 +409,13 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 	$scope.nextLocation = (path) ->
 		if $scope.contentAnimate isnt $scope.animationContentLeft
 			$scope.contentAnimate = $scope.animationContentLeft
+		$timeout ->
+			$location.path path
+		, 100
+
+	$scope.backLocation = (path) ->
+		if $scope.contentAnimate isnt $scope.animationContentRight
+			$scope.contentAnimate = $scope.animationContentRight
 		$timeout ->
 			$location.path path
 		, 100

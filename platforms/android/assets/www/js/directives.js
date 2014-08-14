@@ -83,7 +83,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <h3>~setting.subject~</h3> <input type="text" name="~setting.name~" ng-model="setting.value" ng-minlength="~setting.min_length~" ng-maxlength="~setting.max_length~" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3> <input type="text" name="~setting.name~" ng-model="setting.value" ng-minlength="~setting.min_length~" ng-maxlength="~setting.max_length~" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
@@ -97,7 +97,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <h3>~setting.subject~</h3> <textarea type="text" class="form-control" name="~setting.name~" ng-model="setting.value" ng-minlength="~setting.min_length~" ng-maxlength="~setting.max_length~" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> </textarea> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3> <textarea type="text" class="form-control" name="~setting.name~" ng-model="setting.value" ng-minlength="~setting.min_length~" ng-maxlength="~setting.max_length~" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> </textarea> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
@@ -111,7 +111,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <div class="clear"></div> <h3>~setting.subject~</h3> <div	ng-repeat="checkbox in setting.options" style="float: left; margin-right: 1.6em; height: 30px;"> <label> <input type="checkbox" style="float: left;" name="~setting.name~" value="~checkbox.answer_value~" ng-model="checkbox.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ checkbox.subject ~</span> </label> </div> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <div class="clear"></div> <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3> <div	ng-repeat="checkbox in setting.options" style="float: left; margin-right: 1.6em; height: 30px;"> <label> <input type="checkbox" style="float: left;" name="~setting.name~" value="~checkbox.answer_value~" ng-model="checkbox.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ checkbox.subject ~</span> </label> </div> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
@@ -125,7 +125,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <div class="clear"></div> <h3>~setting.subject~</h3> <div	ng-repeat="radio in setting.options" style="float: left; margin-right: 1.6em; height: 30px;"> <label> <input type="radio" style="float: left;" name="~setting.name~" value="~radio.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ radio.subject ~</span> </label> </div> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <div class="clear"></div> <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3> <div	ng-repeat="radio in setting.options" style="float: left; margin-right: 1.6em; height: 30px;"> <label> <input type="radio" style="float: left;" name="~setting.name~" value="~radio.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ radio.subject ~</span> </label> </div> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
@@ -139,7 +139,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <h3>~setting.subject~</h3> <div> <select class="form-control" name="~setting.name~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~" ng-required="~setting.is_required~"> <option value="" disabled="~setting.is_required~">-- Select value --</option> <option ng-repeat="option in setting.options" type="radio" value="~option.answer_value~"> ~ option.subject ~ </option> </select> </div> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3> <div> <select class="form-control" name="~setting.name~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~" ng-required="~setting.is_required~"> <option value="" disabled="~setting.is_required~">-- Select value --</option> <option ng-repeat="option in setting.options" type="radio" value="~option.answer_value~"> ~ option.subject ~ </option> </select> </div> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
@@ -153,7 +153,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <h3>~setting.subject~</h3> <input type="email" name="~setting.name~" ng-model="setting.value" ng-minlength="0" ng-maxlength="250" ng-required="~setting.is_required~" ng-pattern="setting.pattern" placeholder="~setting.placeholder~"> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3> <input type="email" name="~setting.name~" ng-model="setting.value" ng-minlength="0" ng-maxlength="250" ng-required="~setting.is_required~" ng-pattern="setting.pattern" placeholder="~setting.placeholder~"> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
@@ -167,7 +167,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <h3>~setting.subject~</h3> <input type="number" name="~setting.name~" ng-model="setting.value" ng-minlength="~setting.min_length~" ng-maxlength="~setting.max_length~" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3> <input type="number" name="~setting.name~" ng-model="setting.value" ng-minlength="~setting.min_length~" ng-maxlength="~setting.max_length~" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
@@ -181,7 +181,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <h3>~setting.subject~</h3> <input type="text" name="~setting.name~" ng-model="setting.value" ng-minlength="~setting.min_length~" ng-maxlength="~setting.max_length~" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3> <input type="text" name="~setting.name~" ng-model="setting.value" ng-minlength="~setting.min_length~" ng-maxlength="~setting.max_length~" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
@@ -195,7 +195,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <div class="clear"></div> <h3>~setting.subject~</h3> <div	ng-repeat="smile in setting.options" class="smile"> <label style="background: url(~smile_image~) no-repeat center center;"> <input type="radio" name="~setting.name~" value="~smile.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> </label> </div><div class="clear"></div> <h4 ng-if="setting.intro">~setting.intro~</h4> </li>',
+        template: '<li> <div class="clear"></div> <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3> <div	ng-repeat="smile in setting.options" class="smile"> <label style="background: url(~smile_image~) no-repeat center center;"> <input type="radio" name="~setting.name~" value="~smile.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> </label> </div><div class="clear"></div> <h4 ng-if="setting.intro">~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }
