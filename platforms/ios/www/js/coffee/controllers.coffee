@@ -258,23 +258,24 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 
 	$scope.scanActivator = ->
 		cordova.plugins.barcodeScanner.scan (result) ->
-			message.open $scope.local.check_scan
-			connection.makeLoad
-				params:
-					resource: 'member'
-					data: "{ 'extraParam': { 'barcode': '#{result.text}' }}"
-				handler: (data) ->
-					if data.success
-						message.noClose $scope.local.scan_error1
-					else
-						message.close()
-						$rootScope.member = data
-						$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
-						$scope.$apply()
-				scope: $scope
-				type: "noCache"
-		, (error) ->
-			message.noClose $scope.local.error_scaning
+			if result.cancelled isnt 1
+				message.open $scope.local.check_scan
+				connection.makeLoad
+					params:
+						resource: 'member'
+						data: "{ 'extraParam': { 'barcode': '#{result.text}' }}"
+					handler: (data) ->
+						if data.success
+							message.noClose $scope.local.scan_error1
+						else
+							message.close()
+							$rootScope.member = data
+							$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
+							$scope.$apply()
+					scope: $scope
+					type: "noCache"
+				, (error) ->
+					message.noClose $scope.local.error_scaning
 ]
 
 atea.controller 'EventsController', [ '$scope', '$filter', 'baseURL', '$location', '$rootScope', '$routeParams', 'connection', 'client',

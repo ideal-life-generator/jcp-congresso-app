@@ -359,27 +359,29 @@
     '$scope', '$window', '$location', 'baseURL', '$routeParams', '$rootScope', 'client', 'getData', 'connection', 'loto', 'message', function($scope, $window, $location, baseURL, $routeParams, $rootScope, client, getData, connection, loto, message) {
       return $scope.scanActivator = function() {
         return cordova.plugins.barcodeScanner.scan(function(result) {
-          message.open($scope.local.check_scan);
-          return connection.makeLoad({
-            params: {
-              resource: 'member',
-              data: "{ 'extraParam': { 'barcode': '" + result.text + "' }}"
-            },
-            handler: function(data) {
-              if (data.success) {
-                return message.noClose($scope.local.scan_error1);
-              } else {
-                message.close();
-                $rootScope.member = data;
-                $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
-                return $scope.$apply();
-              }
-            },
-            scope: $scope,
-            type: "noCache"
-          });
-        }, function(error) {
-          return message.noClose($scope.local.error_scaning);
+          if (result.cancelled !== 1) {
+            message.open($scope.local.check_scan);
+            return connection.makeLoad({
+              params: {
+                resource: 'member',
+                data: "{ 'extraParam': { 'barcode': '" + result.text + "' }}"
+              },
+              handler: function(data) {
+                if (data.success) {
+                  return message.noClose($scope.local.scan_error1);
+                } else {
+                  message.close();
+                  $rootScope.member = data;
+                  $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
+                  return $scope.$apply();
+                }
+              },
+              scope: $scope,
+              type: "noCache"
+            }, function(error) {
+              return message.noClose($scope.local.error_scaning);
+            });
+          }
         });
       };
     }
