@@ -8,7 +8,9 @@
     	<div class="partner-wrap">
         	<h3>~ schedule.name ~</h3>
         	<h5 ng-if="schedule.desc"
-                class="event-time">~ schedule.desc ~ <span class="glyphicon glyphicon-map-marker"></span>
+                class="event-time">
+                <span>~schedule.desc~</span>
+                <span class="glyphicon glyphicon-map-marker"></span>
             </h5>
         	<img ng-if="schedule.image_url"
                  ng-src="~ baseURL.BASE + schedule.image_url ~" style="margin-top: 1em; margin-bottom: 1em; max-width: 100%;" align="middle" class="partner-img"/>
