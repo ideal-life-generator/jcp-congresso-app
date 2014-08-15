@@ -114,9 +114,10 @@ atea.controller 'ScheduleController', [ '$scope', '$location', 'baseURL', '$rout
 
 	$rootScope.survey = null
 
-	if $scope.schedule && $scope.schedule.survey_id isnt "0"
-		getData.noCache { resource: 'survey', id: $scope.schedule.survey_id }, (result) ->
-			$rootScope.survey = result.data
+	# if $scope.schedule && $scope.schedule.survey_id isnt "0"
+	# 	alert $scope.schedule.survey_id
+	# 	getData.noCache { resource: 'survey', id: $scope.schedule.survey_id }, (result) ->
+	# 		$rootScope.survey = result.data
 
 	connection.makeLoad
 		params:

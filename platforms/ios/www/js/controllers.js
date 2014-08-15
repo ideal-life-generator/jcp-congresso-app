@@ -169,14 +169,6 @@
   atea.controller('ScheduleController', [
     '$scope', '$location', 'baseURL', '$routeParams', 'getData', '$http', '$rootScope', 'connection', function($scope, $location, baseURL, $routeParams, getData, $http, $rootScope, connection) {
       $rootScope.survey = null;
-      if ($scope.schedule && $scope.schedule.survey_id !== "0") {
-        getData.noCache({
-          resource: 'survey',
-          id: $scope.schedule.survey_id
-        }, function(result) {
-          return $rootScope.survey = result.data;
-        });
-      }
       return connection.makeLoad({
         params: {
           resource: 'activity',
