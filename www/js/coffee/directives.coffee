@@ -120,8 +120,7 @@ atea.directive 'surveyCheckboxlist', [ () ->
 														name="~setting.name~"
 														value="~checkbox.answer_value~"
 														ng-model="checkbox.value"
-														ng-click="addCheck(checkbox)"
-														ng-required="">
+														ng-click="addCheck(checkbox)">
 										 <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ checkbox.subject ~</span>
 									 </label>
 								 </div>
@@ -134,6 +133,16 @@ atea.directive 'surveyCheckboxlist', [ () ->
 				$scope.rest.push true
 			else
 				delete $scope.rest.pop()
+	]
+]
+
+atea.directive 'surveyCheckbox', [ () ->
+	restrict: 'C'
+	scope:
+		rest: '@'
+	controller: [ '$scope', ($scope) ->
+		$scope.isRequired = ->
+			console.log $scope
 	]
 ]
 
@@ -318,6 +327,9 @@ atea.directive "loto", (loto, $timeout) ->
 				loto.afterFn()
 				loto.afterFn = null
 				loto._count = 0
+				$timeout ->
+					loto.number = null
+				, 1000
 
 atea.directive "items", ($timeout, loto) ->
 	restrict: "C"

@@ -18,13 +18,13 @@
             <p ng-bind-html="renderHtml(partner.description)"></p>
         </div>
     
-        <textarea ng-show="user && partner && partner.id === partner.partner_id"
+        <textarea ng-show="user && partner"
                   ng-model="questionToPartner"
                   ng-minlength="16"
                   ng-maxlength="600"
                   class="form-control" placeholder="~local.comments_placeholder~"></textarea>
     </div>
-    <button ng-show="user && partner && partner.id === partner.partner_id"
+    <button ng-show="user && partner"
             class="ui-btn ui-btn-lg">~local.submit~</button>
   </form>
 </div>

@@ -16,7 +16,7 @@
                  ng-src="~ baseURL.BASE + schedule.image_url ~" style="margin-top: 1em; margin-bottom: 1em; max-width: 100%;" align="middle" class="partner-img"/>
             <p ng-bind-html="renderHtml(schedule.desc)"></p>
     	</div>
-    	<a ng-if="schedule.survey_id !== '0' && schedule.is_visible"
+    	<a ng-if="participient && schedule.survey_id !== '0' && survey.is_answered === '0'"
            ng-click="nextLocation(event.id + baseURL.RATESHREF + '/' + schedule.survey_id)"
            class="ui-btn ui-btn-lg">~local.rate_session~</a>
     </div>
