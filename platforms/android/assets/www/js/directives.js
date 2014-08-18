@@ -111,8 +111,37 @@
         scope: {
           setting: '='
         },
-        template: '<li> <div class="clear"></div> <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3> <div	ng-repeat="checkbox in setting.options" style="float: left; margin-right: 1.6em; height: 30px;"> <label> <input type="checkbox" style="float: left;" name="~setting.name~" value="~checkbox.answer_value~" ng-model="checkbox.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ checkbox.subject ~</span> </label> </div> <h4>~setting.intro~</h4> </li>',
-        controller: ['$scope', function($scope) {}]
+        template: '<li> <div class="clear"></div> <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3> <div	ng-repeat="checkbox in setting.options" class="survey-checkbox"> <label> <input type="checkbox" style="float: left;" name="~setting.name~" value="~checkbox.answer_value~" ng-model="checkbox.value" ng-click="addCheck(checkbox)"> <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ checkbox.subject ~</span> </label> </div> <h4>~setting.intro~</h4> </li>',
+        controller: [
+          '$scope', function($scope) {
+            $scope.rest = [];
+            return $scope.addCheck = function(checkbox) {
+              if (!checkbox.value) {
+                return $scope.rest.push(true);
+              } else {
+                return delete $scope.rest.pop();
+              }
+            };
+          }
+        ]
+      };
+    }
+  ]);
+
+  atea.directive('surveyCheckbox', [
+    function() {
+      return {
+        restrict: 'C',
+        scope: {
+          rest: '@'
+        },
+        controller: [
+          '$scope', function($scope) {
+            return $scope.isRequired = function() {
+              return console.log($scope);
+            };
+          }
+        ]
       };
     }
   ]);
@@ -250,7 +279,10 @@
           if (data === 3) {
             loto.afterFn();
             loto.afterFn = null;
-            return loto._count = 0;
+            loto._count = 0;
+            return $timeout(function() {
+              return loto.number = null;
+            }, 1000);
           }
         });
       }

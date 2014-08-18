@@ -1,7 +1,7 @@
 atea = angular.module 'atea'
 
-atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$filter', '$compile', 'getData', '$http', 'loto', '$timeout', 'message',
-($scope, $location, baseURL, $routeParams, connection, $filter, $compile, getData, $http, loto, $timeout, message) ->
+atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$filter', '$compile', 'getData', '$http', 'loto', '$timeout', 'message', '$rootScope',
+($scope, $location, baseURL, $routeParams, connection, $filter, $compile, getData, $http, loto, $timeout, message, $rootScope) ->
 
 	connection.makeLoad
 		params:
@@ -48,6 +48,7 @@ atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routePar
 								data = result.data
 								if data.success
 									tokens = data.message.receivedTokens
+									$rootScope.updateTokens()
 									loto.run tokens, ->
 										message.noClose ($scope.polyglot.t "tokens_add", ~~tokens)
 										, ->
@@ -55,23 +56,33 @@ atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routePar
 										, ->
 											if $scope.contentAnimate isnt $scope.animationContentRight
 												$scope.contentAnimate = $scope.animationContentRight
-											history.back()
+											$timeout ->
+												history.back()
+											, 100
 											loto.number = null
 								else
 									message.noClose $scope.local.error_server, ->
 										if $scope.contentAnimate isnt $scope.animationContentRight
 											$scope.contentAnimate = $scope.animationContentRight
-										history.back()
+										$timeout ->
+											history.back()
+										, 100
 										loto.number = null
 						else
-							if $scope.contentAnimate isnt $scope.animationContentRight
-								$scope.contentAnimate = $scope.animationContentRight
-							history.back()
-							loto.number = null
+							message.authoClose $scope.local.form_saved
+							, ->
+								undefined
+							, ->
+								if $scope.contentAnimate isnt $scope.animationContentRight
+									$scope.contentAnimate = $scope.animationContentRight
+								$timeout ->
+									history.back()
+								, 100
+								loto.number = null
 				, (error) ->
 					message.noClose $scope.local.no_connection
 			else
-				message.noClose $scope.local.form_error
+				message.noClose $scope.local.form_fill
 		else
 			message.odinAndClose $scope.local.form_error1
 ]
@@ -101,6 +112,13 @@ atea.controller 'RatesController', [ '$scope', '$location', 'baseURL', '$routePa
 atea.controller 'ScheduleController', [ '$scope', '$location', 'baseURL', '$routeParams', 'getData', '$http', '$rootScope', 'connection',
 ($scope, $location, baseURL, $routeParams, getData, $http, $rootScope, connection) ->
 
+	$rootScope.survey = null
+
+	# if $scope.schedule && $scope.schedule.survey_id isnt "0"
+	# 	alert $scope.schedule.survey_id
+	# 	getData.noCache { resource: 'survey', id: $scope.schedule.survey_id }, (result) ->
+	# 		$rootScope.survey = result.data
+
 	connection.makeLoad
 		params:
 			resource: 'activity'
@@ -109,13 +127,9 @@ atea.controller 'ScheduleController', [ '$scope', '$location', 'baseURL', '$rout
 			$scope.schedule = data
 			if $scope.schedule.survey_id isnt "0"
 				getData.noCache { resource: 'survey', id: $scope.schedule.survey_id }, (result) ->
-					data = { }
-					angular.forEach result.data, (ths) ->
-						data = ths
-					if data.is_answered isnt "0"
-						$scope.schedule.is_visible = true
+					$rootScope.survey = result.data
 		scope: $scope
-		type: "get"
+		type: "noCache"
 ]
 
 atea.controller 'SchedulesController', [ '$scope', '$location', '$routeParams', 'getData', '$filter', '$http', '$rootScope', 'connection', 'message',
@@ -207,6 +221,16 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 				message.noClose $scope.local.error_server
 		else
 			$scope.noValid = true
+
+	getData.save { resource: 'partnerLead' },
+		data:
+			event_id: "84"
+			lead_type_id: "1"
+			interest: "6"
+			revenue: "4"
+			comment: "test11111111111"
+	, (result) ->
+		data = result.data
 ]
 
 atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection', 'getData', '$http', 'message',
@@ -226,6 +250,7 @@ atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$route
 			message.open $scope.local.processing_data
 			getData.save { resource: 'partnerMessage' }, { data: { event_id: $routeParams.feedId, message: $scope.questionToPartner, partner_company_id: $scope.partner.id } }, (result) ->
 				message.authoClose $scope.local.quest_sent
+				$scope.questionToPartner = ""
 				$scope.invalid = false
 			, (error) ->
 				message.noClose $scope.local.no_connection
@@ -260,22 +285,60 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 		cordova.plugins.barcodeScanner.scan (result) ->
 			if result.cancelled isnt 1
 				message.open $scope.local.check_scan
-				connection.makeLoad
-					params:
-						resource: 'member'
-						data: "{ 'extraParam': { 'barcode': '#{result.text}' }}"
-					handler: (data) ->
-						if data.success
-							message.noClose $scope.local.scan_error1
+
+				# connection.makeLoad
+				# 	params:
+				# 		resource: 'member'
+				# 		data: "{ 'extraParam': { 'barcode': '#{result.text}' }}"
+				# 	handler: (data) ->
+				# 		# res = ""
+				# 		# angular.forEach data, (i) ->
+				# 		# 	res = res + i + ": " + data[i] + "\n"
+				# 		# alert res
+				# 		if data.success
+				# 			message.noClose $scope.local.scan_error1
+				# 		else
+				# 			message.close()
+				# 			$rootScope.member = data
+				# 			$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
+				# 			$scope.$apply()
+				# 	scope: $scope
+				# 	type: "noCache"
+				# , (error) ->
+				# 	message.noClose $scope.local.error_scaning
+			getData.noCache
+				resource: 'member'
+				data: extraParam: barcode: result.text
+			, (result) ->
+				data = result.data
+				if data.success
+					message.noClose $scope.local.scan_error1
+				else
+					getData.noCache
+						resource: 'participant'
+						data: event_id: $scope.event.id, member_id: data.id, extraParam: "globalSearch"
+					, (result) ->
+						data = result.data
+						participant = null
+						angular.forEach data, (part) ->
+							participant = part
+						if participant.id isnt $scope.participient.id
+							if participant.event_id is $scope.event.id
+								message.close()
+								$rootScope.member = data
+								$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
+								$scope.$apply()
+							else
+								message.noClose $scope.local.scan_error2
 						else
-							message.close()
-							$rootScope.member = data
-							$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
-							$scope.$apply()
-					scope: $scope
-					type: "noCache"
-				, (error) ->
-					message.noClose $scope.local.error_scaning
+							message.noClose $scope.local.scan_warning1
+
+	# getData.noCache
+	# 	resource: 'member'
+	# 	data: "{ 'extraParam': { 'barcode': '383fafae66b6bcc8ef5693266924ac7' }}"
+	# , (result) ->
+	# 	data = result.data
+	
 ]
 
 atea.controller 'EventsController', [ '$scope', '$filter', 'baseURL', '$location', '$rootScope', '$routeParams', 'connection', 'client',
@@ -286,8 +349,8 @@ atea.controller 'EventsController', [ '$scope', '$filter', 'baseURL', '$location
 	$rootScope.updateEvents()
 ]
 
-atea.controller 'ProfileController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection',
-($scope, $location, baseURL, $routeParams, $rootScope, connection) ->
+atea.controller 'ProfileController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection', 'getData',
+($scope, $location, baseURL, $routeParams, $rootScope, connection, getData) ->
 
 	$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~$scope.participient.tokens
 ]
@@ -296,6 +359,17 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 ($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce) ->
 
 	$scope.local = { }
+
+	$rootScope.updateTokens = ->
+		getData.noCache
+			resource: 'participant'
+			data: event_id: $rootScope.event.id,
+		, (result) ->
+			data = result.data
+			angular.forEach data, (participant) ->
+				if participant.event_id is $rootScope.event.id
+					$scope.participient = participant
+					$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~participant.tokens
 
 	local.then (data) ->
 		$scope.local = data.local
@@ -330,7 +404,6 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 
 	$scope.$on '$routeChangeSuccess', ->
 		path = $location.$$path
-		# $scope.backButton = if path is baseURL.FEEDS then false else true
 		if $rootScope.event and path is baseURL.FEEDS
 			$rootScope.event = null
 			$scope.participient = null
@@ -406,7 +479,8 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 
 	$scope.leftMenuAnimationType = client.animationClass.leftMenu
 
-	$scope.nextLocation = (path) ->
+	$scope.nextLocation = (path, desc, data) ->
+		$scope[desc] = data
 		if $scope.contentAnimate isnt $scope.animationContentLeft
 			$scope.contentAnimate = $scope.animationContentLeft
 		$timeout ->
@@ -443,6 +517,7 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 							getData.put { resource: 'participant' }, data: id: $scope.participient.id, extraParam: addTokens: 'firstLogin', (result) ->
 								data = result.data
 								tokens = data.message.receivedTokens
+								$rootScope.updateTokens()
 								loto.run tokens, ->
 									message.noClose ($scope.polyglot.t "tokens_add", ~~tokens)
 		$scope.nextLocation path

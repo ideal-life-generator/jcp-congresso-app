@@ -192,13 +192,15 @@
 	}
 }
 
-input {
-	&.ng-invalid {
-		border-color: yellow;
-	}
-	&.ng-invalid-after {
-		border-color: #E0115F;
-	}
+
+&.ng-invalid {
+	border-color: #a94442 !important;
+	// -webkit-box-shadow: 0 0 3px #a94442, 0 0 9px #a94442 inset !important;
+ //    -moz-box-shadow: 0 0 3px #a94442, 0 0 9px #a94442 inset !important;
+	// box-shadow: 0 0 3px #a94442, 0 0 9px #a94442 inset !important;
+}
+&.ng-invalid-after {
+	border-color: #E0115F;
 }
 
 .loader {

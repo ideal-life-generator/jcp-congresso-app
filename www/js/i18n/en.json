@@ -57,5 +57,6 @@
 	"form_token": "By filling this form you'll receive",
 	"error_server": "Error on server",
 	"check_scan": "Looking up barcode",
-	"scan_error1": "Couldn't find a user with scanned barcode."
+	"scan_error2": "User is not registered for current event",
+	"scan_warning1": "You have scanned yourself :)"
 }

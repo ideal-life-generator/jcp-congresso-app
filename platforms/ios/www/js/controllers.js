@@ -368,27 +368,49 @@
         return cordova.plugins.barcodeScanner.scan(function(result) {
           if (result.cancelled !== 1) {
             message.open($scope.local.check_scan);
-            return connection.makeLoad({
-              params: {
-                resource: 'member',
-                data: "{ 'extraParam': { 'barcode': '" + result.text + "' }}"
-              },
-              handler: function(data) {
-                if (data.success) {
-                  return message.noClose($scope.local.scan_error1);
-                } else {
-                  message.close();
-                  $rootScope.member = data;
-                  $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
-                  return $scope.$apply();
-                }
-              },
-              scope: $scope,
-              type: "noCache"
-            }, function(error) {
-              return message.noClose($scope.local.error_scaning);
-            });
           }
+          return getData.noCache({
+            resource: 'member',
+            data: {
+              extraParam: {
+                barcode: result.text
+              }
+            }
+          }, function(result) {
+            var data;
+            data = result.data;
+            if (data.success) {
+              return message.noClose($scope.local.scan_error1);
+            } else {
+              return getData.noCache({
+                resource: 'participant',
+                data: {
+                  event_id: $scope.event.id,
+                  member_id: data.id,
+                  extraParam: "globalSearch"
+                }
+              }, function(result) {
+                var participant;
+                data = result.data;
+                participant = null;
+                angular.forEach(data, function(part) {
+                  return participant = part;
+                });
+                if (participant.id !== $scope.participient.id) {
+                  if (participant.event_id === $scope.event.id) {
+                    message.close();
+                    $rootScope.member = data;
+                    $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
+                    return $scope.$apply();
+                  } else {
+                    return message.noClose($scope.local.scan_error2);
+                  }
+                } else {
+                  return message.noClose($scope.local.scan_warning1);
+                }
+              });
+            }
+          });
         });
       };
     }

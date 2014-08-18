@@ -46,7 +46,7 @@ body {
   -ms-touch-action: pan-y;
   touch-action: pan-y;
   -ms-content-zooming: none;
-  background: url(../img/atea-bg.png) fixed;
+  background: url(../img/atea-bg.png) fixed 10% 10%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -511,28 +511,18 @@ span.icon {
   background: url('../img/checked-checkbox-m.png') no-repeat 97% center;
 }
 select.ng-pristine {
-  border-color: yellow;
-  -webkit-box-shadow: 0 0 3px #ffff00, 0 0 9px #ffff00 inset;
-  -moz-box-shadow: 0 0 3px #ffff00, 0 0 9px #ffff00 inset;
-  box-shadow: 0 0 3px #ffff00, 0 0 9px #ffff00 inset;
+  border-color: #a94442;
+  border-width: 2px;
 }
 select.ng-pristine.no-valid {
   border-color: #a94442;
-  -webkit-box-shadow: 0 0 3px #a94442, 0 0 9px #a94442 inset;
-  -moz-box-shadow: 0 0 3px #a94442, 0 0 9px #a94442 inset;
-  box-shadow: 0 0 3px #a94442, 0 0 9px #a94442 inset;
+  border-width: 2px;
 }
 textarea.ng-invalid {
-  border-color: yellow;
-  -webkit-box-shadow: 0 0 3px #ffff00, 0 0 9px #ffff00 inset;
-  -moz-box-shadow: 0 0 3px #ffff00, 0 0 9px #ffff00 inset;
-  box-shadow: 0 0 3px #ffff00, 0 0 9px #ffff00 inset;
+  border-color: #a94442;
 }
 textarea.no-valid {
-  border-color: yellow;
-  -webkit-box-shadow: 0 0 3px #ffff00, 0 0 9px #ffff00 inset;
-  -moz-box-shadow: 0 0 3px #ffff00, 0 0 9px #ffff00 inset;
-  box-shadow: 0 0 3px #ffff00, 0 0 9px #ffff00 inset;
+  border-color: #a94442;
 }
 /**
  * Range
@@ -793,6 +783,11 @@ input:focus {
 .smile label input {
   margin-top: 0.3em;
   display: none;
+}
+.survey-checkbox {
+  float: left;
+  margin-right: 1.6em;
+  height: 30px;
 }
 /* Page specific */
 .title-bar {
@@ -1251,10 +1246,10 @@ span.icon {
   opacity: 1;
   top: 0%;
 }
-input.ng-invalid {
-  border-color: yellow;
+.ng-invalid {
+  border-color: #a94442 !important;
 }
-input.ng-invalid-after {
+.ng-invalid-after {
   border-color: #E0115F;
 }
 .loader {

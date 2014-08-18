@@ -221,6 +221,16 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 				message.noClose $scope.local.error_server
 		else
 			$scope.noValid = true
+
+	getData.save { resource: 'partnerLead' },
+		data:
+			event_id: "84"
+			lead_type_id: "1"
+			interest: "6"
+			revenue: "4"
+			comment: "test11111111111"
+	, (result) ->
+		data = result.data
 ]
 
 atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection', 'getData', '$http', 'message',
@@ -275,26 +285,53 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 		cordova.plugins.barcodeScanner.scan (result) ->
 			if result.cancelled isnt 1
 				message.open $scope.local.check_scan
-				connection.makeLoad
-					params:
-						resource: 'member'
-						data: "{ 'extraParam': { 'barcode': '#{result.text}' }}"
-					handler: (data) ->
-						# res = ""
-						# angular.forEach data, (i) ->
-						# 	res = res + i + ": " + data[i] + "\n"
-						# alert res
-						if data.success
-							message.noClose $scope.local.scan_error1
+
+				# connection.makeLoad
+				# 	params:
+				# 		resource: 'member'
+				# 		data: "{ 'extraParam': { 'barcode': '#{result.text}' }}"
+				# 	handler: (data) ->
+				# 		# res = ""
+				# 		# angular.forEach data, (i) ->
+				# 		# 	res = res + i + ": " + data[i] + "\n"
+				# 		# alert res
+				# 		if data.success
+				# 			message.noClose $scope.local.scan_error1
+				# 		else
+				# 			message.close()
+				# 			$rootScope.member = data
+				# 			$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
+				# 			$scope.$apply()
+				# 	scope: $scope
+				# 	type: "noCache"
+				# , (error) ->
+				# 	message.noClose $scope.local.error_scaning
+			getData.noCache
+				resource: 'member'
+				data: extraParam: barcode: result.text
+			, (result) ->
+				data = result.data
+				if data.success
+					message.noClose $scope.local.scan_error1
+				else
+					getData.noCache
+						resource: 'participant'
+						data: event_id: $scope.event.id, member_id: data.id, extraParam: "globalSearch"
+					, (result) ->
+						data = result.data
+						participant = null
+						angular.forEach data, (part) ->
+							participant = part
+						if participant.id isnt $scope.participient.id
+							if participant.event_id is $scope.event.id
+								message.close()
+								$rootScope.member = data
+								$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
+								$scope.$apply()
+							else
+								message.noClose $scope.local.scan_error2
 						else
-							message.close()
-							$rootScope.member = data
-							$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
-							$scope.$apply()
-					scope: $scope
-					type: "noCache"
-				, (error) ->
-					message.noClose $scope.local.error_scaning
+							message.noClose $scope.local.scan_warning1
 
 	# getData.noCache
 	# 	resource: 'member'
@@ -367,7 +404,6 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 
 	$scope.$on '$routeChangeSuccess', ->
 		path = $location.$$path
-		# $scope.backButton = if path is baseURL.FEEDS then false else true
 		if $rootScope.event and path is baseURL.FEEDS
 			$rootScope.event = null
 			$scope.participient = null
