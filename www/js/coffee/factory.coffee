@@ -40,10 +40,10 @@ atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
 	@animationClass = (->
 		if self.navigator is 'Windows Phone'
 			content:
-				left: ''
-				right: ''
-			logo: 'ease'
-			leftMenu: 'ease'
+				left: 'hard-left'
+				right: 'hard-right'
+			logo: 'hard'
+			leftMenu: 'hard'
 		else
 			content:
 				left: 'hard-left'

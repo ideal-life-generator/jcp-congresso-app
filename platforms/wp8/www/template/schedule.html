@@ -6,22 +6,18 @@
     <div class="divider">~ schedule.start_time | hourMinute ~-~ schedule.end_time | hourMinute ~</div>
     <div class="partner-body">
     	<div class="partner-wrap">
-            <br>
         	<h3>~ schedule.name ~</h3>
-        	<h5 class="event-time">~ schedule.desc ~ <span class="glyphicon glyphicon-map-marker"></span></h5>
-        	<br>
+        	<h5 ng-if="schedule.location"
+                class="event-time">
+                <span>~schedule.location~</span>
+                <span class="glyphicon glyphicon-map-marker"></span>
+            </h5>
         	<img ng-if="schedule.image_url"
-                 ng-src="~ baseURL.BASE + schedule.image_url ~" align="middle" class="partner-img"/>
-        	<br>
-        	<p>~ schedule.moreinfo ~</p>
-        	<br>
+                 ng-src="~ baseURL.BASE + schedule.image_url ~" style="margin-top: 1em; margin-bottom: 1em; max-width: 100%;" align="middle" class="partner-img"/>
+            <p ng-bind-html="renderHtml(schedule.desc)"></p>
     	</div>
-    	<a ng-if="schedule.survey_id !== '0' && schedule.is_visible"
+    	<a ng-if="participient && schedule.survey_id !== '0' && survey.is_answered === '0'"
            ng-click="nextLocation(event.id + baseURL.RATESHREF + '/' + schedule.survey_id)"
            class="ui-btn ui-btn-lg">~local.rate_session~</a>
     </div>
 </div>
-
-<br>
-<br>
-<br>

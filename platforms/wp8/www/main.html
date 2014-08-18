@@ -5,7 +5,7 @@
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
 <!--         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" /> -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />
+        <meta name="viewport" content="maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />
         <meta name="msapplication-tap-highlight" content="no"/>
 
         <link rel="stylesheet" href="css/styles.css">
@@ -14,7 +14,7 @@
 
         <script type="text/javascript" src="cordova.js"></script>
 <!--         // <script type="text/javascript" src="phonegap.js"></script> -->
-        <script type="text/javascript" src="SocialSharing.js"></script>
+<!--         // <script type="text/javascript" src="SocialSharing.js"></script> -->
 
         <!-- Libs -->
         <!-- External lib -->
@@ -54,13 +54,17 @@
 
     </head>
 
-<body ng-controller="MainController"
+<!-- <body ng-controller="MainController"
       ng-click="leftMenuBlur($event)"
       ng-keydown="closeMessage()"
-      c-swiperight="backLocation">
+      c-swiperight="backHistory"> -->
 
-<img class="background"
-     src="img/atea-bg.png"/>
+<!-- <body ng-controller="MainController"
+      ng-click="leftMenuBlur($event)"
+      c-swiperight="backHistory"> -->
+
+<body ng-controller="MainController"
+      ng-click="leftMenuBlur($event)">
 
 <div class="push-page ~ leftMenuAnimationType ~"
      ng-class="{ 'container-push': leftMenuActive }">
@@ -78,9 +82,10 @@
          ng-click="backHistory()">
     </div>
 
-<div class="content ng-view ~ contentAnimate ~"></div>
+<div class="ng-view ~ contentAnimate ~"></div>
 
 </div>
+
 
 <nav class="navbar navbar-default navbar-fixed-bottom" id="navbar" role="navigation">
 
@@ -93,9 +98,13 @@
                 ~local.forgot_password~?
             </a>
         </li>
-        <li ng-if="user && participient"
-            ng-click="nextLocation(event.id + baseURL.PROFILEHREF)">
-            <a ng-href="">~local.my_profile~</a>
+        <li ng-if="user && participient && !edit"
+            ng-click="nextLocation(baseURL.PROFILE)">
+            <a>~local.my_profile~</a>
+        </li>
+        <li ng-if="user && participient && edit"
+            ng-click="toDifferentUrl(baseURL.BASE + baseURL.MYPAGE)">
+            <a>~local.edit~</a>
         </li>
     </ul>
 
@@ -113,7 +122,7 @@
      ng-class="{ 'pushy-open': leftMenuActive }">
     <ul>
         <li>
-            <a ng-click="leftMenuActivator(baseURL.FEEDS)"
+            <a ng-click="backLocation(baseURL.FEEDS)"
                class="home-icon">
                 ~local.home~
             </a>
@@ -126,29 +135,21 @@
                class="facebook-icon">
                 Share on Facebook
             </a>
-<!--             <a ng-click="openShare()"
-               class="facebook-icon">
-                Share on Facebook
-            </a> -->
         </li>
         <li>
-<!--             <a ng-click="openShare()"
-               class="linkedin-icon">
-                Share on LinkedIn
-            </a> -->
             <a ng-click="toDifferentUrl('https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww%2Eatea%2Eno%2Fhovedmeny%2Fatea-community-2014%2F')"
                class="linkedin-icon">
                 Share on LinkedIn
             </a>
         </li>
         <li>
-            <a ng-click="toDifferentUrl('https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww%2Eatea%2Eno%2Fhovedmeny%2Fatea-community-2014%2F')"
+            <a ng-click="toDifferentUrl('https://plus.google.com/share?url=http://www.atea.no/hovedmeny/atea-community-2014/&gpsrc=frameless')"
                class="google-icon">
                 Share on Google
             </a>
         </li>
         <li>
-            <a ng-click="openShare()"
+            <a ng-click="toDifferentUrl('https://twitter.com/intent/tweet?text=http%3A%2F%2Fwww.atea.no%2Fhovedmeny%2Fatea-community-2014%2F')"
                class="twitter-icon">
                 Share on Twitter
             </a>
@@ -160,17 +161,11 @@
             </a>
         </li>
         <li ng-if="user && participient">
-            <a ng-click="nextLocation(event.id + baseURL.PROFILEHREF)"
+            <a ng-click="nextLocation(baseURL.PROFILE)"
                class="profile-icon">
                 ~local.my_profile~
             </a>
         </li>
-<!--         <li ng-if="user && logoSize">
-            <a ng-click="nextLocation(baseURL.PROFILE)"
-               class="profile-icon">
-                ~local.edit~
-            </a>
-        </li> -->
         <li ng-if="user">
             <a ng-click="logOut()"
                class="logout-icon">
@@ -180,9 +175,22 @@
     </ul>
 </nav>
 
-<message class="~ message.class ~"
-         ng-click="closeMessage()">
-</message>
+<div class="message"
+     ng-show="show"
+     ng-click="close()">
+  <div>
+    <div>
+      <p>~text~</p>
+      <div class="loto" ng-show="loto.number">
+        <div class="items" ng-repeat="items in length" ng-style="stylesheet">
+          <div class="item" ng-repeat="item in length" ng-style="stylesheet">
+            ~ $last ? "0" : item ~
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

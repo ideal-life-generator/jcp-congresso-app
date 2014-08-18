@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="no.jcp.congresso" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://cordova.apache.org/ns/1.0">
     <access origin="*" />
+    <feature name="BarcodeScanner">
+        <param name="wp-package" value="BarcodeScanner" />
+    </feature>
     <name>Atea Community 2014</name>
     <description>
         The majestic congresso app.
@@ -22,7 +25,7 @@
     <preference name="show-splash-screen-spinner" value="true" />
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="disable-cursor" value="false" />
-    <preference name="android-minSdkVersion" value="14" />
+    <preference name="android-minSdkVersion" value="15" />
     <preference name="android-installLocation" value="auto" />
     <icon src="www/img/icons/icon-144.png" />
     <icon gap:density="ldpi" gap:platform="android" src="www/img/icons/icon-144.png" />
@@ -51,14 +54,6 @@
     <gap:plugin name="nl.x-services.plugins.socialsharing" />
     <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
     <access browserOnly="true" origin="*" />
-    <feature name="SocialSharing">
-        <param name="ios-package" value="SocialSharing" />
-        <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
-        <param name="wp-package" value="SocialSharing" />
-    </feature>
-    <feature name="BarcodeScanner">
-        <param name="wp-package" value="BarcodeScanner" />
-    </feature>
     <feature name="InAppBrowser">
         <param name="wp-package" value="InAppBrowser" />
     </feature>

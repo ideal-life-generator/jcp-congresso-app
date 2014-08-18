@@ -222,15 +222,15 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 		else
 			$scope.noValid = true
 
-	getData.save { resource: 'partnerLead' },
-		data:
-			event_id: "84"
-			lead_type_id: "1"
-			interest: "6"
-			revenue: "4"
-			comment: "test11111111111"
-	, (result) ->
-		data = result.data
+	# getData.save { resource: 'partnerLead' },
+	# 	data:
+	# 		event_id: "84"
+	# 		lead_type_id: "1"
+	# 		interest: "6"
+	# 		revenue: "4"
+	# 		comment: "test11111111111"
+	# , (result) ->
+	# 	data = result.data
 ]
 
 atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection', 'getData', '$http', 'message',
@@ -551,17 +551,20 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 	$scope.toDifferentUrl = (url) ->
 		$window.open url, '_system'
 
-	document.addEventListener 'backbutton', ->
-		if $location.$$path isnt baseURL.FEEDS
-			if $scope.contentAnimate isnt $scope.animationContentRight
-				$scope.contentAnimate = $scope.animationContentRight
-			$timeout ->
-				history.back()
-			, 100
-		else
-			navigator.app.exitApp()
-
-	$rootScope.user = client.user.detail
+	document.addEventListener "deviceready", ->
+		document.addEventListener 'backbutton', ->
+			if $location.$$path isnt baseURL.FEEDS
+				if $scope.contentAnimate isnt $scope.animationContentRight
+					$scope.contentAnimate = $scope.animationContentRight
+				$timeout ->
+					history.back()
+					# alert navigator.app.backHistory
+					# navigator.app.backHistory()
+				, 100
+			else
+				navigator.app.exitApp()
+	
+		$rootScope.user = client.user.detail
 
 	$scope.share = "http%3A%2F%2Fwww%2Eatea%2Eno%2Fhovedmeny%2Fatea-community-2014%2F"
 

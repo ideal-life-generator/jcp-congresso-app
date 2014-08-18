@@ -1,8 +1,8 @@
 atea = angular.module 'atea'
 
-atea.factory 'getDataTest', [ '$resource', ($resource) ->
+atea.factory 'getData', [ '$resource', ($resource) ->
 	$resource "http://188.226.184.59/congressomulti/api/:resource/:id", { },
-	# $resource "http://dev.congressomulti-loc.no/api/:resource/:id", { },		get: method: "GET", cache: true
+		get: method: "GET", cache: true
 		noCache: method: "GET", cache: false
 		save: method: "POST", headers: 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 		put: method: "PUT", headers: 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -19,7 +19,7 @@ atea.provider "local", ->
 			local.dyna = { }
 			defer.resolve local
 		.error ->
-			message.warningAfter "Some error at localize in factory.js service with provider name 'local'"
+			message.odinAndClose "Some error at localize in factory.js service with provider name 'local'"
 		defer.promise
 	@
 
@@ -30,97 +30,8 @@ atea.config (localProvider) ->
 		else
 			"en"
 
-atea.factory 'message', [ '$timeout', '$q', ($timeout, $q) ->
-	elementDuration = parseFloat window.getComputedStyle(document.querySelector('message')).transitionDuration
-	duration = elementDuration * 1000
-	timeAfter = 300
-	data =
-	close: ->
-		defer = $q.defer()
-		if data.makeFastClose
-			data.afterFn()
-			data.makeFastClose = false
-			data.fastClose = true
-		if data.makeClose
-			data.class = 'display'
-			$timeout ->
-				delete data.class
-				delete data.message
-				defer.resolve()
-			, duration + timeAfter
-		if data.fastTClose
-			delete data.class
-		promise = defer.promise
-	wait: (message) ->
-		data.start = (new Date).getTime()
-		data.message = message
-		data.class = 'wait'
-	warning: (message) ->
-		data.makeClose = true
-		data.message = message
-		data.class = 'wait'
-	warningClose: (message, afterFn) ->
-		data.warning message
-		$timeout ->
-			data.fastTClose = true
-			data.close()
-			data.fastTClose = false
-		, duration + timeAfter * 5
-	warningAfter: (message) ->
-		defer = $q.defer()
-		equal = (new Date).getTime() - data.start
-		if data.start and equal < duration + timeAfter
-			$timeout ->
-				data.warning message
-				defer.resolve()
-			, duration + timeAfter - equal
-		else
-			data.warning message
-			defer.resolve()
-		defer.promise
-	success: (message, afterFn) ->
-		promise = data.warningAfter message
-		if afterFn
-			data.afterFn = afterFn
-			promise.then ->
-				data.makeFastClose = true
-				if not data.fastClose
-					$timeout ->
-						if not data.fastClose
-							data.makeFastClose = false
-							promiseCloser = data.close()
-							promiseCloser.then ->
-								afterFn()
-							data.fastClose = false
-					, duration + timeAfter * 5
-]
-
-atea.run [ 'message', '$timeout', (message, $timeout) ->
-	# $timeout ->
-	# 	message.warning 'Предупреждение.'
-	# , 1000
-	# $timeout ->
-	# 	message.wait "Подождите пожалуйста."
-	# 	$timeout ->
-	# 		 message.warningAfter 'Ошибка с поздним негативным результатом.'
-	# 	, 600
-	# , 1000
-	# $timeout ->
-	# 	message.wait "Подождите пожалуйста."
-	# 	$timeout ->
-	# 		message.success 'Обработка результата с задержкой прошла удачно', -> console.log 'END'
-	# 	, 600
-	# , 1000
-	# $timeout ->
-	# 	message.wait "Подождите пожалуйста."
-	# 	$timeout ->
-	# 		message.success 'Обработка результата с задержкой прошла удачно', -> console.log 'END'
-	# 	, 600
-	# , 10000
-]
-
-atea.factory 'client', [ '$location', 'Auth', 'getDataTest', '$q', 'storage',
-($location, Auth, getDataTest, $q, storage) ->
+atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
+($location, Auth, getData, $q, storage) ->
 	self = @
 	@path = $location.$$path
 	@lastPath = @path
@@ -129,10 +40,10 @@ atea.factory 'client', [ '$location', 'Auth', 'getDataTest', '$q', 'storage',
 	@animationClass = (->
 		if self.navigator is 'Windows Phone'
 			content:
-				left: ''
-				right: ''
-			logo: 'ease'
-			leftMenu: 'ease'
+				left: 'hard-left'
+				right: 'hard-right'
+			logo: 'hard'
+			leftMenu: 'hard'
 		else
 			content:
 				left: 'hard-left'
@@ -152,7 +63,7 @@ atea.factory 'client', [ '$location', 'Auth', 'getDataTest', '$q', 'storage',
 		login: (username, password) ->
 			defer = $q.defer()
 			Auth.setCredentials username, password
-			getDataTest.noCache resource: "login", (result) ->
+			getData.noCache resource: "login", (result) ->
 				data = result.data
 				self.user.detail = data
 				data.password = password
@@ -178,16 +89,7 @@ atea.factory 'storage', [ '$window', ($window) ->
 	@
 ]
 
-atea.factory 'connection', [ ->
-	connection =
-		status: off
-		error: (f) ->
-			connection.status = on
-			connection.loading = off
-			connection.handler = f
-]
-
-atea.factory 'connectionTest', [ 'getDataTest', (getDataTest) ->
+atea.factory 'connection', [ 'getData', (getData) ->
 	connection =
 		makeLoad: (property) ->
 			for prop, value of property
@@ -198,7 +100,7 @@ atea.factory 'connectionTest', [ 'getDataTest', (getDataTest) ->
 			f = ->
 				property.scope.warning = off
 				data = if property.data then property.data else { }
-				getDataTest[connection.type] connection.params, data, (result) ->
+				getData[connection.type] connection.params, data, (result) ->
 					data = result.data
 					property.handler data
 					property.scope.loading = off
@@ -212,3 +114,101 @@ atea.factory 'connectionTest', [ 'getDataTest', (getDataTest) ->
 					property.scope.update = off
 			f()
 ]
+
+atea.factory "loto", ->
+	loto =
+		run: (number, fn) ->
+			if typeof number is "number"
+				number = (number).toString()
+			loto.afterFn = fn
+			if number.length > loto.length.length
+				loto.length = (i for i in [0...number.length])
+			else
+				for i in [0...loto.length.length-number.length]
+					number = "0" + number
+			loto.number = number
+		length: [ 0, 1, 2 ]
+		krugi: 2
+		speed: 1000
+		frames: 16
+		height: 105
+		_count: 0
+
+atea.run ($timeout, message) ->
+	# $timeout ->
+	# 	message.odinAndClose "Hello", ->
+	# 		console.log "callback1"
+	# 	, ->
+	# 		console.log "callback2"
+	# , 1000
+	# $timeout ->
+	# 	message.authoClose "Hello", ->
+	# 		console.log "callback1", ->
+	# 			console.log "callback2"
+	# , 1000
+	# $timeout ->
+	# 	message.open "Hello", ->
+	# 		console.log "callback1"
+	# 	$timeout ->
+	# 		message.noClose "Good by", ->
+	# 			console.log "callback1"
+	# 		, ->
+	# 			console.log "callback2"
+	# 	, 3000
+	# 1000
+	# $timeout ->
+	# 	message.open "Hello", ->
+	# 		console.log "callback1"
+	# 	$timeout ->
+	# 		message.authoClose "Good by", ->
+	# 			console.log "callback2"
+	# 		, -> console.log "callback3"
+	# 	, 3000
+	# , 1000
+
+atea.factory "message", ($timeout, $animate) ->
+	timeout = 2000
+	message =
+		odinAndClose: (text, callback1, callback2) ->
+			message._close = true
+			message._callback1 = callback1
+			message._callback2 = callback2
+			message.text = text
+			$animate.removeClass message._element, "ng-hide", ->
+				if message._callback1
+					message._callback1()
+					message._callback1 = null
+		authoClose: (text, callback1, callback2) ->
+			message._close = true
+			message._callback1 = callback1
+			message._callback2 = callback2
+			message.text = text
+			$animate.removeClass message._element, "ng-hide", ->
+				if message._callback1
+					message._callback1()
+					message._callback1 = null
+				$timeout ->
+					$animate.addClass message._element, "ng-hide", ->
+						if message._callback2
+							message._callback2()
+							message._callback2 = null
+				, timeout
+		open: (text, callback1) ->
+			message._close = false
+			message._callback1 = callback1
+			message.text = text
+			$animate.removeClass message._element, "ng-hide", ->
+				if message._callback1
+					message._callback1()
+					message._callback1 = null
+		noClose: (text, callback1, callback2) ->
+			message._close = true
+			message._callback2 = callback2
+			message.text = text
+			if callback1
+				callback1()
+		close: ->
+			$animate.addClass message._element, "ng-hide", ->
+				if message._callback2
+					message._callback2()
+					message._callback2 = null

@@ -5,9 +5,8 @@
   atea = angular.module('atea');
 
   atea.controller('RateController', [
-    '$scope', '$location', 'baseURL', '$routeParams', 'connectionTest', '$filter', '$compile', 'message', 'getDataTest', '$http', 'loto', '$timeout', function($scope, $location, baseURL, $routeParams, connectionTest, $filter, $compile, message, getDataTest, $http, loto, $timeout) {
-      $location.prevLocation = $routeParams.feedId + baseURL.RATESHREF;
-      connectionTest.makeLoad({
+    '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$filter', '$compile', 'getData', '$http', 'loto', '$timeout', 'message', '$rootScope', function($scope, $location, baseURL, $routeParams, connection, $filter, $compile, getData, $http, loto, $timeout, message, $rootScope) {
+      connection.makeLoad({
         params: {
           resource: 'surveyQuestion',
           data: {
@@ -32,7 +31,7 @@
       return $scope.submitSurveyQuestions = function() {
         var result;
         if ($scope.surveyForm.$valid) {
-          message.wait($scope.local.processing_data);
+          message.open($scope.local.processing_data);
           result = [];
           angular.forEach($scope.fields, function(field, i) {
             var proto;
@@ -57,17 +56,17 @@
             }
           });
           if (result.length && $scope.surveyForm.$valid) {
-            return getDataTest.save({
+            return getData.save({
               resource: 'surveyAnswer'
             }, {
               data: {
                 records: result
               }
             }, function(result) {
-              return message.success($scope.local.form_saved, function() {
+              return message.open($scope.local.form_saved, function() {
                 if ($scope.event.tokensActive) {
-                  message.wait($scope.local.form_token);
-                  return getDataTest.put({
+                  message.open($scope.local.form_token);
+                  return getData.put({
                     resource: 'participant'
                   }, {
                     data: {
@@ -80,40 +79,64 @@
                   }, function(result) {
                     var data, tokens;
                     data = result.data;
-                    tokens = data.message.receivedTokens;
-                    return loto.run(tokens, function() {
-                      return message.success($scope.polyglot.t("tokens_add", ~~tokens), function() {
+                    if (data.success) {
+                      tokens = data.message.receivedTokens;
+                      $rootScope.updateTokens();
+                      return loto.run(tokens, function() {
+                        return message.noClose($scope.polyglot.t("tokens_add", ~~tokens), function() {
+                          return void 0;
+                        }, function() {
+                          if ($scope.contentAnimate !== $scope.animationContentRight) {
+                            $scope.contentAnimate = $scope.animationContentRight;
+                          }
+                          $timeout(function() {
+                            return history.back();
+                          }, 100);
+                          return loto.number = null;
+                        });
+                      });
+                    } else {
+                      return message.noClose($scope.local.error_server, function() {
                         if ($scope.contentAnimate !== $scope.animationContentRight) {
                           $scope.contentAnimate = $scope.animationContentRight;
                         }
-                        return history.back();
+                        $timeout(function() {
+                          return history.back();
+                        }, 100);
+                        return loto.number = null;
                       });
-                    });
+                    }
                   });
                 } else {
-                  if ($scope.contentAnimate !== $scope.animationContentRight) {
-                    $scope.contentAnimate = $scope.animationContentRight;
-                  }
-                  return history.back();
+                  return message.authoClose($scope.local.form_saved, function() {
+                    return void 0;
+                  }, function() {
+                    if ($scope.contentAnimate !== $scope.animationContentRight) {
+                      $scope.contentAnimate = $scope.animationContentRight;
+                    }
+                    $timeout(function() {
+                      return history.back();
+                    }, 100);
+                    return loto.number = null;
+                  });
                 }
               });
             }, function(error) {
-              return message.warningAfter($scope.local.no_connection);
+              return message.noClose($scope.local.no_connection);
             });
           } else {
-            return message.warningAfter($scope.local.form_error);
+            return message.noClose($scope.local.form_fill);
           }
         } else {
-          return message.warningAfter($scope.local.form_error1);
+          return message.odinAndClose($scope.local.form_error1);
         }
       };
     }
   ]);
 
   atea.controller('RatesController', [
-    '$scope', '$location', 'baseURL', '$routeParams', 'connectionTest', 'message', '$rootScope', function($scope, $location, baseURL, $routeParams, connectionTest, message, $rootScope) {
-      $location.prevLocation = baseURL.FEEDS + '/' + $routeParams.feedId;
-      return connectionTest.makeLoad({
+    '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$rootScope', '$timeout', 'message', function($scope, $location, baseURL, $routeParams, connection, $rootScope, $timeout, message) {
+      return connection.makeLoad({
         params: {
           resource: 'survey',
           data: {
@@ -127,12 +150,14 @@
               return $scope.surveys.push(survey);
             });
             if (!$scope.surveys.length) {
-              return message.success($scope.local.no_surveys, function() {
+              return message.authoClose($scope.local.no_surveys, function() {
                 return history.back();
               });
             }
           } else {
-            return message.warningAfter($scope.local.no_content);
+            return message.authoClose($scope.local.no_surveys, function() {
+              return history.back();
+            });
           }
         },
         scope: $scope,
@@ -142,27 +167,23 @@
   ]);
 
   atea.controller('ScheduleController', [
-    '$scope', '$location', 'baseURL', '$routeParams', 'getDataTest', '$http', 'message', '$rootScope', 'connection', 'connectionTest', function($scope, $location, baseURL, $routeParams, getDataTest, $http, message, $rootScope, connection, connectionTest) {
-      $location.prevLocation = $routeParams.feedId + '/schedules';
-      return connectionTest.makeLoad({
+    '$scope', '$location', 'baseURL', '$routeParams', 'getData', '$http', '$rootScope', 'connection', function($scope, $location, baseURL, $routeParams, getData, $http, $rootScope, connection) {
+      $rootScope.survey = null;
+      return connection.makeLoad({
         params: {
           resource: 'activity',
           id: $routeParams.scheduleId
         },
         handler: function(data) {
           $scope.schedule = data;
-          return getDataTest.noCache({
-            resource: 'survey',
-            id: $scope.schedule.survey_id
-          }, function(result) {
-            data = {};
-            angular.forEach(result.data, function(ths) {
-              return data = ths;
+          if ($scope.schedule.survey_id !== "0") {
+            return getData.noCache({
+              resource: 'survey',
+              id: $scope.schedule.survey_id
+            }, function(result) {
+              return $rootScope.survey = result.data;
             });
-            if (data.is_answered !== "0") {
-              return $scope.schedule.is_visible = true;
-            }
-          });
+          }
         },
         scope: $scope,
         type: "noCache"
@@ -171,9 +192,8 @@
   ]);
 
   atea.controller('SchedulesController', [
-    '$scope', '$location', '$routeParams', 'getDataTest', '$filter', '$http', 'connection', '$rootScope', 'connectionTest', function($scope, $location, $routeParams, getDataTest, $filter, $http, connection, $rootScope, connectionTest) {
+    '$scope', '$location', '$routeParams', 'getData', '$filter', '$http', '$rootScope', 'connection', 'message', function($scope, $location, $routeParams, getData, $filter, $http, $rootScope, connection, message) {
       var getSchedules;
-      $location.prevLocation = '/' + $routeParams.feedId;
       getSchedules = function(data) {
         var dayyy, oldData, ressuulltt, timeee;
         oldData = data;
@@ -212,32 +232,26 @@
         });
         return $scope.schedules = ressuulltt;
       };
-      return connectionTest.makeLoad({
+      return connection.makeLoad({
         params: {
           resource: "activity",
           data: "{'event_id': " + $routeParams.feedId + "}"
         },
         handler: getSchedules,
         scope: $scope,
-        type: "noCache"
+        type: "get"
       });
     }
   ]);
 
   atea.controller('CommentController', [
-    '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'message', 'connectionTest', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, message, connectionTest) {
-      $location.prevLocation = baseURL.FEEDS + "/" + $routeParams.feedId;
-      connectionTest.makeLoad({
+    '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'connection', 'message', 'getData', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, connection, message, getData) {
+      connection.makeLoad({
         params: {
           resource: 'leadType'
         },
         handler: function(data) {
-          $scope.categories = [
-            {
-              id: null,
-              name: $scope.local.select_category
-            }
-          ];
+          $scope.categories = [];
           return angular.forEach(data, function(ths) {
             return $scope.categories.push(ths);
           });
@@ -245,7 +259,8 @@
         scope: $scope,
         type: "noCache"
       });
-      $scope.categorieActive = $scope.local.select_category;
+      $scope.categorieActive = "-1";
+      $scope.categorieSingle = $scope.local.select_category;
       $scope.interest = "5";
       $scope.revenue = "5";
       return $scope.submit = function() {
@@ -253,17 +268,30 @@
         if ($scope.categorieActive !== $scope.categories[0].name) {
           $scope.noValid = false;
           data = {
-            interrogatorId: userStatus.detail.eventId,
-            categorie: $scope.categorieActive,
+            event_id: $scope.event.id,
+            lead_type_id: $scope.categorieActive,
             interest: $scope.interest,
             revenue: $scope.revenue,
             comment: $scope.comments
           };
-          message.wait = $scope.local.data_sending;
-          return getData.submitRecord(data).$promise.then(function() {
-            return message.success($scope.local.message_posted, function() {
-              return $location.path($location.prevLocation);
-            });
+          message.open($scope.local.data_sending);
+          return getData.save({
+            resource: 'partnerLead'
+          }, {
+            data: data
+          }, function(result) {
+            data = result.data;
+            message.authoClose($scope.polyglot.t("quest_sent", {
+              first_name: $scope.member.first_name
+            }));
+            if ($scope.contentAnimate !== $scope.animationContentRight) {
+              $scope.contentAnimate = $scope.animationContentRight;
+            }
+            return $timeout(function() {
+              return $location.path(history.back());
+            }, 100);
+          }, function() {
+            return message.noClose($scope.local.error_server);
           });
         } else {
           return $scope.noValid = true;
@@ -273,9 +301,8 @@
   ]);
 
   atea.controller('PartnerController', [
-    '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'message', 'connectionTest', 'getDataTest', '$http', function($scope, $location, baseURL, $routeParams, $rootScope, message, connectionTest, getDataTest, $http) {
-      $location.prevLocation = $routeParams.feedId + '/partners';
-      connectionTest.makeLoad({
+    '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection', 'getData', '$http', 'message', function($scope, $location, baseURL, $routeParams, $rootScope, connection, getData, $http, message) {
+      connection.makeLoad({
         params: {
           resource: 'partnerCompany',
           id: $routeParams.partnerId
@@ -284,28 +311,30 @@
           return $scope.partner = data;
         },
         scope: $scope,
-        type: "noCache"
+        type: "get"
       });
       return $scope.submitQuestion = function() {
         if ($scope.questionToPartner) {
-          message.wait($scope.local.processing_data);
-          return getDataTest.save({
+          message.open($scope.local.processing_data);
+          return getData.save({
             resource: 'partnerMessage'
           }, {
             data: {
               event_id: $routeParams.feedId,
-              message: $scope.questionToPartner
+              message: $scope.questionToPartner,
+              partner_company_id: $scope.partner.id
             }
           }, function(result) {
-            message.success($scope.local.quest_sent);
+            message.authoClose($scope.local.quest_sent);
+            $scope.questionToPartner = "";
             return $scope.invalid = false;
           }, function(error) {
-            return message.warningAfter($scope.local.no_connection);
+            return message.noClose($scope.local.no_connection);
           });
         } else if ($scope.partnerForm) {
-          return message.warningAfter($scope.local.quest_error);
+          return message.odinAndClose($scope.local.quest_error);
         } else {
-          message.warningAfter($scope.local.fill_input);
+          message.odinAndClose($scope.local.fill_input);
           return $scope.invalid = true;
         }
       };
@@ -313,79 +342,120 @@
   ]);
 
   atea.controller('PartnersController', [
-    '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$filter', 'getDataTest', 'connection', 'connectionTest', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $filter, getDataTest, connection, connectionTest) {
+    '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$filter', 'getData', 'connection', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $filter, getData, connection) {
       var getPartners;
-      $location.prevLocation = '/' + $routeParams.feedId;
       getPartners = function(data) {
         $scope.partners = [];
         return angular.forEach(data, function(partner) {
           return $scope.partners.push(partner);
         });
       };
-      return connectionTest.makeLoad({
+      return connection.makeLoad({
         params: {
           resource: 'partnerCompany',
-          data: "{'event_id': " + $routeParams.feedId + "}"
+          data: "{extraParam: {'event_id': " + $routeParams.feedId + "}}"
         },
         handler: getPartners,
         scope: $scope,
-        type: "noCache"
+        type: "get"
       });
     }
   ]);
 
   atea.controller('GuestController', [
-    '$scope', '$window', '$location', 'baseURL', '$routeParams', '$rootScope', 'client', 'connection', 'getDataTest', 'connectionTest', 'message', 'loto', function($scope, $window, $location, baseURL, $routeParams, $rootScope, client, connection, getDataTest, connectionTest, message, loto) {
-      $location.prevLocation = baseURL.FEEDS;
+    '$scope', '$window', '$location', 'baseURL', '$routeParams', '$rootScope', 'client', 'getData', 'connection', 'loto', 'message', function($scope, $window, $location, baseURL, $routeParams, $rootScope, client, getData, connection, loto, message) {
       return $scope.scanActivator = function() {
         return cordova.plugins.barcodeScanner.scan(function(result) {
-          return connectionTest.makeLoad({
-            params: {
-              resource: 'member',
-              data: "{ 'extraParam': { 'barcode': '" + result.text + "' }}"
-            },
-            handler: function(data) {
-              if (data.success) {
-                return message.warning("No user");
-              } else {
-                $rootScope.member = data;
-                $location.path("/" + $routeParams.feedId + baseURL.COMMENTWPAGEHREF);
-                return $scope.$apply();
+          if (result.cancelled !== 1) {
+            message.open($scope.local.check_scan);
+          }
+          return getData.noCache({
+            resource: 'member',
+            data: {
+              extraParam: {
+                barcode: result.text
               }
-            },
-            scope: $scope,
-            type: "noCache"
+            }
+          }, function(result) {
+            var data;
+            data = result.data;
+            if (data.success) {
+              return message.noClose($scope.local.scan_error1);
+            } else {
+              return getData.noCache({
+                resource: 'participant',
+                data: {
+                  event_id: $scope.event.id,
+                  member_id: data.id,
+                  extraParam: "globalSearch"
+                }
+              }, function(result) {
+                var participant;
+                data = result.data;
+                participant = null;
+                angular.forEach(data, function(part) {
+                  return participant = part;
+                });
+                if (participant.id !== $scope.participient.id) {
+                  if (participant.event_id === $scope.event.id) {
+                    message.close();
+                    $rootScope.member = data;
+                    $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
+                    return $scope.$apply();
+                  } else {
+                    return message.noClose($scope.local.scan_error2);
+                  }
+                } else {
+                  return message.noClose($scope.local.scan_warning1);
+                }
+              });
+            }
           });
-        }, function(error) {
-          return message.warning($scope.local.error_scaning);
         });
       };
     }
   ]);
 
   atea.controller('EventsController', [
-    '$scope', '$filter', 'baseURL', '$location', '$rootScope', '$routeParams', 'connectionTest', 'client', function($scope, $filter, baseURL, $location, $rootScope, $routeParams, connectionTest, client) {
+    '$scope', '$filter', 'baseURL', '$location', '$rootScope', '$routeParams', 'connection', 'client', function($scope, $filter, baseURL, $location, $rootScope, $routeParams, connection, client) {
       $rootScope.event = null;
       return $rootScope.updateEvents();
     }
   ]);
 
   atea.controller('ProfileController', [
-    '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connectionTest', function($scope, $location, baseURL, $routeParams, $rootScope, connectionTest) {
-      $location.prevLocation = baseURL.FEEDS;
+    '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection', 'getData', function($scope, $location, baseURL, $routeParams, $rootScope, connection, getData) {
       return $scope.dyna.tokens_val = $scope.polyglot.t("tokens_val", ~~$scope.participient.tokens);
     }
   ]);
 
   atea.controller('MainController', [
-    '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', 'message', '$window', 'client', '$route', '$filter', 'getDataTest', 'connectionTest', 'loto', 'COMPANY_ID', 'local', function($scope, $location, baseURL, $rootScope, $routeParams, $timeout, message, $window, client, $route, $filter, getDataTest, connectionTest, loto, COMPANY_ID, local) {
+    '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce', function($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce) {
+      var contentBlock, leftMenu;
       $scope.local = {};
+      $rootScope.updateTokens = function() {
+        return getData.noCache({
+          resource: 'participant',
+          data: {
+            event_id: $rootScope.event.id
+          }
+        }, function(result) {
+          var data;
+          data = result.data;
+          return angular.forEach(data, function(participant) {
+            if (participant.event_id === $rootScope.event.id) {
+              $scope.participient = participant;
+              return $scope.dyna.tokens_val = $scope.polyglot.t("tokens_val", ~~participant.tokens);
+            }
+          });
+        });
+      };
       local.then(function(data) {
         $scope.local = data.local;
         $scope.dyna = data.dyna;
-        return $scope.polyglot = data.polyglot;
+        $scope.polyglot = data.polyglot;
+        return $scope.noConnectionMessage = $scope.local.page_nointernet;
       });
-      $scope.noConnectionMessage = $scope.local.page_nointernet;
       $rootScope.updateEvents = function() {
         var getEvents;
         $scope.futureEvents = [];
@@ -401,10 +471,10 @@
               return $scope.pastEvents.push(event);
             }
           });
-          $scope.pastEvents = $filter('orderBy')($scope.pastEvents, '+start_date');
-          return $scope.futureEvents = $filter('orderBy')($scope.futureEvents, '+start_date');
+          $scope.pastEvents = $filter('orderBy')($scope.pastEvents, '+ical_start');
+          return $scope.futureEvents = $filter('orderBy')($scope.futureEvents, '+ical_start');
         };
-        return connectionTest.makeLoad({
+        return connection.makeLoad({
           params: {
             resource: 'event',
             data: {
@@ -425,7 +495,7 @@
         }
         if (!$rootScope.event && path !== baseURL.FEEDS && path !== baseURL.LOGIN) {
           $rootScope.backButton = true;
-          connectionTest.makeLoad({
+          connection.makeLoad({
             params: {
               resource: 'event',
               id: $routeParams.feedId
@@ -433,7 +503,7 @@
             handler: function(data) {
               $rootScope.event = data;
               if ($rootScope.user) {
-                return getDataTest.noCache({
+                return getData.noCache({
                   resource: 'participant',
                   data: {
                     event_id: $rootScope.event.id
@@ -454,13 +524,19 @@
           });
         }
         if (path === baseURL.LOGIN) {
-          $rootScope.backButton = true;
           $rootScope.forgot = true;
         } else {
           $rootScope.forgot = false;
         }
-        if (path === baseURL.FEEDS) {
-          return $rootScope.backButton = false;
+        if (path !== baseURL.FEEDS) {
+          $scope.backButton = true;
+        } else if ($scope.backButton) {
+          $scope.backButton = false;
+        }
+        if (path === baseURL.PROFILE) {
+          return $scope.edit = true;
+        } else if ($scope.edit) {
+          return $scope.edit = false;
         }
       });
       $scope.pastEventsCollapseder = function() {
@@ -481,22 +557,21 @@
           return $scope.futureEventsCollapsed = false;
         }
       };
+      leftMenu = document.querySelector(".pushy-left");
+      contentBlock = document.querySelector(".push-page");
       $scope.leftMenuBlur = function($event) {
-        $event.stopPropagation();
-        return $scope.leftMenuActive = false;
+        if ($event.stopPropagation) {
+          $event.stopPropagation();
+        }
+        leftMenu.classList.remove("pushy-open");
+        return contentBlock.classList.remove("container-push");
       };
       $scope.leftMenuActivator = function($event) {
         if ($event.stopPropagation) {
           $event.stopPropagation();
-        } else if ($location.$$path !== baseURL.FEEDS) {
-          $location.path($event);
         }
-        return $scope.leftMenuActive = !$scope.leftMenuActive;
-      };
-      $scope.leftMenuHide = function() {
-        if ($scope.leftMenuActive) {
-          return $scope.leftMenuActive = false;
-        }
+        leftMenu.classList.add("pushy-open");
+        return contentBlock.classList.add("container-push");
       };
       $scope.logoMainAnimateClass = {};
       $scope.logoMainAnimateClass[client.animationClass.logo] = $scope.logoSize;
@@ -506,9 +581,18 @@
       $scope.animationContentLeft = client.animationClass.content.left;
       $scope.animationContentRight = client.animationClass.content.right;
       $scope.leftMenuAnimationType = client.animationClass.leftMenu;
-      $scope.nextLocation = function(path) {
+      $scope.nextLocation = function(path, desc, data) {
+        $scope[desc] = data;
         if ($scope.contentAnimate !== $scope.animationContentLeft) {
           $scope.contentAnimate = $scope.animationContentLeft;
+        }
+        return $timeout(function() {
+          return $location.path(path);
+        }, 100);
+      };
+      $scope.backLocation = function(path) {
+        if ($scope.contentAnimate !== $scope.animationContentRight) {
+          $scope.contentAnimate = $scope.animationContentRight;
         }
         return $timeout(function() {
           return $location.path(path);
@@ -525,7 +609,7 @@
       $scope.changeEvent = function(path, event) {
         $rootScope.event = event;
         if ($rootScope.user) {
-          getDataTest.noCache({
+          getData.noCache({
             resource: 'participant',
             data: {
               event_id: $rootScope.event.id
@@ -537,8 +621,8 @@
               if (participant.event_id === $rootScope.event.id) {
                 $scope.participient = participant;
                 if ($scope.event.tokensActive && $scope.participient.is_first_visit === "1") {
-                  message.wait($scope.local.first_login);
-                  return getDataTest.put({
+                  message.open($scope.local.first_login);
+                  return getData.put({
                     resource: 'participant'
                   }, {
                     data: {
@@ -551,8 +635,9 @@
                     var tokens;
                     data = result.data;
                     tokens = data.message.receivedTokens;
+                    $rootScope.updateTokens();
                     return loto.run(tokens, function() {
-                      return message.warningAfter($scope.polyglot.t("tokens_add", ~~tokens));
+                      return message.noClose($scope.polyglot.t("tokens_add", ~~tokens));
                     });
                   });
                 }
@@ -567,14 +652,14 @@
         $rootScope.user = null;
         $rootScope.participient = null;
         if ($location.$$path !== baseURL.FEEDS) {
-          connectionTest.makeLoad({
+          connection.makeLoad({
             params: {
               resource: 'event',
               id: $rootScope.event.id
             },
             handler: function(data) {
               if ($rootScope.user && $rootScope.event) {
-                connectionTest.makeLoad({
+                connection.makeLoad({
                   params: {
                     resource: 'participant',
                     data: {
@@ -604,80 +689,86 @@
       $scope.toDifferentUrl = function(url) {
         return $window.open(url, '_system');
       };
-      document.addEventListener('backbutton', function() {
-        if ($location.$$path !== baseURL.FEEDS) {
-          if ($scope.contentAnimate !== $scope.animationContentRight) {
-            $scope.contentAnimate = $scope.animationContentRight;
+      document.addEventListener("deviceready", function() {
+        document.addEventListener('backbutton', function() {
+          if ($location.$$path !== baseURL.FEEDS) {
+            if ($scope.contentAnimate !== $scope.animationContentRight) {
+              $scope.contentAnimate = $scope.animationContentRight;
+            }
+            return $timeout(function() {
+              return history.back();
+            }, 100);
+          } else {
+            return navigator.app.exitApp();
           }
-          return $timeout(function() {
-            return history.back();
-          }, 100);
-        } else {
-          return navigator.app.exitApp();
-        }
+        });
+        return $rootScope.user = client.user.detail;
       });
-      $rootScope.user = client.user.detail;
-      return $scope.openShare = function() {
-        return $window.plugins.socialsharing.share('http://www.atea.no/hovedmeny/atea-community-2014/');
+      $scope.share = "http%3A%2F%2Fwww%2Eatea%2Eno%2Fhovedmeny%2Fatea-community-2014%2F";
+      $scope.toComment = function() {
+        return $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
+      };
+      return $scope.renderHtml = function(html) {
+        return $sce.trustAsHtml(html);
       };
     }
   ]);
 
   atea.controller('LoginController', [
-    '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'message', 'client', 'connectionTest', function($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, message, client, connectionTest) {
-      $location.prevLocation = baseURL.FEEDS;
+    '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'client', 'connection', 'message', function($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, client, connection, message) {
       $scope.go_submit = function() {
         if ($scope.auth.$dirty && $scope.auth.$valid) {
-          message.wait($scope.local.log_in);
+          message.open($scope.local.log_in);
           return client.user.login($scope.auth.username, $scope.auth.password).then(function(data) {
             $rootScope.user = data;
-            message.success($scope.polyglot.t("login_message", {
+            return message.authoClose($scope.polyglot.t("login_message", {
               name: data.first_name
-            }), function() {});
-            if ($rootScope.event) {
-              connectionTest.makeLoad({
-                params: {
-                  resource: 'event',
-                  id: $rootScope.event.id
-                },
-                handler: function(data) {
-                  $rootScope.event = data;
-                  return connectionTest.makeLoad({
-                    params: {
-                      resource: 'participant',
-                      data: {
+            }), function() {
+              if ($rootScope.event) {
+                connection.makeLoad({
+                  params: {
+                    resource: 'event',
+                    id: $rootScope.event.id
+                  },
+                  handler: function(data) {
+                    $rootScope.event = data;
+                    return connection.makeLoad({
+                      params: {
+                        resource: 'participant',
                         data: {
-                          event_id: $rootScope.event.id
+                          data: {
+                            event_id: $rootScope.event.id
+                          }
                         }
-                      }
-                    },
-                    handler: function(data) {
-                      return angular.forEach(data, function(participant) {
-                        return $rootScope.participient = participant;
-                      });
-                    },
-                    scope: $scope,
-                    type: "noCache"
-                  });
-                },
-                scope: $scope,
-                type: "noCache"
-              });
-            }
-            if ($scope.contentAnimate !== $scope.animationContentRight) {
-              $scope.contentAnimate = $scope.animationContentRight;
-            }
-            return history.back();
+                      },
+                      handler: function(data) {
+                        return angular.forEach(data, function(participant) {
+                          return $rootScope.participient = participant;
+                        });
+                      },
+                      scope: $scope,
+                      type: "noCache"
+                    });
+                  },
+                  scope: $scope,
+                  type: "noCache"
+                });
+              }
+              if ($scope.contentAnimate !== $scope.animationContentRight) {
+                $scope.contentAnimate = $scope.animationContentRight;
+              }
+              return history.back();
+            });
           }, function(error) {
             if (error.status === 401) {
-              message.warningAfter($scope.local.user_exist);
+              message.odinAndClose($scope.local.user_exist);
               return $rootScope.user = null;
             } else {
-              return message.warning($scope.local.no_connection);
+              return message.odinAndClose($scope.local.no_connection);
             }
           });
         } else {
-          return message.warning($scope.local.incorrect_credentials);
+          return message.odinAndClose($scope.local.incorrect_credentials);
         }
       };
       return $scope.pattern = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;

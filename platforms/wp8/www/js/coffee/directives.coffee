@@ -1,43 +1,5 @@
 atea = angular.module 'atea'
 
-atea.directive 'message', [ 'message', (message) ->
-	restrict: 'E'
-	template: '<div>
-        			<div>
-            		<p>~ message.message ~</p>
-								  <div class="loto" ng-show="loto.number">
-								    <div class="items" ng-repeat="items in length" ng-style="stylesheet">
-								      <div class="item" ng-repeat="item in length" ng-style="stylesheet">
-								        ~ $last ? "0" : item ~
-								      </div>
-								    </div>
-								</div>
-        			</div>
-    				</div>'
-	scope: true
-	controller: [ '$scope', '$element', ($scope, $element) ->
-		$scope.message = message
-		$scope.closeMessage = message.close
-	]
-]
-
-atea.directive 'connection', [ 'connection', '$window', (connection, $window) ->
-	restrict: 'E'
-	scope: true
-	controller: [ '$scope', ($scope) ->
-		$scope.connection = connection
-		$scope.$watch 'connection', ->
-			$scope.status = connection.status
-		, true
-		$scope.refresh = ->
-			if not connection.loading
-				$scope.connection.handler()
-		$window.ononline = ->
-			if connection.handler
-				$scope.refresh()
-	]
-]
-
 atea.directive 'loader' , [ ->
 	restrict: 'E'
 	template: '<div ng-show="loader"
@@ -57,10 +19,10 @@ atea.directive 'loader' , [ ->
 	]
 ]
 
-atea.directive 'warning', [ 'connectionTest', '$window', (connectionTest, $window) ->
+atea.directive 'warning', [ 'connection', '$window', (connection, $window) ->
 	restrict: 'C'
 	controller: [ '$scope', ($scope) ->
-		$scope.message = connectionTest.message
+		$scope.message = connection.message
 		$scope.updater = ->
 			if not $scope.update
 				$scope.loading = on
@@ -81,22 +43,22 @@ atea.directive 'cSwiperight', [ '$timeout', ($timeout) ->
 		timeout = null
 		mousemove = (event) ->
 			event.stopPropagation()
-			x = event.clientX - xS
+			x = event.changedTouches[0].clientX - xS
 		element = angular.element $element
-		.on "mousedown", (event) ->
+		.on "touchstart", (event) ->
 			event.stopPropagation()
-			xS = event.clientX
+			xS = event.changedTouches[0].clientX
 			$timeout ->
-				if window.innerWidth / 5 < x
+				if 320 / 5 < x
 					$scope[$attrs.cSwiperight]()
 			, 150
 			angular.element this, event
-			.on "mousemove", mousemove
-		.on "mouseup", (event) ->
+			.on "touchmove", mousemove
+		.on "touchend", (event) ->
 			event.stopPropagation()
 			x = Xs = 0
 			angular.element this, event
-			.off "mousemove"
+			.off "touchmove"
 	]
 ]
 
@@ -106,7 +68,7 @@ atea.directive 'surveyText', [ () ->
 	scope:
 		setting: '='
 	template: '<li>
-							 <h3>~setting.subject~</h3>
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 							 <input type="text"
 											name="~setting.name~"
 											ng-model="setting.value"
@@ -126,7 +88,7 @@ atea.directive 'surveyTextarea', [ () ->
 	scope:
 		setting: '='
 	template: '<li>
-							 <h3>~setting.subject~</h3>
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 							 <textarea type="text"
 												 class="form-control"
 												 name="~setting.name~"
@@ -150,23 +112,37 @@ atea.directive 'surveyCheckboxlist', [ () ->
 		setting: '='
 	template: '<li>
 							 <div class="clear"></div>
-							 <h3>~setting.subject~</h3>
-								 <div	ng-repeat="checkbox in setting.options" style="float: left; margin-right: 1.6em; height: 30px;">
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
+								 <div	ng-repeat="checkbox in setting.options" class="survey-checkbox">
 								 	 <label>
 										 <input type="checkbox"
 										 				style="float: left;"
 														name="~setting.name~"
 														value="~checkbox.answer_value~"
 														ng-model="checkbox.value"
-														ng-required="~setting.is_required~"
-														placeholder="~setting.placeholder~">
+														ng-click="addCheck(checkbox)">
 										 <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ checkbox.subject ~</span>
 									 </label>
 								 </div>
 							 <h4>~setting.intro~</h4>
 						</li>'
 	controller: [ '$scope', ($scope) ->
+		$scope.rest = [ ]
+		$scope.addCheck = (checkbox) ->
+			if !checkbox.value
+				$scope.rest.push true
+			else
+				delete $scope.rest.pop()
+	]
+]
 
+atea.directive 'surveyCheckbox', [ () ->
+	restrict: 'C'
+	scope:
+		rest: '@'
+	controller: [ '$scope', ($scope) ->
+		$scope.isRequired = ->
+			console.log $scope
 	]
 ]
 
@@ -177,7 +153,7 @@ atea.directive 'surveyRadiolist', [ () ->
 		setting: '='
 	template: '<li>
 							 <div class="clear"></div>
-							 <h3>~setting.subject~</h3>
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 								 <div	ng-repeat="radio in setting.options" style="float: left; margin-right: 1.6em; height: 30px;">
 								 	 <label>
 										 <input type="radio"
@@ -187,7 +163,6 @@ atea.directive 'surveyRadiolist', [ () ->
 														ng-model="setting.value"
 														ng-required="~setting.is_required~"
 														placeholder="~setting.placeholder~">
-										 
 										 <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ radio.subject ~</span>
 									 </label>
 								 </div>
@@ -204,7 +179,7 @@ atea.directive 'surveyDropdownlist', [ () ->
 	scope:
 		setting: '='
 	template: '<li>
-							 <h3>~setting.subject~</h3>
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 								 <div>
 								 	 <select class="form-control"
 													 name="~setting.name~"
@@ -234,7 +209,7 @@ atea.directive 'surveyEmail', [ () ->
 	scope:
 		setting: '='
 	template: '<li>
-							 <h3>~setting.subject~</h3>
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 							 <input type="email"
 											name="~setting.name~"
 											ng-model="setting.value"
@@ -256,7 +231,7 @@ atea.directive 'surveyNumber', [ () ->
 	scope:
 		setting: '='
 	template: '<li>
-							 <h3>~setting.subject~</h3>
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 							 <input type="number"
 											name="~setting.name~"
 											ng-model="setting.value"
@@ -277,7 +252,7 @@ atea.directive 'surveyMobile', [ () ->
 	scope:
 		setting: '='
 	template: '<li>
-							 <h3>~setting.subject~</h3>
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 							 <input type="text"
 											name="~setting.name~"
 											ng-model="setting.value"
@@ -292,18 +267,19 @@ atea.directive 'surveyMobile', [ () ->
 	]
 ]
 
-atea.directive 'surveySmiles', [ () ->
+# <label style="background: url(img/~smile_image~.png) no-repeat center center;">
+
+atea.directive 'surveySmiles', [ ->
 	restrict: 'E'
 	replace: true
 	scope:
 		setting: '='
 	template: '<li>
 							<div class="clear"></div>
-							 <h3>~setting.subject~</h3>
+							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 								 <div	ng-repeat="smile in setting.options" class="smile">
-								 	 <label style="background: url(img/~smile_image~.png) no-repeat center center;">
+								 	 <label style="background: url(~smile_image~) no-repeat center center;">
 										 <input type="radio"
-										 				style=""
 														name="~setting.name~"
 														value="~smile.answer_value~"
 														ng-model="setting.value"
@@ -317,35 +293,27 @@ atea.directive 'surveySmiles', [ () ->
 	]
 ]
 
+atea.directive 'pushyLeft', [ '$rootScope', ($rootScope) ->
+	restrict: 'C'
+	controller: [ '$scope', ($scope, $element) ->
+		$rootScope.leftMenu = $element
+	]
+]
+
 atea.directive "smile", [ () ->
 	restrict: "C",
 	controller: [ "$scope", ($scope) ->
 		$scope.$watch "setting.value", (data) ->
+			img = new Image()
+			img.src = "img/Good.png"
+			img = new Image()
+			img.src = "img/Good-active.png"
 			if $scope.smile.answer_value is ~~data
-				$scope.smile_image = $scope.smile.subject.toLowerCase()
+				$scope.smile_image = "img/" + $scope.smile.subject + ".png"
 			else
-				$scope.smile_image = $scope.smile.subject.toLowerCase() + "-active"
+				$scope.smile_image = "img/" + $scope.smile.subject + "-active" + ".png"
 	]
 ]
-
-atea.factory "loto", ->
-	loto =
-		run: (number, fn) ->
-			if typeof number is "number"
-				number = (number).toString()
-			loto.afterFn = fn
-			if number.length > loto.length.length
-				loto.length = (i for i in [0...number.length])
-			else
-				for i in [0...loto.length.length-number.length]
-					number = "0" + number
-			loto.number = number
-		length: [ 0, 1, 2 ]
-		krugi: 2
-		speed: 1000
-		frames: 16
-		height: 105
-		_count: 0
 
 atea.directive "loto", (loto, $timeout) ->
 	restrict: "C"
@@ -356,10 +324,11 @@ atea.directive "loto", (loto, $timeout) ->
 		$scope.loto = loto
 		$scope.$watch "loto._count", (data) ->
 			if data is 3
+				loto.afterFn()
+				loto.afterFn = null
+				loto._count = 0
 				$timeout ->
-					loto.afterFn()
-					loto.afterFn = null
-					# loto.number = null
+					loto.number = null
 				, 1000
 
 atea.directive "items", ($timeout, loto) ->
@@ -397,13 +366,22 @@ atea.directive "items", ($timeout, loto) ->
 				$timeout ->
 					start = new Date().getTime()
 					step()
-				, ($scope.$index + 1) * loto.speed / 10
-
-
-
+				, ($scope.$index + 1) * loto.speed / 10 + 600
 
 atea.directive "item", (loto) ->
 	restrict: "C"
 	controller: ($scope) ->
 		$scope.stylesheet = top: null
 		$scope.stylesheet.top = $scope.$index * -loto.height + "px"
+
+atea.directive "message", (message) ->
+		restrict: "C"
+		controller: ($scope, $element) ->
+			message._element = $element
+			$scope.message = message
+			$scope.$watch "message.text", (option) ->
+				$scope.text = message.text
+				$scope.close = ->
+					if message._close
+						message._close = false
+						message.close()

@@ -1099,6 +1099,7 @@ span.icon {
   transform-style: preserve-3d;
   padding-left: 0;
   padding-right: 0;
+  padding-bottom: 60px;
   width: 100%;
 }
 .ng-view.ng-animate {

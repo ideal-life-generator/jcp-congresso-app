@@ -70,6 +70,10 @@
 // }
 		.ng-view {
 			transform-style: preserve-3d;
+			padding-left: 0;
+			padding-right: 0;
+			padding-bottom: 60px;
+			width: 100%;
 		}
 
 		.ng-view.ng-animate {
@@ -169,20 +173,6 @@
 				left: 0px;
 			}
 
-.panel-collapse {
-	// .transition(0.2s cubic-bezier(.16, .68, .43, .99));
-	&.ng-animate {
-		&.ng-enter {
-		}
-		&.ng-enter-active {
-		}
-		&.ng-leave {
-		}
-		&.ng-leave-active {
-		}
-	}
-}
-
 .back-button {
 	.transition(0.2s cubic-bezier(.16, .68, .43, .99));
 	&.ng-leave {
@@ -203,62 +193,15 @@
 	}
 }
 
-input {
-	&.ng-invalid {
-		border-color: yellow;
-	}
-	&.ng-invalid-after {
-		border-color: #E0115F;
-	}
-}
 
-.message {
-	.transition(0.3s ease-in-out);
-	&.ng-leave {
-		opacity: 1;
-	}
-	&.ng-leave-active {
-		opacity: 0;
-	}
-	&.ng-enter {
-		opacity: 0;
-	}
-	&.ng-enter-active {
-		opacity: 1;
-	}
+&.ng-invalid {
+	border-color: #a94442 !important;
+	// -webkit-box-shadow: 0 0 3px #a94442, 0 0 9px #a94442 inset !important;
+ //    -moz-box-shadow: 0 0 3px #a94442, 0 0 9px #a94442 inset !important;
+	// box-shadow: 0 0 3px #a94442, 0 0 9px #a94442 inset !important;
 }
-
-message {
-	position: fixed;
-	left: 0;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	width: 100%;
-	height: 100%;
-	display: table;
-	opacity: 0;
-	z-index: -1;
-	background-color: rgba(0, 0, 0, 0.5);
-	.transition(300ms ease-in-out);
-	&.wait {
-		opacity: 1;
-		z-index: 10;
-	}
-	> div {
-		display: table-cell;
-		vertical-align: middle;
-		> div {
-			cursor: pointer;
-			width: 90%;
-			padding: 3em;
-			background-color: white;
-			margin-left: auto;
-			margin-right: auto;
-			text-align: center;
-			.border-radius(10px);
-		}
-	}
+&.ng-invalid-after {
+	border-color: #E0115F;
 }
 
 .loader {
@@ -362,7 +305,7 @@ connection {
 }
 
 .loto {
-	width: 219px;
+	width: 204px;
 	height: 105px;
 	// background-color: #6fbf40;
 	// padding: 15px;
@@ -384,6 +327,10 @@ connection {
 	width: 66px;
 	float: left;
 	margin-right: 3px;
+}
+
+.items:last-child {
+	margin-right: 0;
 }
 
 // .items:first-child {
@@ -408,11 +355,63 @@ connection {
 
 .showww {
 	.transition(1s linear);
-	// opacity: 1;
 	&.ng-enter {
 		opacity: 0;
 	}
 	&.ng-enter-active {
 		opacity: 1;
+	}
+}
+
+qr {
+	position: relative;
+	left: 50%;
+	margin-left: -130px;
+}
+
+.message {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	display: table;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 100;
+	.transition(0.15s ease-in-out);
+	> div {
+		display: table-cell;
+		vertical-align: middle;
+		> div {
+			cursor: pointer;
+			width: 90%;
+			padding: 3em;
+			background-color: white;
+			margin-left: auto;
+			margin-right: auto;
+			text-align: center;
+			.border-radius(10px);
+		}
+	}
+	&.ng-hide-remove {
+		display: table !important;
+		opacity: 0;
+	}
+
+	&.ng-hide-remove-active {
+		display: table !important;
+		opacity: 1;
+	}
+
+	&.ng-hide-add {
+		display: table !important;
+		opacity: 1;
+	}
+
+	&.ng-hide-add-active {
+		display: table !important;
+		opacity: 0;
 	}
 }

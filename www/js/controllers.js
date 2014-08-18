@@ -263,7 +263,7 @@
       $scope.categorieSingle = $scope.local.select_category;
       $scope.interest = "5";
       $scope.revenue = "5";
-      $scope.submit = function() {
+      return $scope.submit = function() {
         var data;
         if ($scope.categorieActive !== $scope.categories[0].name) {
           $scope.noValid = false;
@@ -297,20 +297,6 @@
           return $scope.noValid = true;
         }
       };
-      return getData.save({
-        resource: 'partnerLead'
-      }, {
-        data: {
-          event_id: "84",
-          lead_type_id: "1",
-          interest: "6",
-          revenue: "4",
-          comment: "test11111111111"
-        }
-      }, function(result) {
-        var data;
-        return data = result.data;
-      });
     }
   ]);
 
@@ -703,19 +689,21 @@
       $scope.toDifferentUrl = function(url) {
         return $window.open(url, '_system');
       };
-      document.addEventListener('backbutton', function() {
-        if ($location.$$path !== baseURL.FEEDS) {
-          if ($scope.contentAnimate !== $scope.animationContentRight) {
-            $scope.contentAnimate = $scope.animationContentRight;
+      document.addEventListener("deviceready", function() {
+        document.addEventListener('backbutton', function() {
+          if ($location.$$path !== baseURL.FEEDS) {
+            if ($scope.contentAnimate !== $scope.animationContentRight) {
+              $scope.contentAnimate = $scope.animationContentRight;
+            }
+            return $timeout(function() {
+              return history.back();
+            }, 100);
+          } else {
+            return navigator.app.exitApp();
           }
-          return $timeout(function() {
-            return history.back();
-          }, 100);
-        } else {
-          return navigator.app.exitApp();
-        }
+        });
+        return $rootScope.user = client.user.detail;
       });
-      $rootScope.user = client.user.detail;
       $scope.share = "http%3A%2F%2Fwww%2Eatea%2Eno%2Fhovedmeny%2Fatea-community-2014%2F";
       $scope.toComment = function() {
         return $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);

@@ -263,7 +263,7 @@
       $scope.categorieSingle = $scope.local.select_category;
       $scope.interest = "5";
       $scope.revenue = "5";
-      $scope.submit = function() {
+      return $scope.submit = function() {
         var data;
         if ($scope.categorieActive !== $scope.categories[0].name) {
           $scope.noValid = false;
@@ -297,20 +297,6 @@
           return $scope.noValid = true;
         }
       };
-      return getData.save({
-        resource: 'partnerLead'
-      }, {
-        data: {
-          event_id: "84",
-          lead_type_id: "1",
-          interest: "6",
-          revenue: "4",
-          comment: "test11111111111"
-        }
-      }, function(result) {
-        var data;
-        return data = result.data;
-      });
     }
   ]);
 

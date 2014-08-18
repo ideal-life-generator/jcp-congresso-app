@@ -28,6 +28,8 @@
         <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
         <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
         <BackgroundAgentType />
+        <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">.\</SolutionDir>
+        <RestorePackages>true</RestorePackages>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <DebugSymbols>true</DebugSymbols>
@@ -127,7 +129,7 @@
             <DependentUpon>MainPage.xaml</DependentUpon>
         </Compile>
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Page Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScannerUI.xaml">
+        <Page Include="Plugins\org.bloxlab.barcodescanner\CameraScan.xaml">
             <SubType>Designer</SubType>
             <Generator>MSBuild:Compile</Generator>
         </Page>
@@ -170,6 +172,7 @@
         <None Include="cordova\log.bat" />
         <None Include="cordova\run.bat" />
         <None Include="cordova\version.bat" />
+        <None Include="packages.config" />
         <None Include="VERSION" />
         <None Include="Properties\AppManifest.xml">
             <SubType>Designer</SubType>
@@ -203,466 +206,459 @@
         </PostBuildEvent>
     </PropertyGroup>
     <ItemGroup>
-        <Content Include="www/config/main.coffee" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/config/main.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/config/npm-debug.log" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/cordova.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/cordova_plugins.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/core/config/main.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/bootstrap.min.css" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/images/36-1.gif" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/images/Thumbs.db" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/images/ajax-loader.gif" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/images/ajax_loader_green_128.gif" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/images/ajax_loader_green_64.gif" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/images/animated_loading.gif" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/images/loadear.gif" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/images/loader.gif" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/images/loading.gif" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/images/loading2.gif" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/images/loading_black.gif" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/images/spiffygif_86x86.gif" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/index.css" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/less/3rdparty/lesshat.css" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/less/3rdparty/lesshat.less" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/less/angular-animation.less" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/less/common.less" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/less/elements.less" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/less/layout.less" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/less/mixins.css" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/less/mixins.less" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/less/specific.css" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/less/specific.less" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/less/variables.css" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/less/variables.less" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/mixins.css" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/slider.css" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/specific.css" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/styles.css" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/styles.less" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css/variables.css" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/Flat-UI-Icons-24.ttf" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/Flat-UI-Icons-24.woff" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/glyphicons-halflings-regular.eot" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/glyphicons-halflings-regular.svg" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/glyphicons-halflings-regular.ttf" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/glyphicons-halflings-regular.woff" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/lato-black.ttf" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/lato-black.woff" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/lato-bold.ttf" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/lato-bold.woff" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/lato-italic.ttf" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/lato-italic.woff" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/lato-regular.ttf" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/lato-regular.woff" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/ratchicons.eot" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/ratchicons.svg" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/ratchicons.ttf" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/fonts/ratchicons.woff" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/.DS_Store" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Forum-My-topic-icon.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Good-active.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Good.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Launch-Images/.DS_Store" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Launch-Images/Default-568h@2x~iphone.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Launch-Images/Default-Landscape@2x~ipad.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Launch-Images/Default-Landscape~ipad.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Launch-Images/Default-Portrait@2x~ipad.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Launch-Images/Default-Portrait~ipad.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Launch-Images/Default@2x~iphone.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Launch-Images/Default~iphone.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Launch-Images/SplashScreenImage.jpg" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Launch-Images/Thumbs.db" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Management-Manager-icon.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Neutral-active.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Neutral.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Sad-active.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Sad.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Sections-of-Website-Contacts-icon.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Thumbs.db" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/Users-Remove-user-icon.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/add-user-xl.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/arrow-bottom.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/arrow-large-left.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/arrow-right.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/arrow-top.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/atea-bg.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/atea-logo.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/checked-checkbox-m.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/checked-user-xl.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/coins.jpg" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/edit-property-xl.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/eye-3-xl.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/facebook-icon.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/google-icon.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/home-m.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/icons/Thumbs.db" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/icons/icon-114.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/icons/icon-144.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/icons/icon-57.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/icons/icon-72.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/linkedin-icon.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/list-view-m.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/photo.jpg" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/show-property-xl.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/twitter-icon.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/img/worldwide-location-xl.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/index.html" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/angularlib/angular-animate.min.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/angularlib/angular-cookies.min.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/angularlib/angular-hammer.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/angularlib/angular-qr.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/angularlib/angular-resource.min.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/angularlib/angular-route.min.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/angularlib/angular.min.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/angularlib/auth-basic.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/coffee/config.coffee" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/coffee/controllers.coffee" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/coffee/directives.coffee" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/coffee/factory.coffee" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/config.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/controllers.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/directives.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/externallb/SocialSharing.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/externallb/barcodescanner.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/externallb/fastclick.min.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/externallb/hammer.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/externallb/hammer.min.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/externallb/qrcode.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/factory.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/i18n/en.json" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js/i18n/polyglot.min.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/main.html" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/plugins/nl.x-services.plugins.socialsharing/www/SocialSharing.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/plugins/org.bloxlab.barcodescanner/www/barcodescanner.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/template/comment.html" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/template/events.html" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/template/guest.html" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/template/login.html" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/template/partner.html" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/template/partners.html" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/template/profile.html" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/template/rate.html" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/template/rates.html" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/template/schedule.html" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/template/schedules.html" />
-    </ItemGroup>
-    <ItemGroup />
-    <ItemGroup />
-    <ItemGroup>
-        <Compile Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScanner.cs" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScannerTask.cs" />
-    </ItemGroup>
-    <ItemGroup />
-    <ItemGroup>
-        <Compile Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScannerUI.xaml.cs">
-            <DependentUpon>BarcodeScannerUI.xaml</DependentUpon>
-        </Compile>
-    </ItemGroup>
-    <ItemGroup>
-        <Reference Include="zxing.wp8.0">
-            <HintPath>plugins/com.phonegap.plugins.barcodescanner/zxing.wp8.0.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-    <ItemGroup>
         <Compile Include="Plugins\org.apache.cordova.inappbrowser\InAppBrowser.cs" />
     </ItemGroup>
     <ItemGroup>
-        <Content Include="www\plugins\com.phonegap.plugins.barcodescanner\www\barcodescanner.js" />
+        <Content Include="Plugins\org.bloxlab.barcodescanner\zxing.wp8.0.dll" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\org.bloxlab.barcodescanner\BarcodeResultInfo.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\org.bloxlab.barcodescanner\BarcodeScanner.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\org.bloxlab.barcodescanner\CameraScan.xaml.cs">
+            <DependentUpon>CameraScan.xaml</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="zxing.wp8.0, Version=0.14.0.0, Culture=neutral, processorArchitecture=MSIL">
+            <SpecificVersion>False</SpecificVersion>
+            <HintPath>packages\ZXing.Net.0.14.0.1\lib\wp8\zxing.wp8.0.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    <Import Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" Project="$(SolutionDir)\.nuget\NuGet.targets" />
+    <ItemGroup>
+        <Content Include="www\config\main.coffee" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\config\main.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\config\npm-debug.log" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\cordova.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\cordova_plugins.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\core\config\main.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\bootstrap.min.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\images\36-1.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\images\ajax-loader.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\images\ajax_loader_green_128.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\images\ajax_loader_green_64.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\images\animated_loading.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\images\loadear.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\images\loader.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\images\loading.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\images\loading2.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\images\loading_black.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\images\spiffygif_86x86.gif" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\images\Thumbs.db" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\index.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\less\3rdparty\lesshat.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\less\3rdparty\lesshat.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\less\angular-animation.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\less\common.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\less\elements.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\less\layout.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\less\mixins.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\less\mixins.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\less\specific.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\less\specific.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\less\variables.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\less\variables.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\mixins.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\slider.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\specific.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\styles.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\styles.less" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\variables.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\Flat-UI-Icons-24.ttf" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\Flat-UI-Icons-24.woff" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\glyphicons-halflings-regular.eot" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\glyphicons-halflings-regular.svg" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\glyphicons-halflings-regular.ttf" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\glyphicons-halflings-regular.woff" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\lato-black.ttf" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\lato-black.woff" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\lato-bold.ttf" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\lato-bold.woff" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\lato-italic.ttf" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\lato-italic.woff" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\lato-regular.ttf" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\lato-regular.woff" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\ratchicons.eot" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\ratchicons.svg" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\ratchicons.ttf" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\ratchicons.woff" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\.DS_Store" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\add-user-xl.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\arrow-bottom.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\arrow-large-left.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\arrow-right.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\arrow-top.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\atea-bg.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\atea-logo.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\checked-checkbox-m.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\checked-user-xl.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\coins.jpg" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\edit-property-xl.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\eye-3-xl.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\facebook-icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Forum-My-topic-icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Good-active.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Good.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\google-icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\home-m.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icons\icon-114.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icons\icon-144.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icons\icon-57.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icons\icon-72.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\icons\Thumbs.db" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Launch-Images\.DS_Store" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Launch-Images\Default-568h@2x~iphone.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Launch-Images\Default-Landscape@2x~ipad.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Launch-Images\Default-Landscape~ipad.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Launch-Images\Default-Portrait@2x~ipad.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Launch-Images\Default-Portrait~ipad.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Launch-Images\Default@2x~iphone.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Launch-Images\Default~iphone.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Launch-Images\SplashScreenImage.jpg" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Launch-Images\Thumbs.db" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\linkedin-icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\list-view-m.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Management-Manager-icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Neutral-active.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Neutral.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\photo.jpg" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Sad-active.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Sad.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Sections-of-Website-Contacts-icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\show-property-xl.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Thumbs.db" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\twitter-icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\Users-Remove-user-icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\worldwide-location-xl.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\index.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\.DS_Store" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\angularlib\angular-animate.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\angularlib\angular-cookies.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\angularlib\angular-hammer.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\angularlib\angular-qr.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\angularlib\angular-resource.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\angularlib\angular-route.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\angularlib\angular-touch.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\angularlib\angular.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\angularlib\auth-basic.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\coffee\config.coffee" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\coffee\controllers.coffee" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\coffee\directives.coffee" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\coffee\factory.coffee" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\config.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\controllers.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\directives.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\externallb\barcodescanner.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\externallb\fastclick.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\externallb\hammer.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\externallb\hammer.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\externallb\qrcode.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\factory.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\i18n\en.json" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\i18n\polyglot.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\main.html" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\plugins\org.apache.cordova.inappbrowser\www\inappbrowser.js" />
     </ItemGroup>
     <ItemGroup>
-        <Content Include="www\cordova_plugins.js" />
+        <Content Include="www\plugins\org.bloxlab.barcodescanner\www\barcodescanner.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\template\comment.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\template\events.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\template\guest.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\template\login.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\template\partner.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\template\partners.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\template\profile.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\template\rate.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\template\rates.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\template\schedule.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\template\schedules.html" />
     </ItemGroup>
 </Project>

@@ -29,26 +29,19 @@ body {
 	-o-user-select: none;
 	user-select: none;
 	-ms-touch-action: pan-y;
-  touch-action: pan-y;
-  -ms-content-zooming: none;
+	touch-action: pan-y;
+	-ms-content-zooming: none;
+	background: url(../img/atea-bg.png) fixed 10% 10%;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 .table-wrap {
 	display: table;
 	width: 100%;
 }
-
-.background {
-	position: fixed;
-	background-color: #7baf05;
-	width: 100%;
-	z-index: -1;
-	top: 0px;
-	bottom: 0px;
-	left: 0px;
-	right: 0px;
-}
-
 
 .pushy-left{
 	.transform(translate3d(-200px,0,0));
@@ -65,18 +58,18 @@ body {
 /* Menu Transitions */
 
 .pushy, .push-page, .push{
-    -webkit-perspective: 60em;
-    -moz-perspective: 60em;
-    -o-perspective: 60em;
-    -ie-perspective: 60em;
-    perspective: 60em;
+	-webkit-perspective: 600px;
+	-moz-perspective: 600px;
+	-o-perspective: 600px;
+	-ie-perspective: 600px;
+	perspective: 600px;
     left: 0px;
     &.hard {
     	.transition(.2s cubic-bezier(.16, .68, .43, .99));
     }
 
 	/* improves performance issues on mobile*/
-	-webkit-backface-visibility: hidden;
+	// -webkit-backface-visibility: hidden;
 }
 
 /* Site Overlay */
@@ -228,14 +221,6 @@ body {
 .servey-name {
 	padding-top: 0.6em;
 	padding-bottom: 0.6em;
-}
-
-.content{
-	padding-left: 0;
-	padding-right: 0;
-	padding-bottom: 40px;
-	width: 100%;
-	position: relative;
 }
 
 #footer{

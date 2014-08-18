@@ -4,9 +4,13 @@
 
   atea = angular.module('atea');
 
-  atea.factory('getDataTest', [
+  atea.factory('getData', [
     '$resource', function($resource) {
       return $resource("http://188.226.184.59/congressomulti/api/:resource/:id", {}, {
+        get: {
+          method: "GET",
+          cache: true
+        },
         noCache: {
           method: "GET",
           cache: false
@@ -44,7 +48,7 @@
         local.dyna = {};
         return defer.resolve(local);
       }).error(function() {
-        return message.warningAfter("Some error at localize in factory.js service with provider name 'local'");
+        return message.odinAndClose("Some error at localize in factory.js service with provider name 'local'");
       });
       return defer.promise;
     };
@@ -55,98 +59,8 @@
     return localProvider.lang = navigator.language === "hu" ? "hu" : "en";
   });
 
-  atea.factory('message', [
-    '$timeout', '$q', function($timeout, $q) {
-      var data, duration, elementDuration, timeAfter;
-      elementDuration = parseFloat(window.getComputedStyle(document.querySelector('message')).transitionDuration);
-      duration = elementDuration * 1000;
-      timeAfter = 300;
-      return data = {
-        close: function() {
-          var defer, promise;
-          defer = $q.defer();
-          if (data.makeFastClose) {
-            data.afterFn();
-            data.makeFastClose = false;
-            data.fastClose = true;
-          }
-          if (data.makeClose) {
-            data["class"] = 'display';
-            $timeout(function() {
-              delete data["class"];
-              delete data.message;
-              return defer.resolve();
-            }, duration + timeAfter);
-          }
-          if (data.fastTClose) {
-            delete data["class"];
-          }
-          return promise = defer.promise;
-        },
-        wait: function(message) {
-          data.start = (new Date).getTime();
-          data.message = message;
-          return data["class"] = 'wait';
-        },
-        warning: function(message) {
-          data.makeClose = true;
-          data.message = message;
-          return data["class"] = 'wait';
-        },
-        warningClose: function(message, afterFn) {
-          data.warning(message);
-          return $timeout(function() {
-            data.fastTClose = true;
-            data.close();
-            return data.fastTClose = false;
-          }, duration + timeAfter * 5);
-        },
-        warningAfter: function(message) {
-          var defer, equal;
-          defer = $q.defer();
-          equal = (new Date).getTime() - data.start;
-          if (data.start && equal < duration + timeAfter) {
-            $timeout(function() {
-              data.warning(message);
-              return defer.resolve();
-            }, duration + timeAfter - equal);
-          } else {
-            data.warning(message);
-            defer.resolve();
-          }
-          return defer.promise;
-        },
-        success: function(message, afterFn) {
-          var promise;
-          promise = data.warningAfter(message);
-          if (afterFn) {
-            data.afterFn = afterFn;
-            return promise.then(function() {
-              data.makeFastClose = true;
-              if (!data.fastClose) {
-                return $timeout(function() {
-                  var promiseCloser;
-                  if (!data.fastClose) {
-                    data.makeFastClose = false;
-                    promiseCloser = data.close();
-                    promiseCloser.then(function() {
-                      return afterFn();
-                    });
-                    return data.fastClose = false;
-                  }
-                }, duration + timeAfter * 5);
-              }
-            });
-          }
-        }
-      };
-    }
-  ]);
-
-  atea.run(['message', '$timeout', function(message, $timeout) {}]);
-
   atea.factory('client', [
-    '$location', 'Auth', 'getDataTest', '$q', 'storage', function($location, Auth, getDataTest, $q, storage) {
+    '$location', 'Auth', 'getData', '$q', 'storage', function($location, Auth, getData, $q, storage) {
       var self;
       self = this;
       this.path = $location.$$path;
@@ -156,11 +70,11 @@
         if (self.navigator === 'Windows Phone') {
           return {
             content: {
-              left: '',
-              right: ''
+              left: 'hard-left',
+              right: 'hard-right'
             },
-            logo: 'ease',
-            leftMenu: 'ease'
+            logo: 'hard',
+            leftMenu: 'hard'
           };
         } else {
           return {
@@ -188,7 +102,7 @@
           var defer;
           defer = $q.defer();
           Auth.setCredentials(username, password);
-          getDataTest.noCache({
+          getData.noCache({
             resource: "login"
           }, function(result) {
             var data;
@@ -228,21 +142,7 @@
   ]);
 
   atea.factory('connection', [
-    function() {
-      var connection;
-      return connection = {
-        status: false,
-        error: function(f) {
-          connection.status = true;
-          connection.loading = false;
-          return connection.handler = f;
-        }
-      };
-    }
-  ]);
-
-  atea.factory('connectionTest', [
-    'getDataTest', function(getDataTest) {
+    'getData', function(getData) {
       var connection;
       return connection = {
         makeLoad: function(property) {
@@ -258,7 +158,7 @@
             var data;
             property.scope.warning = false;
             data = property.data ? property.data : {};
-            return getDataTest[connection.type](connection.params, data, function(result) {
+            return getData[connection.type](connection.params, data, function(result) {
               data = result.data;
               property.handler(data);
               property.scope.loading = false;
@@ -278,5 +178,107 @@
       };
     }
   ]);
+
+  atea.factory("loto", function() {
+    var loto;
+    return loto = {
+      run: function(number, fn) {
+        var i, _i, _ref;
+        if (typeof number === "number") {
+          number = number.toString();
+        }
+        loto.afterFn = fn;
+        if (number.length > loto.length.length) {
+          loto.length = (function() {
+            var _i, _ref, _results;
+            _results = [];
+            for (i = _i = 0, _ref = number.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+              _results.push(i);
+            }
+            return _results;
+          })();
+        } else {
+          for (i = _i = 0, _ref = loto.length.length - number.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+            number = "0" + number;
+          }
+        }
+        return loto.number = number;
+      },
+      length: [0, 1, 2],
+      krugi: 2,
+      speed: 1000,
+      frames: 16,
+      height: 105,
+      _count: 0
+    };
+  });
+
+  atea.run(function($timeout, message) {});
+
+  atea.factory("message", function($timeout, $animate) {
+    var message, timeout;
+    timeout = 2000;
+    return message = {
+      odinAndClose: function(text, callback1, callback2) {
+        message._close = true;
+        message._callback1 = callback1;
+        message._callback2 = callback2;
+        message.text = text;
+        return $animate.removeClass(message._element, "ng-hide", function() {
+          if (message._callback1) {
+            message._callback1();
+            return message._callback1 = null;
+          }
+        });
+      },
+      authoClose: function(text, callback1, callback2) {
+        message._close = true;
+        message._callback1 = callback1;
+        message._callback2 = callback2;
+        message.text = text;
+        return $animate.removeClass(message._element, "ng-hide", function() {
+          if (message._callback1) {
+            message._callback1();
+            message._callback1 = null;
+          }
+          return $timeout(function() {
+            return $animate.addClass(message._element, "ng-hide", function() {
+              if (message._callback2) {
+                message._callback2();
+                return message._callback2 = null;
+              }
+            });
+          }, timeout);
+        });
+      },
+      open: function(text, callback1) {
+        message._close = false;
+        message._callback1 = callback1;
+        message.text = text;
+        return $animate.removeClass(message._element, "ng-hide", function() {
+          if (message._callback1) {
+            message._callback1();
+            return message._callback1 = null;
+          }
+        });
+      },
+      noClose: function(text, callback1, callback2) {
+        message._close = true;
+        message._callback2 = callback2;
+        message.text = text;
+        if (callback1) {
+          return callback1();
+        }
+      },
+      close: function() {
+        return $animate.addClass(message._element, "ng-hide", function() {
+          if (message._callback2) {
+            message._callback2();
+            return message._callback2 = null;
+          }
+        });
+      }
+    };
+  });
 
 }).call(this);

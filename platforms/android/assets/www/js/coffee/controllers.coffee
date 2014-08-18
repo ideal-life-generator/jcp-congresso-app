@@ -222,15 +222,15 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 		else
 			$scope.noValid = true
 
-	getData.save { resource: 'partnerLead' },
-		data:
-			event_id: "84"
-			lead_type_id: "1"
-			interest: "6"
-			revenue: "4"
-			comment: "test11111111111"
-	, (result) ->
-		data = result.data
+	# getData.save { resource: 'partnerLead' },
+	# 	data:
+	# 		event_id: "84"
+	# 		lead_type_id: "1"
+	# 		interest: "6"
+	# 		revenue: "4"
+	# 		comment: "test11111111111"
+	# , (result) ->
+	# 	data = result.data
 ]
 
 atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection', 'getData', '$http', 'message',
