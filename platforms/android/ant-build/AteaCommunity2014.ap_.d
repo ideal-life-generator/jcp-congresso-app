@@ -259,6 +259,7 @@
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/externallb/qrcode.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/i18n/en.json \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/i18n/polyglot.min.js \
+/Users/nik/documents/congresso-app/platforms/android/assets/www/js/i18n/ru.json \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/plugins/com.phonegap.plugins.barcodescanner \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/plugins/org.apache.cordova.inappbrowser \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/plugins/com.phonegap.plugins.barcodescanner/www \

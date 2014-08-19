@@ -259,15 +259,15 @@
         scope: $scope,
         type: "noCache"
       });
-      $scope.categorieActive = "-1";
+      $scope.categorieActive = 0;
       $scope.categorieSingle = $scope.local.select_category;
       $scope.interest = "5";
       $scope.revenue = "5";
       return $scope.submit = function() {
         var data;
-        if ($scope.categorieActive !== $scope.categories[0].name) {
-          $scope.noValid = false;
+        if ($scope.categorieActive) {
           data = {
+            participant_id: $scope.participantScan.id,
             event_id: $scope.event.id,
             lead_type_id: $scope.categorieActive,
             interest: $scope.interest,
@@ -281,9 +281,7 @@
             data: data
           }, function(result) {
             data = result.data;
-            message.authoClose($scope.polyglot.t("quest_sent", {
-              first_name: $scope.member.first_name
-            }));
+            message.authoClose($scope.local.lead_sent);
             if ($scope.contentAnimate !== $scope.animationContentRight) {
               $scope.contentAnimate = $scope.animationContentRight;
             }
@@ -294,7 +292,7 @@
             return message.noClose($scope.local.error_server);
           });
         } else {
-          return $scope.noValid = true;
+          return message.odinAndClose($scope.local.select_category);
         }
       };
     }
@@ -366,7 +364,7 @@
     '$scope', '$window', '$location', 'baseURL', '$routeParams', '$rootScope', 'client', 'getData', 'connection', 'loto', 'message', function($scope, $window, $location, baseURL, $routeParams, $rootScope, client, getData, connection, loto, message) {
       return $scope.scanActivator = function() {
         return cordova.plugins.barcodeScanner.scan(function(result) {
-          if (result.cancelled !== 1) {
+          if (!result.cancelled) {
             message.open($scope.local.check_scan);
           }
           return getData.noCache({
@@ -380,7 +378,7 @@
             var data;
             data = result.data;
             if (data.success) {
-              return message.noClose($scope.local.scan_error1);
+              return message.noClose($scope.local.error_scaning);
             } else {
               return getData.noCache({
                 resource: 'participant',
@@ -390,14 +388,13 @@
                   extraParam: "globalSearch"
                 }
               }, function(result) {
-                var participant;
                 data = result.data;
-                participant = null;
+                $rootScope.participantScan = null;
                 angular.forEach(data, function(part) {
-                  return participant = part;
+                  return $rootScope.participantScan = part;
                 });
-                if (participant.id !== $scope.participient.id) {
-                  if (participant.event_id === $scope.event.id) {
+                if ($rootScope.participantScan.id !== $scope.participient.id) {
+                  if ($rootScope.participantScan.event_id === $scope.event.id) {
                     message.close();
                     $rootScope.member = data;
                     $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
@@ -689,17 +686,24 @@
       $scope.toDifferentUrl = function(url) {
         return $window.open(url, '_system');
       };
-      document.addEventListener('backbutton', function() {
-        if ($location.$$path !== baseURL.FEEDS) {
-          if ($scope.contentAnimate !== $scope.animationContentRight) {
-            $scope.contentAnimate = $scope.animationContentRight;
+      document.addEventListener("deviceready", function() {
+        return document.addEventListener('backbutton', function() {
+          if ($location.$$path !== baseURL.FEEDS) {
+            if ($scope.contentAnimate !== $scope.animationContentRight) {
+              $scope.contentAnimate = $scope.animationContentRight;
+            }
+            return $timeout(function() {
+              if (typeof navigator !== 'undefined' && typeof navigator.app !== 'undefined' && typeof navigator.app.backHistory === 'function') {
+                history.go(-1);
+                return navigator.app.backHistory();
+              } else {
+                return history.go(-1);
+              }
+            }, 100);
+          } else {
+            return navigator.app.exitApp();
           }
-          return $timeout(function() {
-            return history.back();
-          }, 100);
-        } else {
-          return navigator.app.exitApp();
-        }
+        }, true);
       });
       $rootScope.user = client.user.detail;
       $scope.share = "http%3A%2F%2Fwww%2Eatea%2Eno%2Fhovedmeny%2Fatea-community-2014%2F";

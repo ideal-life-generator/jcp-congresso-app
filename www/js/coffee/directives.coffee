@@ -123,7 +123,7 @@ atea.directive 'surveyCheckboxlist', [ () ->
 														ng-click="addCheck(checkbox)">
 										 <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ checkbox.subject ~</span>
 									 </label>
-								 </div>
+								 </div><div class="clear"></div>
 							 <h4>~setting.intro~</h4>
 						</li>'
 	controller: [ '$scope', ($scope) ->
@@ -165,7 +165,7 @@ atea.directive 'surveyRadiolist', [ () ->
 														placeholder="~setting.placeholder~">
 										 <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ radio.subject ~</span>
 									 </label>
-								 </div>
+								 </div><div class="clear"></div>
 							 <h4>~setting.intro~</h4>
 						</li>'
 	controller: [ '$scope', ($scope) ->

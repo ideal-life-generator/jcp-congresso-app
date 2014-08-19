@@ -4,7 +4,7 @@
       ng-submit="submit()">
     <div class="question-body">
         <div class="row visitor">
-            <h2 style="fomt-size: 200%;">~ member.first_name ~ ~ member.last_name ~</h2>
+            <h2 style="fomt-size: 200%;">~ participantScan.first_name ~ ~ participantScan.last_name ~</h2>
         </div>
         
         <div class="row questions">
@@ -15,14 +15,11 @@
                         ng-model="categorieActive"
                         ng-class="{ 'no-valid': noValid }"
                         ng-change="noValid = false">
-                    <option ng-disabled="true" value="-1">~ categorieSingle ~</option>
+                    <option ng-disabled="true" value="0">~ categorieSingle ~</option>
                     <option ng-repeat="categorie in categories"
-                            value="~categorie.id~">~ categorie.name ~</option>
+                            value="~categorie.id~">
+                            ~ categorie.name ~</option>
                 </select>
-        <div class="alert alert-danger"
-             ng-if="noValid">
-            ~local.comment_category~
-        </div>
             </li>
         
         <li class="list-group-item question">
@@ -33,7 +30,7 @@
                     <input type="range" min="0" max="10" step="1"
                            ng-model="interest">
                     </input>
-                    <div style="position: absolute; right: -1.3em; top: -10px; font-size: 1.3em;">
+                    <div style="position: absolute; right: -1.3em; top: 8px; font-size: 1.3em;">
                       ~ interest ~
                     </div>
                 </div>
@@ -44,7 +41,7 @@
                     <input type="range" min="0" max="10" step="1"
                            ng-model="revenue">
                     </input>
-                    <div style="position: absolute; right: -1.3em; top: -10px; font-size: 1.3em;">
+                    <div style="position: absolute; right: -1.3em; top: 8px; font-size: 1.3em;">
                         ~ revenue ~
                     </div>
                 </div>

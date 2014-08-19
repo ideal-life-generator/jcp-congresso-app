@@ -185,7 +185,10 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 		params:
 			resource: 'leadType'
 		handler: (data) ->
-			$scope.categories = [  ]
+			$scope.categories = [
+				# id: -1
+				# name: $scope.local.select_category
+			]
 			# if data.success is "true"
 				# $scope.visible = on
 			angular.forEach data, (ths) ->
@@ -195,14 +198,14 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 		scope: $scope
 		type: "noCache"
 
-	$scope.categorieActive = "-1"
+	$scope.categorieActive = 0
 	$scope.categorieSingle = $scope.local.select_category
 	$scope.interest = "5"
 	$scope.revenue = "5"
 	$scope.submit = ->
-		if $scope.categorieActive isnt $scope.categories[0].name
-			$scope.noValid = false
+		if $scope.categorieActive
 			data =
+				participant_id: $scope.participantScan.id
 				event_id: $scope.event.id
 				lead_type_id: $scope.categorieActive
 				interest: $scope.interest
@@ -211,7 +214,7 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 			message.open $scope.local.data_sending
 			getData.save { resource: 'partnerLead' }, data: data, (result) ->
 				data = result.data
-				message.authoClose($scope.polyglot.t("quest_sent", first_name: $scope.member.first_name))
+				message.authoClose $scope.local.lead_sent
 				if $scope.contentAnimate isnt $scope.animationContentRight
 					$scope.contentAnimate = $scope.animationContentRight
 				$timeout ->
@@ -220,17 +223,36 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 			, ->
 				message.noClose $scope.local.error_server
 		else
-			$scope.noValid = true
+			message.odinAndClose $scope.local.select_category
 
+	# getData.noCache
+	# 	resource: 'participant'
+	# 	data: event_id: 84, member_id: 2, extraParam: "globalSearch"
+	# , (result) ->
+	# 	data = result.data
+	# 	participant = null
+	# 	angular.forEach data, (part) ->
+	# 		participant = part
 	# getData.save { resource: 'partnerLead' },
 	# 	data:
-	# 		event_id: "84"
+	# 		event_id: "85"
+	# 		participant_id: "2191"
 	# 		lead_type_id: "1"
 	# 		interest: "6"
 	# 		revenue: "4"
-	# 		comment: "test11111111111"
+	# 		comment: "111111111"
 	# , (result) ->
 	# 	data = result.data
+		# if participant.id isnt $scope.participient.id
+		# 	if participant.event_id is $scope.event.id
+		# 		message.close()
+		# 		$rootScope.member = data
+		# 		$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
+		# 		$scope.$apply()
+		# 	else
+		# 		message.noClose $scope.local.scan_error2
+		# else
+		# 	message.noClose $scope.local.scan_warning1
 ]
 
 atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection', 'getData', '$http', 'message',
@@ -284,6 +306,7 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 	$scope.scanActivator = ->
 		cordova.plugins.barcodeScanner.scan (result) ->
 			if result.cancelled isnt 1
+			# if !result.cancelled
 				message.open $scope.local.check_scan
 
 				# connection.makeLoad
@@ -312,18 +335,18 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 			, (result) ->
 				data = result.data
 				if data.success
-					message.noClose $scope.local.scan_error1
+					message.noClose $scope.local.error_scaning
 				else
 					getData.noCache
 						resource: 'participant'
 						data: event_id: $scope.event.id, member_id: data.id, extraParam: "globalSearch"
 					, (result) ->
 						data = result.data
-						participant = null
+						$rootScope.participantScan = null
 						angular.forEach data, (part) ->
-							participant = part
-						if participant.id isnt $scope.participient.id
-							if participant.event_id is $scope.event.id
+							$rootScope.participantScan = part
+						if $rootScope.participantScan.id isnt $scope.participient.id
+							if $rootScope.participantScan.event_id is $scope.event.id
 								message.close()
 								$rootScope.member = data
 								$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
@@ -337,6 +360,26 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 	# 	resource: 'member'
 	# 	data: "{ 'extraParam': { 'barcode': '383fafae66b6bcc8ef5693266924ac7' }}"
 	# , (result) ->
+	# 	data = result.data
+	# 	console.log data
+
+	# getData.noCache
+	# 	resource: 'participant'
+	# 	data: event_id: 61, member_id: 1838, extraParam: "globalSearch"
+	# , (result) ->
+	# 	data = result.data
+	# 	angular.forEach data, (part) ->
+	# 		$rootScope.participantScan = part
+	# 	console.log $rootScope.participantScan
+
+	# data =
+	# 	participant_id: 2194
+	# 	event_id: 61
+	# 	lead_type_id: 1
+	# 	interest: 3
+	# 	revenue: 10
+	# 	comment: "EEE..."
+	# getData.save { resource: 'partnerLead' }, data: data, (result) ->
 	# 	data = result.data
 	
 ]
@@ -552,19 +595,27 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 		$window.open url, '_system'
 
 	document.addEventListener "deviceready", ->
+		# res = ""
+		# angular.forEach navigator.app, (ths, mas) ->
+		# 	res += ths + "#" + mas[ths] + "\n"
+		# alert res
 		document.addEventListener 'backbutton', ->
 			if $location.$$path isnt baseURL.FEEDS
 				if $scope.contentAnimate isnt $scope.animationContentRight
 					$scope.contentAnimate = $scope.animationContentRight
 				$timeout ->
-					history.back()
-					# alert navigator.app.backHistory
-					# navigator.app.backHistory()
+					if typeof(navigator) isnt 'undefined' and typeof(navigator.app) isnt 'undefined' and typeof(navigator.app.backHistory) is 'function'
+						history.go(-1)
+						navigator.app.backHistory()
+					else
+						history.go(-1)
+						# navigator.app.backHistory()
 				, 100
 			else
 				navigator.app.exitApp()
+		, true
 	
-		$rootScope.user = client.user.detail
+	$rootScope.user = client.user.detail
 
 	$scope.share = "http%3A%2F%2Fwww%2Eatea%2Eno%2Fhovedmeny%2Fatea-community-2014%2F"
 

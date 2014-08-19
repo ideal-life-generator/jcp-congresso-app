@@ -111,7 +111,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <div class="clear"></div> <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3> <div	ng-repeat="checkbox in setting.options" class="survey-checkbox"> <label> <input type="checkbox" style="float: left;" name="~setting.name~" value="~checkbox.answer_value~" ng-model="checkbox.value" ng-click="addCheck(checkbox)"> <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ checkbox.subject ~</span> </label> </div> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <div class="clear"></div> <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3> <div	ng-repeat="checkbox in setting.options" class="survey-checkbox"> <label> <input type="checkbox" style="float: left;" name="~setting.name~" value="~checkbox.answer_value~" ng-model="checkbox.value" ng-click="addCheck(checkbox)"> <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ checkbox.subject ~</span> </label> </div><div class="clear"></div> <h4>~setting.intro~</h4> </li>',
         controller: [
           '$scope', function($scope) {
             $scope.rest = [];
@@ -154,7 +154,7 @@
         scope: {
           setting: '='
         },
-        template: '<li> <div class="clear"></div> <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3> <div	ng-repeat="radio in setting.options" style="float: left; margin-right: 1.6em; height: 30px;"> <label> <input type="radio" style="float: left;" name="~setting.name~" value="~radio.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ radio.subject ~</span> </label> </div> <h4>~setting.intro~</h4> </li>',
+        template: '<li> <div class="clear"></div> <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3> <div	ng-repeat="radio in setting.options" style="float: left; margin-right: 1.6em; height: 30px;"> <label> <input type="radio" style="float: left;" name="~setting.name~" value="~radio.answer_value~" ng-model="setting.value" ng-required="~setting.is_required~" placeholder="~setting.placeholder~"> <span style="float: left; padding: 0.6em 0 0.6em 0.6em;">~ radio.subject ~</span> </label> </div><div class="clear"></div> <h4>~setting.intro~</h4> </li>',
         controller: ['$scope', function($scope) {}]
       };
     }

@@ -209,6 +209,14 @@
         <Compile Include="Plugins\org.apache.cordova.inappbrowser\InAppBrowser.cs" />
     </ItemGroup>
     <ItemGroup>
+        <Reference Include="zxing.wp8.0, Version=0.14.0.0, Culture=neutral, processorArchitecture=MSIL">
+            <SpecificVersion>False</SpecificVersion>
+            <HintPath>packages\ZXing.Net.0.14.0.1\lib\wp8\zxing.wp8.0.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    <Import Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" Project="$(SolutionDir)\.nuget\NuGet.targets" />
+    <ItemGroup />
+    <ItemGroup>
         <Content Include="Plugins\org.bloxlab.barcodescanner\zxing.wp8.0.dll" />
     </ItemGroup>
     <ItemGroup>
@@ -217,18 +225,12 @@
     <ItemGroup>
         <Compile Include="Plugins\org.bloxlab.barcodescanner\BarcodeScanner.cs" />
     </ItemGroup>
+    <ItemGroup />
     <ItemGroup>
         <Compile Include="Plugins\org.bloxlab.barcodescanner\CameraScan.xaml.cs">
             <DependentUpon>CameraScan.xaml</DependentUpon>
         </Compile>
     </ItemGroup>
-    <ItemGroup>
-        <Reference Include="zxing.wp8.0, Version=0.14.0.0, Culture=neutral, processorArchitecture=MSIL">
-            <SpecificVersion>False</SpecificVersion>
-            <HintPath>packages\ZXing.Net.0.14.0.1\lib\wp8\zxing.wp8.0.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-    <Import Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" Project="$(SolutionDir)\.nuget\NuGet.targets" />
     <ItemGroup>
         <Content Include="www\config\main.coffee" />
     </ItemGroup>
@@ -618,6 +620,9 @@
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\js\i18n\polyglot.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\i18n\ru.json" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\main.html" />

@@ -93,6 +93,7 @@ atea.filter 'dayMonth', (local) ->
 		if date
 			d = [ "th", "st", "nd", "rd" ]
 			months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
+			# months = [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ]
 			now = new Date().toString()
 			date = new Date date*1000
 			dateString = date.toString()
@@ -118,8 +119,10 @@ atea.filter 'fullDate', ->
 	(date) ->
 		if date
 			w = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]
+			# w = [ "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье" ]
 			d = [ "th", "st", "nd", "rd" ]
 			months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
+			# months = [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ]
 			date = new Date date*1000
 			day = date.getDay()
 			dat = date.getDate()

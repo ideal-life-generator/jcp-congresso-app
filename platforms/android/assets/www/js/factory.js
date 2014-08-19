@@ -70,11 +70,11 @@
         if (self.navigator === 'Windows Phone') {
           return {
             content: {
-              left: '',
-              right: ''
+              left: 'hard-left',
+              right: 'hard-right'
             },
-            logo: 'ease',
-            leftMenu: 'ease'
+            logo: 'hard',
+            leftMenu: 'hard'
           };
         } else {
           return {

@@ -6,6 +6,7 @@ C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Debug\AppMa
 C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Debug\Properties\WMAppManifest.xml
 C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Debug\CordovaAppProj_Debug_AnyCPU.xap
 C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Debug\zxing.wp8.0.dll
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Debug\Atea_Community_2014.csprojResolveAssemblyReference.cache
 C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Debug\App.g.cs
 C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Debug\Plugins\org.bloxlab.barcodescanner\CameraScan.g.cs
 C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Debug\cordovalib\CordovaView.g.cs

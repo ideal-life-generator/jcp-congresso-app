@@ -2,6 +2,7 @@ atea = angular.module 'atea'
 
 atea.factory 'getData', [ '$resource', ($resource) ->
 	$resource "http://188.226.184.59/congressomulti/api/:resource/:id", { },
+	# $resource "http://dev.congressomulti-loc.no/api/:resource/:id", { },
 		get: method: "GET", cache: true
 		noCache: method: "GET", cache: false
 		save: method: "POST", headers: 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'

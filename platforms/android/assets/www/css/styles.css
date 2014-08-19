@@ -557,7 +557,7 @@ input[type="range"]::-ms-thumb {
   -ms-border-radius: 50%;
   border-radius: 50%;
   border: none;
-  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0;
   border: 0;
 }
 input[type=range]::-ms-fill-lower {
@@ -1257,7 +1257,7 @@ span.icon {
   width: 100%;
   height: 100%;
   cursor: pointer;
-  z-index: 100;
+  z-index: 1100;
   opacity: 1;
   text-align: center;
   position: absolute;
