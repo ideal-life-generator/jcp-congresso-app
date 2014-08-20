@@ -9,6 +9,17 @@ atea.factory 'getData', [ '$resource', ($resource) ->
 		put: method: "PUT", headers: 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 ]
 
+atea.factory "$history", ($location) ->
+	self = @
+	@history = [ ]
+	$history = @history
+	@history.add = (path) ->
+		$history.push path
+	@history.back = ->
+		$location.path $history[$history.length-2]
+		$history.length = $history.length-2
+	@history
+
 atea.provider "local", ->
 	@$get = ($q, $http, message) ->
 		defer = $q.defer()

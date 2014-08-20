@@ -216,6 +216,7 @@
     </ItemGroup>
     <Import Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" Project="$(SolutionDir)\.nuget\NuGet.targets" />
     <ItemGroup />
+    <ItemGroup />
     <ItemGroup>
         <Content Include="Plugins\org.bloxlab.barcodescanner\zxing.wp8.0.dll" />
     </ItemGroup>

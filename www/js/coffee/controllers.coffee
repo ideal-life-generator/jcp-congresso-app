@@ -1,7 +1,7 @@
 atea = angular.module 'atea'
 
-atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$filter', '$compile', 'getData', '$http', 'loto', '$timeout', 'message', '$rootScope',
-($scope, $location, baseURL, $routeParams, connection, $filter, $compile, getData, $http, loto, $timeout, message, $rootScope) ->
+atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$filter', '$compile', 'getData', '$http', 'loto', '$timeout', 'message', '$rootScope', '$history',
+($scope, $location, baseURL, $routeParams, connection, $filter, $compile, getData, $http, loto, $timeout, message, $rootScope, $history) ->
 
 	connection.makeLoad
 		params:
@@ -57,7 +57,7 @@ atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routePar
 											if $scope.contentAnimate isnt $scope.animationContentRight
 												$scope.contentAnimate = $scope.animationContentRight
 											$timeout ->
-												history.back()
+												$history.back()
 											, 100
 											loto.number = null
 								else
@@ -65,7 +65,7 @@ atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routePar
 										if $scope.contentAnimate isnt $scope.animationContentRight
 											$scope.contentAnimate = $scope.animationContentRight
 										$timeout ->
-											history.back()
+											$history.back()
 										, 100
 										loto.number = null
 						else
@@ -76,7 +76,7 @@ atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routePar
 								if $scope.contentAnimate isnt $scope.animationContentRight
 									$scope.contentAnimate = $scope.animationContentRight
 								$timeout ->
-									history.back()
+									$history.back()
 								, 100
 								loto.number = null
 				, (error) ->
@@ -87,8 +87,8 @@ atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routePar
 			message.odinAndClose $scope.local.form_error1
 ]
 
-atea.controller 'RatesController', [ '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$rootScope', '$timeout', 'message',
-($scope, $location, baseURL, $routeParams, connection, $rootScope, $timeout, message) ->
+atea.controller 'RatesController', [ '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$rootScope', '$timeout', 'message', '$history',
+($scope, $location, baseURL, $routeParams, connection, $rootScope, $timeout, message, $history) ->
 
 	connection.makeLoad
 		params:
@@ -101,10 +101,10 @@ atea.controller 'RatesController', [ '$scope', '$location', 'baseURL', '$routePa
 					$scope.surveys.push survey
 				if not $scope.surveys.length
 					message.authoClose $scope.local.no_surveys, ->
-						history.back()
+						$history.back()
 			else
 				message.authoClose $scope.local.no_surveys, ->
-					history.back()
+					$history.back()
 		scope: $scope
 		type: "noCache"
 ]
@@ -178,8 +178,8 @@ atea.controller 'SchedulesController', [ '$scope', '$location', '$routeParams', 
 		type: "get"
 ]
 
-atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'connection', 'message', 'getData',
-($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, connection, message, getData) ->
+atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'connection', 'message', 'getData', '$history',
+($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, connection, message, getData, $history) ->
 
 	connection.makeLoad
 		params:
@@ -218,7 +218,7 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 				if $scope.contentAnimate isnt $scope.animationContentRight
 					$scope.contentAnimate = $scope.animationContentRight
 				$timeout ->
-					$location.path history.back()
+					$location.path $history.back()
 				, 100
 			, ->
 				message.noClose $scope.local.error_server
@@ -398,8 +398,8 @@ atea.controller 'ProfileController', [ '$scope', '$location', 'baseURL', '$route
 	$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~$scope.participient.tokens
 ]
 
-atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce',
-($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce) ->
+atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce', '$history',
+($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce, $history) ->
 
 	$scope.local = { }
 
@@ -445,7 +445,13 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 			scope: $scope
 			type: "noCache"
 
-	$scope.$on '$routeChangeSuccess', ->
+	$scope.$on '$locationChangeStart', ->
+		$history.add $location.$$path
+
+	$scope.$on '$routeChangeSuccess', (ev, ls) ->
+		# console.log ls
+		# $location.lastPath = $location.$$path
+		# console.log $location.lastPath
 		path = $location.$$path
 		if $rootScope.event and path is baseURL.FEEDS
 			$rootScope.event = null
@@ -541,7 +547,8 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 		if $scope.contentAnimate isnt $scope.animationContentRight
 			$scope.contentAnimate = $scope.animationContentRight
 		$timeout ->
-			history.back()
+			# $history.back()
+			$history.back()
 		, 100
 
 	$scope.changeEvent = (path, event) ->
@@ -604,12 +611,10 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 				if $scope.contentAnimate isnt $scope.animationContentRight
 					$scope.contentAnimate = $scope.animationContentRight
 				$timeout ->
-					if typeof(navigator) isnt 'undefined' and typeof(navigator.app) isnt 'undefined' and typeof(navigator.app.backHistory) is 'function'
-						history.go(-1)
-						navigator.app.backHistory()
-					else
-						history.go(-1)
-						# navigator.app.backHistory()
+					# $window.history.go(-1)
+					# alert navigator.app.backHistory
+					# alert navigator.app.exitApp
+					$history.back()
 				, 100
 			else
 				navigator.app.exitApp()
@@ -626,8 +631,8 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
   	$sce.trustAsHtml html
 ]
 
-atea.controller 'LoginController', [ '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'client', 'connection', 'message',
-($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, client, connection, message) ->
+atea.controller 'LoginController', [ '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'client', 'connection', 'message', '$history',
+($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, client, connection, message, $history) ->
 
 	$scope.go_submit = ->
 		if $scope.auth.$dirty and $scope.auth.$valid
@@ -656,7 +661,7 @@ atea.controller 'LoginController', [ '$scope', '$http', '$rootScope', '$location
 							type: "noCache"
 					if $scope.contentAnimate isnt $scope.animationContentRight
 						$scope.contentAnimate = $scope.animationContentRight
-					history.back()
+					$history.back()
 			, (error) ->
 				if error.status is 401
 					message.odinAndClose $scope.local.user_exist

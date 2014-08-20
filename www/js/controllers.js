@@ -5,7 +5,7 @@
   atea = angular.module('atea');
 
   atea.controller('RateController', [
-    '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$filter', '$compile', 'getData', '$http', 'loto', '$timeout', 'message', '$rootScope', function($scope, $location, baseURL, $routeParams, connection, $filter, $compile, getData, $http, loto, $timeout, message, $rootScope) {
+    '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$filter', '$compile', 'getData', '$http', 'loto', '$timeout', 'message', '$rootScope', '$history', function($scope, $location, baseURL, $routeParams, connection, $filter, $compile, getData, $http, loto, $timeout, message, $rootScope, $history) {
       connection.makeLoad({
         params: {
           resource: 'surveyQuestion',
@@ -90,7 +90,7 @@
                             $scope.contentAnimate = $scope.animationContentRight;
                           }
                           $timeout(function() {
-                            return history.back();
+                            return $history.back();
                           }, 100);
                           return loto.number = null;
                         });
@@ -101,7 +101,7 @@
                           $scope.contentAnimate = $scope.animationContentRight;
                         }
                         $timeout(function() {
-                          return history.back();
+                          return $history.back();
                         }, 100);
                         return loto.number = null;
                       });
@@ -115,7 +115,7 @@
                       $scope.contentAnimate = $scope.animationContentRight;
                     }
                     $timeout(function() {
-                      return history.back();
+                      return $history.back();
                     }, 100);
                     return loto.number = null;
                   });
@@ -135,7 +135,7 @@
   ]);
 
   atea.controller('RatesController', [
-    '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$rootScope', '$timeout', 'message', function($scope, $location, baseURL, $routeParams, connection, $rootScope, $timeout, message) {
+    '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$rootScope', '$timeout', 'message', '$history', function($scope, $location, baseURL, $routeParams, connection, $rootScope, $timeout, message, $history) {
       return connection.makeLoad({
         params: {
           resource: 'survey',
@@ -151,12 +151,12 @@
             });
             if (!$scope.surveys.length) {
               return message.authoClose($scope.local.no_surveys, function() {
-                return history.back();
+                return $history.back();
               });
             }
           } else {
             return message.authoClose($scope.local.no_surveys, function() {
-              return history.back();
+              return $history.back();
             });
           }
         },
@@ -245,7 +245,7 @@
   ]);
 
   atea.controller('CommentController', [
-    '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'connection', 'message', 'getData', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, connection, message, getData) {
+    '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'connection', 'message', 'getData', '$history', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, connection, message, getData, $history) {
       connection.makeLoad({
         params: {
           resource: 'leadType'
@@ -286,7 +286,7 @@
               $scope.contentAnimate = $scope.animationContentRight;
             }
             return $timeout(function() {
-              return $location.path(history.back());
+              return $location.path($history.back());
             }, 100);
           }, function() {
             return message.noClose($scope.local.error_server);
@@ -427,7 +427,7 @@
   ]);
 
   atea.controller('MainController', [
-    '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce', function($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce) {
+    '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce', '$history', function($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce, $history) {
       var contentBlock, leftMenu;
       $scope.local = {};
       $rootScope.updateTokens = function() {
@@ -483,7 +483,10 @@
           type: "noCache"
         });
       };
-      $scope.$on('$routeChangeSuccess', function() {
+      $scope.$on('$locationChangeStart', function() {
+        return $history.add($location.$$path);
+      });
+      $scope.$on('$routeChangeSuccess', function(ev, ls) {
         var path;
         path = $location.$$path;
         if ($rootScope.event && path === baseURL.FEEDS) {
@@ -600,7 +603,7 @@
           $scope.contentAnimate = $scope.animationContentRight;
         }
         return $timeout(function() {
-          return history.back();
+          return $history.back();
         }, 100);
       };
       $scope.changeEvent = function(path, event) {
@@ -693,12 +696,7 @@
               $scope.contentAnimate = $scope.animationContentRight;
             }
             return $timeout(function() {
-              if (typeof navigator !== 'undefined' && typeof navigator.app !== 'undefined' && typeof navigator.app.backHistory === 'function') {
-                history.go(-1);
-                return navigator.app.backHistory();
-              } else {
-                return history.go(-1);
-              }
+              return $history.back();
             }, 100);
           } else {
             return navigator.app.exitApp();
@@ -717,7 +715,7 @@
   ]);
 
   atea.controller('LoginController', [
-    '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'client', 'connection', 'message', function($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, client, connection, message) {
+    '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'client', 'connection', 'message', '$history', function($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, client, connection, message, $history) {
       $scope.go_submit = function() {
         if ($scope.auth.$dirty && $scope.auth.$valid) {
           message.open($scope.local.log_in);
@@ -759,7 +757,7 @@
               if ($scope.contentAnimate !== $scope.animationContentRight) {
                 $scope.contentAnimate = $scope.animationContentRight;
               }
-              return history.back();
+              return $history.back();
             });
           }, function(error) {
             if (error.status === 401) {
