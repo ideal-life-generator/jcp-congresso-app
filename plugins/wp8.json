@@ -39,7 +39,7 @@
         "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "{DE92072B-6465-4557-A737-ACD02C12BB19}"
         },
-        "org.bloxlab.barcodescanner": {
+        "com.phonegap.plugins.barcodescanner": {
             "PACKAGE_NAME": "{DE92072B-6465-4557-A737-ACD02C12BB19}"
         }
     },

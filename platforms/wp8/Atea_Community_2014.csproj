@@ -129,7 +129,7 @@
             <DependentUpon>MainPage.xaml</DependentUpon>
         </Compile>
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Page Include="Plugins\org.bloxlab.barcodescanner\CameraScan.xaml">
+        <Page Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScannerUI.xaml">
             <SubType>Designer</SubType>
             <Generator>MSBuild:Compile</Generator>
         </Page>
@@ -217,21 +217,7 @@
     <Import Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" Project="$(SolutionDir)\.nuget\NuGet.targets" />
     <ItemGroup />
     <ItemGroup />
-    <ItemGroup>
-        <Content Include="Plugins\org.bloxlab.barcodescanner\zxing.wp8.0.dll" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Include="Plugins\org.bloxlab.barcodescanner\BarcodeResultInfo.cs" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Include="Plugins\org.bloxlab.barcodescanner\BarcodeScanner.cs" />
-    </ItemGroup>
     <ItemGroup />
-    <ItemGroup>
-        <Compile Include="Plugins\org.bloxlab.barcodescanner\CameraScan.xaml.cs">
-            <DependentUpon>CameraScan.xaml</DependentUpon>
-        </Compile>
-    </ItemGroup>
     <ItemGroup>
         <Content Include="www\config\main.coffee" />
     </ItemGroup>
@@ -243,9 +229,6 @@
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\cordova.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\cordova_plugins.js" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\core\config\main.js" />
@@ -629,12 +612,6 @@
         <Content Include="www\main.html" />
     </ItemGroup>
     <ItemGroup>
-        <Content Include="www\plugins\org.apache.cordova.inappbrowser\www\inappbrowser.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\plugins\org.bloxlab.barcodescanner\www\barcodescanner.js" />
-    </ItemGroup>
-    <ItemGroup>
         <Content Include="www\template\comment.html" />
     </ItemGroup>
     <ItemGroup>
@@ -666,5 +643,31 @@
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\template\schedules.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScanner.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScannerTask.cs" />
+    </ItemGroup>
+    <ItemGroup />
+    <ItemGroup>
+        <Compile Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScannerUI.xaml.cs">
+            <DependentUpon>BarcodeScannerUI.xaml</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="zxing.wp8.0">
+            <HintPath>plugins/com.phonegap.plugins.barcodescanner/zxing.wp8.0.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.inappbrowser\www\inappbrowser.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\com.phonegap.plugins.barcodescanner\www\barcodescanner.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\cordova_plugins.js" />
     </ItemGroup>
 </Project>

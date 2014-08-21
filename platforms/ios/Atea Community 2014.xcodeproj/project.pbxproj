@@ -39,6 +39,13 @@
 		7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DD1810823500FA85AD /* icon-small@2x.png */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		DB82F6355903405A88CB3CEE /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = F631F2AB3D594C3F9EAEF7AD /* CDVInAppBrowser.m */; };
+		5D1B574BDE7746CDBF22AC6F /* CDVBarcodeScanner.mm in Resources */ = {isa = PBXBuildFile; fileRef = 04BF0196BB8647CAA06E3A3C /* CDVBarcodeScanner.mm */; settings = {COMPILER_FLAGS = -fno-objc-arc; }; };
+		6BA11988AFA34869A2BC336C /* zxing-all-in-one.cpp in Resources */ = {isa = PBXBuildFile; fileRef = 3C5C21AF81A54333BC280A2D /* zxing-all-in-one.cpp */; };
+		49ADE7249B3542DCB1178A90 /* scannerOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7243EFECA54D4DE096667329 /* scannerOverlay.xib */; };
+		D96012CCC55D4BF98E29A0FB /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB793EC7BFE4F2DB10EF01D /* libiconv.dylib */; };
+		52C970099E2240E4AF38FA43 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A64EAFE9C64C00A2CD6414 /* AVFoundation.framework */; };
+		B9E377F2E9914D17BA416339 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B0574E0BC0484F9E5AE29A /* CoreVideo.framework */; };
+		6B96B60FDCFF45838FADFA5B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B2E6B1EA6E4427B2336D20 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +112,14 @@
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "Atea Community 2014/config.xml"; sourceTree = "<group>"; };
 		F631F2AB3D594C3F9EAEF7AD /* CDVInAppBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVInAppBrowser.m"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		C0E9FF21310147F2A12992ED /* CDVInAppBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVInAppBrowser.h"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		04BF0196BB8647CAA06E3A3C /* CDVBarcodeScanner.mm */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "CDVBarcodeScanner.mm"; path = "com.phonegap.plugins.barcodescanner/CDVBarcodeScanner.mm"; sourceTree = "<group>"; fileEncoding = 4; };
+		3C5C21AF81A54333BC280A2D /* zxing-all-in-one.cpp */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "zxing-all-in-one.cpp"; path = "com.phonegap.plugins.barcodescanner/zxing-all-in-one.cpp"; sourceTree = "<group>"; fileEncoding = 4; };
+		AB480ECED6234AE393AB0503 /* zxing-all-in-one.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "zxing-all-in-one.h"; path = "com.phonegap.plugins.barcodescanner/zxing-all-in-one.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		7243EFECA54D4DE096667329 /* scannerOverlay.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "scannerOverlay.xib"; path = "scannerOverlay.xib"; sourceTree = "<group>"; fileEncoding = 4; };
+		FAB793EC7BFE4F2DB10EF01D /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libiconv.dylib"; path = "usr/lib/libiconv.dylib"; sourceTree = SDKROOT; fileEncoding = 4; };
+		A2A64EAFE9C64C00A2CD6414 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "AVFoundation.framework"; path = "System/Library/Frameworks/AVFoundation.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		02B0574E0BC0484F9E5AE29A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "CoreVideo.framework"; path = "System/Library/Frameworks/CoreVideo.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		C7B2E6B1EA6E4427B2336D20 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "QuartzCore.framework"; path = "System/Library/Frameworks/QuartzCore.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +132,10 @@
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
 				5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */,
+				D96012CCC55D4BF98E29A0FB /* libiconv.dylib in Frameworks */,
+				52C970099E2240E4AF38FA43 /* AVFoundation.framework in Frameworks */,
+				B9E377F2E9914D17BA416339 /* CoreVideo.framework in Frameworks */,
+				6B96B60FDCFF45838FADFA5B /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +217,7 @@
 				308D052D1370CCF300D202BF /* icons */,
 				308D05311370CCF300D202BF /* splash */,
 				8D1107310486CEB800E47090 /* Atea Community 2014-Info.plist */,
+				7243EFECA54D4DE096667329 /* scannerOverlay.xib */,
 			);
 			name = Resources;
 			path = "Atea Community 2014/Resources";
@@ -210,6 +230,10 @@
 				5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */,
+				FAB793EC7BFE4F2DB10EF01D /* libiconv.dylib */,
+				A2A64EAFE9C64C00A2CD6414 /* AVFoundation.framework */,
+				02B0574E0BC0484F9E5AE29A /* CoreVideo.framework */,
+				C7B2E6B1EA6E4427B2336D20 /* QuartzCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -227,6 +251,9 @@
 			children = (
 				F631F2AB3D594C3F9EAEF7AD /* CDVInAppBrowser.m */,
 				C0E9FF21310147F2A12992ED /* CDVInAppBrowser.h */,
+				04BF0196BB8647CAA06E3A3C /* CDVBarcodeScanner.mm */,
+				3C5C21AF81A54333BC280A2D /* zxing-all-in-one.cpp */,
+				AB480ECED6234AE393AB0503 /* zxing-all-in-one.h */,
 			);
 			name = Plugins;
 			path = "Atea Community 2014/Plugins";
@@ -390,6 +417,7 @@
 				7E7966E11810823500FA85AD /* icon-50@2x.png in Resources */,
 				7E7966E51810823500FA85AD /* icon-76@2x.png in Resources */,
 				30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */,
+				49ADE7249B3542DCB1178A90 /* scannerOverlay.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +450,8 @@
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				DB82F6355903405A88CB3CEE /* CDVInAppBrowser.m in Sources */,
+				5D1B574BDE7746CDBF22AC6F /* CDVBarcodeScanner.mm in Resources */,
+				6BA11988AFA34869A2BC336C /* zxing-all-in-one.cpp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

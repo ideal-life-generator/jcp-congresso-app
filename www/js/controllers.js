@@ -364,7 +364,7 @@
     '$scope', '$window', '$location', 'baseURL', '$routeParams', '$rootScope', 'client', 'getData', 'connection', 'loto', 'message', function($scope, $window, $location, baseURL, $routeParams, $rootScope, client, getData, connection, loto, message) {
       return $scope.scanActivator = function() {
         return cordova.plugins.barcodeScanner.scan(function(result) {
-          if (result.cancelled !== 1) {
+          if (!result.cancelled) {
             message.open($scope.local.check_scan);
           }
           return getData.noCache({
