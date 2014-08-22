@@ -1,7 +1,8 @@
 atea = angular.module 'atea'
 
 atea.factory 'getData', [ '$resource', ($resource) ->
-	$resource "http://188.226.184.59/congressomulti/api/:resource/:id", { },
+	$resource "http://event.congresso.no/api/:resource/:id", { },
+	# $resource "http://188.226.184.59/congressomulti/api/:resource/:id", { },
 	# $resource "http://dev.congressomulti-loc.no/api/:resource/:id", { },
 		get: method: "GET", cache: true
 		noCache: method: "GET", cache: false

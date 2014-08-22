@@ -1,0 +1,16 @@
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Release\ApplicationIcon.png
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Release\Background.png
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Release\no.jcp.congresso.dll
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Release\no.jcp.congresso.pdb
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Release\AppManifest.xaml
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Release\Properties\WMAppManifest.xml
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Release\CordovaAppProj_Release_AnyCPU.xap
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\Bin\Release\zxing.wp8.0.dll
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Release\App.g.cs
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Release\Plugins\org.bloxlab.barcodescanner\CameraScan.g.cs
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Release\cordovalib\CordovaView.g.cs
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Release\MainPage.g.cs
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Release\no.jcp.congresso.g.resources
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Release\no.jcp.congresso.dll
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Release\no.jcp.congresso.pdb
+C:\Users\tkachenko-vladislav\Desktop\congresso-app\platforms\wp8\obj\Release\XapCacheFile.xml

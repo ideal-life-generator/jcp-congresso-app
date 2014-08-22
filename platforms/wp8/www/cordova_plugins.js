@@ -8,8 +8,8 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/com.phonegap.plugins.barcodescanner/www/barcodescanner.js",
-        "id": "com.phonegap.plugins.barcodescanner.BarcodeScanner",
+        "file": "plugins/org.bloxlab.barcodescanner/www/barcodescanner.js",
+        "id": "org.bloxlab.barcodescanner.BarcodeScanner",
         "clobbers": [
             "cordova.plugins.barcodeScanner"
         ]
@@ -19,7 +19,7 @@ module.exports.metadata =
 // TOP OF METADATA
 {
     "org.apache.cordova.inappbrowser": "0.5.2-dev",
-    "com.phonegap.plugins.barcodescanner": "2.0.0"
+    "org.bloxlab.barcodescanner": "0.9.0"
 }
 // BOTTOM OF METADATA
 });

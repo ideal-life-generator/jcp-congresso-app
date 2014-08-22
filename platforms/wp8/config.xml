@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="no.jcp.congresso" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://cordova.apache.org/ns/1.0">
     <access origin="*" />
+    <feature name="BarcodeScanner">
+        <param name="wp-package" value="BarcodeScanner" />
+    </feature>
     <name>Atea Community 2014</name>
     <description>
         The majestic congresso app.
@@ -53,8 +56,5 @@
     <access browserOnly="true" origin="*" />
     <feature name="InAppBrowser">
         <param name="wp-package" value="InAppBrowser" />
-    </feature>
-    <feature name="BarcodeScanner">
-        <param name="wp-package" value="BarcodeScanner" />
     </feature>
 </widget>

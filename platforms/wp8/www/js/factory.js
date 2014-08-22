@@ -6,7 +6,7 @@
 
   atea.factory('getData', [
     '$resource', function($resource) {
-      return $resource("http://188.226.184.59/congressomulti/api/:resource/:id", {}, {
+      return $resource("http://event.congresso.no/api/:resource/:id", {}, {
         get: {
           method: "GET",
           cache: true

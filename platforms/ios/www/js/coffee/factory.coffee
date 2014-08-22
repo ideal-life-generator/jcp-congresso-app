@@ -1,13 +1,25 @@
 atea = angular.module 'atea'
 
 atea.factory 'getData', [ '$resource', ($resource) ->
-	$resource "http://188.226.184.59/congressomulti/api/:resource/:id", { },
+	$resource "http://event.congresso.no/api/:resource/:id", { },
+	# $resource "http://188.226.184.59/congressomulti/api/:resource/:id", { },
 	# $resource "http://dev.congressomulti-loc.no/api/:resource/:id", { },
 		get: method: "GET", cache: true
 		noCache: method: "GET", cache: false
 		save: method: "POST", headers: 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 		put: method: "PUT", headers: 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 ]
+
+atea.factory "$history", ($location) ->
+	self = @
+	@history = [ ]
+	$history = @history
+	@history.add = (path) ->
+		$history.push path
+	@history.back = ->
+		$location.path $history[$history.length-2]
+		$history.length = $history.length-2
+	@history
 
 atea.provider "local", ->
 	@$get = ($q, $http, message) ->

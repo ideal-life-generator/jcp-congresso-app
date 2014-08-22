@@ -31,6 +31,21 @@
     }
   ]);
 
+  atea.factory("$history", function($location) {
+    var $history, self;
+    self = this;
+    this.history = [];
+    $history = this.history;
+    this.history.add = function(path) {
+      return $history.push(path);
+    };
+    this.history.back = function() {
+      $location.path($history[$history.length - 2]);
+      return $history.length = $history.length - 2;
+    };
+    return this.history;
+  });
+
   atea.provider("local", function() {
     this.$get = function($q, $http, message) {
       var defer, local;
