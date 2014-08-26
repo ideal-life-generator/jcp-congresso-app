@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B1981518-120E-4B55-8374-5E340ED02A70</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Atea Community 2014</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>DEA74398-0393-4EDF-A94C-3F5AE0B72337</key>
+		<string>ssh://bitbucket.org/mopayments/congresso-app.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>platforms/ios/Atea Community 2014.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>DEA74398-0393-4EDF-A94C-3F5AE0B72337</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://bitbucket.org/mopayments/congresso-app.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>DEA74398-0393-4EDF-A94C-3F5AE0B72337</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DEA74398-0393-4EDF-A94C-3F5AE0B72337</string>
+			<key>IDESourceControlWCCName</key>
+			<string>congresso-app-latest</string>
+		</dict>
+	</array>
+</dict>
+</plist>
