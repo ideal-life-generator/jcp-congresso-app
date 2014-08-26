@@ -117,10 +117,8 @@
 /Users/nik/documents/congresso-app/platforms/android/ant-build/res/drawable-xxhdpi/launcher_icon.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/_where-is-www.txt \
 /Users/nik/documents/congresso-app/platforms/android/assets/www \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/config \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/cordova.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/cordova_plugins.js \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/core \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/css \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/fonts \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img \
@@ -129,11 +127,6 @@
 /Users/nik/documents/congresso-app/platforms/android/assets/www/main.html \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/plugins \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/template \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/config/main.coffee \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/config/main.js \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/config/npm-debug.log \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/core/config \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/core/config/main.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/css/bootstrap.min.css \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/css/images \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/css/index.css \
@@ -254,8 +247,6 @@
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/coffee/factory.coffee \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/externallb/barcodescanner.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/externallb/fastclick.min.js \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/js/externallb/hammer.js \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/js/externallb/hammer.min.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/externallb/qrcode.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/i18n/en.json \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/i18n/polyglot.min.js \
