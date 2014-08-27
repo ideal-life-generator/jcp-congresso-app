@@ -138,16 +138,6 @@
 /Users/nik/documents/congresso-app/platforms/android/assets/www/css/styles.less \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/css/variables.css \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/css/images/36-1.gif \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/css/images/ajax-loader.gif \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/css/images/ajax_loader_green_128.gif \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/css/images/ajax_loader_green_64.gif \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/css/images/animated_loading.gif \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/css/images/loadear.gif \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/css/images/loader.gif \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/css/images/loading.gif \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/css/images/loading2.gif \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/css/images/loading_black.gif \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/css/images/spiffygif_86x86.gif \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/css/less/3rdparty \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/css/less/angular-animation.less \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/css/less/common.less \
@@ -161,12 +151,6 @@
 /Users/nik/documents/congresso-app/platforms/android/assets/www/css/less/variables.less \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/css/less/3rdparty/lesshat.css \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/css/less/3rdparty/lesshat.less \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/fonts/Flat-UI-Icons-24.ttf \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/fonts/Flat-UI-Icons-24.woff \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/fonts/glyphicons-halflings-regular.eot \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/fonts/glyphicons-halflings-regular.svg \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/fonts/glyphicons-halflings-regular.ttf \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/fonts/glyphicons-halflings-regular.woff \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/fonts/lato-black.ttf \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/fonts/lato-black.woff \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/fonts/lato-bold.ttf \
@@ -189,6 +173,7 @@
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/checked-checkbox-m.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/checked-user-xl.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/coins.jpg \
+/Users/nik/documents/congresso-app/platforms/android/assets/www/img/contacts-xxl.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/edit-property-xl.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/eye-3-xl.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/facebook-icon.png \

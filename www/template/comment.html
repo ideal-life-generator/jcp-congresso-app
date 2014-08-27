@@ -12,10 +12,9 @@
         <ul class="list-group">
             <li class="list-group-item question">
                 <select class="form-control"
-                        ng-model="categorieActive"
-                        ng-class="{ 'no-valid': noValid }"
-                        ng-change="noValid = false">
-                    <option ng-disabled="true" value="0">~ categorieSingle ~</option>
+                        ng-model="commentLead.lead_type_id"
+                        required>
+                    <option ng-disabled="true" value="">~ commentLead.categorieSingle ~</option>
                     <option ng-repeat="categorie in categories"
                             value="~categorie.id~">
                             ~ categorie.name ~</option>
@@ -28,10 +27,10 @@
                 <h3 style="fomt-size: 200%;">~local.perselved_interest~</h3>
                 <div style="position: relative; width: 96%; margin: 0 auto;">
                     <input type="range" min="0" max="10" step="1"
-                           ng-model="interest">
+                           ng-model="commentLead.interest">
                     </input>
-                    <div style="position: absolute; right: -1.3em; top: 8px; font-size: 1.3em;">
-                      ~ interest ~
+                    <div style="position: absolute; right: -1.3em; top: -10px; font-size: 1.3em;">
+                      ~ commentLead.interest ~
                     </div>
                 </div>
             </div>
@@ -39,10 +38,10 @@
                 <h3 style="fomt-size: 200%;">~local.perselved_revenue~</h3>
                 <div style="position: relative; width: 96%; margin: 0 auto;">
                     <input type="range" min="0" max="10" step="1"
-                           ng-model="revenue">
+                           ng-model="commentLead.revenue">
                     </input>
-                    <div style="position: absolute; right: -1.3em; top: 8px; font-size: 1.3em;">
-                        ~ revenue ~
+                    <div style="position: absolute; right: -1.3em; top: -10px; font-size: 1.3em;">
+                        ~ commentLead.revenue ~
                     </div>
                 </div>
             </div>
@@ -50,7 +49,7 @@
         <br>
         <div class="comment-body">
             <textarea class="form-control" rows="3" placeholder="~local.comments_placeholder~"
-                      ng-model="comments"></textarea>
+                      ng-model="commentLead.comment"></textarea>
         </div>
         </li>
         </ul>

@@ -259,38 +259,69 @@
         scope: $scope,
         type: "noCache"
       });
-      $scope.categorieActive = 0;
-      $scope.categorieSingle = $scope.local.select_category;
-      $scope.interest = "5";
-      $scope.revenue = "5";
+      if (!$scope.commentLead) {
+        $scope.commentLead = {
+          lead_type_id: "",
+          categorieSingle: $scope.local.select_category,
+          interest: "5",
+          revenue: "5",
+          method: "save"
+        };
+      }
       return $scope.submit = function() {
         var data;
-        if ($scope.categorieActive) {
-          data = {
-            participant_id: $scope.participantScan.id,
-            event_id: $scope.event.id,
-            lead_type_id: $scope.categorieActive,
-            interest: $scope.interest,
-            revenue: $scope.revenue,
-            comment: $scope.comments
-          };
+        if ($scope.commentLead.lead_type_id) {
           message.open($scope.local.data_sending);
-          return getData.save({
-            resource: 'partnerLead'
-          }, {
-            data: data
-          }, function(result) {
-            data = result.data;
-            message.authoClose($scope.local.lead_sent);
-            if ($scope.contentAnimate !== $scope.animationContentRight) {
-              $scope.contentAnimate = $scope.animationContentRight;
-            }
-            return $timeout(function() {
-              return $location.path($history.back());
-            }, 100);
-          }, function() {
-            return message.noClose($scope.local.error_server);
-          });
+          if ($scope.commentLead.method === "save") {
+            data = {
+              participant_id: $scope.participantScan.id,
+              event_id: $scope.event.id,
+              lead_type_id: $scope.commentLead.lead_type_id,
+              interest: $scope.commentLead.interest,
+              revenue: $scope.commentLead.revenue,
+              comment: $scope.commentLead.comment
+            };
+            return getData.save({
+              resource: 'partnerLead'
+            }, {
+              data: data
+            }, function(result) {
+              data = result.data;
+              message.authoClose($scope.local.lead_sent);
+              if ($scope.contentAnimate !== $scope.animationContentRight) {
+                $scope.contentAnimate = $scope.animationContentRight;
+              }
+              return $timeout(function() {
+                return $location.path($history.back());
+              }, 100);
+            }, function() {
+              return message.noClose($scope.local.error_server);
+            });
+          } else if ($scope.commentLead.method === "put") {
+            data = {
+              id: $scope.commentLead.id,
+              lead_type_id: $scope.commentLead.lead_type_id,
+              interest: $scope.commentLead.interest,
+              revenue: $scope.commentLead.revenue,
+              comment: $scope.commentLead.comment
+            };
+            return getData.put({
+              resource: 'partnerLead'
+            }, {
+              data: data
+            }, function(result) {
+              data = result.data;
+              message.authoClose($scope.local.lead_sent);
+              if ($scope.contentAnimate !== $scope.animationContentRight) {
+                $scope.contentAnimate = $scope.animationContentRight;
+              }
+              return $timeout(function() {
+                return $location.path($history.back());
+              }, 100);
+            }, function() {
+              return message.noClose($scope.local.error_server);
+            });
+          }
         } else {
           return message.odinAndClose($scope.local.select_category);
         }
@@ -395,10 +426,28 @@
                 });
                 if ($rootScope.participantScan.id !== $scope.participient.id) {
                   if ($rootScope.participantScan.event_id === $scope.event.id) {
-                    message.close();
-                    $rootScope.member = data;
-                    $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
-                    return $scope.$apply();
+                    return getData.noCache({
+                      resource: 'partnerLead',
+                      data: {
+                        event_id: $scope.event.id,
+                        participant_id: $rootScope.participantScan.id
+                      }
+                    }, function(result) {
+                      data = result.data;
+                      if (data.success === "false") {
+                        message.close();
+                        $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
+                        return $scope.$apply();
+                      } else {
+                        angular.forEach(data, function(comment) {
+                          return $rootScope.commentLead = comment;
+                        });
+                        $rootScope.commentLead.method = "put";
+                        message.close();
+                        $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
+                        return $scope.$apply();
+                      }
+                    });
                   } else {
                     return message.noClose($scope.local.scan_error2);
                   }

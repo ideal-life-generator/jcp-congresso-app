@@ -14,7 +14,7 @@
   atea.value('COMPANY_ID', 13);
 
   atea.constant('baseURL', {
-    BASE: 'http://188.226.184.59/congressomulti/api',
+    BASE: 'http://188.226.184.59',
     FEEDS: '/',
     FEED: '/feed/:feedId',
     FEEDHREF: '/feed',
