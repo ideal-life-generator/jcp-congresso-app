@@ -21,20 +21,20 @@ atea.factory "$history", ($location) ->
 		$history.length = $history.length-2
 	@history
 
-atea.provider "local", ->
-	@$get = ($q, $http, message) ->
-		defer = $q.defer()
-		local = { }
-		$http method: "GET", url: "js/i18n/" + @lang + ".json"
-		.success (data) ->
-			local.polyglot = new Polyglot locale: @lang, phrases: data
-			local.local = data
-			local.dyna = { }
-			defer.resolve local
-		.error ->
-			message.odinAndClose "Some error at localize in factory.js service with provider name 'local'"
-		defer.promise
-	@
+# atea.provider "local", ->
+# 	@$get = ($q, $http, message) ->
+# 		defer = $q.defer()
+# 		local = { }
+# 		$http method: "GET", url: "js/i18n/" + @lang + ".json"
+# 		.success (data) ->
+# 			local.polyglot = new Polyglot locale: @lang, phrases: data
+# 			local.local = data
+# 			local.dyna = { }
+# 			defer.resolve local
+# 		.error ->
+# 			message.odinAndClose "Some error at localize in factory.js service with provider name 'local'"
+# 		defer.promise
+# 	@
 
 atea.config (localProvider) ->
 	localProvider.lang =
@@ -225,3 +225,45 @@ atea.factory "message", ($timeout, $animate) ->
 				if message._callback2
 					message._callback2()
 					message._callback2 = null
+
+
+atea.filter 'dayMonth', (local) ->
+	(date) ->
+		if date
+			d = [ "th", "st", "nd", "rd" ]
+			months = local.static.months
+			now = new Date().toString()
+			date = new Date date*1000
+			dateString = date.toString()
+			day = date.getDate()
+			month = date.getMonth()
+			if now.slice(0, 15) is dateString.slice 0, 15
+				"Today"
+			else
+				v = day % 100
+				day + (d[(v-20)%10]||d[v]||d[0]) + ' ' + months[month]
+
+atea.filter 'hourMinute', ->
+	(date) ->
+		if date
+			date = new Date date*1000
+			hour = date.getHours().toString()
+			minute = date.getMinutes().toString()
+			hour = if hour.length is 1 then '0' + hour else hour
+			minute = if minute.length is 1 then '0' + minute else minute
+			hour + ':' + minute
+
+atea.filter 'fullDate', (local) ->
+	(date) ->
+		if date
+			w = local.static.days
+			d = [ "th", "st", "nd", "rd" ]
+			months = local.static.months
+			date = new Date date*1000
+			day = date.getDay()
+			dat = date.getDate()
+			v = dat % 100
+			v = dat + (d[(v-20)%10]||d[v]||d[0])
+			month = date.getMonth()
+			y = date.getFullYear()
+			w[day] + ' ' + v + ' ' + months[month] + ' ' + y

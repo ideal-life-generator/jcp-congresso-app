@@ -114,11 +114,6 @@ atea.controller 'ScheduleController', [ '$scope', '$location', 'baseURL', '$rout
 
 	$rootScope.survey = null
 
-	# if $scope.schedule && $scope.schedule.survey_id isnt "0"
-	# 	alert $scope.schedule.survey_id
-	# 	getData.noCache { resource: 'survey', id: $scope.schedule.survey_id }, (result) ->
-	# 		$rootScope.survey = result.data
-
 	connection.makeLoad
 		params:
 			resource: 'activity'
@@ -206,10 +201,11 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 	if not $scope.commentLead
 		$scope.commentLead =
 			lead_type_id: ""
-			categorieSingle: $scope.local.select_category
 			interest: "5"
 			revenue: "5"
 			method: "save"
+
+	$scope.commentLead.categorieSingle = $scope.local.select_category
 
 	$scope.submit = ->
 		if $scope.commentLead.lead_type_id
@@ -291,6 +287,7 @@ atea.controller 'PartnersController', [ '$scope', '$location', 'baseURL', '$rout
 		$scope.partners = [ ]
 		angular.forEach data, (partner) ->
 			$scope.partners.push partner
+		$scope.partners = $filter('orderBy')($scope.partners, '+rating')
 
 	connection.makeLoad
 		params:
@@ -353,6 +350,7 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 									data: event_id: $scope.event.id, participant_id: $rootScope.participantScan.id
 								, (result) ->
 									data = result.data
+									$rootScope.commentLead = null
 									if data.success is "false"
 										message.close()
 										$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
@@ -370,7 +368,7 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 							message.noClose $scope.local.scan_warning1
 
 
-	# # 2979
+	# # # 2979
 	# getData.noCache
 	# 	resource: 'participant'
 	# 	data: event_id: 86, member_id: 2979, extraParam: "globalSearch"
@@ -394,7 +392,7 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 	# 				else
 	# 					angular.forEach data, (comment) ->
 	# 						$rootScope.commentLead = comment
-	# 						$rootScope.commentLead.method = "put"
+	# 					$rootScope.commentLead.method = "put"
 	# 					message.close()
 	# 					$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
 	# 					$scope.$apply()
@@ -402,33 +400,6 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 	# 			message.noClose $scope.local.scan_error2
 	# 	else
 	# 		message.noClose $scope.local.scan_warning1
-
-
-	# getData.noCache
-	# 	resource: 'member'
-	# 	data: "{ 'extraParam': { 'barcode': '383fafae66b6bcc8ef5693266924ac7' }}"
-	# , (result) ->
-	# 	data = result.data
-	# 	console.log data
-
-	# getData.noCache
-	# 	resource: 'participant'
-	# 	data: event_id: 61, member_id: 1838, extraParam: "globalSearch"
-	# , (result) ->
-	# 	data = result.data
-	# 	angular.forEach data, (part) ->
-	# 		$rootScope.participantScan = part
-	# 	console.log $rootScope.participantScan
-
-	# data =
-	# 	participant_id: 2194
-	# 	event_id: 61
-	# 	lead_type_id: 1
-	# 	interest: 3
-	# 	revenue: 10
-	# 	comment: "EEE..."
-	# getData.save { resource: 'partnerLead' }, data: data, (result) ->
-	# 	data = result.data
 	
 ]
 
@@ -449,7 +420,11 @@ atea.controller 'ProfileController', [ '$scope', '$location', 'baseURL', '$route
 atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce', '$history',
 ($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce, $history) ->
 
-	$scope.local = { }
+	$scope.local = local.static
+	$scope.dyna = { }
+	$scope.polyglot = local.dynamic
+
+	$scope.noConnectionMessage = $scope.local.page_nointernet
 
 	$rootScope.updateTokens = ->
 		getData.noCache
@@ -462,14 +437,15 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 					$scope.participient = participant
 					$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~participant.tokens
 
-	local.then (data) ->
-		$scope.local = data.local
-		$scope.dyna = data.dyna
-		$scope.polyglot = data.polyglot
-		# message.wait $scope.local.first_login
-		# loto.run 456, ->
-		# 	message.warningAfter ($scope.polyglot.t "tokens_add", ~~456)
-		$scope.noConnectionMessage = $scope.local.page_nointernet
+	# local.then (data) ->
+	# 	$scope.local = data.local
+	# 	$scope.dyna = data.dyna
+	# 	$scope.polyglot = data.polyglot
+	# 	# message.wait $scope.local.first_login
+	# 	# loto.run 456, ->
+	# 	# 	message.warningAfter ($scope.polyglot.t "tokens_add", ~~456)
+	# 	$scope.noConnectionMessage = $scope.local.page_nointernet
+
 
 	$rootScope.updateEvents = ->
 		$scope.futureEvents = []
@@ -683,8 +659,8 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
   	$sce.trustAsHtml html
 ]
 
-atea.controller 'LoginController', [ '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'client', 'connection', 'message', '$history',
-($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, client, connection, message, $history) ->
+atea.controller 'LoginController', [ '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'client', 'connection', 'message', '$history', 'Auth',
+($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, client, connection, message, $history, Auth) ->
 
 	$scope.go_submit = ->
 		if $scope.auth.$dirty and $scope.auth.$valid
@@ -720,6 +696,7 @@ atea.controller 'LoginController', [ '$scope', '$http', '$rootScope', '$location
 					$rootScope.user = null
 				else
 					message.odinAndClose $scope.local.no_connection
+				Auth.clearCredentials()
 		else
 			message.odinAndClose $scope.local.incorrect_credentials
 

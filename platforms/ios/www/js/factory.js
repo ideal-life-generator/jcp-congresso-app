@@ -46,30 +46,6 @@
     return this.history;
   });
 
-  atea.provider("local", function() {
-    this.$get = function($q, $http, message) {
-      var defer, local;
-      defer = $q.defer();
-      local = {};
-      $http({
-        method: "GET",
-        url: "js/i18n/" + this.lang + ".json"
-      }).success(function(data) {
-        local.polyglot = new Polyglot({
-          locale: this.lang,
-          phrases: data
-        });
-        local.local = data;
-        local.dyna = {};
-        return defer.resolve(local);
-      }).error(function() {
-        return message.odinAndClose("Some error at localize in factory.js service with provider name 'local'");
-      });
-      return defer.promise;
-    };
-    return this;
-  });
-
   atea.config(function(localProvider) {
     return localProvider.lang = navigator.language === "hu" ? "hu" : "en";
   });
@@ -292,6 +268,60 @@
             return message._callback2 = null;
           }
         });
+      }
+    };
+  });
+
+  atea.filter('dayMonth', function(local) {
+    return function(date) {
+      var d, dateString, day, month, months, now, v;
+      if (date) {
+        d = ["th", "st", "nd", "rd"];
+        months = local["static"].months;
+        now = new Date().toString();
+        date = new Date(date * 1000);
+        dateString = date.toString();
+        day = date.getDate();
+        month = date.getMonth();
+        if (now.slice(0, 15) === dateString.slice(0, 15)) {
+          return "Today";
+        } else {
+          v = day % 100;
+          return day + (d[(v - 20) % 10] || d[v] || d[0]) + ' ' + months[month];
+        }
+      }
+    };
+  });
+
+  atea.filter('hourMinute', function() {
+    return function(date) {
+      var hour, minute;
+      if (date) {
+        date = new Date(date * 1000);
+        hour = date.getHours().toString();
+        minute = date.getMinutes().toString();
+        hour = hour.length === 1 ? '0' + hour : hour;
+        minute = minute.length === 1 ? '0' + minute : minute;
+        return hour + ':' + minute;
+      }
+    };
+  });
+
+  atea.filter('fullDate', function(local) {
+    return function(date) {
+      var d, dat, day, month, months, v, w, y;
+      if (date) {
+        w = local["static"].days;
+        d = ["th", "st", "nd", "rd"];
+        months = local["static"].months;
+        date = new Date(date * 1000);
+        day = date.getDay();
+        dat = date.getDate();
+        v = dat % 100;
+        v = dat + (d[(v - 20) % 10] || d[v] || d[0]);
+        month = date.getMonth();
+        y = date.getFullYear();
+        return w[day] + ' ' + v + ' ' + months[month] + ' ' + y;
       }
     };
   });

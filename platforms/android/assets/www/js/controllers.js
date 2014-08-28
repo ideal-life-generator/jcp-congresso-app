@@ -262,12 +262,12 @@
       if (!$scope.commentLead) {
         $scope.commentLead = {
           lead_type_id: "",
-          categorieSingle: $scope.local.select_category,
           interest: "5",
           revenue: "5",
           method: "save"
         };
       }
+      $scope.commentLead.categorieSingle = $scope.local.select_category;
       return $scope.submit = function() {
         var data;
         if ($scope.commentLead.lead_type_id) {
@@ -375,9 +375,10 @@
       var getPartners;
       getPartners = function(data) {
         $scope.partners = [];
-        return angular.forEach(data, function(partner) {
+        angular.forEach(data, function(partner) {
           return $scope.partners.push(partner);
         });
+        return $scope.partners = $filter('orderBy')($scope.partners, '+rating');
       };
       return connection.makeLoad({
         params: {
@@ -434,6 +435,7 @@
                       }
                     }, function(result) {
                       data = result.data;
+                      $rootScope.commentLead = null;
                       if (data.success === "false") {
                         message.close();
                         $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
@@ -478,7 +480,10 @@
   atea.controller('MainController', [
     '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce', '$history', function($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce, $history) {
       var contentBlock, leftMenu;
-      $scope.local = {};
+      $scope.local = local["static"];
+      $scope.dyna = {};
+      $scope.polyglot = local.dynamic;
+      $scope.noConnectionMessage = $scope.local.page_nointernet;
       $rootScope.updateTokens = function() {
         return getData.noCache({
           resource: 'participant',
@@ -496,12 +501,6 @@
           });
         });
       };
-      local.then(function(data) {
-        $scope.local = data.local;
-        $scope.dyna = data.dyna;
-        $scope.polyglot = data.polyglot;
-        return $scope.noConnectionMessage = $scope.local.page_nointernet;
-      });
       $rootScope.updateEvents = function() {
         var getEvents;
         $scope.futureEvents = [];
@@ -764,7 +763,7 @@
   ]);
 
   atea.controller('LoginController', [
-    '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'client', 'connection', 'message', '$history', function($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, client, connection, message, $history) {
+    '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'client', 'connection', 'message', '$history', 'Auth', function($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, client, connection, message, $history, Auth) {
       $scope.go_submit = function() {
         if ($scope.auth.$dirty && $scope.auth.$valid) {
           message.open($scope.local.log_in);
@@ -811,10 +810,11 @@
           }, function(error) {
             if (error.status === 401) {
               message.odinAndClose($scope.local.user_exist);
-              return $rootScope.user = null;
+              $rootScope.user = null;
             } else {
-              return message.odinAndClose($scope.local.no_connection);
+              message.odinAndClose($scope.local.no_connection);
             }
+            return Auth.clearCredentials();
           });
         } else {
           return message.odinAndClose($scope.local.incorrect_credentials);

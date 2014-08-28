@@ -3,7 +3,14 @@
 <head>
 	<title></title>
 	<script>
-		window.location='./main.html#/';
+		switch (navigator.language) {
+			case "no":
+				window.location='./main_no.html#/';
+				break;
+			default:
+				window.location='./main_en.html#/';
+				break;
+		}
 	</script>
 <body>
 </body>

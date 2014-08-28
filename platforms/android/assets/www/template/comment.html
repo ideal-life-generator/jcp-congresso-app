@@ -8,16 +8,16 @@
         </div>
         
         <div class="row questions">
-        
         <ul class="list-group">
             <li class="list-group-item question">
                 <select class="form-control"
                         ng-model="commentLead.lead_type_id"
+                        ng-options="categorie.id as categorie.name for categorie in categories"
                         required>
                     <option ng-disabled="true" value="">~ commentLead.categorieSingle ~</option>
-                    <option ng-repeat="categorie in categories"
+<!--                     <option ng-repeat="categorie in categories"
                             value="~categorie.id~">
-                            ~ categorie.name ~</option>
+                            ~ categorie.name ~</option> -->
                 </select>
             </li>
         

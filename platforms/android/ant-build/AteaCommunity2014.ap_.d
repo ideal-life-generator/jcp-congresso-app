@@ -124,7 +124,8 @@
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/index.html \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/main.html \
+/Users/nik/documents/congresso-app/platforms/android/assets/www/main_en.html \
+/Users/nik/documents/congresso-app/platforms/android/assets/www/main_no.html \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/plugins \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/template \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/css/bootstrap.min.css \
@@ -233,7 +234,10 @@
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/externallb/barcodescanner.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/externallb/fastclick.min.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/externallb/qrcode.js \
+/Users/nik/documents/congresso-app/platforms/android/assets/www/js/i18n/en.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/i18n/en.json \
+/Users/nik/documents/congresso-app/platforms/android/assets/www/js/i18n/no.js \
+/Users/nik/documents/congresso-app/platforms/android/assets/www/js/i18n/no.json \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/i18n/polyglot.min.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/i18n/ru.json \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/plugins/com.phonegap.plugins.barcodescanner \
