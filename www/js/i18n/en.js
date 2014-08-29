@@ -70,7 +70,20 @@ atea.provider("local", function() {
 			locale: "en",
 			phrases: text
 		}),
-		static: text
+		static: text,
+		days: function(number) {
+			var d = [ "th", "st", "nd", "rd" ],
+				now = new Date().toString(),
+				date = new Date(date*1000),
+				dateString = date.toString();
+			if(now.slice(0, 15) === dateString.slice(0, 15)) {
+				return "Today";
+			}
+			else {
+				var v = number % 100;
+				return number + (d[(v-20)%10]||d[v]||d[0]);
+			}
+		}
 	};
 	this.$get = function() {
 		return obj;

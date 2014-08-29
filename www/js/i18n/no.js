@@ -52,25 +52,48 @@ atea.provider("local", function() {
 	"log_in": "Vennligst vent, logger inn",
 	"incorrect_credentials": "Feil brukernavn/passord",
 	"login_message": "Velkommen %{name}!",
-	"quest_sent": "Thank you for your message",
-	"lead_sent": "Thank you for your lead",
-	"user_exist": "User credentials are not valid",
+	"quest_sent": "Takk!",
+	"lead_sent": "Takk",
+	"user_exist": "Brukernavnet er feil",
 	"survey_placeholder": "Søk",
 	"form_saved": "Larget",
-	"form_thank": "Thank you for completing the form",
-	"form_fill": "Please fill in at least one input",
-	"form_token": "By filling this form you'll receive",
-	"error_server": "Error on server",
-	"check_scan": "Looking up barcode",
-	"scan_error2": "User is not registered for current event",
-	"scan_warning1": "You have scanned yourself :)"
+	"form_thank": "Takk!",
+	"form_fill": "Vennligst fyll inn alle feltene",
+	"form_token": "Ved å fylle skjemaet du har mottatt",
+	"error_server": "Feilmelding, vennligst prøv igjen",
+	"check_scan": "Søke etter barcode",
+	"scan_error2": "Brukeren er ikke registrert til arrangementet",
+	"scan_warning1": "Du har scannet deg selv"
 };
 	var obj = {
 		dynamic: new Polyglot({
-			locale: "en",
+			locale: "no",
 			phrases: text
 		}),
-		static: text
+		static: text,
+		days: function(number) {
+			var now = new Date().toString(),
+				date = new Date(date*1000),
+				dateString = date.toString();
+			if(now.slice(0, 15) === dateString.slice(0, 15)) {
+				return "I dag";
+			}
+			else if(number == 1 || number == 5 || number == 6 || number == 11 || number == 12 || number == 21 || number == 25 || number == 26 || number == 31) {
+				return number + "te";
+			}
+			else if(number == 2 || number == 22 || number == 24) {
+				return number + "re";
+			}
+			else if(number == 3 || number == 23) {
+				return number + "je";
+			}
+			else if(number == 4 || number == 7 || number == 8 || number == 9 || number == 10 || number == 13 || number == 14 || number == 15 || number == 16 || number == 17 || number == 18 || number == 19 || number == 20 || number == 27 || number == 28 || number == 29) {
+				return number + "de";
+			}
+			else if(number == 30) {
+				return number + "ti";
+			}
+		}
 	};
 	this.$get = function() {
 		return obj;

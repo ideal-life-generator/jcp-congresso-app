@@ -274,21 +274,13 @@
 
   atea.filter('dayMonth', function(local) {
     return function(date) {
-      var d, dateString, day, month, months, now, v;
+      var day, month, months;
       if (date) {
-        d = ["th", "st", "nd", "rd"];
         months = local["static"].months;
-        now = new Date().toString();
         date = new Date(date * 1000);
-        dateString = date.toString();
         day = date.getDate();
         month = date.getMonth();
-        if (now.slice(0, 15) === dateString.slice(0, 15)) {
-          return "Today";
-        } else {
-          v = day % 100;
-          return day + (d[(v - 20) % 10] || d[v] || d[0]) + ' ' + months[month];
-        }
+        return local.days(day) + ' ' + months[month];
       }
     };
   });
@@ -309,19 +301,15 @@
 
   atea.filter('fullDate', function(local) {
     return function(date) {
-      var d, dat, day, month, months, v, w, y;
+      var day, month, months, w, y;
       if (date) {
         w = local["static"].days;
-        d = ["th", "st", "nd", "rd"];
         months = local["static"].months;
         date = new Date(date * 1000);
         day = date.getDay();
-        dat = date.getDate();
-        v = dat % 100;
-        v = dat + (d[(v - 20) % 10] || d[v] || d[0]);
         month = date.getMonth();
         y = date.getFullYear();
-        return w[day] + ' ' + v + ' ' + months[month] + ' ' + y;
+        return w[day] + ' ' + local.days(day) + ' ' + months[month] + ' ' + y;
       }
     };
   });

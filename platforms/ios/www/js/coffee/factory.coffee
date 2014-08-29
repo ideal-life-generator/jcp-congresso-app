@@ -230,18 +230,11 @@ atea.factory "message", ($timeout, $animate) ->
 atea.filter 'dayMonth', (local) ->
 	(date) ->
 		if date
-			d = [ "th", "st", "nd", "rd" ]
 			months = local.static.months
-			now = new Date().toString()
 			date = new Date date*1000
-			dateString = date.toString()
 			day = date.getDate()
 			month = date.getMonth()
-			if now.slice(0, 15) is dateString.slice 0, 15
-				"Today"
-			else
-				v = day % 100
-				day + (d[(v-20)%10]||d[v]||d[0]) + ' ' + months[month]
+			local.days(day) + ' ' + months[month]
 
 atea.filter 'hourMinute', ->
 	(date) ->
@@ -257,13 +250,9 @@ atea.filter 'fullDate', (local) ->
 	(date) ->
 		if date
 			w = local.static.days
-			d = [ "th", "st", "nd", "rd" ]
 			months = local.static.months
 			date = new Date date*1000
 			day = date.getDay()
-			dat = date.getDate()
-			v = dat % 100
-			v = dat + (d[(v-20)%10]||d[v]||d[0])
 			month = date.getMonth()
 			y = date.getFullYear()
-			w[day] + ' ' + v + ' ' + months[month] + ' ' + y
+			w[day] + ' ' + local.days(day) + ' ' + months[month] + ' ' + y
