@@ -280,7 +280,7 @@
         date = new Date(date * 1000);
         day = date.getDate();
         month = date.getMonth();
-        return local.days(day) + ' ' + months[month];
+        return day + '. ' + months[month].toLowerCase();
       }
     };
   });
@@ -309,7 +309,7 @@
         day = date.getDay();
         month = date.getMonth();
         y = date.getFullYear();
-        return w[day] + ' ' + local.days(day) + ' ' + months[month] + ' ' + y;
+        return w[day] + ' ' + day + '. ' + months[month].toLowerCase() + ' ' + y;
       }
     };
   });

@@ -76,7 +76,7 @@ atea.provider("local", function() {
 				date = new Date(date*1000),
 				dateString = date.toString();
 			if(now.slice(0, 15) === dateString.slice(0, 15)) {
-				return "I dag";
+				return "Idag";
 			}
 			else if(number == 1 || number == 5 || number == 6 || number == 11 || number == 12 || number == 21 || number == 25 || number == 26 || number == 31) {
 				return number + "te";

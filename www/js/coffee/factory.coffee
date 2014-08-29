@@ -234,7 +234,7 @@ atea.filter 'dayMonth', (local) ->
 			date = new Date date*1000
 			day = date.getDate()
 			month = date.getMonth()
-			local.days(day) + ' ' + months[month]
+			day + '. ' + months[month].toLowerCase()
 
 atea.filter 'hourMinute', ->
 	(date) ->
@@ -255,4 +255,4 @@ atea.filter 'fullDate', (local) ->
 			day = date.getDay()
 			month = date.getMonth()
 			y = date.getFullYear()
-			w[day] + ' ' + local.days(day) + ' ' + months[month] + ' ' + y
+			w[day] + ' ' + day + '. ' + months[month].toLowerCase() + ' ' + y
