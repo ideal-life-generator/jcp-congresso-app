@@ -68,8 +68,13 @@ atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
 		detail: (->
 			if storage.getObject 'user'
 				user = storage.getObject 'user'
-				Auth.setCredentials user.email, user.password
-				user
+				if user.version is "1.0.0"
+					Auth.setCredentials user.email, user.password
+					user
+				else
+					storage.delete 'user'
+					Auth.clearCredentials()
+					null
 			else
 				null
 		)()
@@ -80,6 +85,7 @@ atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
 				data = result.data
 				self.user.detail = data
 				data.password = password
+				data.version = "1.0.0"
 				storage.setObject 'user', data
 				defer.resolve data
 			, (error) ->
