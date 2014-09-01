@@ -83,7 +83,7 @@
           var user;
           if (storage.getObject('user')) {
             user = storage.getObject('user');
-            if (user.version === "1.0.0") {
+            if (user.version === "1.0.1") {
               Auth.setCredentials(user.email, user.password);
               return user;
             } else {
@@ -106,7 +106,7 @@
             data = result.data;
             self.user.detail = data;
             data.password = password;
-            data.version = "1.0.0";
+            data.version = "1.0.1";
             storage.setObject('user', data);
             return defer.resolve(data);
           }, function(error) {
@@ -140,7 +140,7 @@
   ]);
 
   atea.factory('connection', [
-    'getData', function(getData) {
+    'getData', '$rootScope', function(getData, $rootScope) {
       var connection;
       return connection = {
         makeLoad: function(property) {
@@ -163,6 +163,7 @@
               property.scope.loader = false;
               return property.scope.update = false;
             }, function(error) {
+              alert(error.data.data.message);
               if (!property.scope.f) {
                 property.scope.f = f;
               }
