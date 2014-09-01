@@ -374,11 +374,13 @@
     '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$filter', 'getData', 'connection', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $filter, getData, connection) {
       var getPartners;
       getPartners = function(data) {
-        $scope.partners = [];
+        var partners;
+        partners = [];
         angular.forEach(data, function(partner) {
-          return $scope.partners.push(partner);
+          partner.rating = ~~partner.rating;
+          return partners.push(partner);
         });
-        return $scope.partners = $filter('orderBy')($scope.partners, '+rating');
+        return $scope.partners = $filter('orderBy')(partners, "+rating");
       };
       return connection.makeLoad({
         params: {

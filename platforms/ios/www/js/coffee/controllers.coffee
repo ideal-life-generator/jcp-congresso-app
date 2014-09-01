@@ -284,10 +284,12 @@ atea.controller 'PartnersController', [ '$scope', '$location', 'baseURL', '$rout
 ($scope, $location, baseURL, $routeParams, $rootScope, $http, $filter, getData, connection) ->
 
 	getPartners = (data) ->
-		$scope.partners = [ ]
+		partners = [ ]
 		angular.forEach data, (partner) ->
-			$scope.partners.push partner
-		$scope.partners = $filter('orderBy')($scope.partners, '+rating')
+			partner.rating = ~~partner.rating
+			partners.push partner
+		$scope.partners = $filter('orderBy')(partners, "+rating")
+
 
 	connection.makeLoad
 		params:
