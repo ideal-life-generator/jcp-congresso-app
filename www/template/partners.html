@@ -7,7 +7,7 @@
   </div>
   <div class="panel panel-body panel-list" style="margin-top: -15px;">
     <ul id="event-list">
-      <li ng-repeat="partner in partners">
+      <li ng-repeat="partner in partners | filter:partnerName">
         <a ng-click="nextLocation(event.id + baseURL.PARTNERHREF + partner.id)"
            style="display: block;" class="container-fluid">
           <h4 class="row event-name">
