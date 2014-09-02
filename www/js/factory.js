@@ -6,7 +6,7 @@
 
   atea.factory('getData', [
     '$resource', function($resource) {
-      return $resource("http://188.226.184.59/congressomulti/api/:resource/:id", {}, {
+      return $resource("http://event.congresso.no/api/:resource/:id", {}, {
         get: {
           method: "GET",
           cache: true
@@ -83,7 +83,7 @@
           var user;
           if (storage.getObject('user')) {
             user = storage.getObject('user');
-            if (user.version === "1.0.5") {
+            if (user.version === "1.0.6") {
               Auth.setCredentials(user.email, user.password);
               return user;
             } else {
@@ -106,7 +106,7 @@
             data = result.data;
             self.user.detail = data;
             data.password = password;
-            data.version = "1.0.5";
+            data.version = "1.0.6";
             storage.setObject('user', data);
             return defer.resolve(data);
           }, function(error) {
