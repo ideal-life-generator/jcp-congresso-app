@@ -30,7 +30,7 @@ atea.provider("local", function() {
 	"partner_filter": "Partner",
 	"to_website": "Klikk her for å besøke webside",
 	"rate_session": "Rate sesjoner",
-	"comments_placeholder": "Kommentarer",
+	"comments_placeholder": "Skriv her",
 	"comment_category": "Vennligst velg en kategori",
 	"perselved_interest": "Generell interesse",
 	"perselved_revenue": "Oppfattet inntekt",
