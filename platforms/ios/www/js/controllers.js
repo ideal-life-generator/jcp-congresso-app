@@ -632,7 +632,7 @@
       $scope.animationContentRight = client.animationClass.content.right;
       $scope.leftMenuAnimationType = client.animationClass.leftMenu;
       $scope.nextLocation = function(path, desc, data) {
-        $scope[desc] = data;
+        $rootScope[desc] = data;
         if ($scope.contentAnimate !== $scope.animationContentLeft) {
           $scope.contentAnimate = $scope.animationContentLeft;
         }
