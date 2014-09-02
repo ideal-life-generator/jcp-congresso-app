@@ -13,7 +13,7 @@ atea.provider("local", function() {
 	"forgot_password": "Glemt passord?",
 	"email_palceholer": "Epost",
 	"password_palceholer": "Passord",
-	"submit": "Logg inn",
+	"submit": "Bekreft",
 	"months": [ "Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember" ],
 	"days": [ "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag" ],
 	"tokens_val": "%{smart_count} token |||| %{smart_count} tokens",
