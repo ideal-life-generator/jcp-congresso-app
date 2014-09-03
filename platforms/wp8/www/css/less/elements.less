@@ -180,15 +180,13 @@
 	}
 }
 
-select.ng-pristine {
+select {
+	border-width: 2px !important;
+}
+
+select.no-valid {
 	border-color: #a94442;
-	border-width: 2px;
-	// .box-shadow(0 0 3px yellow, 0 0 9px yellow inset);
-	&.no-valid {
-		border-color: #a94442;
-		border-width: 2px;
-		// .box-shadow(0 0 3px #a94442, 0 0 9px #a94442 inset);
-	}
+	// .box-shadow(0 0 3px #a94442, 0 0 9px #a94442 inset);
 }
 
 textarea.ng-invalid {
@@ -506,6 +504,16 @@ input:focus {
 
 .twitter-icon {
 	background: url(../img/twitter-icon.png);
+}
+
+// .location-icon {
+// 	height: 20px;
+// 	width: 25px;
+// 	background: url(../img/raphael_location_simple-black_128x128.png);
+// }
+
+.profile-img {
+	margin-bottom: 15px;
 }
 
 .smile {

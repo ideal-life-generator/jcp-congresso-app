@@ -21,20 +21,20 @@ atea.factory "$history", ($location) ->
 		$history.length = $history.length-2
 	@history
 
-atea.provider "local", ->
-	@$get = ($q, $http, message) ->
-		defer = $q.defer()
-		local = { }
-		$http method: "GET", url: "js/i18n/" + @lang + ".json"
-		.success (data) ->
-			local.polyglot = new Polyglot locale: @lang, phrases: data
-			local.local = data
-			local.dyna = { }
-			defer.resolve local
-		.error ->
-			message.odinAndClose "Some error at localize in factory.js service with provider name 'local'"
-		defer.promise
-	@
+# atea.provider "local", ->
+# 	@$get = ($q, $http, message) ->
+# 		defer = $q.defer()
+# 		local = { }
+# 		$http method: "GET", url: "js/i18n/" + @lang + ".json"
+# 		.success (data) ->
+# 			local.polyglot = new Polyglot locale: @lang, phrases: data
+# 			local.local = data
+# 			local.dyna = { }
+# 			defer.resolve local
+# 		.error ->
+# 			message.odinAndClose "Some error at localize in factory.js service with provider name 'local'"
+# 		defer.promise
+# 	@
 
 atea.config (localProvider) ->
 	localProvider.lang =
@@ -68,8 +68,13 @@ atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
 		detail: (->
 			if storage.getObject 'user'
 				user = storage.getObject 'user'
-				Auth.setCredentials user.email, user.password
-				user
+				if user.version is "1.0.7"
+					Auth.setCredentials user.email, user.password
+					user
+				else
+					storage.delete 'user'
+					Auth.clearCredentials()
+					null
 			else
 				null
 		)()
@@ -80,6 +85,7 @@ atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
 				data = result.data
 				self.user.detail = data
 				data.password = password
+				data.version = "1.0.7"
 				storage.setObject 'user', data
 				defer.resolve data
 			, (error) ->
@@ -102,7 +108,7 @@ atea.factory 'storage', [ '$window', ($window) ->
 	@
 ]
 
-atea.factory 'connection', [ 'getData', (getData) ->
+atea.factory 'connection', [ 'getData' , '$rootScope', (getData, $rootScope) ->
 	connection =
 		makeLoad: (property) ->
 			for prop, value of property
@@ -225,3 +231,34 @@ atea.factory "message", ($timeout, $animate) ->
 				if message._callback2
 					message._callback2()
 					message._callback2 = null
+
+
+atea.filter 'dayMonth', (local) ->
+	(date) ->
+		if date
+			months = local.static.months
+			date = new Date date*1000
+			day = date.getDate()
+			month = date.getMonth()
+			day + '. ' + months[month].toLowerCase()
+
+atea.filter 'hourMinute', ->
+	(date) ->
+		if date
+			date = new Date date*1000
+			hour = date.getHours().toString()
+			minute = date.getMinutes().toString()
+			hour = if hour.length is 1 then '0' + hour else hour
+			minute = if minute.length is 1 then '0' + minute else minute
+			hour + ':' + minute
+
+atea.filter 'fullDate', (local) ->
+	(date) ->
+		if date
+			w = local.static.days
+			months = local.static.months
+			date = new Date date*1000
+			day = date.getDay()
+			month = date.getMonth()
+			y = date.getFullYear()
+			w[day] + ' ' + day + '. ' + months[month].toLowerCase() + ' ' + y

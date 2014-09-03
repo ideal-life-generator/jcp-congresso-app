@@ -16,8 +16,10 @@
 								   class="container-fluid">
 									<h4 class="row event-name">~ schedule.name ~</h4>
 									<p class="row event-time">
-										~ schedule.location ~
-										<span style="visibility: ~ schedule.location ? '' : 'hidden' ~;" class="glyphicon glyphicon-map-marker"></span>
+										<span>~schedule.location~</span>
+										<img height="16px"
+												 ng-class="{ 'hiddens': !schedule.location }"
+												 src="img/raphael_location_simple-black_1.png"/>
 									</p>
 								</a>
 							</li>

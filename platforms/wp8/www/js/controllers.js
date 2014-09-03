@@ -244,60 +244,6 @@
     }
   ]);
 
-  atea.controller('CommentController', [
-    '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'connection', 'message', 'getData', '$history', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, connection, message, getData, $history) {
-      connection.makeLoad({
-        params: {
-          resource: 'leadType'
-        },
-        handler: function(data) {
-          $scope.categories = [];
-          return angular.forEach(data, function(ths) {
-            return $scope.categories.push(ths);
-          });
-        },
-        scope: $scope,
-        type: "noCache"
-      });
-      $scope.categorieActive = 0;
-      $scope.categorieSingle = $scope.local.select_category;
-      $scope.interest = "5";
-      $scope.revenue = "5";
-      return $scope.submit = function() {
-        var data;
-        if ($scope.categorieActive) {
-          data = {
-            participant_id: $scope.participantScan.id,
-            event_id: $scope.event.id,
-            lead_type_id: $scope.categorieActive,
-            interest: $scope.interest,
-            revenue: $scope.revenue,
-            comment: $scope.comments
-          };
-          message.open($scope.local.data_sending);
-          return getData.save({
-            resource: 'partnerLead'
-          }, {
-            data: data
-          }, function(result) {
-            data = result.data;
-            message.authoClose($scope.local.lead_sent);
-            if ($scope.contentAnimate !== $scope.animationContentRight) {
-              $scope.contentAnimate = $scope.animationContentRight;
-            }
-            return $timeout(function() {
-              return $location.path($history.back());
-            }, 100);
-          }, function() {
-            return message.noClose($scope.local.error_server);
-          });
-        } else {
-          return message.odinAndClose($scope.local.select_category);
-        }
-      };
-    }
-  ]);
-
   atea.controller('PartnerController', [
     '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection', 'getData', '$http', 'message', function($scope, $location, baseURL, $routeParams, $rootScope, connection, getData, $http, message) {
       connection.makeLoad({
@@ -343,10 +289,13 @@
     '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$filter', 'getData', 'connection', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $filter, getData, connection) {
       var getPartners;
       getPartners = function(data) {
-        $scope.partners = [];
-        return angular.forEach(data, function(partner) {
-          return $scope.partners.push(partner);
+        var partners;
+        partners = [];
+        angular.forEach(data, function(partner) {
+          partner.rating = ~~partner.rating;
+          return partners.push(partner);
         });
+        return $scope.partners = $filter('orderBy')(partners, "+rating");
       };
       return connection.makeLoad({
         params: {
@@ -357,6 +306,91 @@
         scope: $scope,
         type: "get"
       });
+    }
+  ]);
+
+  atea.controller('CommentController', [
+    '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'connection', 'message', 'getData', '$history', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, connection, message, getData, $history) {
+      connection.makeLoad({
+        params: {
+          resource: 'leadType'
+        },
+        handler: function(data) {
+          $scope.categories = [];
+          return angular.forEach(data, function(ths) {
+            return $scope.categories.push(ths);
+          });
+        },
+        scope: $scope,
+        type: "noCache"
+      });
+      if (!$scope.commentLead) {
+        $scope.commentLead = {
+          lead_type_id: "",
+          interest: "5",
+          revenue: "5",
+          method: "save"
+        };
+      }
+      $scope.commentLead.categorieSingle = $scope.local.select_category;
+      return $scope.submit = function() {
+        var data;
+        if ($scope.commentLead.lead_type_id) {
+          message.open($scope.local.data_sending);
+          if ($scope.commentLead.method === "save") {
+            data = {
+              participant_id: $scope.participantScan.id,
+              event_id: $scope.event.id,
+              lead_type_id: $scope.commentLead.lead_type_id,
+              interest: $scope.commentLead.interest,
+              revenue: $scope.commentLead.revenue,
+              comment: $scope.commentLead.comment
+            };
+            return getData.save({
+              resource: 'partnerLead'
+            }, {
+              data: data
+            }, function(result) {
+              data = result.data;
+              message.authoClose($scope.local.lead_sent);
+              if ($scope.contentAnimate !== $scope.animationContentRight) {
+                $scope.contentAnimate = $scope.animationContentRight;
+              }
+              return $timeout(function() {
+                return $location.path($history.back());
+              }, 100);
+            }, function() {
+              return message.noClose($scope.local.error_server);
+            });
+          } else if ($scope.commentLead.method === "put") {
+            data = {
+              id: $scope.commentLead.id,
+              lead_type_id: $scope.commentLead.lead_type_id,
+              interest: $scope.commentLead.interest,
+              revenue: $scope.commentLead.revenue,
+              comment: $scope.commentLead.comment
+            };
+            return getData.put({
+              resource: 'partnerLead'
+            }, {
+              data: data
+            }, function(result) {
+              data = result.data;
+              message.authoClose($scope.local.lead_sent);
+              if ($scope.contentAnimate !== $scope.animationContentRight) {
+                $scope.contentAnimate = $scope.animationContentRight;
+              }
+              return $timeout(function() {
+                return $location.path($history.back());
+              }, 100);
+            }, function() {
+              return message.noClose($scope.local.error_server);
+            });
+          }
+        } else {
+          return message.odinAndClose($scope.local.select_category);
+        }
+      };
     }
   ]);
 
@@ -395,10 +429,29 @@
                 });
                 if ($rootScope.participantScan.id !== $scope.participient.id) {
                   if ($rootScope.participantScan.event_id === $scope.event.id) {
-                    message.close();
-                    $rootScope.member = data;
-                    $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
-                    return $scope.$apply();
+                    return getData.noCache({
+                      resource: 'partnerLead',
+                      data: {
+                        event_id: $scope.event.id,
+                        participant_id: $rootScope.participantScan.id
+                      }
+                    }, function(result) {
+                      data = result.data;
+                      $rootScope.commentLead = null;
+                      if (data.success === "false") {
+                        message.close();
+                        $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
+                        return $scope.$apply();
+                      } else {
+                        angular.forEach(data, function(comment) {
+                          return $rootScope.commentLead = comment;
+                        });
+                        $rootScope.commentLead.method = "put";
+                        message.close();
+                        $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
+                        return $scope.$apply();
+                      }
+                    });
                   } else {
                     return message.noClose($scope.local.scan_error2);
                   }
@@ -429,7 +482,10 @@
   atea.controller('MainController', [
     '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce', '$history', function($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce, $history) {
       var contentBlock, leftMenu;
-      $scope.local = {};
+      $scope.local = local["static"];
+      $scope.dyna = {};
+      $scope.polyglot = local.dynamic;
+      $scope.noConnectionMessage = $scope.local.page_nointernet;
       $rootScope.updateTokens = function() {
         return getData.noCache({
           resource: 'participant',
@@ -447,12 +503,6 @@
           });
         });
       };
-      local.then(function(data) {
-        $scope.local = data.local;
-        $scope.dyna = data.dyna;
-        $scope.polyglot = data.polyglot;
-        return $scope.noConnectionMessage = $scope.local.page_nointernet;
-      });
       $rootScope.updateEvents = function() {
         var getEvents;
         $scope.futureEvents = [];
@@ -582,7 +632,7 @@
       $scope.animationContentRight = client.animationClass.content.right;
       $scope.leftMenuAnimationType = client.animationClass.leftMenu;
       $scope.nextLocation = function(path, desc, data) {
-        $scope[desc] = data;
+        $rootScope[desc] = data;
         if ($scope.contentAnimate !== $scope.animationContentLeft) {
           $scope.contentAnimate = $scope.animationContentLeft;
         }
@@ -715,7 +765,7 @@
   ]);
 
   atea.controller('LoginController', [
-    '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'client', 'connection', 'message', '$history', function($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, client, connection, message, $history) {
+    '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'client', 'connection', 'message', '$history', 'Auth', function($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, client, connection, message, $history, Auth) {
       $scope.go_submit = function() {
         if ($scope.auth.$dirty && $scope.auth.$valid) {
           message.open($scope.local.log_in);
@@ -762,10 +812,11 @@
           }, function(error) {
             if (error.status === 401) {
               message.odinAndClose($scope.local.user_exist);
-              return $rootScope.user = null;
+              $rootScope.user = null;
             } else {
-              return message.odinAndClose($scope.local.no_connection);
+              message.odinAndClose($scope.local.no_connection);
             }
+            return Auth.clearCredentials();
           });
         } else {
           return message.odinAndClose($scope.local.incorrect_credentials);
