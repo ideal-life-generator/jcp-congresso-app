@@ -10,13 +10,13 @@
       <li ng-repeat="survey in surveys | filter:surveyName">
           <a ng-if="survey.is_answered == '0' && survey.canBeAnswered"
              ng-click="nextLocation(event.id + baseURL.RATESHREF + '/' + survey.id, 'survey', survey)"
-             class="container-fluid">
+             class="container-fluid" style="padding-right: 13%;">
               <h4 class="row">
                 ~ survey.name ~
               </h4>
           </a>
           <a ng-if="survey.is_answered == '1' || !survey.canBeAnswered"
-             class="container-fluid rated">
+             class="container-fluid rated" style="padding-right: 13%;">
               <h4 class="row">
                 ~ survey.name ~
               </h4>

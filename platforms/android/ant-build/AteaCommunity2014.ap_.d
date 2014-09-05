@@ -191,6 +191,7 @@
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/Neutral-active.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/Neutral.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/photo.jpg \
+/Users/nik/documents/congresso-app/platforms/android/assets/www/img/raphael_location_simple-black_1.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/Sad-active.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/Sad.png \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/img/Sections-of-Website-Contacts-icon.png \
@@ -237,7 +238,6 @@
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/i18n/en.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/i18n/no.js \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/js/i18n/polyglot.min.js \
-/Users/nik/documents/congresso-app/platforms/android/assets/www/js/i18n/ru.json \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/plugins/com.phonegap.plugins.barcodescanner \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/plugins/org.apache.cordova.inappbrowser \
 /Users/nik/documents/congresso-app/platforms/android/assets/www/plugins/com.phonegap.plugins.barcodescanner/www \

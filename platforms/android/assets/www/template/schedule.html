@@ -1,22 +1,24 @@
 <loader></loader>
 <div ng-show="schedule">
-    <div class="title-bar">
+<!--     <div class="title-bar">
         ~ schedule.start_time | fullDate ~
-    </div>
-    <div class="divider">~ schedule.start_time | hourMinute ~-~ schedule.end_time | hourMinute ~</div>
+    </div> -->
+    <div class="divider" style="font-size: 1.3em; color: white;">~ schedule.start_time | hourMinute ~-~ schedule.end_time | hourMinute ~</div>
     <div class="partner-body">
     	<div class="partner-wrap">
         	<h3>~ schedule.name ~</h3>
         	<h5 ng-if="schedule.location"
                 class="event-time">
                 <span>~schedule.location~</span>
-                <span class="glyphicon glyphicon-map-marker"></span>
+                <img style="visibility: ~ schedule.location ? '' : 'hidden' ~;"
+                     height="16px"
+                     src="img/raphael_location_simple-black_1.png"/>
             </h5>
         	<img ng-if="schedule.image_url"
                  ng-src="~ baseURL.BASE + schedule.image_url ~" style="margin-top: 1em; margin-bottom: 1em; max-width: 100%;" align="middle" class="partner-img"/>
             <p ng-bind-html="renderHtml(schedule.desc)"></p>
     	</div>
-    	<a ng-if="participient && schedule.hasRegistered && schedule.survey_id !== '0' && survey.is_answered === '0'"
+    	<a ng-if="participient &&  schedule.survey_id !== '0' && survey.is_answered == '0' && survey.canBeAnswered"
            ng-click="nextLocation(event.id + baseURL.RATESHREF + '/' + schedule.survey_id)"
            class="ui-btn ui-btn-lg">~local.rate_session~</a>
     </div>

@@ -9,7 +9,7 @@
         novalidate>
     <div class="partner-wrap">
         <img ng-if="partner.avatar"
-             ng-src="http://188.226.184.59~partner.avatar~" align="middle" class="partner-img"/>
+             ng-src="~baseURL.BASE + partner.avatar~" align="middle" class="partner-img"/>
         <div class="partner-details">
             <h3>~ partner.name ~</h3>
             <h5>~ partner.category ~</h5>
@@ -18,13 +18,13 @@
             <p ng-bind-html="renderHtml(partner.description)"></p>
         </div>
     
-        <textarea ng-show="user && partner"
+        <textarea ng-show="user && partner && participient"
                   ng-model="questionToPartner"
                   ng-minlength="4"
                   ng-maxlength="600"
                   class="form-control" placeholder="~local.comments_placeholder~"></textarea>
     </div>
-    <button ng-show="user && partner"
+    <button ng-show="user && partner && participient"
             class="ui-btn ui-btn-lg">~local.submit~</button>
   </form>
 </div>

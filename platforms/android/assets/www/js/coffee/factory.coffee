@@ -1,8 +1,8 @@
 atea = angular.module 'atea'
 
 atea.factory 'getData', [ '$resource', ($resource) ->
-	# $resource "http://event.congresso.no/api/:resource/:id", { },
-	$resource "http://188.226.184.59/congressomulti/api/:resource/:id", { },
+	$resource "http://event.congresso.no/api/:resource/:id", { },
+	# $resource "http://188.226.184.59/congressomulti/api/:resource/:id", { },
 	# $resource "http://dev.congressomulti-loc.no/api/:resource/:id", { },
 		get: method: "GET", cache: true
 		noCache: method: "GET", cache: false
@@ -68,8 +68,13 @@ atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
 		detail: (->
 			if storage.getObject 'user'
 				user = storage.getObject 'user'
-				Auth.setCredentials user.email, user.password
-				user
+				if user.version is "1.0.8"
+					Auth.setCredentials user.email, user.password
+					user
+				else
+					storage.delete 'user'
+					Auth.clearCredentials()
+					null
 			else
 				null
 		)()
@@ -80,6 +85,7 @@ atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
 				data = result.data
 				self.user.detail = data
 				data.password = password
+				data.version = "1.0.8"
 				storage.setObject 'user', data
 				defer.resolve data
 			, (error) ->
@@ -102,7 +108,7 @@ atea.factory 'storage', [ '$window', ($window) ->
 	@
 ]
 
-atea.factory 'connection', [ 'getData', (getData) ->
+atea.factory 'connection', [ 'getData' , '$rootScope', (getData, $rootScope) ->
 	connection =
 		makeLoad: (property) ->
 			for prop, value of property
@@ -234,7 +240,7 @@ atea.filter 'dayMonth', (local) ->
 			date = new Date date*1000
 			day = date.getDate()
 			month = date.getMonth()
-			local.days(day) + ' ' + months[month]
+			day + '. ' + months[month].toLowerCase()
 
 atea.filter 'hourMinute', ->
 	(date) ->
@@ -255,4 +261,4 @@ atea.filter 'fullDate', (local) ->
 			day = date.getDay()
 			month = date.getMonth()
 			y = date.getFullYear()
-			w[day] + ' ' + local.days(day) + ' ' + months[month] + ' ' + y
+			w[day] + ' ' + day + '. ' + months[month].toLowerCase() + ' ' + y

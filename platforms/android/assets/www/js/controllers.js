@@ -374,11 +374,13 @@
     '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$filter', 'getData', 'connection', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $filter, getData, connection) {
       var getPartners;
       getPartners = function(data) {
-        $scope.partners = [];
+        var partners;
+        partners = [];
         angular.forEach(data, function(partner) {
-          return $scope.partners.push(partner);
+          partner.rating = ~~partner.rating;
+          return partners.push(partner);
         });
-        return $scope.partners = $filter('orderBy')($scope.partners, '+rating');
+        return $scope.partners = $filter('orderBy')(partners, "+rating");
       };
       return connection.makeLoad({
         params: {
@@ -510,7 +512,7 @@
           $rootScope.events = data;
           now = (new Date()).getTime() / 1000;
           angular.forEach($rootScope.events, function(event) {
-            if (event.end_date > now) {
+            if (event.ical_end > now) {
               return $scope.futureEvents.push(event);
             } else {
               return $scope.pastEvents.push(event);
@@ -630,7 +632,7 @@
       $scope.animationContentRight = client.animationClass.content.right;
       $scope.leftMenuAnimationType = client.animationClass.leftMenu;
       $scope.nextLocation = function(path, desc, data) {
-        $scope[desc] = data;
+        $rootScope[desc] = data;
         if ($scope.contentAnimate !== $scope.animationContentLeft) {
           $scope.contentAnimate = $scope.animationContentLeft;
         }

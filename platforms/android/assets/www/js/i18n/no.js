@@ -13,10 +13,10 @@ atea.provider("local", function() {
 	"forgot_password": "Glemt passord?",
 	"email_palceholer": "Epost",
 	"password_palceholer": "Passord",
-	"submit": "Send inn",
+	"submit": "Bekreft",
 	"months": [ "Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember" ],
 	"days": [ "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag" ],
-	"tokens_val": "%{smart_count} token |||| %{smart_count} tokens",
+	"tokens_val": "%{smart_count} token(s) |||| %{smart_count} token(s)",
 	"upcoming_events": "Kommende arrangementer",
 	"previous_events": "Tidligere arrangementer",
 	"register": "Registrer",
@@ -26,11 +26,10 @@ atea.provider("local", function() {
 	"rate": "Rate",
 	"scan": "Scan",
 	"community": "Community",
-	"rate_session": "Rate sesjoner",
+	"rate_session": "Rate",
 	"partner_filter": "Partner",
 	"to_website": "Klikk her for å besøke webside",
-	"rate_session": "Rate sesjoner",
-	"comments_placeholder": "Kommentarer",
+	"comments_placeholder": "Skriv her",
 	"comment_category": "Vennligst velg en kategori",
 	"perselved_interest": "Generell interesse",
 	"perselved_revenue": "Oppfattet inntekt",
@@ -38,7 +37,7 @@ atea.provider("local", function() {
 	"no_connection": "Ingen internettilkobling",
 	"form_error": "Vennligst fyll inn alle nødvendige felter",
 	"form_error1": "Please fill in all the required fields in the form",
-	"tokens_add": "Du har mottatt %{smart_count} token! |||| You have received %{smart_count} tokens!",
+	"tokens_add": "Du har mottatt %{smart_count} token(s)! |||| Du har nå fått %{smart_count} token(s)!",
 	"no_surveys": "Ingen survey tilgjengelig",
 	"no_content": "Ingen innhold",
 	"select_category": "Velg en kategori",
@@ -59,7 +58,7 @@ atea.provider("local", function() {
 	"form_saved": "Larget",
 	"form_thank": "Takk!",
 	"form_fill": "Vennligst fyll inn alle feltene",
-	"form_token": "Ved å fylle skjemaet du har mottatt",
+	"form_token": "Ved å fylle skjemaet har du mottatt",
 	"error_server": "Feilmelding, vennligst prøv igjen",
 	"check_scan": "Søke etter barcode",
 	"scan_error2": "Brukeren er ikke registrert til arrangementet",
@@ -76,7 +75,7 @@ atea.provider("local", function() {
 				date = new Date(date*1000),
 				dateString = date.toString();
 			if(now.slice(0, 15) === dateString.slice(0, 15)) {
-				return "I dag";
+				return "Idag";
 			}
 			else if(number == 1 || number == 5 || number == 6 || number == 11 || number == 12 || number == 21 || number == 25 || number == 26 || number == 31) {
 				return number + "te";

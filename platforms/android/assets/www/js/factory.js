@@ -6,7 +6,7 @@
 
   atea.factory('getData', [
     '$resource', function($resource) {
-      return $resource("http://188.226.184.59/congressomulti/api/:resource/:id", {}, {
+      return $resource("http://event.congresso.no/api/:resource/:id", {}, {
         get: {
           method: "GET",
           cache: true
@@ -83,8 +83,14 @@
           var user;
           if (storage.getObject('user')) {
             user = storage.getObject('user');
-            Auth.setCredentials(user.email, user.password);
-            return user;
+            if (user.version === "1.0.8") {
+              Auth.setCredentials(user.email, user.password);
+              return user;
+            } else {
+              storage["delete"]('user');
+              Auth.clearCredentials();
+              return null;
+            }
           } else {
             return null;
           }
@@ -100,6 +106,7 @@
             data = result.data;
             self.user.detail = data;
             data.password = password;
+            data.version = "1.0.8";
             storage.setObject('user', data);
             return defer.resolve(data);
           }, function(error) {
@@ -133,7 +140,7 @@
   ]);
 
   atea.factory('connection', [
-    'getData', function(getData) {
+    'getData', '$rootScope', function(getData, $rootScope) {
       var connection;
       return connection = {
         makeLoad: function(property) {
@@ -280,7 +287,7 @@
         date = new Date(date * 1000);
         day = date.getDate();
         month = date.getMonth();
-        return local.days(day) + ' ' + months[month];
+        return day + '. ' + months[month].toLowerCase();
       }
     };
   });
@@ -309,7 +316,7 @@
         day = date.getDay();
         month = date.getMonth();
         y = date.getFullYear();
-        return w[day] + ' ' + local.days(day) + ' ' + months[month] + ' ' + y;
+        return w[day] + ' ' + day + '. ' + months[month].toLowerCase() + ' ' + y;
       }
     };
   });

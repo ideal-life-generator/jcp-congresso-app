@@ -456,7 +456,7 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 			$rootScope.events = data
 			now = (new Date()).getTime()/1000
 			angular.forEach $rootScope.events, (event) ->
-				if event.end_date > now
+				if event.ical_end > now
 					$scope.futureEvents.push event
 				else
 					$scope.pastEvents.push event

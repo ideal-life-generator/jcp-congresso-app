@@ -284,10 +284,12 @@ atea.controller 'PartnersController', [ '$scope', '$location', 'baseURL', '$rout
 ($scope, $location, baseURL, $routeParams, $rootScope, $http, $filter, getData, connection) ->
 
 	getPartners = (data) ->
-		$scope.partners = [ ]
+		partners = [ ]
 		angular.forEach data, (partner) ->
-			$scope.partners.push partner
-		$scope.partners = $filter('orderBy')($scope.partners, '+rating')
+			partner.rating = ~~partner.rating
+			partners.push partner
+		$scope.partners = $filter('orderBy')(partners, "+rating")
+
 
 	connection.makeLoad
 		params:
@@ -454,7 +456,7 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 			$rootScope.events = data
 			now = (new Date()).getTime()/1000
 			angular.forEach $rootScope.events, (event) ->
-				if event.end_date > now
+				if event.ical_end > now
 					$scope.futureEvents.push event
 				else
 					$scope.pastEvents.push event
@@ -557,7 +559,7 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 	$scope.leftMenuAnimationType = client.animationClass.leftMenu
 
 	$scope.nextLocation = (path, desc, data) ->
-		$scope[desc] = data
+		$rootScope[desc] = data
 		if $scope.contentAnimate isnt $scope.animationContentLeft
 			$scope.contentAnimate = $scope.animationContentLeft
 		$timeout ->
@@ -575,7 +577,6 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 		if $scope.contentAnimate isnt $scope.animationContentRight
 			$scope.contentAnimate = $scope.animationContentRight
 		$timeout ->
-			# $history.back()
 			$history.back()
 		, 100
 

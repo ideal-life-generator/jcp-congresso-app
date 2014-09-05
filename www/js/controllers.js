@@ -512,7 +512,7 @@
           $rootScope.events = data;
           now = (new Date()).getTime() / 1000;
           angular.forEach($rootScope.events, function(event) {
-            if (event.end_date > now) {
+            if (event.ical_end > now) {
               return $scope.futureEvents.push(event);
             } else {
               return $scope.pastEvents.push(event);
