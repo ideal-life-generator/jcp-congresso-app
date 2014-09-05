@@ -508,7 +508,9 @@ span.icon {
   background-size: 1em auto;
 }
 .survey-list ul li a.rated {
-  background: url('../img/checked-checkbox-m.png') no-repeat 97% center;
+  background-image: url('../img/checked-checkbox-m.png');
+  background-position: 97.3% center;
+  background-size: 1.6em auto;
 }
 select {
   border-width: 2px !important;

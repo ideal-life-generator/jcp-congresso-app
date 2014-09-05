@@ -5,8 +5,8 @@
   atea = angular.module('atea');
 
   atea.factory('getData', [
-    '$resource', function($resource) {
-      return $resource("http://event.congresso.no/api/:resource/:id", {}, {
+    '$resource', 'baseURL', function($resource, baseURL) {
+      return $resource("" + baseURL.BASE + "/congressomulti/api/:resource/:id", {}, {
         get: {
           method: "GET",
           cache: true
