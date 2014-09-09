@@ -10,7 +10,8 @@
 							<li ng-repeat-start="forTime in forDay"
 								class="divider">~ forTime[0].start_time | hourMinute ~-~ forTime[0].end_time | hourMinute ~</li>
 							<li ng-repeat-end
-								ng-repeat="schedule in forTime">
+									ng-repeat="schedule in forTime"
+									ng-class="{ 'registered': schedule.hasRegistered }">
 								<a ng-click="nextLocation(event.id + baseURL.SCHEDULESHREF + '/' + schedule.id)"
 								   style="display: block;"
 								   class="container-fluid">

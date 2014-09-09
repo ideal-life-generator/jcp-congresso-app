@@ -10,7 +10,7 @@ atea.config [ '$interpolateProvider', ($interpolateProvider) ->
 atea.value 'COMPANY_ID', 13
 
 atea.constant 'baseURL',
-	BASE: 'http://188.226.184.59'
+	BASE: 'http://188.226.184.59/congressomulti'
 	FEEDS: '/'
 	FEED: '/feed/:feedId'
 	FEEDHREF: '/feed'
@@ -31,7 +31,8 @@ atea.constant 'baseURL',
 	RATE: '/:feedId/rateses/:rateseId'
 	PROFILE: '/profile'
 	LOGIN: '/login'
-	MYPAGE: '/congressomulti/mypage'
+	MYPAGE: '/mypage'
+	FORGOT: '/mypage/forgotpassword'
 
 atea.config [ '$routeProvider', 'baseURL', ($routeProvider, baseURL) ->
 	$routeProvider

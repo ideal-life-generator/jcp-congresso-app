@@ -2,7 +2,7 @@ atea = angular.module 'atea'
 
 atea.factory 'getData', [ '$resource', 'baseURL', ($resource, baseURL) ->
 	# $resource "http://event.congresso.no/api/:resource/:id", { },
-	$resource "#{baseURL.BASE}/congressomulti/api/:resource/:id", { },
+	$resource "#{baseURL.BASE}/api/:resource/:id", { },
 	# $resource "http://dev.congressomulti-loc.no/api/:resource/:id", { },
 		get: method: "GET", cache: true
 		noCache: method: "GET", cache: false
@@ -68,7 +68,7 @@ atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
 		detail: (->
 			if storage.getObject 'user'
 				user = storage.getObject 'user'
-				if user.version is "1.0.8"
+				if user.version is "1.1.0"
 					Auth.setCredentials user.email, user.password
 					user
 				else
@@ -85,7 +85,7 @@ atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
 				data = result.data
 				self.user.detail = data
 				data.password = password
-				data.version = "1.0.8"
+				data.version = "1.1.0"
 				storage.setObject 'user', data
 				defer.resolve data
 			, (error) ->

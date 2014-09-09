@@ -239,7 +239,7 @@
         },
         handler: getSchedules,
         scope: $scope,
-        type: "get"
+        type: "noCache"
       });
     }
   ]);
@@ -733,6 +733,7 @@
             type: "noCache"
           });
         }
+        $scope.pastEvents = $scope.futureEvents = null;
         $rootScope.updateEvents();
         return $location.path(baseURL.FEEDS);
       };

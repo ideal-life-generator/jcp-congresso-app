@@ -11,16 +11,19 @@
         <img ng-if="partner.avatar"
              ng-src="~baseURL.BASE + partner.avatar~" align="middle" class="partner-img"/>
         <div class="partner-details">
-            <h3>~ partner.name ~</h3>
-            <h5>~ partner.category ~</h5>
+            <h3>
+              <strong>~partner.name~</strong>
+            </h3>
+            <h5>~partner.category~</h5>
             <a ng-show="partner.website"
-               ng-click="toDifferentUrl(partner.website)">~local.to_website~</a>
-            <p ng-bind-html="renderHtml(partner.description)"></p>
+               ng-click="toDifferentUrl(partner.website)"
+               style="font-size: 0.8em;">~local.to_website~</a>
+            <p ng-bind-html="renderHtml(partner.description)"
+               style="font-size: 0.7em;"></p>
         </div>
     
         <textarea ng-show="user && partner && participient"
                   ng-model="questionToPartner"
-                  ng-minlength="4"
                   ng-maxlength="600"
                   class="form-control" placeholder="~local.comments_placeholder~"></textarea>
     </div>

@@ -79,5 +79,24 @@
       <string>UIInterfaceOrientationPortraitUpsideDown</string>
       <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
+    <key>FacebookAppID</key>
+    <string>179404815469953</string>
+    <key>FacebookDisplayName</key>
+    <string>AteaNorge</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb179404815469953</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb179404815469953</string>
+        </array>
+      </dict>
+    </array>
   </dict>
 </plist>

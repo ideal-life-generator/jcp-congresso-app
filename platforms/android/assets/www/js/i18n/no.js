@@ -62,7 +62,9 @@ atea.provider("local", function() {
 	"error_server": "Feilmelding, vennligst prøv igjen",
 	"check_scan": "Søke etter barcode",
 	"scan_error2": "Brukeren er ikke registrert til arrangementet",
-	"scan_warning1": "Du har scannet deg selv"
+	"scan_warning1": "Du har scannet deg selv",
+	"facebookAppId": 179404815469953,
+	"shareLink": "http://www.atea.no/hovedmeny/atea-community-2014/"
 };
 	var obj = {
 		dynamic: new Polyglot({

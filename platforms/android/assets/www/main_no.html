@@ -82,7 +82,7 @@
             <a ng-click="nextLocation(baseURL.LOGIN)">~local.login~</a>
         </li>
         <li ng-if="!user && forgot">
-            <a ng-click="toDifferentUrl('http://188.226.184.59/congressomulti/mypage/forgotpassword')">
+            <a ng-click="toDifferentUrl(baseURL.BASE + baseURL.FORGOT)">
                 ~local.forgot_password~?
             </a>
         </li>
@@ -116,28 +116,25 @@
             </a>
         </li>
         <li>
-            <a ng-click="toDifferentUrl('https://www.facebook.com/dialog/feed?
-                app_id=831311070225917&
-                link=http%3A%2F%2Fwww.atea.no%2Fhovedmeny%2Fatea-community-2014%2F&
-                redirect_uri=http://facebook.com/')"
+            <a ng-click="toDifferentUrl('https://www.facebook.com/dialog/feed?app_id=' + local.facebookAppId + '&link=' + local.shareLink + '&redirect_uri=http://facebook.com/')"
                class="facebook-icon">
               ~ local.share_on ~ Facebook
             </a>
         </li>
         <li>
-            <a ng-click="toDifferentUrl('https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww%2Eatea%2Eno%2Fhovedmeny%2Fatea-community-2014%2F')"
+            <a ng-click="toDifferentUrl('https://www.linkedin.com/shareArticle?mini=true&url=' + local.shareLink)"
                class="linkedin-icon">
               ~ local.share_on ~ LinkedIn
             </a>
         </li>
         <li>
-            <a ng-click="toDifferentUrl('https://plus.google.com/share?url=http://www.atea.no/hovedmeny/atea-community-2014/&gpsrc=frameless')"
+            <a ng-click="toDifferentUrl('https://plus.google.com/share?url=' + local.shareLink + '&gpsrc=frameless')"
                class="google-icon">
               ~ local.share_on ~ Google
             </a>
         </li>
         <li>
-            <a ng-click="toDifferentUrl('https://twitter.com/intent/tweet?text=http%3A%2F%2Fwww.atea.no%2Fhovedmeny%2Fatea-community-2014%2F')"
+            <a ng-click="toDifferentUrl('https://twitter.com/intent/tweet?text=' + local.shareLink)"
                class="twitter-icon">
               ~ local.share_on ~ Twitter
             </a>

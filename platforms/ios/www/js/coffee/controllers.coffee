@@ -170,7 +170,7 @@ atea.controller 'SchedulesController', [ '$scope', '$location', '$routeParams', 
 			data: "{'event_id': #{$routeParams.feedId}}"
 		handler: getSchedules
 		scope: $scope
-		type: "get"
+		type: "noCache"
 ]
 
 atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'connection', 'message', 'getData', '$history',
@@ -624,6 +624,7 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 					$rootScope.event = data
 				scope: $scope
 				type: "noCache"
+		$scope.pastEvents = $scope.futureEvents = null
 		$rootScope.updateEvents()
 		$location.path baseURL.FEEDS
 
