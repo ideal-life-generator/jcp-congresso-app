@@ -1,0 +1,59 @@
+<loader></loader>
+<form ng-show="categories"
+      name="commentForm"
+      ng-submit="submit()">
+    <div class="question-body">
+        <div class="row visitor">
+            <h2 style="fomt-size: 200%;">~ participantScan.first_name ~ ~ participantScan.last_name ~</h2>
+        </div>
+        
+        <div class="row questions">
+        <ul class="list-group">
+            <li class="list-group-item question">
+                <select class="form-control"
+                        ng-model="commentLead.lead_type_id"
+                        ng-options="categorie.id as categorie.name for categorie in categories"
+                        required>
+                    <option ng-disabled="true" value="">~ commentLead.categorieSingle ~</option>
+<!--                     <option ng-repeat="categorie in categories"
+                            value="~categorie.id~">
+                            ~ categorie.name ~</option> -->
+                </select>
+            </li>
+        
+        <li class="list-group-item question">
+        <div>
+            <div class="row">
+                <h3 style="fomt-size: 200%;">~local.perselved_interest~</h3>
+                <div style="position: relative; width: 96%; margin: 0 auto;">
+                    <input type="range" min="0" max="10" step="1"
+                           ng-model="commentLead.interest">
+                    </input>
+                    <div style="position: absolute; right: -1.3em; top: -10px; font-size: 1.3em;">
+                      ~ commentLead.interest ~
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <h3 style="fomt-size: 200%;">~local.perselved_revenue~</h3>
+                <div style="position: relative; width: 96%; margin: 0 auto;">
+                    <input type="range" min="0" max="10" step="1"
+                           ng-model="commentLead.revenue">
+                    </input>
+                    <div style="position: absolute; right: -1.3em; top: -10px; font-size: 1.3em;">
+                        ~ commentLead.revenue ~
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="comment-body">
+            <textarea class="form-control" rows="3" placeholder="~local.comments_placeholder~"
+                      ng-model="commentLead.comment"></textarea>
+        </div>
+        </li>
+        </ul>
+        </div>
+    </div>
+    <button class="ui-btn ui-btn-lg">~local.submit~</button>
+</form>

@@ -1,0 +1,73 @@
+<loader></loader>
+<div class="panel-group" id="event-list">
+    <div ng-show="pastEvents" class="panel panel-default" id="events-previous">
+        <div class="panel-heading"
+             ng-click="pastEventsCollapseder()">
+            <h4 class="panel-title">
+                <a class="toggle-handler"
+                   ng-class="{ 'collapsed': !pastEventsCollapsed }">
+                   ~local.previous_events~
+                </a>
+            </h4>
+        </div>
+        <div id="events-previous-body"
+             class="panel-collapse"
+             ng-if="pastEventsCollapsed">
+            <div class="panel-body panel-list">
+                <ul>
+                    <li ng-repeat="event in pastEvents"
+                        ng-class="{ 'registered': event.eventType === 'registered',
+                                    'invited': event.eventType === 'invited' }">
+                        <a ng-click="changeEvent(baseURL.FEEDHREF+'/'+event.id, event)" style="display: block;">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h4 class="event-name">~ event.event_name ~</h4>
+                                    <p class="event-location">~ event.location ~</p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <p class="event-date">~ event.ical_start | dayMonth ~</p>
+                                    <p class="event-time">~ event.ical_start | hourMinute ~-~ event.ical_end | hourMinute ~</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div ng-show="futureEvents" class="panel panel-default" id="events-upcoming">
+        <div class="panel-heading"
+             ng-click="futureEventsCollapseder()">
+            <h4 class="panel-title">
+                <a class="toggle-handler"
+                   ng-class="{ 'collapsed': futureEventsCollapsed }">
+                   ~local.upcoming_events~
+                </a>
+            </h4>
+        </div>
+        <div id="events-upcoming-body"
+             class="panel-collapse"
+             ng-if="!futureEventsCollapsed">
+            <div class="panel-body panel-list">
+                <ul>
+                    <li ng-repeat="event in futureEvents"
+                        ng-class="{ 'registered': event.eventType === 'registered',
+                                    'invited': event.eventType === 'invited' }">
+                        <a ng-click="changeEvent(baseURL.FEEDHREF+'/'+event.id, event)" style="display: block;">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h4 class="event-name">~ event.event_name ~</h4>
+                                    <p class="event-location">~ event.location ~</p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <p class="event-date">~ event.ical_start | dayMonth ~</p>
+                                    <p class="event-time">~ event.ical_start | hourMinute ~-~ event.ical_end | hourMinute ~</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

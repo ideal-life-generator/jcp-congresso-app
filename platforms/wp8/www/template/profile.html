@@ -1,0 +1,24 @@
+<div class="container-fluid profile-body">
+<div class="row">
+    <div class="col-xs-6">
+        <br>
+    	<img ng-src="~ baseURL.BASE + user.avatar ~" align="middle" width="100%" class="profile-img">
+    </div>
+    <div class="col-xs-6 relative">
+        <h3>~ participient.first_name ~</h3>
+        <h3 style="margin-top: 10px;">~ participient.last_name ~</h3>
+        <h4>~ participient.company_name ~</h4>
+        <br>
+        <div ng-if="event.tokensActive">
+            <img style="width: 6.9em; " src="img/coins.jpg">
+            <h4>~dyna.tokens_val~</h4>
+        </div>
+    </div>
+&nbsp;
+<div class="clear"></div>
+<qr type-number="8" correction-level="'X'" size="260" input-mode="0" text="user.barcode"></qr>
+<br>
+<br>
+</div>
+</div>
+<loader></loader>
