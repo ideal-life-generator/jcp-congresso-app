@@ -50,7 +50,6 @@
 /Users/nik/documents/congresso-app/platforms/android/res/values/arrays.xml \
 /Users/nik/documents/congresso-app/platforms/android/res/values/colors.xml \
 /Users/nik/documents/congresso-app/platforms/android/res/values/dimens.xml \
-/Users/nik/documents/congresso-app/platforms/android/res/values/facebookconnect.xml \
 /Users/nik/documents/congresso-app/platforms/android/res/values/ids.xml \
 /Users/nik/documents/congresso-app/platforms/android/res/values/strings.xml \
 /Users/nik/documents/congresso-app/platforms/android/res/values-ar/strings.xml \

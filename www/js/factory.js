@@ -83,7 +83,7 @@
           var user;
           if (storage.getObject('user')) {
             user = storage.getObject('user');
-            if (user.version === "1.1.0") {
+            if (user.version === "1.1.1") {
               Auth.setCredentials(user.email, user.password);
               return user;
             } else {
@@ -106,7 +106,7 @@
             data = result.data;
             self.user.detail = data;
             data.password = password;
-            data.version = "1.1.0";
+            data.version = "1.1.1";
             storage.setObject('user', data);
             return defer.resolve(data);
           }, function(error) {
@@ -210,8 +210,6 @@
       _count: 0
     };
   });
-
-  atea.run(function($timeout, message) {});
 
   atea.factory("message", function($timeout, $animate) {
     var message, timeout;

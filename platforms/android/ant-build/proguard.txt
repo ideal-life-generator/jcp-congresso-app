@@ -1,6 +1,3 @@
-# view AndroidManifest.xml #generated:31
--keep class com.facebook.LoginActivity { <init>(...); }
-
 # view AndroidManifest.xml #generated:12
 -keep class com.google.zxing.client.android.CaptureActivity { <init>(...); }
 

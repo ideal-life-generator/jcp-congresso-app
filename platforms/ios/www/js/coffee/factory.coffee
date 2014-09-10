@@ -68,7 +68,7 @@ atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
 		detail: (->
 			if storage.getObject 'user'
 				user = storage.getObject 'user'
-				if user.version is "1.1.0"
+				if user.version is "1.1.1"
 					Auth.setCredentials user.email, user.password
 					user
 				else
@@ -85,7 +85,7 @@ atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
 				data = result.data
 				self.user.detail = data
 				data.password = password
-				data.version = "1.1.0"
+				data.version = "1.1.1"
 				storage.setObject 'user', data
 				defer.resolve data
 			, (error) ->
