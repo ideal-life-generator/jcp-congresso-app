@@ -21,21 +21,6 @@ atea.factory "$history", ($location) ->
 		$history.length = $history.length-2
 	@history
 
-# atea.provider "local", ->
-# 	@$get = ($q, $http, message) ->
-# 		defer = $q.defer()
-# 		local = { }
-# 		$http method: "GET", url: "js/i18n/" + @lang + ".json"
-# 		.success (data) ->
-# 			local.polyglot = new Polyglot locale: @lang, phrases: data
-# 			local.local = data
-# 			local.dyna = { }
-# 			defer.resolve local
-# 		.error ->
-# 			message.odinAndClose "Some error at localize in factory.js service with provider name 'local'"
-# 		defer.promise
-# 	@
-
 atea.config (localProvider) ->
 	localProvider.lang =
 		if navigator.language is "hu"
@@ -68,7 +53,7 @@ atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
 		detail: (->
 			if storage.getObject 'user'
 				user = storage.getObject 'user'
-				if user.version is "1.1.1"
+				if user.version is "1.1.2"
 					Auth.setCredentials user.email, user.password
 					user
 				else
@@ -85,7 +70,7 @@ atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
 				data = result.data
 				self.user.detail = data
 				data.password = password
-				data.version = "1.1.1"
+				data.version = "1.1.2"
 				storage.setObject 'user', data
 				defer.resolve data
 			, (error) ->
@@ -152,38 +137,6 @@ atea.factory "loto", ->
 		frames: 16
 		height: 105
 		_count: 0
-
-atea.run ($timeout, message) ->
-	# $timeout ->
-	# 	message.odinAndClose "Hello", ->
-	# 		console.log "callback1"
-	# 	, ->
-	# 		console.log "callback2"
-	# , 1000
-	# $timeout ->
-	# 	message.authoClose "Hello", ->
-	# 		console.log "callback1", ->
-	# 			console.log "callback2"
-	# , 1000
-	# $timeout ->
-	# 	message.open "Hello", ->
-	# 		console.log "callback1"
-	# 	$timeout ->
-	# 		message.noClose "Good by", ->
-	# 			console.log "callback1"
-	# 		, ->
-	# 			console.log "callback2"
-	# 	, 3000
-	# 1000
-	# $timeout ->
-	# 	message.open "Hello", ->
-	# 		console.log "callback1"
-	# 	$timeout ->
-	# 		message.authoClose "Good by", ->
-	# 			console.log "callback2"
-	# 		, -> console.log "callback3"
-	# 	, 3000
-	# , 1000
 
 atea.factory "message", ($timeout, $animate) ->
 	timeout = 2000

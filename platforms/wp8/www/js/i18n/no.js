@@ -64,6 +64,7 @@ atea.provider("local", function() {
 	"scan_error2": "Brukeren er ikke registrert til arrangementet",
 	"scan_warning1": "Du har scannet deg selv",
 	"facebookAppId": 179404815469953,
+	"twitterShare": "Nyter høstens vakreste IT-eventyr AteaCommunity http://s.atea.no/WYKK96",
 	"shareLink": "http://www.atea.no/hovedmeny/atea-community-2014/"
 };
 	var obj = {

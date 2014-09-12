@@ -116,7 +116,7 @@
             </a>
         </li>
         <li>
-            <a ng-click="toDifferentUrl('https://www.facebook.com/dialog/feed?app_id=' + local.facebookAppId + '&link=' + local.shareLink + '&redirect_uri=http://facebook.com/')"
+            <a ng-click="toDifferentUrl('https://www.facebook.com/sharer/sharer.php?app_id=' + local.facebookAppId + '&u=' + local.shareLink)"
                class="facebook-icon">
               ~ local.share_on ~ Facebook
             </a>
@@ -134,7 +134,7 @@
             </a>
         </li>
         <li>
-            <a ng-click="toDifferentUrl('https://twitter.com/intent/tweet?text=' + local.shareLink)"
+            <a ng-click="toDifferentUrl('https://twitter.com/intent/tweet?text=' + local.twitterShare)"
                class="twitter-icon">
               ~ local.share_on ~ Twitter
             </a>

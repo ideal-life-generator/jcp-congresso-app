@@ -180,23 +180,11 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 		params:
 			resource: 'leadType'
 		handler: (data) ->
-			$scope.categories = [
-				# id: -1
-				# name: $scope.local.select_category
-			]
-			# if data.success is "true"
-				# $scope.visible = on
+			$scope.categories = [ ]
 			angular.forEach data, (ths) ->
 				$scope.categories.push ths
-			# else
-			# 	$scope.visible = off
 		scope: $scope
 		type: "noCache"
-
-	# $scope.categorieActive = 0
-	# $scope.categorieSingle = $scope.local.select_category
-	# $scope.interest = "5"
-	# $scope.revenue = "5"
 
 	if not $scope.commentLead
 		$scope.commentLead =
@@ -230,8 +218,6 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 					message.noClose $scope.local.error_server
 			else if $scope.commentLead.method is "put"
 				data =
-					# participant_id: $scope.participantScan.id
-					# event_id: $scope.event.id
 					id: $scope.commentLead.id
 					lead_type_id: $scope.commentLead.lead_type_id
 					interest: $scope.commentLead.interest
@@ -308,27 +294,6 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 			if result.cancelled isnt 1
 			# if !result.cancelled
 				message.open $scope.local.check_scan
-
-				# connection.makeLoad
-				# 	params:
-				# 		resource: 'member'
-				# 		data: "{ 'extraParam': { 'barcode': '#{result.text}' }}"
-				# 	handler: (data) ->
-				# 		# res = ""
-				# 		# angular.forEach data, (i) ->
-				# 		# 	res = res + i + ": " + data[i] + "\n"
-				# 		# alert res
-				# 		if data.success
-				# 			message.noClose $scope.local.scan_error1
-				# 		else
-				# 			message.close()
-				# 			$rootScope.member = data
-				# 			$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
-				# 			$scope.$apply()
-				# 	scope: $scope
-				# 	type: "noCache"
-				# , (error) ->
-				# 	message.noClose $scope.local.error_scaning
 			getData.noCache
 				resource: 'member'
 				data: extraParam: barcode: result.text
@@ -368,41 +333,6 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 								message.noClose $scope.local.scan_error2
 						else
 							message.noClose $scope.local.scan_warning1
-
-
-	# # # 2979
-	# getData.noCache
-	# 	resource: 'participant'
-	# 	data: event_id: 86, member_id: 2979, extraParam: "globalSearch"
-	# , (result) ->
-	# 	data = result.data
-	# 	$rootScope.participantScan = null
-	# 	angular.forEach data, (part) ->
-	# 		$rootScope.participantScan = part
-	# 	# 3652
-	# 	if $rootScope.participantScan.id isnt 3654
-	# 		if ~~$rootScope.participantScan.event_id is 86
-	# 			getData.noCache
-	# 				resource: 'partnerLead'
-	# 				data: event_id: 86, participant_id: 3652
-	# 			, (result) ->
-	# 				data = result.data
-	# 				if data.success is "false"
-	# 					message.close()
-	# 					$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
-	# 					$scope.$apply()
-	# 				else
-	# 					angular.forEach data, (comment) ->
-	# 						$rootScope.commentLead = comment
-	# 					$rootScope.commentLead.method = "put"
-	# 					message.close()
-	# 					$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
-	# 					$scope.$apply()
-	# 		else
-	# 			message.noClose $scope.local.scan_error2
-	# 	else
-	# 		message.noClose $scope.local.scan_warning1
-	
 ]
 
 atea.controller 'EventsController', [ '$scope', '$filter', 'baseURL', '$location', '$rootScope', '$routeParams', 'connection', 'client',
@@ -438,16 +368,6 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 				if participant.event_id is $rootScope.event.id
 					$scope.participient = participant
 					$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~participant.tokens
-
-	# local.then (data) ->
-	# 	$scope.local = data.local
-	# 	$scope.dyna = data.dyna
-	# 	$scope.polyglot = data.polyglot
-	# 	# message.wait $scope.local.first_login
-	# 	# loto.run 456, ->
-	# 	# 	message.warningAfter ($scope.polyglot.t "tokens_add", ~~456)
-	# 	$scope.noConnectionMessage = $scope.local.page_nointernet
-
 
 	$rootScope.updateEvents = ->
 		$scope.futureEvents = []
