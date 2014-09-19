@@ -10,8 +10,8 @@ atea.config [ '$interpolateProvider', ($interpolateProvider) ->
 atea.value 'COMPANY_ID', 13
 
 atea.constant 'baseURL',
-	BASE: 'http://188.226.184.59/congressomulti'
-	# BASE: 'http://event.congresso.no'
+	# BASE: 'http://188.226.184.59/congressomulti'
+	BASE: 'http://event.congresso.no'
 	FEEDS: '/'
 	FEED: '/feed/:feedId'
 	FEEDHREF: '/feed'

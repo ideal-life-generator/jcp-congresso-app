@@ -115,26 +115,26 @@
                 ~local.home~
             </a>
         </li>
-        <li>
-            <a ng-click="toDifferentUrl('https://www.facebook.com/sharer/sharer.php?app_id=' + local.facebookAppId + '&u=' + local.shareLink)"
+        <li ng-show="event">
+            <a ng-click="toDifferentUrl('https://www.facebook.com/sharer/sharer.php?app_id=' + event.facebookAppId + '&u=' + event.shareLink)"
                class="facebook-icon">
               ~ local.share_on ~ Facebook
             </a>
         </li>
-        <li>
-            <a ng-click="toDifferentUrl('https://www.linkedin.com/shareArticle?mini=true&url=' + local.shareLink)"
+        <li ng-show="event">
+            <a ng-click="toDifferentUrl('https://www.linkedin.com/shareArticle?mini=true&url=' + event.shareLink)"
                class="linkedin-icon">
               ~ local.share_on ~ LinkedIn
             </a>
         </li>
-        <li>
-            <a ng-click="toDifferentUrl('https://plus.google.com/share?url=' + local.shareLink + '&gpsrc=frameless')"
+        <li ng-show="event">
+            <a ng-click="toDifferentUrl('https://plus.google.com/share?url=' + event.shareLink + '&gpsrc=frameless')"
                class="google-icon">
               ~ local.share_on ~ Google
             </a>
         </li>
-        <li>
-            <a ng-click="toDifferentUrl('https://twitter.com/intent/tweet?text=' + local.twitterShare)"
+        <li ng-show="event">
+            <a ng-click="toDifferentUrl('https://twitter.com/intent/tweet?text=' + event.twitterShare)"
                class="twitter-icon">
               ~ local.share_on ~ Twitter
             </a>
