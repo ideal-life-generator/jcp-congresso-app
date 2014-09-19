@@ -305,8 +305,8 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 
 	$scope.scanActivator = ->
 		cordova.plugins.barcodeScanner.scan (result) ->
-			if result.cancelled isnt 1
-			# if !result.cancelled
+			# if result.cancelled isnt 1
+			if !result.cancelled
 				message.open $scope.local.check_scan
 
 				# connection.makeLoad
