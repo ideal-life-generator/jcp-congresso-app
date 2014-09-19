@@ -83,7 +83,7 @@
           var user;
           if (storage.getObject('user')) {
             user = storage.getObject('user');
-            if (user.version === "1.1.2") {
+            if (user.version === "1.1.3") {
               Auth.setCredentials(user.email, user.password);
               return user;
             } else {
@@ -106,7 +106,7 @@
             data = result.data;
             self.user.detail = data;
             data.password = password;
-            data.version = "1.1.2";
+            data.version = "1.1.3";
             storage.setObject('user', data);
             return defer.resolve(data);
           }, function(error) {
