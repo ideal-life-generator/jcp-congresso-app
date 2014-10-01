@@ -469,6 +469,10 @@
   atea.controller('EventsController', [
     '$scope', '$filter', 'baseURL', '$location', '$rootScope', '$routeParams', 'connection', 'client', function($scope, $filter, baseURL, $location, $rootScope, $routeParams, connection, client) {
       $rootScope.event = null;
+      console.log(client.user.detail.id);
+      ga('send', 'pageview', {
+        page: 'events'
+      });
       return $rootScope.updateEvents();
     }
   ]);
@@ -482,6 +486,10 @@
   atea.controller('MainController', [
     '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce', '$history', function($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce, $history) {
       var contentBlock, leftMenu;
+      ga('create', 'UA-53492925-1', {
+        cookieDomain: baseURL.BASE,
+        userId: client.user.detail ? client.user.detail.id : void 0
+      });
       $scope.local = local["static"];
       $scope.dyna = {};
       $scope.polyglot = local.dynamic;
