@@ -439,15 +439,6 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 					$scope.participient = participant
 					$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~participant.tokens
 
-	# local.then (data) ->
-	# 	$scope.local = data.local
-	# 	$scope.dyna = data.dyna
-	# 	$scope.polyglot = data.polyglot
-	# 	# message.wait $scope.local.first_login
-	# 	# loto.run 456, ->
-	# 	# 	message.warningAfter ($scope.polyglot.t "tokens_add", ~~456)
-	# 	$scope.noConnectionMessage = $scope.local.page_nointernet
-
 
 	$rootScope.updateEvents = ->
 		$scope.futureEvents = []
