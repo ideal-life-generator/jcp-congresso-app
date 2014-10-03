@@ -30,6 +30,7 @@ atea.config (localProvider) ->
 
 atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
 ($location, Auth, getData, $q, storage) ->
+	version = "1.2.4"
 	self = @
 	@path = $location.$$path
 	@lastPath = @path
@@ -53,7 +54,7 @@ atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
 		detail: (->
 			if storage.getObject 'user'
 				user = storage.getObject 'user'
-				if user.version is "1.2.1"
+				if user.version is version
 					Auth.setCredentials user.email, user.password
 					user
 				else
@@ -70,7 +71,7 @@ atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
 				data = result.data
 				self.user.detail = data
 				data.password = password
-				data.version = "1.2.1"
+				data.version = version
 				storage.setObject 'user', data
 				defer.resolve data
 			, (error) ->

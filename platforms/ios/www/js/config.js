@@ -14,7 +14,7 @@
   atea.value('COMPANY_ID', 13);
 
   atea.constant('baseURL', {
-    BASE: 'http://event.congresso.no',
+    BASE: 'http://188.226.184.59/congressomulti',
     FEEDS: '/',
     FEED: '/feed/:feedId',
     FEEDHREF: '/feed',
@@ -94,7 +94,10 @@
     'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$window', function(baseURL, $rootScope, client, userStatus, $location, $routeParams, $window) {
       $rootScope.status = userStatus.role;
       $rootScope.baseURL = baseURL;
-      return FastClick.attach(document.body);
+      FastClick.attach(document.body);
+      return ga('create', 'UA-53492925-1', {
+        'cookieDomain': baseURL.BASE
+      });
     }
   ]);
 

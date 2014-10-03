@@ -6,6 +6,20 @@
 
   atea.controller('RateController', [
     '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$filter', '$compile', 'getData', '$http', 'loto', '$timeout', 'message', '$rootScope', '$history', function($scope, $location, baseURL, $routeParams, connection, $filter, $compile, getData, $http, loto, $timeout, message, $rootScope, $history) {
+      var title;
+      title = "";
+      try {
+        if ($scope.event) {
+          title += $scope.event.event_name;
+        }
+        if ($rootScope.survey) {
+          title += " survey " + $rootScope.survey.name;
+        }
+      } catch (_error) {}
+      ga('send', 'pageview', {
+        page: $location.$$path,
+        title: title + " schedules"
+      });
       connection.makeLoad({
         params: {
           resource: 'surveyQuestion',
@@ -136,6 +150,9 @@
 
   atea.controller('RatesController', [
     '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$rootScope', '$timeout', 'message', '$history', function($scope, $location, baseURL, $routeParams, connection, $rootScope, $timeout, message, $history) {
+      ga('send', 'pageview', {
+        page: $location.$$path
+      });
       return connection.makeLoad({
         params: {
           resource: 'survey',
@@ -144,8 +161,19 @@
           }
         },
         handler: function(data) {
+          var title;
           if (!data.success) {
             $scope.surveys = [];
+            title = "";
+            try {
+              if ($scope.event) {
+                title += $scope.event.event_name;
+              }
+            } catch (_error) {}
+            ga('send', 'pageview', {
+              page: $location.$$path,
+              title: title + " surveys"
+            });
             angular.forEach(data, function(survey) {
               return $scope.surveys.push(survey);
             });
@@ -175,6 +203,20 @@
           id: $routeParams.scheduleId
         },
         handler: function(data) {
+          var title;
+          title = "";
+          try {
+            if ($scope.event) {
+              title += $scope.event.event_name;
+            }
+            if (data) {
+              title += " activity " + data.name;
+            }
+          } catch (_error) {}
+          ga('send', 'pageview', {
+            page: $location.$$path,
+            title: title
+          });
           $scope.schedule = data;
           if ($scope.schedule.survey_id !== "0") {
             return getData.noCache({
@@ -193,7 +235,17 @@
 
   atea.controller('SchedulesController', [
     '$scope', '$location', '$routeParams', 'getData', '$filter', '$http', '$rootScope', 'connection', 'message', function($scope, $location, $routeParams, getData, $filter, $http, $rootScope, connection, message) {
-      var getSchedules;
+      var getSchedules, title;
+      title = "";
+      try {
+        if ($scope.event) {
+          title += $scope.event.event_name;
+        }
+      } catch (_error) {}
+      ga('send', 'pageview', {
+        page: $location.$$path,
+        title: title + " schedules"
+      });
       getSchedules = function(data) {
         var dayyy, oldData, ressuulltt, timeee;
         oldData = data;
@@ -246,6 +298,17 @@
 
   atea.controller('CommentController', [
     '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'connection', 'message', 'getData', '$history', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, connection, message, getData, $history) {
+      var title;
+      title = "";
+      try {
+        if ($scope.event) {
+          title += $scope.event.event_name;
+        }
+      } catch (_error) {}
+      ga('send', 'pageview', {
+        page: $location.$$path,
+        title: title + " comment"
+      });
       connection.makeLoad({
         params: {
           resource: 'leadType'
@@ -337,10 +400,24 @@
           id: $routeParams.partnerId
         },
         handler: function(data) {
+          var title;
           $scope.partner = data;
-          return ga("send", "pageview", {
+          ga("send", "pageview", {
             page: $location.$$path,
             title: "The partner page of event " + $rootScope.event.id + ", partner name " + data.name + " ID " + data.id
+          });
+          title = "";
+          try {
+            if ($scope.event) {
+              title += $scope.event.event_name;
+            }
+            if (data) {
+              title += " partner " + data.name;
+            }
+          } catch (_error) {}
+          return ga('send', 'pageview', {
+            page: $location.$$path,
+            title: title
           });
         },
         scope: $scope,
@@ -376,10 +453,16 @@
 
   atea.controller('PartnersController', [
     '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$filter', 'getData', 'connection', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $filter, getData, connection) {
-      var getPartners, _ref;
-      ga("send", "pageview", {
+      var getPartners, title;
+      title = "";
+      try {
+        if ($scope.event) {
+          title += $scope.event.event_name;
+        }
+      } catch (_error) {}
+      ga('send', 'pageview', {
         page: $location.$$path,
-        title: ("The partners page of event " + $rootScope.event + ", ") + ((_ref = $scope.participient) != null ? _ref : "participant ID " + $scope.participient.id + ")")
+        title: title + " partners"
       });
       getPartners = function(data) {
         var partners;
@@ -404,9 +487,16 @@
 
   atea.controller('GuestController', [
     '$scope', '$window', '$location', 'baseURL', '$routeParams', '$rootScope', 'client', 'getData', 'connection', 'loto', 'message', function($scope, $window, $location, baseURL, $routeParams, $rootScope, client, getData, connection, loto, message) {
-      ga("send", "pageview", {
+      var title;
+      title = "";
+      try {
+        if ($scope.event) {
+          title += $scope.event.event_name;
+        }
+      } catch (_error) {}
+      ga('send', 'pageview', {
         page: $location.$$path,
-        title: "The guest page of event " + $rootScope.event
+        title: title
       });
       return $scope.scanActivator = function() {
         return cordova.plugins.barcodeScanner.scan(function(result) {
@@ -481,9 +571,9 @@
   atea.controller('EventsController', [
     '$scope', '$filter', 'baseURL', '$location', '$rootScope', '$routeParams', 'connection', 'client', function($scope, $filter, baseURL, $location, $rootScope, $routeParams, connection, client) {
       $rootScope.event = null;
-      ga("send", "pageview", {
+      ga('send', 'pageview', {
         page: $location.$$path,
-        title: "The main page"
+        title: "events"
       });
       return $rootScope.updateEvents();
     }
@@ -491,6 +581,10 @@
 
   atea.controller('ProfileController', [
     '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection', 'getData', function($scope, $location, baseURL, $routeParams, $rootScope, connection, getData) {
+      ga('send', 'pageview', {
+        page: $location.$$path,
+        title: "profile"
+      });
       return $scope.dyna.tokens_val = $scope.polyglot.t("tokens_val", ~~$scope.participient.tokens);
     }
   ]);
@@ -498,8 +592,8 @@
   atea.controller('MainController', [
     '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce', '$history', function($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce, $history) {
       var contentBlock, leftMenu;
-      ga('create', 'UA-53492925-3', {
-        cookieDomain: "none",
+      ga('create', 'UA-53492925-1', {
+        cookieDomain: baseURL.BASE,
         userId: client.user.detail ? client.user.detail.id : void 0
       });
       $scope.local = local["static"];
@@ -787,6 +881,10 @@
 
   atea.controller('LoginController', [
     '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'client', 'connection', 'message', '$history', 'Auth', function($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, client, connection, message, $history, Auth) {
+      ga('send', 'pageview', {
+        page: $location.$$path,
+        title: "login"
+      });
       $scope.go_submit = function() {
         if ($scope.auth.$dirty && $scope.auth.$valid) {
           message.open($scope.local.log_in);

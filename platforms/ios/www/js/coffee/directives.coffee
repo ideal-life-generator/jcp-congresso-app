@@ -142,7 +142,6 @@ atea.directive 'surveyCheckbox', [ () ->
 		rest: '@'
 	controller: [ '$scope', ($scope) ->
 		$scope.isRequired = ->
-			console.log $scope
 	]
 ]
 
@@ -278,7 +277,7 @@ atea.directive 'surveySmiles', [ ->
 							<div class="clear"></div>
 							 <h3>~setting.subject~ <span ng-show="setting.is_required">*</span></h3>
 								 <div	ng-repeat="smile in setting.options" class="smile">
-								 	 <label style="background: url(~smile_image~) no-repeat center center;">
+								 	 <label style="background: url(~smile_image | lowercase~) no-repeat center center;">
 										 <input type="radio"
 														name="~setting.name~"
 														value="~smile.answer_value~"

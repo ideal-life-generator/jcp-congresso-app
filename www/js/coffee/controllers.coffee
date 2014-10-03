@@ -3,6 +3,18 @@ atea = angular.module 'atea'
 atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$filter', '$compile', 'getData', '$http', 'loto', '$timeout', 'message', '$rootScope', '$history',
 ($scope, $location, baseURL, $routeParams, connection, $filter, $compile, getData, $http, loto, $timeout, message, $rootScope, $history) ->
 
+	title = ""
+
+	try
+		if $scope.event
+			title += $scope.event.event_name
+		if $rootScope.survey
+			title += " survey " + $rootScope.survey.name
+
+	ga 'send', 'pageview',
+		page: $location.$$path
+		title: title + " schedules"
+
 	connection.makeLoad
 		params:
 			resource: 'surveyQuestion'
@@ -90,6 +102,9 @@ atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routePar
 atea.controller 'RatesController', [ '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$rootScope', '$timeout', 'message', '$history',
 ($scope, $location, baseURL, $routeParams, connection, $rootScope, $timeout, message, $history) ->
 
+	ga 'send', 'pageview',
+		page: $location.$$path
+
 	connection.makeLoad
 		params:
 			resource: 'survey'
@@ -97,6 +112,13 @@ atea.controller 'RatesController', [ '$scope', '$location', 'baseURL', '$routePa
 		handler: (data) ->
 			if not data.success
 				$scope.surveys = [ ]
+				title = ""
+				try
+					if $scope.event
+						title += $scope.event.event_name
+				ga 'send', 'pageview',
+					page: $location.$$path
+					title: title + " surveys"
 				angular.forEach data, (survey) ->
 					$scope.surveys.push survey
 				if not $scope.surveys.length
@@ -119,6 +141,15 @@ atea.controller 'ScheduleController', [ '$scope', '$location', 'baseURL', '$rout
 			resource: 'activity'
 			id: $routeParams.scheduleId
 		handler: (data) ->
+			title = ""
+			try
+				if $scope.event
+					title += $scope.event.event_name
+				if data
+					title +=  " activity " + data.name
+			ga 'send', 'pageview',
+				page: $location.$$path
+				title: title
 			$scope.schedule = data
 			if $scope.schedule.survey_id isnt "0"
 				getData.noCache { resource: 'survey', id: $scope.schedule.survey_id }, (result) ->
@@ -129,6 +160,16 @@ atea.controller 'ScheduleController', [ '$scope', '$location', 'baseURL', '$rout
 
 atea.controller 'SchedulesController', [ '$scope', '$location', '$routeParams', 'getData', '$filter', '$http', '$rootScope', 'connection', 'message',
 ($scope, $location, $routeParams, getData, $filter, $http, $rootScope, connection, message) ->
+
+	title = ""
+
+	try
+		if $scope.event
+			title += $scope.event.event_name
+
+	ga 'send', 'pageview',
+		page: $location.$$path
+		title: title + " schedules"
 
 	getSchedules = (data) ->
 		oldData = data
@@ -175,6 +216,16 @@ atea.controller 'SchedulesController', [ '$scope', '$location', '$routeParams', 
 
 atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'connection', 'message', 'getData', '$history',
 ($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, connection, message, getData, $history) ->
+
+	title = ""
+
+	try
+		if $scope.event
+			title += $scope.event.event_name
+
+	ga 'send', 'pageview',
+		page: $location.$$path
+		title: title + " comment"
 
 	connection.makeLoad
 		params:
@@ -255,10 +306,6 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection', 'getData', '$http', 'message',
 ($scope, $location, baseURL, $routeParams, $rootScope, connection, getData, $http, message) ->
 
-	# ga "send", "pageview",
-	# 	page: $location.$$path
-	# 	title: "The partner page of event #{$rootScope.event}, " + ($scope.participient ? "participant ID #{$scope.participient.id})")
-
 	connection.makeLoad
 		params:
 			resource: 'partnerCompany'
@@ -268,6 +315,15 @@ atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$route
 			ga "send", "pageview",
 				page: $location.$$path
 				title: "The partner page of event #{$rootScope.event.id}, partner name #{data.name} ID #{data.id}"
+			title = ""
+			try
+				if $scope.event
+					title += $scope.event.event_name
+				if data
+					title += " partner " + data.name
+			ga 'send', 'pageview',
+				page: $location.$$path
+				title: title
 		scope: $scope
 		type: "get"
 
@@ -290,9 +346,13 @@ atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$route
 atea.controller 'PartnersController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$filter', 'getData', 'connection',
 ($scope, $location, baseURL, $routeParams, $rootScope, $http, $filter, getData, connection) ->
 
-	ga "send", "pageview",
+	title = ""
+	try
+		if $scope.event
+			title += $scope.event.event_name
+	ga 'send', 'pageview',
 		page: $location.$$path
-		title: "The partners page of event #{$rootScope.event}, " + ($scope.participient ? "participant ID #{$scope.participient.id})")
+		title: title + " partners"
 
 	getPartners = (data) ->
 		partners = [ ]
@@ -314,9 +374,13 @@ atea.controller 'PartnersController', [ '$scope', '$location', 'baseURL', '$rout
 atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL', '$routeParams', '$rootScope', 'client', 'getData', 'connection', 'loto', 'message',
 ($scope, $window, $location, baseURL, $routeParams, $rootScope, client, getData, connection, loto, message) ->
 
-	ga "send", "pageview",
+	title = ""
+	try
+		if $scope.event
+			title += $scope.event.event_name
+	ga 'send', 'pageview',
 		page: $location.$$path
-		title: "The guest page of event #{$rootScope.event}"
+		title: title
 
 	$scope.scanActivator = ->
 		cordova.plugins.barcodeScanner.scan (result) ->
@@ -370,9 +434,9 @@ atea.controller 'EventsController', [ '$scope', '$filter', 'baseURL', '$location
 
 	$rootScope.event = null
 
-	ga "send", "pageview",
+	ga 'send', 'pageview',
 		page: $location.$$path
-		title: "The main page"
+		title: "events"
 
 	$rootScope.updateEvents()
 ]
@@ -380,11 +444,19 @@ atea.controller 'EventsController', [ '$scope', '$filter', 'baseURL', '$location
 atea.controller 'ProfileController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection', 'getData',
 ($scope, $location, baseURL, $routeParams, $rootScope, connection, getData) ->
 
+	ga 'send', 'pageview',
+		page: $location.$$path
+		title: "profile"
+
 	$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~$scope.participient.tokens
 ]
 
 atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce', '$history',
 ($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce, $history) ->
+
+	ga 'create', 'UA-53492925-1',
+		cookieDomain: baseURL.BASE
+		userId: if client.user.detail then client.user.detail.id
 
 	$scope.local = local.static
 	$scope.dyna = { }
@@ -603,6 +675,10 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 
 atea.controller 'LoginController', [ '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'client', 'connection', 'message', '$history', 'Auth',
 ($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, client, connection, message, $history, Auth) ->
+
+	ga 'send', 'pageview',
+		page: $location.$$path
+		title: "login"
 
 	$scope.go_submit = ->
 		if $scope.auth.$dirty and $scope.auth.$valid
