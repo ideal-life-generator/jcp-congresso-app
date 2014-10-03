@@ -255,12 +255,19 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection', 'getData', '$http', 'message',
 ($scope, $location, baseURL, $routeParams, $rootScope, connection, getData, $http, message) ->
 
+	# ga "send", "pageview",
+	# 	page: $location.$$path
+	# 	title: "The partner page of event #{$rootScope.event}, " + ($scope.participient ? "participant ID #{$scope.participient.id})")
+
 	connection.makeLoad
 		params:
 			resource: 'partnerCompany'
 			id: $routeParams.partnerId
 		handler: (data) ->
 			$scope.partner = data
+			ga "send", "pageview",
+				page: $location.$$path
+				title: "The partner page of event #{$rootScope.event.id}, partner name #{data.name} ID #{data.id}"
 		scope: $scope
 		type: "get"
 
@@ -283,6 +290,10 @@ atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$route
 atea.controller 'PartnersController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$filter', 'getData', 'connection',
 ($scope, $location, baseURL, $routeParams, $rootScope, $http, $filter, getData, connection) ->
 
+	ga "send", "pageview",
+		page: $location.$$path
+		title: "The partners page of event #{$rootScope.event}, " + ($scope.participient ? "participant ID #{$scope.participient.id})")
+
 	getPartners = (data) ->
 		partners = [ ]
 		angular.forEach data, (partner) ->
@@ -303,32 +314,15 @@ atea.controller 'PartnersController', [ '$scope', '$location', 'baseURL', '$rout
 atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL', '$routeParams', '$rootScope', 'client', 'getData', 'connection', 'loto', 'message',
 ($scope, $window, $location, baseURL, $routeParams, $rootScope, client, getData, connection, loto, message) ->
 
+	ga "send", "pageview",
+		page: $location.$$path
+		title: "The guest page of event #{$rootScope.event}"
+
 	$scope.scanActivator = ->
 		cordova.plugins.barcodeScanner.scan (result) ->
 			if result.cancelled isnt 1
 			# if !result.cancelled
 				message.open $scope.local.check_scan
-
-				# connection.makeLoad
-				# 	params:
-				# 		resource: 'member'
-				# 		data: "{ 'extraParam': { 'barcode': '#{result.text}' }}"
-				# 	handler: (data) ->
-				# 		# res = ""
-				# 		# angular.forEach data, (i) ->
-				# 		# 	res = res + i + ": " + data[i] + "\n"
-				# 		# alert res
-				# 		if data.success
-				# 			message.noClose $scope.local.scan_error1
-				# 		else
-				# 			message.close()
-				# 			$rootScope.member = data
-				# 			$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
-				# 			$scope.$apply()
-				# 	scope: $scope
-				# 	type: "noCache"
-				# , (error) ->
-				# 	message.noClose $scope.local.error_scaning
 			getData.noCache
 				resource: 'member'
 				data: extraParam: barcode: result.text
@@ -368,40 +362,6 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 								message.noClose $scope.local.scan_error2
 						else
 							message.noClose $scope.local.scan_warning1
-
-
-	# # # 2979
-	# getData.noCache
-	# 	resource: 'participant'
-	# 	data: event_id: 86, member_id: 2979, extraParam: "globalSearch"
-	# , (result) ->
-	# 	data = result.data
-	# 	$rootScope.participantScan = null
-	# 	angular.forEach data, (part) ->
-	# 		$rootScope.participantScan = part
-	# 	# 3652
-	# 	if $rootScope.participantScan.id isnt 3654
-	# 		if ~~$rootScope.participantScan.event_id is 86
-	# 			getData.noCache
-	# 				resource: 'partnerLead'
-	# 				data: event_id: 86, participant_id: 3652
-	# 			, (result) ->
-	# 				data = result.data
-	# 				if data.success is "false"
-	# 					message.close()
-	# 					$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
-	# 					$scope.$apply()
-	# 				else
-	# 					angular.forEach data, (comment) ->
-	# 						$rootScope.commentLead = comment
-	# 					$rootScope.commentLead.method = "put"
-	# 					message.close()
-	# 					$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
-	# 					$scope.$apply()
-	# 		else
-	# 			message.noClose $scope.local.scan_error2
-	# 	else
-	# 		message.noClose $scope.local.scan_warning1
 	
 ]
 
@@ -409,6 +369,10 @@ atea.controller 'EventsController', [ '$scope', '$filter', 'baseURL', '$location
 ($scope, $filter, baseURL, $location, $rootScope, $routeParams, connection, client) ->
 
 	$rootScope.event = null
+
+	ga "send", "pageview",
+		page: $location.$$path
+		title: "The main page"
 
 	$rootScope.updateEvents()
 ]
@@ -439,16 +403,6 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 					$scope.participient = participant
 					$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~participant.tokens
 
-	# local.then (data) ->
-	# 	$scope.local = data.local
-	# 	$scope.dyna = data.dyna
-	# 	$scope.polyglot = data.polyglot
-	# 	# message.wait $scope.local.first_login
-	# 	# loto.run 456, ->
-	# 	# 	message.warningAfter ($scope.polyglot.t "tokens_add", ~~456)
-	# 	$scope.noConnectionMessage = $scope.local.page_nointernet
-
-
 	$rootScope.updateEvents = ->
 		$scope.futureEvents = []
 		$scope.pastEvents = []
@@ -475,9 +429,6 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 		$history.add $location.$$path
 
 	$scope.$on '$routeChangeSuccess', (ev, ls) ->
-		# console.log ls
-		# $location.lastPath = $location.$$path
-		# console.log $location.lastPath
 		path = $location.$$path
 		if $rootScope.event and path is baseURL.FEEDS
 			$rootScope.event = null
@@ -500,10 +451,6 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 								if participant.event_id is $rootScope.event.id
 									$scope.participient = participant
 									$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~participant.tokens
-							# getData.noCache
-							# 	resource: 'member'
-							# 	data: member_id: $scope.participient.member_id
-							# 	console.log $scope.participient
 				scope: $scope
 				type: "noCache"
 		if path is baseURL.LOGIN
@@ -632,18 +579,11 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 		$window.open url, '_system'
 
 	document.addEventListener "deviceready", ->
-		# res = ""
-		# angular.forEach navigator.app, (ths, mas) ->
-		# 	res += ths + "#" + mas[ths] + "\n"
-		# alert res
 		document.addEventListener 'backbutton', ->
 			if $location.$$path isnt baseURL.FEEDS
 				if $scope.contentAnimate isnt $scope.animationContentRight
 					$scope.contentAnimate = $scope.animationContentRight
 				$timeout ->
-					# $window.history.go(-1)
-					# alert navigator.app.backHistory
-					# alert navigator.app.exitApp
 					$history.back()
 				, 100
 			else

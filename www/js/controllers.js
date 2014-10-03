@@ -337,7 +337,11 @@
           id: $routeParams.partnerId
         },
         handler: function(data) {
-          return $scope.partner = data;
+          $scope.partner = data;
+          return ga("send", "pageview", {
+            page: $location.$$path,
+            title: "The partner page of event " + $rootScope.event.id + ", partner name " + data.name + " ID " + data.id
+          });
         },
         scope: $scope,
         type: "get"
@@ -372,7 +376,11 @@
 
   atea.controller('PartnersController', [
     '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$filter', 'getData', 'connection', function($scope, $location, baseURL, $routeParams, $rootScope, $http, $filter, getData, connection) {
-      var getPartners;
+      var getPartners, _ref;
+      ga("send", "pageview", {
+        page: $location.$$path,
+        title: ("The partners page of event " + $rootScope.event + ", ") + ((_ref = $scope.participient) != null ? _ref : "participant ID " + $scope.participient.id + ")")
+      });
       getPartners = function(data) {
         var partners;
         partners = [];
@@ -396,6 +404,10 @@
 
   atea.controller('GuestController', [
     '$scope', '$window', '$location', 'baseURL', '$routeParams', '$rootScope', 'client', 'getData', 'connection', 'loto', 'message', function($scope, $window, $location, baseURL, $routeParams, $rootScope, client, getData, connection, loto, message) {
+      ga("send", "pageview", {
+        page: $location.$$path,
+        title: "The guest page of event " + $rootScope.event
+      });
       return $scope.scanActivator = function() {
         return cordova.plugins.barcodeScanner.scan(function(result) {
           if (result.cancelled !== 1) {
@@ -469,6 +481,10 @@
   atea.controller('EventsController', [
     '$scope', '$filter', 'baseURL', '$location', '$rootScope', '$routeParams', 'connection', 'client', function($scope, $filter, baseURL, $location, $rootScope, $routeParams, connection, client) {
       $rootScope.event = null;
+      ga("send", "pageview", {
+        page: $location.$$path,
+        title: "The main page"
+      });
       return $rootScope.updateEvents();
     }
   ]);
@@ -482,6 +498,10 @@
   atea.controller('MainController', [
     '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce', '$history', function($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce, $history) {
       var contentBlock, leftMenu;
+      ga('create', 'UA-53492925-3', {
+        cookieDomain: "none",
+        userId: client.user.detail ? client.user.detail.id : void 0
+      });
       $scope.local = local["static"];
       $scope.dyna = {};
       $scope.polyglot = local.dynamic;

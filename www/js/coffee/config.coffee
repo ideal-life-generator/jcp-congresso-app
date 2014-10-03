@@ -88,4 +88,7 @@ atea.run [ 'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$win
 	$rootScope.baseURL = baseURL
 
 	FastClick.attach document.body
+
+	ga 'create', 'UA-53492925-1', 
+		'cookieDomain': baseURL.BASE
 ]
