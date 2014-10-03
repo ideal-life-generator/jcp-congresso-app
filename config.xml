@@ -89,4 +89,12 @@
     <access origin="*" browserOnly="true" />
     <feature name="InAppBrowser" />
 
+    <feature name="UniversalAnalytics">
+        <param name="ios-package" value="UniversalAnalyticsPlugin" />
+    </feature>
+
+    <feature name="UniversalAnalytics">
+        <param name="android-package" value="com.danielcwilson.plugins.analytics.UniversalAnalyticsPlugin" />
+    </feature>
+
 </widget>

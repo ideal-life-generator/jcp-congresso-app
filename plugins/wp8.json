@@ -41,6 +41,9 @@
         },
         "com.phonegap.plugins.barcodescanner": {
             "PACKAGE_NAME": "{DE92072B-6465-4557-A737-ACD02C12BB19}"
+        },
+        "com.danielcwilson.plugins.googleanalytics": {
+            "PACKAGE_NAME": "{BCBCD4CA-14A6-4854-8449-4156E9CAA450}"
         }
     },
     "dependent_plugins": {}

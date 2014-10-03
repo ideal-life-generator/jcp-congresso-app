@@ -48,7 +48,31 @@
                     "libsqlite3.dylib": [],
                     "Accounts.framework": [],
                     "AdSupport.framework": [],
-                    "Security.framework": []
+                    "Security.framework": [],
+                    "SystemConfiguration.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "CoreData.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "libz.dylib": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "libsqlite3.0.dylib": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ]
                 }
             },
             "config.xml": {
@@ -60,6 +84,10 @@
                         },
                         {
                             "xml": "<feature name=\"BarcodeScanner\"><param name=\"ios-package\" value=\"CDVBarcodeScanner\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"UniversalAnalytics\"><param name=\"ios-package\" value=\"UniversalAnalyticsPlugin\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -79,6 +107,9 @@
             "PACKAGE_NAME": "no.jcp.congresso"
         },
         "com.phonegap.plugins.barcodescanner": {
+            "PACKAGE_NAME": "no.jcp.congresso"
+        },
+        "com.danielcwilson.plugins.googleanalytics": {
             "PACKAGE_NAME": "no.jcp.congresso"
         }
     },

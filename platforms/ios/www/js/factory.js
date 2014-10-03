@@ -52,7 +52,8 @@
 
   atea.factory('client', [
     '$location', 'Auth', 'getData', '$q', 'storage', function($location, Auth, getData, $q, storage) {
-      var self;
+      var self, version;
+      version = "1.2.4";
       self = this;
       this.path = $location.$$path;
       this.lastPath = this.path;
@@ -83,7 +84,7 @@
           var user;
           if (storage.getObject('user')) {
             user = storage.getObject('user');
-            if (user.version === "1.2.1") {
+            if (user.version === version) {
               Auth.setCredentials(user.email, user.password);
               return user;
             } else {
@@ -106,7 +107,7 @@
             data = result.data;
             self.user.detail = data;
             data.password = password;
-            data.version = "1.2.1";
+            data.version = version;
             storage.setObject('user', data);
             return defer.resolve(data);
           }, function(error) {

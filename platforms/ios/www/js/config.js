@@ -94,10 +94,7 @@
     'baseURL', '$rootScope', 'client', '$location', '$routeParams', '$window', function(baseURL, $rootScope, client, userStatus, $location, $routeParams, $window) {
       $rootScope.status = userStatus.role;
       $rootScope.baseURL = baseURL;
-      FastClick.attach(document.body);
-      return ga('create', 'UA-53492925-1', {
-        'cookieDomain': baseURL.BASE
-      });
+      return FastClick.attach(document.body);
     }
   ]);
 

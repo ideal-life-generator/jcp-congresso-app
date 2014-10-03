@@ -13,13 +13,13 @@
           title += $scope.event.event_name;
         }
         if ($rootScope.survey) {
-          title += " survey " + $rootScope.survey.name;
+          title += " / Survey / " + $rootScope.survey.name;
         }
       } catch (_error) {}
-      ga('send', 'pageview', {
-        page: $location.$$path,
-        title: title + " schedules"
-      });
+      analytics.trackView(title);
+      if ($rootScope.user) {
+        analytics.setUserId($rootScope.user.id);
+      }
       connection.makeLoad({
         params: {
           resource: 'surveyQuestion',
@@ -29,7 +29,6 @@
         },
         handler: function(data) {
           var tokes;
-          console.log(data);
           $scope.fields = [];
           angular.forEach(data, function(field) {
             return $scope.fields.push(field);
@@ -151,9 +150,6 @@
 
   atea.controller('RatesController', [
     '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$rootScope', '$timeout', 'message', '$history', function($scope, $location, baseURL, $routeParams, connection, $rootScope, $timeout, message, $history) {
-      ga('send', 'pageview', {
-        page: $location.$$path
-      });
       return connection.makeLoad({
         params: {
           resource: 'survey',
@@ -170,11 +166,11 @@
               if ($scope.event) {
                 title += $scope.event.event_name;
               }
+              analytics.trackView(title + " / Surveys");
+              if ($rootScope.user) {
+                analytics.setUserId($rootScope.user.id);
+              }
             } catch (_error) {}
-            ga('send', 'pageview', {
-              page: $location.$$path,
-              title: title + " surveys"
-            });
             angular.forEach(data, function(survey) {
               return $scope.surveys.push(survey);
             });
@@ -211,13 +207,13 @@
               title += $scope.event.event_name;
             }
             if (data) {
-              title += " activity " + data.name;
+              title += " / Activity / " + data.name;
+            }
+            analytics.trackView(title);
+            if ($rootScope.user) {
+              analytics.setUserId($rootScope.user.id);
             }
           } catch (_error) {}
-          ga('send', 'pageview', {
-            page: $location.$$path,
-            title: title
-          });
           $scope.schedule = data;
           if ($scope.schedule.survey_id !== "0") {
             return getData.noCache({
@@ -242,11 +238,11 @@
         if ($scope.event) {
           title += $scope.event.event_name;
         }
+        analytics.trackView(title + " / Schedules");
+        if ($rootScope.user) {
+          analytics.setUserId($rootScope.user.id);
+        }
       } catch (_error) {}
-      ga('send', 'pageview', {
-        page: $location.$$path,
-        title: title + " schedules"
-      });
       getSchedules = function(data) {
         var dayyy, oldData, ressuulltt, timeee;
         oldData = data;
@@ -305,11 +301,11 @@
         if ($scope.event) {
           title += $scope.event.event_name;
         }
+        analytics.trackView(title + " / Comment");
+        if ($rootScope.user) {
+          analytics.setUserId($rootScope.user.id);
+        }
       } catch (_error) {}
-      ga('send', 'pageview', {
-        page: $location.$$path,
-        title: title + " comment"
-      });
       connection.makeLoad({
         params: {
           resource: 'leadType'
@@ -413,13 +409,13 @@
               title += $scope.event.event_name;
             }
             if (data) {
-              title += " partner " + data.name;
+              title += " / Partner / " + data.name;
+            }
+            analytics.trackView(title);
+            if ($rootScope.user) {
+              return analytics.setUserId($rootScope.user.id);
             }
           } catch (_error) {}
-          return ga('send', 'pageview', {
-            page: $location.$$path,
-            title: title
-          });
         },
         scope: $scope,
         type: "get"
@@ -460,11 +456,11 @@
         if ($scope.event) {
           title += $scope.event.event_name;
         }
+        analytics.trackView(title + " / Partners");
+        if ($rootScope.user) {
+          analytics.setUserId($rootScope.user.id);
+        }
       } catch (_error) {}
-      ga('send', 'pageview', {
-        page: $location.$$path,
-        title: title + " partners"
-      });
       getPartners = function(data) {
         var partners;
         partners = [];
@@ -493,12 +489,13 @@
       try {
         if ($scope.event) {
           title += $scope.event.event_name;
+          title += " / Homepage (" + $scope.event.eventRole.slice(0, 1).toUpperCase() + $scope.event.eventRole.slice(1) + ")";
+        }
+        analytics.trackView(title);
+        if ($rootScope.user) {
+          analytics.setUserId($rootScope.user.id);
         }
       } catch (_error) {}
-      ga('send', 'pageview', {
-        page: $location.$$path,
-        title: title
-      });
       return $scope.scanActivator = function() {
         return cordova.plugins.barcodeScanner.scan(function(result) {
           if (result.cancelled !== 1) {
@@ -572,20 +569,24 @@
   atea.controller('EventsController', [
     '$scope', '$filter', 'baseURL', '$location', '$rootScope', '$routeParams', 'connection', 'client', function($scope, $filter, baseURL, $location, $rootScope, $routeParams, connection, client) {
       $rootScope.event = null;
-      ga('send', 'pageview', {
-        page: $location.$$path,
-        title: "events"
-      });
+      try {
+        analytics.trackView("Events");
+        if ($rootScope.user) {
+          analytics.setUserId($rootScope.user.id);
+        }
+      } catch (_error) {}
       return $rootScope.updateEvents();
     }
   ]);
 
   atea.controller('ProfileController', [
     '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection', 'getData', function($scope, $location, baseURL, $routeParams, $rootScope, connection, getData) {
-      ga('send', 'pageview', {
-        page: $location.$$path,
-        title: "profile"
-      });
+      try {
+        analytics.trackView("Profile");
+        if ($rootScope.user) {
+          analytics.setUserId($rootScope.user.id);
+        }
+      } catch (_error) {}
       return $scope.dyna.tokens_val = $scope.polyglot.t("tokens_val", ~~$scope.participient.tokens);
     }
   ]);
@@ -593,10 +594,6 @@
   atea.controller('MainController', [
     '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce', '$history', function($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce, $history) {
       var contentBlock, leftMenu;
-      ga('create', 'UA-53492925-1', {
-        cookieDomain: baseURL.BASE,
-        userId: client.user.detail ? client.user.detail.id : void 0
-      });
       $scope.local = local["static"];
       $scope.dyna = {};
       $scope.polyglot = local.dynamic;
@@ -856,6 +853,13 @@
         return $window.open(url, '_system');
       };
       document.addEventListener("deviceready", function() {
+        try {
+          alert(analytics);
+          analytics.startTrackerWithId('UA-53492925-3');
+          if ($rootScope.user) {
+            analytics.setUserId($rootScope.user.id);
+          }
+        } catch (_error) {}
         return document.addEventListener('backbutton', function() {
           if ($location.$$path !== baseURL.FEEDS) {
             if ($scope.contentAnimate !== $scope.animationContentRight) {
@@ -884,7 +888,7 @@
     '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'client', 'connection', 'message', '$history', 'Auth', function($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, client, connection, message, $history, Auth) {
       ga('send', 'pageview', {
         page: $location.$$path,
-        title: "login"
+        title: "Login"
       });
       $scope.go_submit = function() {
         if ($scope.auth.$dirty && $scope.auth.$valid) {

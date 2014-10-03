@@ -13,13 +13,21 @@ module.exports = [
         "clobbers": [
             "cordova.plugins.barcodeScanner"
         ]
+    },
+    {
+        "file": "plugins/com.danielcwilson.plugins.googleanalytics/www/analytics.js",
+        "id": "com.danielcwilson.plugins.googleanalytics.UniversalAnalytics",
+        "clobbers": [
+            "analytics"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "org.apache.cordova.inappbrowser": "0.5.2-dev",
-    "com.phonegap.plugins.barcodescanner": "2.0.0"
+    "com.phonegap.plugins.barcodescanner": "2.0.0",
+    "com.danielcwilson.plugins.googleanalytics": "0.6.0"
 }
 // BOTTOM OF METADATA
 });
