@@ -436,9 +436,16 @@ atea.controller 'EventsController', [ '$scope', '$filter', 'baseURL', '$location
 
 	$rootScope.event = null
 
+<<<<<<< HEAD
 	ga 'send', 'pageview',
 		page: $location.$$path
 		title: "events"
+=======
+	console.log client.user.detail.id
+
+	ga 'send', 'pageview',
+		page: 'events'
+>>>>>>> a4506df9f7103f7fa7069fe9ed5c7f79857e9724
 
 	$rootScope.updateEvents()
 ]
@@ -455,6 +462,10 @@ atea.controller 'ProfileController', [ '$scope', '$location', 'baseURL', '$route
 
 atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce', '$history',
 ($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce, $history) ->
+
+	ga 'create', 'UA-53492925-1',
+		cookieDomain: baseURL.BASE
+		userId: if client.user.detail then client.user.detail.id
 
 	$scope.local = local.static
 	$scope.dyna = { }
@@ -473,7 +484,10 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 					$scope.participient = participant
 					$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~participant.tokens
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> a4506df9f7103f7fa7069fe9ed5c7f79857e9724
 	$rootScope.updateEvents = ->
 		$scope.futureEvents = []
 		$scope.pastEvents = []
@@ -500,9 +514,6 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 		$history.add $location.$$path
 
 	$scope.$on '$routeChangeSuccess', (ev, ls) ->
-		# console.log ls
-		# $location.lastPath = $location.$$path
-		# console.log $location.lastPath
 		path = $location.$$path
 		if $rootScope.event and path is baseURL.FEEDS
 			$rootScope.event = null
@@ -525,10 +536,6 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 								if participant.event_id is $rootScope.event.id
 									$scope.participient = participant
 									$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~participant.tokens
-							# getData.noCache
-							# 	resource: 'member'
-							# 	data: member_id: $scope.participient.member_id
-							# 	console.log $scope.participient
 				scope: $scope
 				type: "noCache"
 		if path is baseURL.LOGIN
@@ -657,18 +664,11 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 		$window.open url, '_system'
 
 	document.addEventListener "deviceready", ->
-		# res = ""
-		# angular.forEach navigator.app, (ths, mas) ->
-		# 	res += ths + "#" + mas[ths] + "\n"
-		# alert res
 		document.addEventListener 'backbutton', ->
 			if $location.$$path isnt baseURL.FEEDS
 				if $scope.contentAnimate isnt $scope.animationContentRight
 					$scope.contentAnimate = $scope.animationContentRight
 				$timeout ->
-					# $window.history.go(-1)
-					# alert navigator.app.backHistory
-					# alert navigator.app.exitApp
 					$history.back()
 				, 100
 			else
