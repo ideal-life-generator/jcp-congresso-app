@@ -630,7 +630,6 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 
 	document.addEventListener "deviceready", ->
 		try
-			alert analytics
 			analytics.startTrackerWithId 'UA-53492925-3'
 			if $rootScope.user
 				analytics.setUserId $rootScope.user.id
