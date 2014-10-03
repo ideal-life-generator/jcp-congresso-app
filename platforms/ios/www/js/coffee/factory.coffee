@@ -30,7 +30,7 @@ atea.config (localProvider) ->
 
 atea.factory 'client', [ '$location', 'Auth', 'getData', '$q', 'storage',
 ($location, Auth, getData, $q, storage) ->
-	version = "1.2.4"
+	version = "1.2.5"
 	self = @
 	@path = $location.$$path
 	@lastPath = @path
