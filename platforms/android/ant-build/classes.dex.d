@@ -1,11 +1,5 @@
 /Users/nik/documents/congresso-app/platforms/android/ant-build/classes.dex : \
-/Users/nik/documents/congresso-app/platforms/android/ant-build/classes/com/example/hello/AteaCommunity2014.class \
-/Users/nik/documents/congresso-app/platforms/android/ant-build/classes/com/example/hello/BuildConfig.class \
-/Users/nik/documents/congresso-app/platforms/android/ant-build/classes/com/example/hello/R$attr.class \
-/Users/nik/documents/congresso-app/platforms/android/ant-build/classes/com/example/hello/R$drawable.class \
-/Users/nik/documents/congresso-app/platforms/android/ant-build/classes/com/example/hello/R$string.class \
-/Users/nik/documents/congresso-app/platforms/android/ant-build/classes/com/example/hello/R$xml.class \
-/Users/nik/documents/congresso-app/platforms/android/ant-build/classes/com/example/hello/R.class \
+/Users/nik/documents/congresso-app/platforms/android/ant-build/classes/com/danielcwilson/plugins/analytics/UniversalAnalyticsPlugin.class \
 /Users/nik/documents/congresso-app/platforms/android/ant-build/classes/com/phonegap/plugins/barcodescanner/BarcodeScanner.class \
 /Users/nik/documents/congresso-app/platforms/android/ant-build/classes/no/jcp/congresso/AteaCommunity2014.class \
 /Users/nik/documents/congresso-app/platforms/android/ant-build/classes/no/jcp/congresso/BuildConfig.class \
@@ -37,3 +31,4 @@
 /Users/nik/documents/congresso-app/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppChromeClient.class \
 /Users/nik/documents/congresso-app/platforms/android/ant-build/dexedLibs/classes-354abdb8ebcaf1b53eea75a0c0d06b08.jar \
 /Users/nik/documents/congresso-app/platforms/android/ant-build/dexedLibs/com.google.zxing.client.android.captureactivity-c45fe31ea709be4b4fd7fc153edde1f0.jar \
+/Users/nik/documents/congresso-app/platforms/android/ant-build/dexedLibs/libGoogleAnalyticsServices-5fbd6f6cfb98796ef86ece1dbd529d44.jar \

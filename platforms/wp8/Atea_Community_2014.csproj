@@ -131,6 +131,10 @@
             <SubType>Designer</SubType>
             <Generator>MSBuild:Compile</Generator>
         </Page>
+        <Page Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScannerUI.xaml">
+            <SubType>Designer</SubType>
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
     </ItemGroup>
     <ItemGroup>
         <ApplicationDefinition Include="App.xaml">
@@ -203,14 +207,6 @@
         <PostBuildEvent>
         </PostBuildEvent>
     </PropertyGroup>
-    <ItemGroup>
-        <Compile Include="Plugins\org.apache.cordova.inappbrowser\InAppBrowser.cs" />
-    </ItemGroup>
-    <ItemGroup>
-        <Reference Include="zxing.wp8.0">
-            <HintPath>packages\ZXing.Net.0.14.0.1\lib\wp8\zxing.wp8.0.dll</HintPath>
-        </Reference>
-    </ItemGroup>
     <ItemGroup>
         <Content Include="Plugins\org.bloxlab.barcodescanner\zxing.wp8.0.dll" />
     </ItemGroup>
@@ -620,10 +616,30 @@
         <Content Include="www/template/schedules.html" />
     </ItemGroup>
     <ItemGroup>
-        <Content Include="www\plugins\org.apache.cordova.inappbrowser\www\inappbrowser.js" />
+        <Compile Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScanner.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScannerTask.cs" />
+    </ItemGroup>
+    <ItemGroup />
+    <ItemGroup>
+        <Compile Include="Plugins\com.phonegap.plugins.barcodescanner\BarcodeScannerUI.xaml.cs">
+            <DependentUpon>BarcodeScannerUI.xaml</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="zxing.wp8.0">
+            <HintPath>plugins/com.phonegap.plugins.barcodescanner/zxing.wp8.0.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\org.apache.cordova.inappbrowser\InAppBrowser.cs" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\plugins\com.phonegap.plugins.barcodescanner\www\barcodescanner.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.inappbrowser\www\inappbrowser.js" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\plugins\com.danielcwilson.plugins.googleanalytics\www\analytics.js" />

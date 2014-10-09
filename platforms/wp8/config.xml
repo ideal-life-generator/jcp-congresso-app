@@ -1,9 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="no.jcp.congresso" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://cordova.apache.org/ns/1.0">
     <access origin="*" />
-    <feature name="BarcodeScanner">
-        <param name="wp-package" value="BarcodeScanner" />
-    </feature>
     <name>Atea Community 2014</name>
     <description>
         The majestic congresso app.
@@ -54,6 +51,9 @@
     <gap:plugin name="nl.x-services.plugins.socialsharing" />
     <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
     <access browserOnly="true" origin="*" />
+    <feature name="BarcodeScanner">
+        <param name="wp-package" value="BarcodeScanner" />
+    </feature>
     <feature name="InAppBrowser">
         <param name="wp-package" value="InAppBrowser" />
     </feature>

@@ -9,12 +9,12 @@
                 "parents": {
                     "/Deployment/App/Capabilities": [
                         {
-                            "xml": "<Capability Name=\"ID_CAP_NETWORKING\" />",
-                            "count": 2
-                        },
-                        {
                             "xml": "<Capability Name=\"ID_CAP_ISV_CAMERA\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<Capability Name=\"ID_CAP_NETWORKING\" />",
+                            "count": 2
                         }
                     ]
                 }
@@ -23,11 +23,11 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"InAppBrowser\"><param name=\"wp-package\" value=\"InAppBrowser\" /></feature>",
+                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"wp-package\" value=\"BarcodeScanner\" /></feature>",
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"wp-package\" value=\"BarcodeScanner\" /></feature>",
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"wp-package\" value=\"InAppBrowser\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -36,11 +36,11 @@
         }
     },
     "installed_plugins": {
-        "org.apache.cordova.inappbrowser": {
-            "PACKAGE_NAME": "{DE92072B-6465-4557-A737-ACD02C12BB19}"
-        },
         "com.phonegap.plugins.barcodescanner": {
-            "PACKAGE_NAME": "{DE92072B-6465-4557-A737-ACD02C12BB19}"
+            "PACKAGE_NAME": "{BCBCD4CA-14A6-4854-8449-4156E9CAA450}"
+        },
+        "org.apache.cordova.inappbrowser": {
+            "PACKAGE_NAME": "{BCBCD4CA-14A6-4854-8449-4156E9CAA450}"
         },
         "com.danielcwilson.plugins.googleanalytics": {
             "PACKAGE_NAME": "{BCBCD4CA-14A6-4854-8449-4156E9CAA450}"
