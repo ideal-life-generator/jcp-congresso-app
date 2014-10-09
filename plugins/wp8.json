@@ -7,44 +7,16 @@
         "files": {
             "Properties/WMAppManifest.xml": {
                 "parents": {
-                    "/Deployment/App/Capabilities": [
-                        {
-                            "xml": "<Capability Name=\"ID_CAP_ISV_CAMERA\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<Capability Name=\"ID_CAP_NETWORKING\" />",
-                            "count": 2
-                        }
-                    ]
+                    "/Deployment/App/Capabilities": []
                 }
             },
             "config.xml": {
                 "parents": {
-                    "/*": [
-                        {
-                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"wp-package\" value=\"BarcodeScanner\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"InAppBrowser\"><param name=\"wp-package\" value=\"InAppBrowser\" /></feature>",
-                            "count": 1
-                        }
-                    ]
+                    "/*": []
                 }
             }
         }
     },
-    "installed_plugins": {
-        "com.phonegap.plugins.barcodescanner": {
-            "PACKAGE_NAME": "{BCBCD4CA-14A6-4854-8449-4156E9CAA450}"
-        },
-        "org.apache.cordova.inappbrowser": {
-            "PACKAGE_NAME": "{BCBCD4CA-14A6-4854-8449-4156E9CAA450}"
-        },
-        "com.danielcwilson.plugins.googleanalytics": {
-            "PACKAGE_NAME": "{BCBCD4CA-14A6-4854-8449-4156E9CAA450}"
-        }
-    },
+    "installed_plugins": {},
     "dependent_plugins": {}
 }

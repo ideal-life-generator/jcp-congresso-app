@@ -536,8 +536,9 @@ input[type="range"] {
   margin: 0;
   padding: 0;
   -webkit-appearance: none;
-  box-shadow: 0;
-  height: 3em;
+  background-color: lightgray;
+  height: 0.3em;
+  margin: 3em 0;
 }
 input[type="range"]::-ms-fill-upper {
   background-color: lightgray;
@@ -707,17 +708,21 @@ input:focus {
 }
 ::-webkit-input-placeholder {
   color: #999;
+  text-align: center;
 }
 :-moz-placeholder {
   color: #999;
   opacity: 1;
+  text-align: center;
 }
 ::-moz-placeholder {
   color: #999;
   opacity: 1;
+  text-align: center;
 }
 :-ms-input-placeholder {
   color: #999;
+  text-align: center;
 }
 .image-icon {
   display: block;

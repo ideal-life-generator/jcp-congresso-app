@@ -9,8 +9,6 @@
         JCP
     </author>
     <content src="index.html" />
-    <feature name="http://api.phonegap.com/1.0/device" />
-    <feature name="http://api.phonegap.com/1.0/camera" />
     <preference name="Fullscreen" value="true" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="orientation" value="portrait" />
@@ -51,10 +49,4 @@
     <gap:plugin name="nl.x-services.plugins.socialsharing" />
     <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
     <access browserOnly="true" origin="*" />
-    <feature name="BarcodeScanner">
-        <param name="wp-package" value="BarcodeScanner" />
-    </feature>
-    <feature name="InAppBrowser">
-        <param name="wp-package" value="InAppBrowser" />
-    </feature>
 </widget>

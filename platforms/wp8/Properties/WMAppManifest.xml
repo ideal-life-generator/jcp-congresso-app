@@ -4,11 +4,10 @@
     <Languages xmlns="">
         <Language code="en-US" />
     </Languages>
-    <App Author="Atea Community 2014 author" BitsPerPixel="32" Description="Apache Cordova for Windows Phone" Genre="apps.normal" ProductID="{BCBCD4CA-14A6-4854-8449-4156E9CAA450}" Publisher="Atea Community 2014" PublisherID="{db093ed5-53b1-45f7-af72-751e8f36ab80}" RuntimeType="Silverlight" Title="Atea Community 2014" Version="1.0.0" xmlns="">
+    <App Author="Atea Community 2014 author" BitsPerPixel="32" Description="Apache Cordova for Windows Phone" Genre="apps.normal" ProductID="{f8ec0840-4fc4-11e4-93fc-6d7e726254d7}" Publisher="Atea Community 2014" PublisherID="{db093ed5-53b1-45f7-af72-751e8f36ab80}" RuntimeType="Silverlight" Title="Atea Community 2014" Version="1.0.0" xmlns="">
         <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
         <Capabilities>
             <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
-            <Capability Name="ID_CAP_ISV_CAMERA" />
             <Capability Name="ID_CAP_NETWORKING" />
         </Capabilities>
         <Tasks>

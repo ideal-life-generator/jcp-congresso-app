@@ -38,14 +38,6 @@
 		7E7966E61810823500FA85AD /* icon-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DC1810823500FA85AD /* icon-small.png */; };
 		7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DD1810823500FA85AD /* icon-small@2x.png */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
-		6ABF662162E54EBBBB24808A /* zxing-all-in-one.cpp in Resources */ = {isa = PBXBuildFile; fileRef = FE01ABE4A08A43F585E5F8A9 /* zxing-all-in-one.cpp */; };
-		53BFEEF81E45434D95BC88F0 /* scannerOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6F70F7064FA4716AE9BBC1C /* scannerOverlay.xib */; };
-		28DD85E1CEA24A4C92FA21DA /* UniversalAnalyticsPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB97088A13643CEBE2FA6C9 /* UniversalAnalyticsPlugin.m */; };
-		6C5F467202664B848D341AF4 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE1A05DD4B384D59ADB4B49C /* libGoogleAnalyticsServices.a */; };
-		7869015EA8B241E889EF250E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB473EB0C09471EBACAA409 /* SystemConfiguration.framework */; };
-		4892CBD191404FF3A52D6CF1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D058A73347E54444B140AAE3 /* CoreData.framework */; };
-		489E564EB8AD46ECB50A8830 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F2B0A6AA12E74E46AD21DEC7 /* libz.dylib */; };
-		AF0343327E374337889B2443 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 734B03A6C5EA4426A30DEB48 /* libsqlite3.0.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,22 +110,6 @@
 		F631F2AB3D594C3F9EAEF7AD /* CDVInAppBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVInAppBrowser.m; path = org.apache.cordova.inappbrowser/CDVInAppBrowser.m; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "Atea Community 2014/config.xml"; sourceTree = "<group>"; };
 		FAB793EC7BFE4F2DB10EF01D /* libiconv.dylib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
-		FE01ABE4A08A43F585E5F8A9 /* zxing-all-in-one.cpp */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "zxing-all-in-one.cpp"; path = "com.phonegap.plugins.barcodescanner/zxing-all-in-one.cpp"; sourceTree = "<group>"; fileEncoding = 4; };
-		0313F01B59BB46E998B9BDAC /* zxing-all-in-one.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "zxing-all-in-one.h"; path = "com.phonegap.plugins.barcodescanner/zxing-all-in-one.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		F6F70F7064FA4716AE9BBC1C /* scannerOverlay.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "scannerOverlay.xib"; path = "scannerOverlay.xib"; sourceTree = "<group>"; fileEncoding = 4; };
-		2FB97088A13643CEBE2FA6C9 /* UniversalAnalyticsPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UniversalAnalyticsPlugin.m"; path = "com.danielcwilson.plugins.googleanalytics/UniversalAnalyticsPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		AE1A05DD4B384D59ADB4B49C /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libGoogleAnalyticsServices.a"; path = "Atea Community 2014/Plugins/com.danielcwilson.plugins.googleanalytics/libGoogleAnalyticsServices.a"; sourceTree = "<group>"; fileEncoding = 4; };
-		FF01265C29464AA5B0FB1842 /* UniversalAnalyticsPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UniversalAnalyticsPlugin.h"; path = "com.danielcwilson.plugins.googleanalytics/UniversalAnalyticsPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		6DA4625FFE4F436285C39EB1 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "GAIDictionaryBuilder.h"; path = "com.danielcwilson.plugins.googleanalytics/GAIDictionaryBuilder.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		D60E3828924B4422ADDB6F27 /* GAIFields.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "GAIFields.h"; path = "com.danielcwilson.plugins.googleanalytics/GAIFields.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		5A92DEFBB67147CFBC644372 /* GAILogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "GAILogger.h"; path = "com.danielcwilson.plugins.googleanalytics/GAILogger.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		8DC1702C5730474EAE06A693 /* GAITrackedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "GAITrackedViewController.h"; path = "com.danielcwilson.plugins.googleanalytics/GAITrackedViewController.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		C7DBBE515E5B4FE18099AC0D /* GAI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "GAI.h"; path = "com.danielcwilson.plugins.googleanalytics/GAI.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		EDD349D7AC1448A0AD2F3F79 /* GAITracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "GAITracker.h"; path = "com.danielcwilson.plugins.googleanalytics/GAITracker.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		3CB473EB0C09471EBACAA409 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "SystemConfiguration.framework"; path = "System/Library/Frameworks/SystemConfiguration.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		D058A73347E54444B140AAE3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "CoreData.framework"; path = "System/Library/Frameworks/CoreData.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		F2B0A6AA12E74E46AD21DEC7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libz.dylib"; path = "usr/lib/libz.dylib"; sourceTree = SDKROOT; fileEncoding = 4; };
-		734B03A6C5EA4426A30DEB48 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsqlite3.0.dylib"; path = "usr/lib/libsqlite3.0.dylib"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,11 +122,6 @@
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
 				5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */,
-				6C5F467202664B848D341AF4 /* libGoogleAnalyticsServices.a in Frameworks */,
-				7869015EA8B241E889EF250E /* SystemConfiguration.framework in Frameworks */,
-				4892CBD191404FF3A52D6CF1 /* CoreData.framework in Frameworks */,
-				489E564EB8AD46ECB50A8830 /* libz.dylib in Frameworks */,
-				AF0343327E374337889B2443 /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,7 +204,6 @@
 				308D05311370CCF300D202BF /* splash */,
 				8D1107310486CEB800E47090 /* Atea Community 2014-Info.plist */,
 				7243EFECA54D4DE096667329 /* scannerOverlay.xib */,
-				F6F70F7064FA4716AE9BBC1C /* scannerOverlay.xib */,
 			);
 			name = Resources;
 			path = "Atea Community 2014/Resources";
@@ -252,10 +222,6 @@
 				C7B2E6B1EA6E4427B2336D20 /* QuartzCore.framework */,
 				40B45B192FCB49C0865DD6DD /* libGoogleAnalyticsServices.a */,
 				AE1A05DD4B384D59ADB4B49C /* libGoogleAnalyticsServices.a */,
-				3CB473EB0C09471EBACAA409 /* SystemConfiguration.framework */,
-				D058A73347E54444B140AAE3 /* CoreData.framework */,
-				F2B0A6AA12E74E46AD21DEC7 /* libz.dylib */,
-				734B03A6C5EA4426A30DEB48 /* libsqlite3.0.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -274,16 +240,6 @@
 				F631F2AB3D594C3F9EAEF7AD /* CDVInAppBrowser.m */,
 				C0E9FF21310147F2A12992ED /* CDVInAppBrowser.h */,
 				04BF0196BB8647CAA06E3A3C /* CDVBarcodeScanner.mm */,
-				FE01ABE4A08A43F585E5F8A9 /* zxing-all-in-one.cpp */,
-				0313F01B59BB46E998B9BDAC /* zxing-all-in-one.h */,
-				2FB97088A13643CEBE2FA6C9 /* UniversalAnalyticsPlugin.m */,
-				FF01265C29464AA5B0FB1842 /* UniversalAnalyticsPlugin.h */,
-				6DA4625FFE4F436285C39EB1 /* GAIDictionaryBuilder.h */,
-				D60E3828924B4422ADDB6F27 /* GAIFields.h */,
-				5A92DEFBB67147CFBC644372 /* GAILogger.h */,
-				8DC1702C5730474EAE06A693 /* GAITrackedViewController.h */,
-				C7DBBE515E5B4FE18099AC0D /* GAI.h */,
-				EDD349D7AC1448A0AD2F3F79 /* GAITracker.h */,
 			);
 			name = Plugins;
 			path = "Atea Community 2014/Plugins";
@@ -447,7 +403,6 @@
 				7E7966E11810823500FA85AD /* icon-50@2x.png in Resources */,
 				7E7966E51810823500FA85AD /* icon-76@2x.png in Resources */,
 				30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */,
-				53BFEEF81E45434D95BC88F0 /* scannerOverlay.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,8 +436,6 @@
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				5D1B574BDE7746CDBF22AC6F /* CDVBarcodeScanner.mm in Sources */,
 				6BA11988AFA34869A2BC336C /* zxing-all-in-one.cpp in Sources */,
-				6ABF662162E54EBBBB24808A /* zxing-all-in-one.cpp in Resources */,
-				28DD85E1CEA24A4C92FA21DA /* UniversalAnalyticsPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

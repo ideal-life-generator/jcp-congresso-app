@@ -220,18 +220,6 @@ textarea.no-valid {
 // 	// -webkit-appearance: none;
 // }
 
-// input[type="range"] {
-//     cursor: pointer;
-//     border: 0;
-//     outline: 0;
-//     box-sizing: content-box;
-//     margin: 0;
-//     padding: 0;
-//     -webkit-appearance: none;
-//     background-color: lightgray;
-//     height: 0.3em;
-//     margin: 3em 0;
-// }
 input[type="range"] {
     cursor: pointer;
     border: 0;
@@ -240,11 +228,23 @@ input[type="range"] {
     margin: 0;
     padding: 0;
     -webkit-appearance: none;
-    box-shadow: 0;
-    // background-color: lightgray;
-		height: 3em;
-    // margin: 3em 0;
+    background-color: lightgray;
+    height: 0.3em;
+    margin: 3em 0;
 }
+// input[type="range"] {
+//     cursor: pointer;
+//     border: 0;
+//     outline: 0;
+//     box-sizing: content-box;
+//     margin: 0;
+//     padding: 0;
+//     -webkit-appearance: none;
+//     box-shadow: 0;
+//     // background-color: lightgray;
+// 		height: 3em;
+//     // margin: 3em 0;
+// }
 input[type="range"]::-ms-fill-upper {
     background-color: lightgray;
 }
@@ -431,18 +431,22 @@ input:focus {
 }
 
 ::-webkit-input-placeholder {
-    color:    #999;
+    color: #999;
+    text-align: center;
 }
 :-moz-placeholder {
-    color:    #999;
+    color: #999;
     opacity:  1;
+    text-align: center;
 }
 ::-moz-placeholder {
-    color:    #999;
+    color: #999;
     opacity:  1;
+    text-align: center;
 }
 :-ms-input-placeholder {
-    color:    #999;
+    color: #999;
+    text-align: center;
 }
 
 .image-icon {

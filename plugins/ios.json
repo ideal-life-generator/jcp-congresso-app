@@ -7,90 +7,27 @@
         "files": {
             "framework": {
                 "parents": {
-                    "CoreGraphics.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
-                    "libiconv.dylib": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
-                    "AVFoundation.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
-                    "AssetsLibrary.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
-                    "CoreVideo.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
-                    "QuartzCore.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
+                    "CoreGraphics.framework": [],
+                    "libiconv.dylib": [],
+                    "AVFoundation.framework": [],
+                    "AssetsLibrary.framework": [],
+                    "CoreVideo.framework": [],
+                    "QuartzCore.framework": [],
                     "Social.framework": [],
                     "MessageUI.framework": [],
                     "libsqlite3.dylib": [],
                     "Accounts.framework": [],
                     "AdSupport.framework": [],
                     "Security.framework": [],
-                    "SystemConfiguration.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
-                    "CoreData.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
-                    "libz.dylib": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
-                    "libsqlite3.0.dylib": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ]
+                    "SystemConfiguration.framework": [],
+                    "CoreData.framework": [],
+                    "libz.dylib": [],
+                    "libsqlite3.0.dylib": []
                 }
             },
             "config.xml": {
                 "parents": {
-                    "/*": [
-                        {
-                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"ios-package\" value=\"CDVBarcodeScanner\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"UniversalAnalytics\"><param name=\"ios-package\" value=\"UniversalAnalyticsPlugin\" /></feature>",
-                            "count": 1
-                        }
-                    ]
+                    "/*": []
                 }
             },
             "*-Info.plist": {
@@ -102,16 +39,6 @@
             }
         }
     },
-    "installed_plugins": {
-        "com.phonegap.plugins.barcodescanner": {
-            "PACKAGE_NAME": "no.jcp.congresso"
-        },
-        "org.apache.cordova.inappbrowser": {
-            "PACKAGE_NAME": "no.jcp.congresso"
-        },
-        "com.danielcwilson.plugins.googleanalytics": {
-            "PACKAGE_NAME": "no.jcp.congresso"
-        }
-    },
+    "installed_plugins": {},
     "dependent_plugins": {}
 }
