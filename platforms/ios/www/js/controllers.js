@@ -17,6 +17,9 @@
         }
       } catch (_error) {}
       analytics.trackView(title);
+      if ($rootScope.user) {
+        analytics.setUserId($rootScope.user.id);
+      }
       connection.makeLoad({
         params: {
           resource: 'surveyQuestion',
@@ -164,6 +167,9 @@
                 title += $scope.event.event_name;
               }
               analytics.trackView(title + " / Surveys");
+              if ($rootScope.user) {
+                analytics.setUserId($rootScope.user.id);
+              }
             } catch (_error) {}
             angular.forEach(data, function(survey) {
               return $scope.surveys.push(survey);
@@ -204,6 +210,9 @@
               title += " / Activity / " + data.name;
             }
             analytics.trackView(title);
+            if ($rootScope.user) {
+              analytics.setUserId($rootScope.user.id);
+            }
           } catch (_error) {}
           $scope.schedule = data;
           if ($scope.schedule.survey_id !== "0") {
@@ -230,6 +239,9 @@
           title += $scope.event.event_name;
         }
         analytics.trackView(title + " / Schedules");
+        if ($rootScope.user) {
+          analytics.setUserId($rootScope.user.id);
+        }
       } catch (_error) {}
       getSchedules = function(data) {
         var dayyy, oldData, ressuulltt, timeee;
@@ -290,6 +302,9 @@
           title += $scope.event.event_name;
         }
         analytics.trackView(title + " / Comment");
+        if ($rootScope.user) {
+          analytics.setUserId($rootScope.user.id);
+        }
       } catch (_error) {}
       connection.makeLoad({
         params: {
@@ -396,7 +411,10 @@
             if (data) {
               title += " / Partner / " + data.name;
             }
-            return analytics.trackView(title);
+            analytics.trackView(title);
+            if ($rootScope.user) {
+              return analytics.setUserId($rootScope.user.id);
+            }
           } catch (_error) {}
         },
         scope: $scope,
@@ -439,6 +457,9 @@
           title += $scope.event.event_name;
         }
         analytics.trackView(title + " / Partners");
+        if ($rootScope.user) {
+          analytics.setUserId($rootScope.user.id);
+        }
       } catch (_error) {}
       getPartners = function(data) {
         var partners;
@@ -471,6 +492,9 @@
           title += " / Homepage (" + $scope.event.eventRole.slice(0, 1).toUpperCase() + $scope.event.eventRole.slice(1) + ")";
         }
         analytics.trackView(title);
+        if ($rootScope.user) {
+          analytics.setUserId($rootScope.user.id);
+        }
       } catch (_error) {}
       return $scope.scanActivator = function() {
         return cordova.plugins.barcodeScanner.scan(function(result) {
@@ -547,6 +571,9 @@
       $rootScope.event = null;
       try {
         analytics.trackView("Events");
+        if ($rootScope.user) {
+          analytics.setUserId($rootScope.user.id);
+        }
       } catch (_error) {}
       return $rootScope.updateEvents();
     }
@@ -556,6 +583,9 @@
     '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection', 'getData', function($scope, $location, baseURL, $routeParams, $rootScope, connection, getData) {
       try {
         analytics.trackView("Profile");
+        if ($rootScope.user) {
+          analytics.setUserId($rootScope.user.id);
+        }
       } catch (_error) {}
       return $scope.dyna.tokens_val = $scope.polyglot.t("tokens_val", ~~$scope.participient.tokens);
     }
@@ -824,7 +854,7 @@
       };
       document.addEventListener("deviceready", function() {
         try {
-          analytics.startTrackerWithId('UA-53492925-1');
+          analytics.startTrackerWithId('UA-53492925-3');
           if ($rootScope.user) {
             analytics.setUserId($rootScope.user.id);
           }
@@ -843,13 +873,6 @@
         }, true);
       });
       $rootScope.user = client.user.detail;
-      if ($rootScope.user) {
-        try {
-          if ($rootScope.user) {
-            analytics.setUserId($rootScope.user.id);
-          }
-        } catch (_error) {}
-      }
       $scope.share = "http%3A%2F%2Fwww%2Eatea%2Eno%2Fhovedmeny%2Fatea-community-2014%2F";
       $scope.toComment = function() {
         return $location.path($routeParams.feedId + baseURL.COMMENTPAGEHREF);
@@ -862,16 +885,15 @@
 
   atea.controller('LoginController', [
     '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'client', 'connection', 'message', '$history', 'Auth', function($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, client, connection, message, $history, Auth) {
+      ga('send', 'pageview', {
+        page: $location.$$path,
+        title: "Login"
+      });
       $scope.go_submit = function() {
         if ($scope.auth.$dirty && $scope.auth.$valid) {
           message.open($scope.local.log_in);
           return client.user.login($scope.auth.username, $scope.auth.password).then(function(data) {
             $rootScope.user = data;
-            try {
-              if ($rootScope.user) {
-                analytics.setUserId($rootScope.user.id);
-              }
-            } catch (_error) {}
             return message.authoClose($scope.polyglot.t("login_message", {
               name: data.first_name
             }), function() {

@@ -9,9 +9,11 @@ atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routePar
 		if $scope.event
 			title += $scope.event.event_name
 		if $rootScope.survey
-			title += " / Survey / " + $rootScope.survey.name
+			title += " survey " + $rootScope.survey.name
 
-	analytics.trackView title
+	ga 'send', 'pageview',
+		page: $location.$$path
+		title: title + " schedules"
 
 	connection.makeLoad
 		params:
@@ -100,6 +102,9 @@ atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routePar
 atea.controller 'RatesController', [ '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$rootScope', '$timeout', 'message', '$history',
 ($scope, $location, baseURL, $routeParams, connection, $rootScope, $timeout, message, $history) ->
 
+	ga 'send', 'pageview',
+		page: $location.$$path
+
 	connection.makeLoad
 		params:
 			resource: 'survey'
@@ -111,7 +116,9 @@ atea.controller 'RatesController', [ '$scope', '$location', 'baseURL', '$routePa
 				try
 					if $scope.event
 						title += $scope.event.event_name
-					analytics.trackView title + " / Surveys"
+				ga 'send', 'pageview',
+					page: $location.$$path
+					title: title + " surveys"
 				angular.forEach data, (survey) ->
 					$scope.surveys.push survey
 				if not $scope.surveys.length
@@ -139,8 +146,10 @@ atea.controller 'ScheduleController', [ '$scope', '$location', 'baseURL', '$rout
 				if $scope.event
 					title += $scope.event.event_name
 				if data
-					title +=  " / Activity / " + data.name
-				analytics.trackView title
+					title +=  " activity " + data.name
+			ga 'send', 'pageview',
+				page: $location.$$path
+				title: title
 			$scope.schedule = data
 			if $scope.schedule.survey_id isnt "0"
 				getData.noCache { resource: 'survey', id: $scope.schedule.survey_id }, (result) ->
@@ -153,10 +162,14 @@ atea.controller 'SchedulesController', [ '$scope', '$location', '$routeParams', 
 ($scope, $location, $routeParams, getData, $filter, $http, $rootScope, connection, message) ->
 
 	title = ""
+
 	try
 		if $scope.event
 			title += $scope.event.event_name
-		analytics.trackView title + " / Schedules"
+
+	ga 'send', 'pageview',
+		page: $location.$$path
+		title: title + " schedules"
 
 	getSchedules = (data) ->
 		oldData = data
@@ -205,20 +218,36 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 ($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, connection, message, getData, $history) ->
 
 	title = ""
+
 	try
 		if $scope.event
 			title += $scope.event.event_name
-		analytics.trackView title + " / Comment"
+
+	ga 'send', 'pageview',
+		page: $location.$$path
+		title: title + " comment"
 
 	connection.makeLoad
 		params:
 			resource: 'leadType'
 		handler: (data) ->
-			$scope.categories = [ ]
+			$scope.categories = [
+				# id: -1
+				# name: $scope.local.select_category
+			]
+			# if data.success is "true"
+				# $scope.visible = on
 			angular.forEach data, (ths) ->
 				$scope.categories.push ths
+			# else
+			# 	$scope.visible = off
 		scope: $scope
 		type: "noCache"
+
+	# $scope.categorieActive = 0
+	# $scope.categorieSingle = $scope.local.select_category
+	# $scope.interest = "5"
+	# $scope.revenue = "5"
 
 	if not $scope.commentLead
 		$scope.commentLead =
@@ -252,6 +281,8 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 					message.noClose $scope.local.error_server
 			else if $scope.commentLead.method is "put"
 				data =
+					# participant_id: $scope.participantScan.id
+					# event_id: $scope.event.id
 					id: $scope.commentLead.id
 					lead_type_id: $scope.commentLead.lead_type_id
 					interest: $scope.commentLead.interest
@@ -289,8 +320,10 @@ atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$route
 				if $scope.event
 					title += $scope.event.event_name
 				if data
-					title += " / Partner / " + data.name
-				analytics.trackView title
+					title += " partner " + data.name
+			ga 'send', 'pageview',
+				page: $location.$$path
+				title: title
 		scope: $scope
 		type: "get"
 
@@ -317,7 +350,9 @@ atea.controller 'PartnersController', [ '$scope', '$location', 'baseURL', '$rout
 	try
 		if $scope.event
 			title += $scope.event.event_name
-		analytics.trackView title + " / Partners"
+	ga 'send', 'pageview',
+		page: $location.$$path
+		title: title + " partners"
 
 	getPartners = (data) ->
 		partners = [ ]
@@ -343,13 +378,14 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 	try
 		if $scope.event
 			title += $scope.event.event_name
-			title += " / Homepage (" + $scope.event.eventRole.slice(0, 1).toUpperCase() + $scope.event.eventRole.slice(1)  + ")"
-		analytics.trackView title
+	ga 'send', 'pageview',
+		page: $location.$$path
+		title: title
 
 	$scope.scanActivator = ->
 		cordova.plugins.barcodeScanner.scan (result) ->
-			# if result.cancelled isnt 1
-			if !result.cancelled
+			if result.cancelled isnt 1
+			# if !result.cancelled
 				message.open $scope.local.check_scan
 			getData.noCache
 				resource: 'member'
@@ -398,8 +434,9 @@ atea.controller 'EventsController', [ '$scope', '$filter', 'baseURL', '$location
 
 	$rootScope.event = null
 
-	try
-		analytics.trackView "Events"
+	ga 'send', 'pageview',
+		page: $location.$$path
+		title: "events"
 
 	$rootScope.updateEvents()
 ]
@@ -407,14 +444,19 @@ atea.controller 'EventsController', [ '$scope', '$filter', 'baseURL', '$location
 atea.controller 'ProfileController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection', 'getData',
 ($scope, $location, baseURL, $routeParams, $rootScope, connection, getData) ->
 
-	try
-		analytics.trackView "Profile"
+	ga 'send', 'pageview',
+		page: $location.$$path
+		title: "profile"
 
 	$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~$scope.participient.tokens
 ]
 
 atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce', '$history',
 ($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce, $history) ->
+
+	ga 'create', 'UA-53492925-1',
+		cookieDomain: baseURL.BASE
+		userId: if client.user.detail then client.user.detail.id
 
 	$scope.local = local.static
 	$scope.dyna = { }
@@ -609,10 +651,6 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 		$window.open url, '_system'
 
 	document.addEventListener "deviceready", ->
-		try
-			analytics.startTrackerWithId 'UA-53492925-1'
-			if $rootScope.user
-				analytics.setUserId $rootScope.user.id
 		document.addEventListener 'backbutton', ->
 			if $location.$$path isnt baseURL.FEEDS
 				if $scope.contentAnimate isnt $scope.animationContentRight
@@ -626,11 +664,6 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 	
 	$rootScope.user = client.user.detail
 
-	if $rootScope.user
-		try
-			if $rootScope.user
-				analytics.setUserId $rootScope.user.id
-
 	$scope.share = "http%3A%2F%2Fwww%2Eatea%2Eno%2Fhovedmeny%2Fatea-community-2014%2F"
 
 	$scope.toComment = ->
@@ -643,15 +676,16 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 atea.controller 'LoginController', [ '$scope', '$http', '$rootScope', '$location', 'baseURL', '$routeParams', '$timeout', 'client', 'connection', 'message', '$history', 'Auth',
 ($scope, $http, $rootScope, $location, baseURL, $routeParams, $timeout, client, connection, message, $history, Auth) ->
 
+	ga 'send', 'pageview',
+		page: $location.$$path
+		title: "login"
+
 	$scope.go_submit = ->
 		if $scope.auth.$dirty and $scope.auth.$valid
 			message.open $scope.local.log_in
 			client.user.login $scope.auth.username, $scope.auth.password
 			.then (data) ->
 				$rootScope.user = data
-				try
-					if $rootScope.user
-						analytics.setUserId $rootScope.user.id
 				message.authoClose ($scope.polyglot.t "login_message", name: data.first_name), ->
 					if $rootScope.event
 						connection.makeLoad

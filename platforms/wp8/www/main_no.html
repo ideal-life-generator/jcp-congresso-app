@@ -41,6 +41,11 @@
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        
+            ga('create', 'UA-53492925-1', {
+              'cookieDomain': 'none'
+            });
+            ga('send', 'pageview');
         </script>
         <!-- End Google Analytics -->
 
@@ -110,26 +115,26 @@
                 ~local.home~
             </a>
         </li>
-        <li ng-show="event">
-            <a ng-click="toDifferentUrl('https://www.facebook.com/sharer/sharer.php?app_id=' + event.facebookAppId + '&u=' + event.shareLink)"
+        <li>
+            <a ng-click="toDifferentUrl('https://www.facebook.com/sharer/sharer.php?app_id=' + local.facebookAppId + '&u=' + local.shareLink)"
                class="facebook-icon">
               ~ local.share_on ~ Facebook
             </a>
         </li>
-        <li ng-show="event">
-            <a ng-click="toDifferentUrl('https://www.linkedin.com/shareArticle?mini=true&url=' + event.shareLink)"
+        <li>
+            <a ng-click="toDifferentUrl('https://www.linkedin.com/shareArticle?mini=true&url=' + local.shareLink)"
                class="linkedin-icon">
               ~ local.share_on ~ LinkedIn
             </a>
         </li>
-        <li ng-show="event">
-            <a ng-click="toDifferentUrl('https://plus.google.com/share?url=' + event.shareLink + '&gpsrc=frameless')"
+        <li>
+            <a ng-click="toDifferentUrl('https://plus.google.com/share?url=' + local.shareLink + '&gpsrc=frameless')"
                class="google-icon">
               ~ local.share_on ~ Google
             </a>
         </li>
-        <li ng-show="event">
-            <a ng-click="toDifferentUrl('https://twitter.com/intent/tweet?text=' + event.twitterShare)"
+        <li>
+            <a ng-click="toDifferentUrl('https://twitter.com/intent/tweet?text=' + local.twitterShare)"
                class="twitter-icon">
               ~ local.share_on ~ Twitter
             </a>

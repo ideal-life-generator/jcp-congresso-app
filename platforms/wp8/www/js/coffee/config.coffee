@@ -1,5 +1,7 @@
 atea = angular.module 'atea', [ 'ngRoute', 'ngAnimate', 'ngResource', 'ja.qr', 'ngCookies' ]
 
+# atea = angular.module 'atea', [ 'ngRoute', 'ngAnimate', 'ngResource', 'ja.qr', 'ngCookies' ]
+
 atea.config [ '$interpolateProvider', ($interpolateProvider) ->
 	$interpolateProvider.startSymbol '~'
 	$interpolateProvider.endSymbol '~'

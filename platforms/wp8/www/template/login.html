@@ -7,13 +7,15 @@
     <div class="form-group"
          style="margin-left: 15px; margin-right: 15px;">
         <input ng-model="auth.username"
+        	     ng-mixlength="3"
+               ng-pattern="pattern"
                class="form"
         	     type="email" name="email" placeholder="~local.email_palceholer~" required>
     </div>
     <div class="form-group"
          style="margin-left: 15px; margin-right: 15px;">
         <input ng-model="auth.password"
-        	     ng-minlength="1"
+        	     ng-minlength="3"
                class="form"
         	     type="password" name="password" id="password" placeholder="~local.password_palceholer~" required>
     </div>

@@ -3,16 +3,6 @@ atea = angular.module 'atea'
 atea.controller 'RateController', [ '$scope', '$location', 'baseURL', '$routeParams', 'connection', '$filter', '$compile', 'getData', '$http', 'loto', '$timeout', 'message', '$rootScope', '$history',
 ($scope, $location, baseURL, $routeParams, connection, $filter, $compile, getData, $http, loto, $timeout, message, $rootScope, $history) ->
 
-	title = ""
-
-	try
-		if $scope.event
-			title += $scope.event.event_name
-		if $rootScope.survey
-			title += " / Survey / " + $rootScope.survey.name
-
-	analytics.trackView title
-
 	connection.makeLoad
 		params:
 			resource: 'surveyQuestion'
@@ -107,11 +97,6 @@ atea.controller 'RatesController', [ '$scope', '$location', 'baseURL', '$routePa
 		handler: (data) ->
 			if not data.success
 				$scope.surveys = [ ]
-				title = ""
-				try
-					if $scope.event
-						title += $scope.event.event_name
-					analytics.trackView title + " / Surveys"
 				angular.forEach data, (survey) ->
 					$scope.surveys.push survey
 				if not $scope.surveys.length
@@ -134,13 +119,6 @@ atea.controller 'ScheduleController', [ '$scope', '$location', 'baseURL', '$rout
 			resource: 'activity'
 			id: $routeParams.scheduleId
 		handler: (data) ->
-			title = ""
-			try
-				if $scope.event
-					title += $scope.event.event_name
-				if data
-					title +=  " / Activity / " + data.name
-				analytics.trackView title
 			$scope.schedule = data
 			if $scope.schedule.survey_id isnt "0"
 				getData.noCache { resource: 'survey', id: $scope.schedule.survey_id }, (result) ->
@@ -151,12 +129,6 @@ atea.controller 'ScheduleController', [ '$scope', '$location', 'baseURL', '$rout
 
 atea.controller 'SchedulesController', [ '$scope', '$location', '$routeParams', 'getData', '$filter', '$http', '$rootScope', 'connection', 'message',
 ($scope, $location, $routeParams, getData, $filter, $http, $rootScope, connection, message) ->
-
-	title = ""
-	try
-		if $scope.event
-			title += $scope.event.event_name
-		analytics.trackView title + " / Schedules"
 
 	getSchedules = (data) ->
 		oldData = data
@@ -204,21 +176,27 @@ atea.controller 'SchedulesController', [ '$scope', '$location', '$routeParams', 
 atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$timeout', 'connection', 'message', 'getData', '$history',
 ($scope, $location, baseURL, $routeParams, $rootScope, $http, $timeout, connection, message, getData, $history) ->
 
-	title = ""
-	try
-		if $scope.event
-			title += $scope.event.event_name
-		analytics.trackView title + " / Comment"
-
 	connection.makeLoad
 		params:
 			resource: 'leadType'
 		handler: (data) ->
-			$scope.categories = [ ]
+			$scope.categories = [
+				# id: -1
+				# name: $scope.local.select_category
+			]
+			# if data.success is "true"
+				# $scope.visible = on
 			angular.forEach data, (ths) ->
 				$scope.categories.push ths
+			# else
+			# 	$scope.visible = off
 		scope: $scope
 		type: "noCache"
+
+	# $scope.categorieActive = 0
+	# $scope.categorieSingle = $scope.local.select_category
+	# $scope.interest = "5"
+	# $scope.revenue = "5"
 
 	if not $scope.commentLead
 		$scope.commentLead =
@@ -252,6 +230,8 @@ atea.controller 'CommentController', [ '$scope', '$location', 'baseURL', '$route
 					message.noClose $scope.local.error_server
 			else if $scope.commentLead.method is "put"
 				data =
+					# participant_id: $scope.participantScan.id
+					# event_id: $scope.event.id
 					id: $scope.commentLead.id
 					lead_type_id: $scope.commentLead.lead_type_id
 					interest: $scope.commentLead.interest
@@ -281,16 +261,6 @@ atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$route
 			id: $routeParams.partnerId
 		handler: (data) ->
 			$scope.partner = data
-			ga "send", "pageview",
-				page: $location.$$path
-				title: "The partner page of event #{$rootScope.event.id}, partner name #{data.name} ID #{data.id}"
-			title = ""
-			try
-				if $scope.event
-					title += $scope.event.event_name
-				if data
-					title += " / Partner / " + data.name
-				analytics.trackView title
 		scope: $scope
 		type: "get"
 
@@ -313,12 +283,6 @@ atea.controller 'PartnerController', [ '$scope', '$location', 'baseURL', '$route
 atea.controller 'PartnersController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', '$http', '$filter', 'getData', 'connection',
 ($scope, $location, baseURL, $routeParams, $rootScope, $http, $filter, getData, connection) ->
 
-	title = ""
-	try
-		if $scope.event
-			title += $scope.event.event_name
-		analytics.trackView title + " / Partners"
-
 	getPartners = (data) ->
 		partners = [ ]
 		angular.forEach data, (partner) ->
@@ -339,20 +303,32 @@ atea.controller 'PartnersController', [ '$scope', '$location', 'baseURL', '$rout
 atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL', '$routeParams', '$rootScope', 'client', 'getData', 'connection', 'loto', 'message',
 ($scope, $window, $location, baseURL, $routeParams, $rootScope, client, getData, connection, loto, message) ->
 
-	alert()
-
-	title = ""
-	try
-		if $scope.event
-			title += $scope.event.event_name
-			title += " / Homepage (" + $scope.event.eventRole.slice(0, 1).toUpperCase() + $scope.event.eventRole.slice(1)  + ")"
-		analytics.trackView title
-
 	$scope.scanActivator = ->
 		cordova.plugins.barcodeScanner.scan (result) ->
-			# if result.cancelled isnt 1
-			if !result.cancelled
+			if result.cancelled isnt 1
+			# if !result.cancelled
 				message.open $scope.local.check_scan
+
+				# connection.makeLoad
+				# 	params:
+				# 		resource: 'member'
+				# 		data: "{ 'extraParam': { 'barcode': '#{result.text}' }}"
+				# 	handler: (data) ->
+				# 		# res = ""
+				# 		# angular.forEach data, (i) ->
+				# 		# 	res = res + i + ": " + data[i] + "\n"
+				# 		# alert res
+				# 		if data.success
+				# 			message.noClose $scope.local.scan_error1
+				# 		else
+				# 			message.close()
+				# 			$rootScope.member = data
+				# 			$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
+				# 			$scope.$apply()
+				# 	scope: $scope
+				# 	type: "noCache"
+				# , (error) ->
+				# 	message.noClose $scope.local.error_scaning
 			getData.noCache
 				resource: 'member'
 				data: extraParam: barcode: result.text
@@ -392,6 +368,40 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 								message.noClose $scope.local.scan_error2
 						else
 							message.noClose $scope.local.scan_warning1
+
+
+	# # # 2979
+	# getData.noCache
+	# 	resource: 'participant'
+	# 	data: event_id: 86, member_id: 2979, extraParam: "globalSearch"
+	# , (result) ->
+	# 	data = result.data
+	# 	$rootScope.participantScan = null
+	# 	angular.forEach data, (part) ->
+	# 		$rootScope.participantScan = part
+	# 	# 3652
+	# 	if $rootScope.participantScan.id isnt 3654
+	# 		if ~~$rootScope.participantScan.event_id is 86
+	# 			getData.noCache
+	# 				resource: 'partnerLead'
+	# 				data: event_id: 86, participant_id: 3652
+	# 			, (result) ->
+	# 				data = result.data
+	# 				if data.success is "false"
+	# 					message.close()
+	# 					$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
+	# 					$scope.$apply()
+	# 				else
+	# 					angular.forEach data, (comment) ->
+	# 						$rootScope.commentLead = comment
+	# 					$rootScope.commentLead.method = "put"
+	# 					message.close()
+	# 					$location.path $routeParams.feedId + baseURL.COMMENTPAGEHREF
+	# 					$scope.$apply()
+	# 		else
+	# 			message.noClose $scope.local.scan_error2
+	# 	else
+	# 		message.noClose $scope.local.scan_warning1
 	
 ]
 
@@ -400,25 +410,17 @@ atea.controller 'EventsController', [ '$scope', '$filter', 'baseURL', '$location
 
 	$rootScope.event = null
 
-	try
-		analytics.trackView "Events"
-
 	$rootScope.updateEvents()
 ]
 
 atea.controller 'ProfileController', [ '$scope', '$location', 'baseURL', '$routeParams', '$rootScope', 'connection', 'getData',
 ($scope, $location, baseURL, $routeParams, $rootScope, connection, getData) ->
 
-	try
-		analytics.trackView "Profile"
-
 	$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~$scope.participient.tokens
 ]
 
 atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScope', '$routeParams', '$timeout', '$window', 'client', '$route', '$filter', 'getData', 'connection', 'loto', 'COMPANY_ID', 'local', 'message', '$sce', '$history',
 ($scope, $location, baseURL, $rootScope, $routeParams, $timeout, $window, client, $route, $filter, getData, connection, loto, COMPANY_ID, local, message, $sce, $history) ->
-
-	alert()
 
 	$scope.local = local.static
 	$scope.dyna = { }
@@ -436,6 +438,16 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 				if participant.event_id is $rootScope.event.id
 					$scope.participient = participant
 					$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~participant.tokens
+
+	# local.then (data) ->
+	# 	$scope.local = data.local
+	# 	$scope.dyna = data.dyna
+	# 	$scope.polyglot = data.polyglot
+	# 	# message.wait $scope.local.first_login
+	# 	# loto.run 456, ->
+	# 	# 	message.warningAfter ($scope.polyglot.t "tokens_add", ~~456)
+	# 	$scope.noConnectionMessage = $scope.local.page_nointernet
+
 
 	$rootScope.updateEvents = ->
 		$scope.futureEvents = []
@@ -463,6 +475,9 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 		$history.add $location.$$path
 
 	$scope.$on '$routeChangeSuccess', (ev, ls) ->
+		# console.log ls
+		# $location.lastPath = $location.$$path
+		# console.log $location.lastPath
 		path = $location.$$path
 		if $rootScope.event and path is baseURL.FEEDS
 			$rootScope.event = null
@@ -485,6 +500,10 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 								if participant.event_id is $rootScope.event.id
 									$scope.participient = participant
 									$scope.dyna.tokens_val = $scope.polyglot.t "tokens_val", ~~participant.tokens
+							# getData.noCache
+							# 	resource: 'member'
+							# 	data: member_id: $scope.participient.member_id
+							# 	console.log $scope.participient
 				scope: $scope
 				type: "noCache"
 		if path is baseURL.LOGIN
@@ -613,15 +632,18 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 		$window.open url, '_system'
 
 	document.addEventListener "deviceready", ->
-		try
-			analytics.startTrackerWithId 'UA-53492925-1'
-			if $rootScope.user
-				analytics.setUserId $rootScope.user.id
+		# res = ""
+		# angular.forEach navigator.app, (ths, mas) ->
+		# 	res += ths + "#" + mas[ths] + "\n"
+		# alert res
 		document.addEventListener 'backbutton', ->
 			if $location.$$path isnt baseURL.FEEDS
 				if $scope.contentAnimate isnt $scope.animationContentRight
 					$scope.contentAnimate = $scope.animationContentRight
 				$timeout ->
+					# $window.history.go(-1)
+					# alert navigator.app.backHistory
+					# alert navigator.app.exitApp
 					$history.back()
 				, 100
 			else
@@ -629,11 +651,6 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 		, true
 	
 	$rootScope.user = client.user.detail
-
-	if $rootScope.user
-		try
-			if $rootScope.user
-				analytics.setUserId $rootScope.user.id
 
 	$scope.share = "http%3A%2F%2Fwww%2Eatea%2Eno%2Fhovedmeny%2Fatea-community-2014%2F"
 
@@ -653,9 +670,6 @@ atea.controller 'LoginController', [ '$scope', '$http', '$rootScope', '$location
 			client.user.login $scope.auth.username, $scope.auth.password
 			.then (data) ->
 				$rootScope.user = data
-				try
-					if $rootScope.user
-						analytics.setUserId $rootScope.user.id
 				message.authoClose ($scope.polyglot.t "login_message", name: data.first_name), ->
 					if $rootScope.event
 						connection.makeLoad

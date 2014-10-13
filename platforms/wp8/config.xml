@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="no.jcp.congresso" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://cordova.apache.org/ns/1.0">
     <access origin="*" />
+    <feature name="BarcodeScanner">
+        <param name="wp-package" value="BarcodeScanner" />
+    </feature>
     <name>Atea Community 2014</name>
     <description>
         The majestic congresso app.
@@ -9,6 +12,8 @@
         JCP
     </author>
     <content src="index.html" />
+    <feature name="http://api.phonegap.com/1.0/device" />
+    <feature name="http://api.phonegap.com/1.0/camera" />
     <preference name="Fullscreen" value="true" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="orientation" value="portrait" />
@@ -49,4 +54,7 @@
     <gap:plugin name="nl.x-services.plugins.socialsharing" />
     <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
     <access browserOnly="true" origin="*" />
+    <feature name="InAppBrowser">
+        <param name="wp-package" value="InAppBrowser" />
+    </feature>
 </widget>

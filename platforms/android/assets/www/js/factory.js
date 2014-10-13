@@ -53,7 +53,7 @@
   atea.factory('client', [
     '$location', 'Auth', 'getData', '$q', 'storage', function($location, Auth, getData, $q, storage) {
       var self, version;
-      version = "1.2.5";
+      version = "1.2.4";
       self = this;
       this.path = $location.$$path;
       this.lastPath = this.path;

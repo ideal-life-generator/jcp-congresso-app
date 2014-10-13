@@ -82,7 +82,7 @@
 
 <!--     cordova plugin add https://github.com/wildabeast/BarcodeScanner
     cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git
-    cordova plugin add https://github.com/danwilson/google-analytics-plugin
+    cordova plugin add org.apache.cordova.splashscreen
     cordova plugin add org.bloxlab.barcodescanner -->
 
     <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
