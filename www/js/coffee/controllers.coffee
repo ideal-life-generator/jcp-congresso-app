@@ -364,8 +364,8 @@ atea.controller 'GuestController', [ '$scope', '$window', '$location', 'baseURL'
 
 	$scope.scanActivator = ->
 		cordova.plugins.barcodeScanner.scan (result) ->
-			if result.cancelled isnt 1
-			# if !result.cancelled
+			# if result.cancelled isnt 1
+			if !result.cancelled
 				message.open $scope.local.check_scan
 			getData.noCache
 				resource: 'member'
@@ -630,7 +630,7 @@ atea.controller 'MainController', [ '$scope', '$location', 'baseURL', '$rootScop
 
 	document.addEventListener "deviceready", ->
 		try
-			analytics.startTrackerWithId 'UA-53492925-3'
+			analytics.startTrackerWithId 'UA-53492925-1'
 			if $rootScope.user
 				analytics.setUserId $rootScope.user.id
 		document.addEventListener 'backbutton', ->

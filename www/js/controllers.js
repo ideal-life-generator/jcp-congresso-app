@@ -498,7 +498,7 @@
       } catch (_error) {}
       return $scope.scanActivator = function() {
         return cordova.plugins.barcodeScanner.scan(function(result) {
-          if (result.cancelled !== 1) {
+          if (!result.cancelled) {
             message.open($scope.local.check_scan);
           }
           return getData.noCache({
@@ -854,7 +854,7 @@
       };
       document.addEventListener("deviceready", function() {
         try {
-          analytics.startTrackerWithId('UA-53492925-3');
+          analytics.startTrackerWithId('UA-53492925-1');
           if ($rootScope.user) {
             analytics.setUserId($rootScope.user.id);
           }

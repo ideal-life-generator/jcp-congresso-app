@@ -34,3 +34,4 @@ public class AteaCommunity2014 extends CordovaActivity
         //super.loadUrl("file:///android_asset/www/index.html");
     }
 }
+
